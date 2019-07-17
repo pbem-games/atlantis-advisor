@@ -8,7 +8,7 @@ unit CylinderMap;
 
 interface
 
-uses Windows, Messages, Classes, Graphics, Forms, Controls, ExtCtrls, Math, LMessages;
+uses Windows, Messages, Classes, Graphics, Forms, Controls, ExtCtrls, Math;
 
 const
   KeyStep = 10;
@@ -304,7 +304,7 @@ begin
   if hmDblClickCenter in FOptions then Center(FSelected.X, FSelected.Y);
 end;
 
-function TCylinderMap.DoRemainingKeyDown(var Message: TLMKeyDown): Boolean;
+function TCylinderMap.DoRemainingKeyDown(var Message: TLMKey): Boolean;
 begin
   inherited DoRemainingKeyDown(Message);
   Result := FALSE;

@@ -27,12 +27,15 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <RequiredPackages Count="1">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LazUtils"/>
       </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
     </RequiredPackages>
-    <Units Count="54">
+    <Units Count="55">
       <Unit0>
         <Filename Value="advisor.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -279,14 +282,18 @@
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit53>
+      <Unit54>
+        <Filename Value="Libs\MemoEx\MemoEx.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit54>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <SearchPaths>
-      <IncludeFiles Value="U_Orders;U_Base;U_Manager;U_Tools"/>
-      <OtherUnitFiles Value="U_Orders;U_Base;U_Manager;U_Tools"/>
+      <IncludeFiles Value="U_Orders;U_Base;U_Manager;U_Tools;Libs\Wredosoft;Libs\MemoEx"/>
+      <OtherUnitFiles Value="U_Orders;U_Base;U_Manager;U_Tools;Libs\Wredosoft;Libs\MemoEx"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

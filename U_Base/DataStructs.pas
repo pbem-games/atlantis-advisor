@@ -1833,8 +1833,9 @@ var i, j, left, right: integer;
 begin
   with Levels[Z] do begin
     // Expand Level's rect
-    if Empty then begin
-      Bounds := Rect(X, Y, X, Y);
+    if Empty then
+    begin
+      Bounds := TRect.Create(X, Y, X, Y);
       Empty := False;
     end
     else begin
@@ -1968,7 +1969,7 @@ begin
   Empty := True;
   Self.Name := Name;
   RCols := TList.Create;
-  MaxPoint := Point(9999, 9999);
+  MaxPoint := Point.Create(9999, 9999);
 end;
 
 destructor TMapLevel.Destroy;

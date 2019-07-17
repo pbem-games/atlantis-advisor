@@ -142,8 +142,6 @@ type
     var TxtRect: TRect; State: TGridDrawState) of object;
   TPowerDrawIconEvent = procedure (Sender: TObject; ACanvas: TCanvas;
     X, Y: integer; Data: pointer) of object;
-  TSelectCellEvent = procedure (Sender: TObject; ACol, ARow: Longint;
-    var TxtRect: TRect; State: TGridDrawState) of object;
 
   TPowerGrid = class(TCustomGrid)
   private
