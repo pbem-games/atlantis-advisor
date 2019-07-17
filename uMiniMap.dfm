@@ -1,0 +1,40 @@
+object MiniMapForm: TMiniMapForm
+  Left = 246
+  Top = 131
+  Width = 191
+  Height = 146
+  BorderStyle = bsSizeToolWin
+  Caption = 'Map'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poDefault
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object MiniMap: TCylinderMap
+    Left = 0
+    Top = 0
+    Width = 183
+    Height = 119
+    Align = alClient
+    Color = clBlack
+    FirstOdd = False
+    GridColor = clGray
+    HexSize = 4
+    CellWidth = 48
+    CellHeight = 42
+    Margin = 8
+    Options = [hmRightBtnDrag]
+    OnAfterPaint = MiniMapAfterPaint
+    OnDrawHex = MiniMapDrawHex
+    OnSelectHex = MiniMapSelectHex
+  end
+end

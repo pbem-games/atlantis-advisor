@@ -1,0 +1,296 @@
+Game history: Prediction 3.18.4
+
+[Progress]
+War: 0, 10, 24, 40, 60, 100, 0.
+Trade: 0, 10, 24, 40, 60, 100, 0.
+Magic: 0, 1, 2, 3, 5, 7, 0.
+Apprentices: 0, 1, 2, 3, 6, 7, 0.
+Fishing: 0, 0, 0, 0, 0, 0, 0.
+Road Build: 0, 0, 0, 0, 0, 0, 0.
+
+[Factions]
+0, "", 12632256, ""
+240, "Forest Owls", 65535, ""
+64, "J&J", 0, ""
+41, "Faction", 0, ""
+88, "GrayAngel", 0, ""
+125, "WINGS of WHITE EAGLE", 16777088, ""
+44, "Clan of Darkness", 0, ""
+131, "Green Cormorant", 0, ""
+244, "Slaves of its Might", 0, ""
+116, "Greedy", 0, ""
+
+[Items]
+0=SILV, "silver", "silver", "", 4, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, 38, 20, . MagPrd: .
+1=LEAD, "leader", "leaders", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 1, 5, 5.
+2=VIKI, "viking", "vikings", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 12 3, 16 3, 17 3, 5 3.
+3=BARB, "barbarian", "barbarians", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 23 3, 27 3, 19 3, 5 3.
+4=PLAI, "plainsman", "plainsmen", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 9 3, 13 3, 14 3, 15 3.
+5=ESKI, "eskimo", "eskimos", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 21 3, 26 3, 27 3, 25 3.
+6=NOMA, "nomad", "nomads", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 9 3, 10 3, 11 3.
+7=TMAN, "tribesman", "tribesmen", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 21 3, 25 3, 13 3, 17 3.
+8=DMAN, "darkman", "darkmen", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 24 3, 28 3, 23 3, 22 3.
+9=WELF, "wood elf", "wood elves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 17 3, 14 3, 20 3, 15 3.
+10=SELF, "sea elf", "sea elves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 12 3, 16 3, 26 3, 20 3.
+11=HELF, "high elf", "high elves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 25 3, 13 3, 15 3, 9 3.
+12=TELF, "tribal elf", "tribal elves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 21 3, 25 3, 10 3, 20 3.
+13=IDWA, "ice dwarf", "ice dwarves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 26 3, 28 3, 11 3, 12 3.
+14=HDWA, "hill dwarf", "hill dwarves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 23 3, 19 3, 22 3, 5 3.
+15=UDWA, "under dwarf", "under dwarves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 23 3, 24 3, 11 3, 22 3.
+16=DDWA, "desert dwarf", "desert dwarves", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 2. ManSpec: 24 3, 28 3, 22 3, 11 3.
+17=ORC, "orc", "orcs", "", 8, 10, 15, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Man: 0, 0, 1. ManSpec: 5 4.
+18=RUNE, "runesword", "runeswords", "", 4192, 1, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Wpn: 0, 0, 0, , , 0, 0, 0, 0. Magic: 0.
+19=LBOW, "longbow", "longbows", "", 4160, 1, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Wpn: 0, 0, 0, , , 0, 0, 0, 0.
+20=BOW, "bow", "bows", "", 4160, 1, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Wpn: 0, 0, 0, , , 0, 0, 0, 0.
+21=SHBO, "shortbow", "shortbows", "", 64, 1, 0, 0, 0, 0, 0. Prd: 19 1, 1, 1, 29, 2, . PInp: 57 1. MagPrd: . Wpn: 385, 1, 5, 20, , -2, 0, 0, 1.
+22=XBOW, "crossbow", "crossbows", "", 64, 1, 0, 0, 0, 0, 0. Prd: 19 1, 1, 1, 29, 1, . PInp: 57 1. MagPrd: . Wpn: 385, 4, 5, 11, , 0, 0, 0, -2.
+23=MSWO, "mithril sword", "mithril swords", "", 4160, 1, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Wpn: 0, 0, 0, , , 0, 0, 0, 0.
+24=BAXE, "battle axe", "battle axes", "", 64, 2, 0, 0, 0, 0, 0. Prd: 19 2, 1, 2, 30, 2, . PInp: 54 1, 57 1. MagPrd: . Wpn: 512, 3, 0, , , 4, 4, 0, -2.
+25=SWOR, "sword", "swords", "", 64, 1, 0, 0, 0, 0, 0. Prd: , 1, 1, 30, 2, . PInp: 54 1. MagPrd: . Wpn: 512, 0, 0, , , 2, 2, 0, 1.
+26=DAGG, "dagger", "daggers", "", 576, 1, 0, 0, 0, 0, 0. Prd: 19 1, 2, 1, 30, 2, . PInp: 54 1. MagPrd: . Wpn: 544, 1, 0, , , 1, 1, 0, 3.
+27=PICK, "pick", "picks", "", 576, 1, 0, 0, 0, 0, 0. Prd: , 1, 1, 30, 2, . PInp: 54 1. MagPrd: . Wpn: 512, 1, 0, , , 2, 1, 0, 1.
+28=SPEA, "spear", "spears", "", 576, 1, 0, 0, 0, 0, 0. Prd: , 1, 1, 29, 2, . PInp: 57 1. MagPrd: . Wpn: 576, 1, 0, , , 1, 2, 0, 1.
+29=AXE, "axe", "axes", "", 576, 1, 0, 0, 0, 0, 0. Prd: , 1, 1, 29, 2, . PInp: 57 1. MagPrd: . Wpn: 512, 3, 0, , , 2, 1, 0, 1.
+30=HAMM, "hammer", "hammers", "", 576, 1, 0, 0, 0, 0, 0. Prd: , 1, 1, 30, 2, . PInp: 54 1. MagPrd: . Wpn: 512, 2, 0, , , 2, 1, 0, 1.
+31=MARM, "mithril armor", "mithril armor", "", 4224, 2, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Arm: 0, 0, 0, 0, 0, 0, 0, 0, 0.
+32=MCAR, "mithril chain armor", "mithril chain armor", "", 4224, 1, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Arm: 0, 0, 0, 0, 0, 0, 0, 0, 0.
+33=PARM, "plate armor", "plate armor", "", 128, 3, 0, 0, 0, 0, 0. Prd: 22 3, 1, 3, 30, 1, . PInp: 54 3. MagPrd: . Arm: 0, 67, 67, 67, 67, 0, 0, 0, 0.
+34=CARM, "chain armor", "chain armor", "", 128, 1, 0, 0, 0, 0, 0. Prd: 22 1, 1, 1, 30, 1, . PInp: 54 1. MagPrd: . Arm: 0, 50, 33, 25, 50, 0, 0, 0, 0.
+35=LARM, "leather armor", "light armor", "", 32896, 1, 0, 0, 0, 0, 0. Prd: 22 1, 1, 1, 41, 2, . PInp: 51 1. MagPrd: . Arm: 0, 33, 25, 20, 25, 0, 0, 0, 0.
+36=CLAR, "cloth armor", "cloth armor", "", 32896, 1, 0, 0, 0, 0, 0. Prd: 22 1, 1, 1, 41, 2, . PInp: 53 1. MagPrd: . Arm: 1, 17, 17, 17, 17, 0, 0, 0, 0.
+37=BAG, "bag", "bags", "", 512, 1, 0, 0, 0, 0, 0. Prd: 21 1, 1, 1, 41, 2, . PInp: 53 1. MagPrd: .
+38=HARP, "harp", "harps", "", 4608, 1, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+39=LASS, "lasso", "lassoes", "", 512, 1, 0, 0, 0, 0, 0. Prd: 21 1, 1, 1, 41, 2, . PInp: 53 1. MagPrd: .
+40=NET, "net", "nets", "", 512, 1, 0, 0, 0, 0, 0. Prd: 26 1, 1, 1, 41, 2, . PInp: 53 1. MagPrd: .
+41=SPIN, "spinning wheel", "spinning wheels", "", 512, 1, 0, 0, 0, 0, 0. Prd: 14 1, 1, 1, 29, 2, . PInp: 57 1. MagPrd: .
+42=WING, "winged horse", "winged horses", "", 6400, 50, 70, 70, 70, 0, 0. Prd: , 0, 0, , 0, . MagPrd: . Mount: , 0, 0, 0.
+43=HORS, "horse", "horses", "", 2304, 50, 70, 70, 0, 0, 0. Prd: 9 1, 1, 1, 39, 1, . MagPrd: . Mount: 18, 1, 3, 0.
+44=WAGO, "wagon", "wagons", "", 2, 50, 0, 0, 0, 0, 0. Prd: 14 1, 1, 1, 29, 2, . PInp: 57 1. MagPrd: . Wagon: 250, 43.
+45=FLOA, "floater hide", "floater hides", "", 6144, 1, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+46=IRWD, "ironwood", "ironwood", "", 6144, 10, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+47=MITH, "mithril", "mithril", "", 6144, 10, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+48=ROOT, "rootstone", "rootstone", "", 6144, 50, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+49=YEW, "yew", "yew", "", 6144, 5, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+50=FISH, "fish", "fish", "", 2048, 1, 0, 0, 0, 0, 0. Prd: 26 1, 1, 1, 40, 2, . MagPrd: .
+51=FUR, "fur", "furs", "", 2048, 1, 0, 0, 0, 0, 0. Prd: 27 1, 1, 1, 28, 1, . MagPrd: .
+52=GRAI, "grain", "grain", "", 2048, 5, 0, 0, 0, 0, 0. Prd: 13 1, 1, 1, 37, 2, . MagPrd: .
+53=HERB, "herb", "herbs", "", 2048, 0, 0, 0, 0, 0, 0. Prd: 21 1, 1, 1, 37, 2, . MagPrd: .
+54=IRON, "iron", "iron", "", 2048, 5, 0, 0, 0, 0, 0. Prd: 23 1, 1, 1, 27, 2, . MagPrd: .
+55=LIVE, "livestock", "livestock", "", 2048, 50, 50, 0, 0, 0, 0. Prd: 10 1, 1, 1, 39, 1, . MagPrd: .
+56=STON, "stone", "stone", "", 2048, 50, 0, 0, 0, 0, 0. Prd: 24 1, 1, 1, 27, 2, . MagPrd: .
+57=WOOD, "wood", "wood", "", 2048, 5, 0, 0, 0, 0, 0. Prd: 17 1, 1, 1, 29, 2, . MagPrd: .
+58=WINE, "wine", "wine", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+59=JEWE, "", "jewelry", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+60=GEM, "", "gems", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+61=PDAG, "", "parrying daggers", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+62=VELV, "", "velvet", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+63=VODK, "", "vodka", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+64=CHOC, "chocolate", "chocolate", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+65=CASH, "cashmere", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+66=FIGU, "figurines", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+67=MINK, "mink", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+68=DYE, "", "dye", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+69=SPIC, "spices", "spices", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+70=SILK, "", "silk", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+71=RGEM, "rough gem", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+72=MAGI, "evil magician", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+73=SORC, "", "evil sorcerers", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+74=WOOL, "wool", "wool", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+75=TRUF, "truffles", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+76=PERF, "perfume", "perfume", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+77=PEAR, "pearls", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+78=TARO, "tarot cards", "", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+79=WOLF, "", "wolves", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+80=STFE, "", "staves of fear", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+81=STLI, "", "staves of light", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+82=AMTS, "", "amulets of true seeing", "", 0, 0, 0, 0, 0, 0, 0. Prd: , 0, 0, , 0, . MagPrd: .
+
+[Skills]
+0=PATT, "pattern", 9, 100, 0. Desc: "", "", "", "", "". Based: .
+1=SPIR, "spirit", 9, 100, 0. Desc: "", "", "", "", "". Based: .
+2=GATE, "gate lore", 5, 100, 0. Desc: "", "", "", "", "". Based: 0 1, 1 1.
+3=FORC, "force", 9, 100, 0. Desc: "", "", "", "", "". Based: .
+4=FIRE, "fire", 3, 100, 0. Desc: "", "", "", "", "". Based: 3 1.
+5=COMB, "combat", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+6=STEA, "stealth", 0, 50, 0. Desc: "", "", "", "", "". Based: .
+7=OBSE, "observation", 0, 50, 0. Desc: "", "", "", "", "". Based: .
+8=TACT, "tactics", 0, 200, 0. Desc: "", "", "", "", "". Based: .
+9=HORS, "horse training", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+10=RANC, "ranching", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+11=XBOW, "crossbow", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+12=SHIP, "shipbuilding", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+13=FARM, "farming", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+14=CARP, "carpenter", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+15=ENTE, "entertainment", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+16=SAIL, "sailing", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+17=LUMB, "lumberjack", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+18=RIDI, "riding", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+19=WEAP, "weaponsmith", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+20=LBOW, "longbow", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+21=HERB, "herb lore", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+22=ARMO, "armorer", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+23=MINI, "mining", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+24=QUAR, "quarrying", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+25=HEAL, "healing", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+26=FISH, "fishing", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+27=HUNT, "hunting", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+28=BUIL, "building", 0, 10, 0. Desc: "", "", "", "", "". Based: .
+29=EART, "earth lore", 0, 0, 0. Desc: "", "", "", "", "". Based: .
+30=WOLF, "wolf lore", 0, 0, 0. Desc: "", "", "", "", "". Based: .
+31=MHEA, "magical healing", 1, 0, 0. Desc: "", "", "", "", "". Based: .
+32=FARS, "farsight", 1, 0, 0. Desc: "", "", "", "", "". Based: .
+33=MIND, "mind reading", 1, 0, 0. Desc: "", "", "", "", "". Based: .
+34=BIRD, "bird lore", 1, 0, 0. Desc: "", "", "", "", "". Based: .
+
+[Structs]
+0="Shaft", 16, 0, 0, 0, 0, , , , , 0, , 0, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+1="Longboat", 2, 25, 0, 200, 5, 57, , , 12 1, 0, 29, 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+2="Clipper", 2, 50, 0, 800, 10, 57, , , 12 1, 0, 29, 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+3="Galleon", 2, 75, 0, 1800, 15, 57, , , 12 1, 0, 29, 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+4="Citadel", 1, 640, 1250, 0, 0, 56, , , 28 1, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+5="Castle", 1, 160, 250, 0, 0, 56, , , 28 1, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+6="Fort", 1, 40, 50, 0, 0, 56, , , 28 1, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+7="Tower", 1, 10, 10, 0, 0, 56, , , 28 1, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+8="Mine", 0, 10, 0, 0, 0, 57, 56, 54, 23 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+9="Farm", 0, 10, 0, 0, 0, 57, 56, 52, 13 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+10="Ranch", 0, 10, 0, 0, 0, 57, 56, 55, 10 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+11="Timber Yard", 0, 10, 0, 0, 0, 57, 56, 57, 17 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+12="Inn", 0, 10, 0, 0, 0, 57, 56, , 28 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+13="Quarry", 0, 10, 0, 0, 0, 57, 56, 56, 24 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+14="Road N", 32, 75, 0, 0, 0, 56, , , 28 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+15="Road NE", 32, 75, 0, 0, 0, 56, , , 28 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+16="Road NW", 32, 75, 0, 0, 0, 56, , , 28 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+17="Road S", 32, 75, 0, 0, 0, 56, , , 28 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+18="Road SE", 32, 75, 0, 0, 0, 56, , , 28 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+19="Road SW", 32, 75, 0, 0, 0, 56, , , 28 3, 0, , 2, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+20="Magician's Tower", 8, 0, 0, 0, 0, , , , , 0, , 0, "". Defence: 0, 0, 0, 0, 0, 0, 0.
+
+[Terrain]
+0="nexus", 0, 1.
+1="plain", 0, 1. Res: 42.
+2="forest", 0, 2. Res: 49, 46.
+3="mountain", 0, 2. Res: 47, 48.
+4="swamp", 0, 2. Res: 45.
+5="jungle", 0, 2.
+6="desert", 0, 1.
+7="tundra", 0, 2.
+8="cavern", 0, 1. Res: 49, 47, 48, 46.
+9="underforest", 0, 2. Res: 48.
+10="tunnels", 0, 2. Res: 48, 47.
+11="ocean", 4, 1.
+12="lake", 0, 1. Res: 42.
+13="hill", 0, 2.
+14="mystforest", 0, 2.
+15="wasteland", 0, 1.
+16="grotto", 0, 2. Res: 47, 48.
+17="deepforest", 0, 3.
+18="chasm", 0, 3. Res: 47.
+19="volcano", 0, 6.
+
+[Weather]
+0="clear", "The weather", "it", 1
+1="winter", "It", "it", 2
+2="monsoon season", "It", "it", 2
+
+[WeatherMonths]
+North: 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+Tropical: 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2
+South: 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0
+
+[Effects]
+0="storm", 0, -2, -2, 0, 0, 0, 0, 0, 0
+1="fear", 0, -2, -2, 0, 0, 0, -2, 0, 0
+
+[Specials]
+0="a fireball", 1, "This ability does between 2 and 10 energy attacks. ", "shoots a Fireball", 0. Atk: 130, 1, 2, 10, 5, .
+1="an earthquake", 16387, "This ability will not target units which are inside the following structures: Magical Fortress. The bonus given to units inside buildings is not effective against this ability. This ability does between 2 and 100 times the skill level of the mage melee attacks. ", "invokes a mighty Earthquake", 0. Atk: 130, 0, 2, 100, 4, .
+2="a force shield", 1, "This ability provides a shield against all ranged attacks against the entire army at a level equal to the skill level of the ability. This ability provides a defensive bonus of 1 per skill level versus melee attacks to the casting mage. ", "", 0. Def:  0, 1.
+3="an energy shield", 4, "This ability provides a shield against all energy attacks against the entire army at a level equal to the skill level of the ability. ", "", 0. Shields: 0, 1, 0, 0, 0, 0, 0.
+4="a spirit shield", 4, "This ability provides a shield against all spirit attacks against the entire army at a level equal to the skill level of the ability. ", "", 0. Shields: 0, 0, 1, 0, 0, 0, 0.
+5="summon storm", 8193, "This ability will not target creatures which are currently affected by storm. This ability does between 2 and 50 times the skill level of the mage weather attacks. Each attack causes the target to be effected by storm (-2 to attack, -2 versus melee attacks) for the rest of the battle. ", "summons a terrible storm", 0. Atk: 130, 3, 2, 50, 7, 0. Effects: 0.
+6="summon tornado", 1, "This ability does between 2 and 50 times the skill level of the mage weather attacks. ", "summons a wild tornado", 0. Atk: 130, 3, 2, 50, 7, .
+7="a lightning strike", 1, "This ability does between 2 and 60 weather attacks. This ability does between 2 and 60 energy attacks. ", "unleashes a mighty lightning strike", 0. Atk: 130, 3, 2, 60, 7, ; 130, 1, 2, 60, 5, .
+8="clear skies", 4, "This ability provides a shield against all weather attacks against the entire army at a level equal to the skill level of the ability. ", "", 0. Shields: 0, 0, 0, 1, 0, 0, 0.
+9="cause fear", 12289, "This ability will not target creatures which are currently affected by fear. This ability cannot target monsters. This ability does between 2 and 20 spirit attacks. Each attack causes the target to be effected by fear (-2 to attack, -2 versus melee attacks, -2 versus riding attacks) for the rest of the battle. ", "strikes fear into the enemy", 0. Atk: 130, 2, 2, 20, 6, 1. Effects: 1.
+10="a black wind", 32769, "This ability will not target skeletons [SKEL], undead [UNDE], liches [LICH], imps [IMP], demons [DEMO], or balrogs [BALR]. This ability does between 2 and 200 times the skill level of the mage spirit attacks. ", "summons the black wind", 0. Atk: 130, 2, 2, 200, 6, .
+11="banish undead", 1, "This ability will only target skeletons [SKEL], undead [UNDE], or liches [LICH]. This ability does between 2 and 50 times the skill level of the mage non-resistable attacks. ", "casts Banish Undead", 0. Atk: 130, 6, 2, 50, 5, .
+12="banish demons", 1, "This ability will only target imps [IMP], demons [DEMO], or balrogs [BALR]. This ability does between 2 and 50 times the skill level of the mage non-resistable attacks. ", "casts Banish Demons", 0. Atk: 130, 6, 2, 50, 6, .
+13="dispel illusion", 65537, "This ability will only target illusions. This ability does between 2 and 100 times the skill level of the mage non-resistable attacks. ", "casts Dispel Illusions", 0. Atk: 130, 6, 2, 100, 5, .
+14="fiery breath", 1, "This ability does between 2 and 60 energy attacks. ", "breathes Fire", 0. Atk: 130, 1, 2, 10, 5, .
+15="hellfire", 1, "This ability does between 2 and 300 energy attacks. ", "blasts the enemy with Hellfire", 0. Atk: 130, 1, 2, 50, 5, .
+16="invulnerability", 4, "This ability provides a shield against all all attacks against the entire army at a level equal to the skill level of the ability. ", "", 0. Shields: 0, 0, 0, 0, 0, 0, 0.
+17="icy breath", 5, "", "breathes Ice", 0. Shields: 0, 0, 0, 0, 0, 0, 0. Atk: 130, 1, 2, 10, 5, .
+18="terrify horses", 8196, "This ability will only target units mounted on horses [HORS]. This ability will not target creatures which are currently affected by fear, or fear. This ability does between 1 and 0 riding attacks. Each attack causes the target to be effected by fear (-2 to attack, -2 versus melee attacks, -2 versus riding attacks) for the rest of the battle. ", "strikes fear into enemy mounts", 0. Shields: 0, 0, 0, 0, 0, 0, 0. Atk: 130, 4, 1, 0, 6, 1. Items: 38. Effects: 1.
+19="a mindblast", 4, "", "blasts the minds of the enemy", 0. Shields: 0, 0, 0, 0, 0, 0, 0. Atk: 130, 2, 2, 250, 6, .
+
+[MapLevels]
+0=nexus
+1=surface
+2=underworld
+
+[Map]
+27 43 1=103, 1, "Olenek", "", "", 0
+31 43 1=103, 1, "Fetlar", "", "", 0
+26 44 1=103, 1, "Olenek", "", "", 0
+28 44 1=103, 1, "Olenek", "", "", 0
+30 44 1=103, 1, "Fetlar", "", "", 0
+32 44 1=103, 11, "Atlantis Ocean", "", "", 0
+27 45 1=103, 1, "Olenek", "", "", 0, 2700, 15, 1620, 135, 0, 0, 6 540. Exits: 1, 1, 1, 1, 1, 1. Wanted: . ForSale: 6 108 60, 1 21 120. Products: 52 75, 43 26. Structs: 20 1 "Magician's Tower".
+31 45 1=103, 1, "Fetlar", "", "Drumcollogher", 3, 32660, 20, 13064, 1633, 0, 41, 4 3266. Exits: 1, 1, 1, 1, 1, 1. Wanted: 52 174 18, 55 192 24, 50 194 26, 54 29 47, 24 39 110, 44 27 209, 59 18 147, 74 29 122. ForSale: 25 49 161, 58 29 63, 63 24 72, 4 653 80, 1 130 160. Products: 55 73, 43 29. Structs: .
+26 46 1=103, 4, "Skottskog", "", "", 0
+28 46 1=103, 1, "Olenek", "", "", 0
+30 46 1=103, 4, "Skottskog", "", "", 0
+32 46 1=103, 11, "Atlantis Ocean", "", "", 0
+27 47 1=103, 4, "Skottskog", "", "", 0
+31 47 1=103, 4, "Skottskog", "", "", 0
+33 47 1=103, 11, "Atlantis Ocean", "", "", 0
+32 48 1=103, 4, "Skottskog", "", "", 0
+34 48 1=103, 2, "Mullaghcarn", "", "", 0
+33 49 1=103, 2, "Mullaghcarn", "", "", 0, 960, 13, 832, 48, 0, 0, 2 320. Exits: 1, 1, 1, 1, 1, 1. Wanted: . ForSale: 2 64 52, 1 12 104. Products: 55 36, 57 30, 51 18, 53 16. Structs: .
+32 50 1=103, 2, "Mullaghcarn", "", "", 0
+34 50 1=103, 2, "Mullaghcarn", "", "", 0
+33 51 1=103, 2, "Mullaghcarn", "", "", 0
+
+[Armies]
+
+[Avatars]
+
+[UnitRecs]
+35834=240, 0, ""
+31219=240, 0, ""
+20847=240, 0, ""
+732=240, 1, ""
+556=240, 0, ""
+5230=240, 0, ""
+8717=240, 0, ""
+1407=64, 0, ""
+7300=64, 0, ""
+7301=64, 0, ""
+6488=64, 0, ""
+7683=64, 0, ""
+2398=64, 0, ""
+2470=41, 0, ""
+3278=41, 0, ""
+6426=41, 0, ""
+4946=41, 0, ""
+7279=41, 0, ""
+7183=41, 0, ""
+7216=41, 0, ""
+7291=41, 0, ""
+7295=41, 0, ""
+673=41, 0, ""
+3704=41, 0, ""
+7738=41, 0, ""
+3913=41, 0, ""
+4006=88, 0, ""
+46=125, 1, ""
+3546=125, 0, ""
+4164=44, 0, ""
+4702=131, 0, ""
+7232=244, 0, ""
+6990=116, 0, ""
+2732=116, 0, ""
+6373=116, 0, ""
+6543=116, 0, ""
+7107=116, 0, ""
+

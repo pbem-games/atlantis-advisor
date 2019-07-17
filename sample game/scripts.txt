@@ -1,0 +1,11 @@
+#script [manual] Storage (12068, "Weapon | Armor")
+              
+clear
+for i = 0 to Items-1
+  with Items(i)
+    if !(Eval("Man | Silver | " + args(1)))
+      give (args(0)) all (Short)
+    end
+  end
+end
+

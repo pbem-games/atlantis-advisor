@@ -1,0 +1,59 @@
+Game history: Prediction 3.18.4
+
+[Progress]
+War: 0, 10, 24, 40, 60, 100, 0.
+Trade: 0, 10, 24, 40, 60, 100, 0.
+Magic: 0, 1, 2, 3, 5, 7, 0.
+Apprentices: 0, 1, 2, 3, 6, 7, 0.
+
+[Factions]
+0, "", 12632256, ""
+ 
+[Items]
+0=SILV, "silver", "silver", "", 4, 0, 0, 0, 0, 0, 0. 
+1=LEAD, "leader", "leaders", "", 8, 10, 15, 0, 0, 0, 0. 
+
+[Skills]
+
+[Structs]
+
+[Terrain]
+0="nexus", 0, 1
+1="plain", 0, 1
+2="forest", 0, 2
+3="mountain", 0, 2
+4="swamp", 0, 2
+5="jungle", 0, 2
+6="desert", 0, 1
+7="tundra", 0, 2
+8="cavern", 0, 1
+9="underforest", 0, 2
+10="tunnels", 0, 2
+11="ocean", 4, 1
+12="lake", 0, 1
+13="hill", 0, 2
+14="mystforest", 0, 2
+15="wasteland", 0, 1
+16="grotto", 0, 2
+17="deepforest", 0, 3
+18="chasm", 0, 3
+19="volcano", 0, 6
+
+[Weather]
+0="clear", "The weather", "it", 1
+1="winter", "It", "it", 2
+2="monsoon season", "It", "it", 2
+
+[WeatherMonths]
+North: 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+Tropical: 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2
+South: 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0
+
+[MapLevels]
+0=nexus
+1=surface
+2=underworld
+3=deep underworld
+4=very deep underworld
+5=underdeep
+

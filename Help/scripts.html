@@ -1,0 +1,2000 @@
+<html>
+<head>
+<style>
+ td p, td li, td td {
+  font-family: Tahoma;
+  font-size: x-small;
+ }
+.script {  font-family: "Courier New", Courier, mono; color: #808080; font-size: x-small; margin-left: 10px; padding-left: 10px}
+.scriptheaders {  font-size: xx-small; font-weight: bold}
+</style>
+<title>Order Script</title></head>
+<body bgcolor="#FFFFFF">
+<table width="100%">
+  <tr> 
+    <td width="160" valign="top"> 
+      <p>&nbsp;</p>
+      <p><a href="help.html"><b>Help</b></a></p>
+      <p><b>Order Script</b><br>
+        <a href="#Language">Language</a><br>
+        &nbsp;&nbsp;- <a href="#Header">Header</a><br>
+        &nbsp;&nbsp;- <a href="#Macros">Macros</a><br>
+        &nbsp;&nbsp;- <a href="#Output">Output</a><br>
+        &nbsp;&nbsp;- <a href="#Warnings">Warnings</a><br>
+        &nbsp;&nbsp;- <a href="#ContextSpecifiers">Context Specifiers</a><br>
+        &nbsp;&nbsp;- <a href="#Statements">Statements</a><br>
+        &nbsp;&nbsp;- <a href="#Arrays">Arrays</a><br>
+        &nbsp;&nbsp;- <a href="#GlobalVars">Global variables</a><br>
+        &nbsp;&nbsp;- <a href="#LineBreaks">Line breaks</a><br>
+        &nbsp;&nbsp;- <a href="#Comments">Comments</a><br>
+        <a href="#Running">Running scripts</a><br>
+        &nbsp;&nbsp;- <a href="#Arguments">Arguments </a><br>
+        &nbsp;&nbsp;- <a href="#Runtime">Run time</a><br>
+        &nbsp;&nbsp;- <a href="#Manual">Manual scripts</a><br>
+        <a href="#Expressions">Expression Syntax</a><br>
+        &nbsp;&nbsp;- <a href="#OperandTypes">Operand types</a><br>
+        &nbsp;&nbsp;- <a href="#EvaluationContext">Evaluation 
+        Context</a><br>
+        &nbsp;&nbsp;- <a href="#Brackets">Brackets</a><br>
+        &nbsp;&nbsp;- <a href="#Operators">Operators</a><br>
+        &nbsp;&nbsp;- <a href="#Precedence">Precedence</a><br>
+        &nbsp;&nbsp;- <a href="#LogicOptimization">Logic Optimization</a><br>
+        <a href="#Regex">Regular expressions</a><br>
+        <a href="#Symbols">Symbols </a><br>
+        &nbsp;&nbsp;- <a href="#AllContexts">All contexts</a><br>
+        &nbsp;&nbsp;- <a href="#RegexContext">Regex context</a><br>
+        &nbsp;&nbsp;- <a href="#RegionContext">Region context</a><br>
+        &nbsp;&nbsp;- <a href="#UnnitContext">Unit context</a><br>
+        &nbsp;&nbsp;- <a href="#FactionContext">Faction context</a><br>
+        &nbsp;&nbsp;- <a href="#TroopContext">Troop context</a><br>
+        &nbsp;&nbsp;- <a href="#ObjectContext">Object context</a><br>
+        &nbsp;&nbsp;- <a href="#ItemContext">Item context</a><br>
+        &nbsp;&nbsp;- <a href="#SkillContext">Skill context</a> 
+        <br>
+        <a href="#ChangeLog">Change Log</a></p>
+      <p><b><a href="registration.html">Registration</a></b></p>
+      <p><small><a href="mailto:gnawer@mailru.com">gnawer@front.ru</a><br>
+        <a href="http://www.wredosoft.tk">http://www.wredosoft.tk</a></small> 
+    </td>
+    <td> 
+      <p align="right"><font color="#999999">File version 3.21.6</font></p>
+      <h2 align="center"><a name="Language"></a>Order Script</h2>
+      <p><b>Note:</b> scripts available in registered version only.</p>
+      <p>Unit orders may be customized by scripts. Typical script may look like 
+        this: </p>
+      <pre><font color="#0000FF">#script</font> Train horses</pre>
+      <pre><b>clear</b> <font color="#999999">//</font> <font color="#999999">clear unit orders</font>
+<b>if</b> <font color="#993333">Skill(</font>&quot;horse training&quot;<font color="#993333">)</font> 
+  <b>if</b> <font color="#009900">Region.</font><font color="#993333">Products(</font>&quot;horses&quot;<font color="#993333">)</font> &gt; 0
+   <font color="#00FFFF"> <font color="#009999">produce &quot;horses&quot;</font></font>
+  <b>else</b>
+    <font color="#FF0000">i</font> = 1
+    <b>while</b> (<font color="#FF0000">i</font> &lt;= 6) &amp; (!<font color="#009900">Region.</font><font color="#993333">HasExit(</font><font color="#FF0000">i</font><font color="#993333">)</font><font color="#0000FF"> _
+   <font color="#000000">  | (<font color="#009900">Region.Neighbour(<font color="#FF0000">i</font>)</font><font color="#993333">.Terrain</font> = 'ocean'))</font><br>      </font><font color="#FF0000">i</font> = <font color="#FF0000">i</font> + <font color="#FF0000">1</font>
+    <b>end</b>
+    <b>if</b> <font color="#FF0000">i</font> &lt;= 6
+     <font color="#009999"> move</font> (<font color="#993333">Dir(</font><font color="#FF0000">i</font><font color="#993333">)</font>)
+    <b>end</b>
+  <b>end</b>
+<b>else</b>
+  <font color="#009999">work</font>
+<b>end</b>
+</pre>
+      <p>There is script header (<font color="#0000FF">#script</font>), statements 
+        (<b>bold</b>), comments (<font color="#999999">gray</font>), symbols (<font color="#993333">brown</font>), 
+        context specifiers (<font color="#009900">green</font>), user-defined 
+        variables (<font color="#FF0000">red</font>) and output (<font color="#009999">teal</font>). 
+        You may include many scripts in single file, each with specific &quot;#script&quot; 
+        header.</p>
+      <h4><a name="Header"></a>Header</h4>
+      <p>Script must start from &quot;#script&quot; header. Header format:</p>
+      <p class="script">#script [default_run_time] Script Name (default_args)</p>
+      <p><i>Default_run_time</i> is optional and specifies default order before 
+        which script will run. <i>Default_args</i> is optional and specifies default 
+        arguments. </p>
+      <h4><a name="Macros"></a>Macros</h4>
+      <p>Macro commands may be defined similar to scripts. Macros starts with 
+        #macro header and included in place marked by #insert directive. Macros 
+        may include another macros, if latter was defined above in text.</p>
+      <table align="center" cellpadding="4" width="400">
+        <tr> 
+          <td width="50%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#macro Macro1<br>
+            N = N + 1<br>
+            <br>
+            #script Test<br>
+            N = 1<br>
+            #insert Macro1<br>
+            (N)<br>
+          </td>
+          <td valign="top" class="script">2</td>
+        </tr>
+      </table>
+      <h4><a name="Output"></a>Output</h4>
+      <p>Each string which not starts with statement or variable assignment considered 
+        as output. For unit scripts, output is the area between &quot;@;script 
+        Name&quot; and &quot;@;end Name&quot; marks (see Attaching to units). 
+        Variables and expressions may be included in output in brackets.</p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td width="50%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">N = 10 <br>
+            buy (N) plainsmen </td>
+          <td valign="top" class="script">buy 10 plainsmen</td>
+        </tr>
+      </table>
+      <h4><a name="Warnings"></a>Warnings</h4>
+      <p>You may send warnings to Order Processor Errors window. To do it, include 
+        following into output:</p>
+      <p class="script">@;warning Warning_Message</p>
+      <p>Actually, @;warning is not a script symbol and not recognized by script; 
+        that's rather the order token which may be similarly used without any 
+        scripts (for example, in TURN construction).</p>
+      <h4><a name="ContextSpecifiers"></a>Context specifiers</h4>
+      <p>Predefined symbols typically evaluated in specific context. For unit 
+        scripts, default context is unit with the script. For region warnings, 
+        default context is region. So, &quot;Name&quot; in unit context will return 
+        unit name and in region context will return nothing.</p>
+      <p>You can change context for a symbol, preceding it with context specifier. 
+        It's somewhat similar to object in object-oriented language. For example:</p>
+      <p class="script">Wages = 10 in region context</p>
+      <p>is similar to </p>
+      <p class="script">Region.Wages = 10 in unit context</p>
+      <p>Some functions may act as context specifiers.</p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td width="60%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">Region(31, 35, &quot;surface&quot;).Land</td>
+          <td valign="top" class="script">Fetlar</td>
+        </tr>
+      </table> 
+      <h4><a name="Statements"></a>Statements</h4>
+      <p>Each statement must start at beginning of the line. </p>
+      <table width="500" border="1" cellspacing="0" cellpadding="4" align="center">
+        <tr> 
+          <td width="155"><b>assignment</b></td>
+          <td>Variables may be defined in expression like &quot;A 
+            = 10&quot; and used later.</td>
+        </tr>
+        <tr> 
+          <td nowrap> 
+            <p><b>if </b><i>expression</i><b><br>
+              ... <br>
+              else<br>
+              ...<br>
+              end</b></p>
+          </td>
+          <td>Condition statement. Else is optional. See Expression 
+            syntax for explanations of expression part.</td>
+        </tr>
+        <tr> 
+          <td><b>for</b><i> identifier = start_expression </i><b>to 
+            </b><i>end_expression</i><b><br>
+            ...<br>
+            end</b></td>
+          <td>Loop control statement. Evaluates the expressions 
+            once and then repeats loop, assigning to <i>identifier 
+            </i>values from <i>start_expression</i> to <i>end_expression. 
+            </i>Expressions must evaluate to number. If start 
+            is greater than end (for i = 10 to 0), identifier 
+            will be decreased on each step.</td>
+        </tr>
+        <tr> 
+          <td><b>while </b><i>expression</i><b><br>
+            ...<br>
+            end</b></td>
+          <td>Loop control statement. Repeats while expression 
+            is true. Expression is evaluated on each iteration, 
+            therefore it works slower than FOR.</td>
+        </tr>
+        <tr> 
+          <td><b>with </b><i>symbol</i><b><br>
+            ...<br>
+            end</b></td>
+          <td>Execute block in context of symbol.</td>
+        </tr>
+        <tr> 
+          <td><b>do</b> <i>expression</i></td>
+          <td>Executes expression (i.e. <b>do</b> units(55).delorder(5))</td>
+        </tr>
+        <tr>
+          <td><b>exec</b><i> script_name (args)</i></td>
+          <td>Executes other script with given arguments on same 
+            output</td>
+        </tr>
+        <tr> 
+          <td><b>clear</b></td>
+          <td>Clears output area in unit orders.</td>
+        </tr>
+      </table>
+      <p>Note that <b>with</b> statement is not just adds prefix to symbols. Advisor 
+        will evaluate symbol for <b>with</b> once, remember it, and then use it 
+        without evaluation for all symbols inside block. This might significantly 
+        speed up script execution.</p>
+      <table align="center" cellpadding="4" width="500" cellspacing="0" border="1">
+        <tr> 
+          <td width="59%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders" width="41%">Evaluates following</td>
+        </tr>
+        <tr> 
+          <td width="59%" class="script">X = Region(&quot;31 12 
+            1&quot;).ForSale - 1<br>
+            <b>while</b> X &gt; 0<br>
+            &nbsp;&nbsp;buy 1 (Region(&quot;31 12 1&quot;).ForSale(X).Short)<br>
+            &nbsp;&nbsp;X = X - 1<br>
+            <b>end </b></td>
+          <td valign="top" class="script" width="41%"> 
+            <p>Region (quite time-consuming)<br>
+              ForSale<br>
+              Region<br>
+              ForSale(2)<br>
+              Region<br>
+              ForSale(1)<br>
+              Region<br>
+              ForSale(0) <br>
+            </p>
+          </td>
+        </tr>
+        <tr> 
+          <td width="59%" class="script"> <b>with</b> Region(&quot;31 
+            12 1&quot;)<br>
+            &nbsp;&nbsp;X = ForSale - 1<br>
+            <b>&nbsp;&nbsp;while</b> X &gt; 0<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;buy 1 (ForSale(X).Short)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;X = X - 1<br>
+            <b>&nbsp;&nbsp;end <br>
+            end </b></td>
+          <td valign="top" class="script" width="41%"> 
+            <p>Region<br>
+              ForSale<br>
+              ForSale(2)<br>
+              ForSale(1)<br>
+              ForSale(0) </p>
+          </td>
+        </tr>
+      </table>
+      <h4><a name="Arrays"></a>Arrays</h4>
+      <p>OrderScript supports one-dimensional arrays. You don't 
+        need to declare arrays or manage their lengths. When you 
+        assigning value to array-type variable, this starts new 
+        array; accessing index outside declared ones producing 
+        &quot;range check error&quot;. </p>
+      <table align="center" cellpadding="4" width="500" cellspacing="0" border="1">
+        <tr> 
+          <td width="59%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders" width="41%">Will 
+            return </td>
+        </tr>
+        <tr> 
+          <td width="59%" class="script">a[0] = 'uhus'<br>
+            a[2] = 'jabba'<br>
+            for i = 0 to 3<br>
+            &nbsp;&nbsp;(a[i]) <br>
+            end </td>
+          <td valign="top" class="script" width="41%"> 
+            <p>uhus<br>
+              <br>
+              jabba <br>
+              Range check error on index 3</p>
+          </td>
+        </tr>
+        <tr> 
+          <td width="59%" class="script"> a[0] = 'uhus'<br>
+            a[1] = 'jabba'<br>
+            for i = Low(a) to High(a)<br>
+            &nbsp;&nbsp;(a[i]) <br>
+            end </td>
+          <td valign="top" class="script" width="41%"> 
+            <p>uhus<br>
+              jabba </p>
+          </td>
+        </tr>
+      </table>
+      <h4><a name="GlobalVars"></a>Global variables</h4>
+      <p>You may set global variables which will be visible in all scripts, even 
+        after program restart. These variables are stored in [ScriptVariables] 
+        section of game.ini.</p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td width="60%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script"><b>do</b> SetGlobal(&quot;advisor&quot;, 
+            &quot;rulez&quot;)<br>
+            (Global(&quot;advisor&quot;)) </td>
+          <td valign="top" class="script"><br>
+            rulez </td>
+        </tr>
+      </table>
+      <h4><a name="LineBreaks"></a>Line breaks</h4> 
+      <p>If a line ends with underscore (&quot;_&quot;), it will be glued to next 
+        one. </p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td class="scriptheaders">Line</td>
+          <td valign="top" class="scriptheaders">Equal to</td>
+        </tr>
+        <tr> 
+          <td class="script">Region(&quot;31 35 _<br>
+            &nbsp;&nbsp;1&quot;).Land</td>
+          <td valign="top" class="script">Region(&quot;31 35 1&quot;).Land</td>
+        </tr>
+      </table>
+      <h4><a name="Comments"></a>Comments</h4>
+      <p>Comments must start from double slash (//) - in C style.</p>
+      <h3></h3>
+      <h3><a name="Running"></a>Running scripts</h3>
+      <p>You may attach a script to unit, so it will run any time unit's orders 
+        being processed. To do this, open unit's context menu, select Scripts, 
+        then script name. Actually, by doing this, you inserting following text 
+        in unit's orders: </p>
+      <p class="script">@;script [run_time] Script Name (argument0, argument1...)<br>
+        (output) <br>
+        @;end Script Name</p>
+      <p><i>Run_time</i> part may differ from default defined in script. Actual 
+        run time is determined by given here in orders. <i>Arguments</i> are also 
+        optional. All normal output will go to output area (lines before @;end 
+        line). If there's no @;end line, output area is all the lines till end 
+        of orders. Note that output area will not be cleared before script execution.</p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">1st run result</td>
+          <td valign="top" class="scriptheaders">2nd run result</td>
+        </tr>
+        <tr> 
+          <td class="script" valign="top">Hello Void</td>
+          <td valign="top" class="script">Hello Void</td>
+          <td valign="top" class="script">Hello Void<br>
+            Hello Void </td>
+        </tr>
+        <tr> 
+          <td class="script"><b>clear</b><br>
+            Hello Void<br>
+          </td>
+          <td valign="top" class="script">Hello Void</td>
+          <td valign="top" class="script">Hello Void</td>
+        </tr>
+      </table>
+      <p>Output area will be parsed for scripts after script execution; so, script 
+        may write another @;script tag to output and this inserted script will 
+        be executed too.</p>
+      <h4><a name="Runtime"></a>Run time</h4>
+      <p>If no run time specified for a script, Advisor will run script and then 
+        do all order processing. There is some special values (see table). This 
+        option allows scripts, for example, to issue STUDY orders if unit claims 
+        enough money earlier in this turn.</p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td width="50%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will run</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#script Test</td>
+          <td valign="top" class="script">before any orders</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#script [buy] Test</td>
+          <td valign="top" class="script">before BUY orders</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#script [monthlong] Test</td>
+          <td valign="top" class="script">before monthlong orders</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#script [final] Test</td>
+          <td valign="top" class="script">after all orders</td>
+        </tr>
+        <tr>
+          <td width="50%" class="script">#script [startup] Test</td>
+          <td valign="top" class="script">once on game start*</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#script [manual] Test</td>
+          <td valign="top" class="script">when user selects it from Scripts menu</td>
+        </tr>
+      </table>
+      <p>* [startup] scripts will run once when Advisor opens new turn and doesn't 
+        finds orders for it; but when you assigning [startup] script to an unit, 
+        all [startup] scripts in the unit's region wil re-run once more. All other 
+        scripts, except [manual], will re-run each time Advisor re-runs orders 
+        in region.</p>
+      <p>To understand this, imagine order processing. First, Advisor takes unit 
+        as it was in report.</p>
+      <p class="script">* Unit (324), Faction (22), plainsman [PLAI]. (orders: 
+        &quot;claim 200&quot;)</p>
+      <p>First-time scripts may run now and return that unit hasn't any silver. 
+        Then, Advisor processes orders and come to following processed unit:</p>
+      <p class="script">* Unit (324), Faction (22), plainsman [PLAI], 200 silver 
+        [SILV]. (orders: &quot;claim 200&quot;)</p>
+      <p>&quot;Final&quot; script will now return that unit has 200 silver.</p>
+      <p></p>
+      <p>Note that if script runs after some orders, and gives orders of that 
+        type to unit, that orders will not be processed. Generally scripts should 
+        not run later than most early order they can issue.</p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td width="50%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will result</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#script Test<br>
+            claim 200<br>
+          </td>
+          <td valign="top" class="script">unit claims 200 silver</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">#script [monthlong] Test<br>
+            claim 200</td>
+          <td valign="top" class="script">unit don't claim</td>
+        </tr>
+      </table>
+      <p>This is important only for Advisor order handling, server will process 
+        orders as usual.</p>
+      <h4><a name="Arguments"></a>Arguments</h4>
+      <p>Arguments may be read in script as &quot;args(N)&quot; values. </p>
+      <p class="script">N = args(1)</p>
+      <h4 ><a name="Manual"></a>Manual scripts</h4>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
+      <p>Manual scripts can't be attached to units and will not appear in unit 
+        menu; they appears in Scripts menu and executes in context of currently 
+        selected unit (it must be player's unit). Output for such script is the 
+        selected unit's orders. When selected, they execute immediately (on processed 
+        unit), so their run time is similar to [final]. After execution of a manual 
+        scripts, Advisor will:</p>
+      <ol>
+        <li>Store all orders;</li>
+        <li>Recreate all player's units;</li>
+        <li>Process all orders again (orders issued by the script will be processed 
+          too).</li>
+      </ol>
+      <h3 ><a name="Expressions"></a>Expression Syntax</h3>
+      <p>Expression evaluated as set of operands divided by operators. </p>
+      <h4><a name="OperandTypes"></a>Operand types </h4>
+      <table width="500" border="1" cellspacing="0" cellpadding="4">
+        <tr> 
+          <td><b>numbers</b></td>
+          <td width="120" align="center"><font color="#999999">10, -10</font></td>
+          <td>integer numbers</td>
+        </tr>
+        <tr> 
+          <td><b>strings</b></td>
+          <td align="center"><font color="#999999">&quot;uhus sux&quot;</font></td>
+          <td>quoted strings delimited by single or double quotes</td>
+        </tr>
+        <tr> 
+          <td><b>variables</b></td>
+          <td align="center"><font color="#999999">A</font></td>
+          <td>user-defined identifiers; must start from letter; may contain letters 
+            (A..Z), numbers (0..9) and underscore ( _ )</td>
+        </tr>
+        <tr> 
+          <td><b>symbols</b></td>
+          <td align="center"><font color="#999999">Region.HasExit(&quot;N&quot;)</font></td>
+          <td>predefined constants and functions. Functions has set of parameters 
+            in brackets. Parameters may be of any type, including function: <font color="#999999">fn(fn2(10), 
+            2) </font>is valid.</td>
+        </tr>
+      </table>
+      <p>All operands except strings are case-insensitive.</p>
+      <p>Note: symbols cannot be target of assignment.</p>
+      <p class="script">Region.Land = &quot;Fetlar&quot; <b>is invalid</b></p>
+      <h4><a name="EvaluationContext"></a>Evaluation context</h4>
+      <p>If all operands evaluated to numbers, expression will evaluate in integer 
+        context, otherwise it will evaluate in string context. </p>
+      <table align="center" cellpadding="4" width="400">
+        <tr> 
+          <td width="50%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">2 + "2" + "uhus"</td>
+          <td valign="top" class="script"> &quot;22uhus"</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">2 + "2" + 10</td>
+          <td valign="top" class="script">14</td>
+        </tr>
+      </table>
+      <h4><a name="Brackets"></a>Brackets </h4>
+      <p>Brackets changes precedence of operators. Contents of each brackets evaluated 
+        in specific evaluation context. </p>
+      <table align="center" cellpadding="4" width="400">
+        <tr> 
+          <td width="50%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">2 + 4 * 10</td>
+          <td valign="top" class="script"> 42</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">(2 + 4) * 10</td>
+          <td valign="top" class="script">60</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">2 + (2 + "uhus")</td>
+          <td valign="top" class="script">&quot;22uhus&quot;</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">(2 + 2) + "uhus"</td>
+          <td valign="top" class="script">&quot;4uhus&quot;</td>
+        </tr>
+      </table>
+      <h4><a name="Operators"></a>Operators </h4>
+      <p>Evaluation context is determined by operands only, operators does not 
+        taken into account. Some operators are not valid in every context.</p>
+      <table width="500" border="1" cellspacing="0" cellpadding="4">
+        <tr> 
+          <td>Valid in logical context:</td>
+          <td>!, &, |, =, != or <>, >, <, >=, <= </td>
+        </tr>
+        <tr> 
+          <td>Valid in number context:</td>
+          <td>+, -, *, /, ~, all logical </td>
+        </tr>
+        <tr> 
+          <td>Valid in string context:</td>
+          <td>+, ~, all logical </td>
+        </tr>
+      </table>
+      <p>A ~ B means &quot;Position of B in A&quot;. First char is 1; if no B 
+        found in A, returns 0. This operator always assumes operands as strings.</p>
+      <p>Number operators always work with integers, so 3 / 2 = 1. </p>
+      <p>Logical operators, except &quot;=&quot; and &quot;&lt;&gt;&quot;, always 
+        works in logical context regardless of whole evaluation context. That 
+        is, they takes left and right side as boolean expressions. Empty string 
+        (""), "0", 0, "false" and symbol <i>false</i> evaluates to False, all 
+        other expressions evaluates to True. Result of logical operations is 0 
+        in number context or "" in string context for False and 1 or "1" for True. 
+      </p>
+      <table align="center" cellpadding="4" width="400">
+        <tr> 
+          <td width="50%" class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">2 &amp; 2</td>
+          <td valign="top" class="script"> true &amp; true = true</td>
+        </tr>
+        <tr> 
+          <td width="50%" class="script">0 | &quot;uhus&quot; + 1</td>
+          <td valign="top" class="script">false | true = true<br>
+            true + &quot;1&quot; = &quot;11&quot;</td>
+        </tr>
+      </table>
+      <p>There is two unary operators: ! (not) and - (minus).</p>
+      <p class="script">2 + -2 <b>is correct</b> and = 0 <br>
+        2 + !2 <b>is correct</b> and = 2, because !2 = False = 0 <br>
+        2 + !-2 is still <b>correct</b> and = 2<br>
+        2 + -!2 <b>is incorrect</b></p>
+      <h4><a name="Precedence"></a>Precedence of operators: </h4>
+      <ol>
+        <li> ! </li>
+        <li> *, /, &, ~</li>
+        <li>+, -, | </li>
+        <li>=, !=, >, <, >=, <= </li>
+      </ol>
+      <h4><a name="LogicOptimization"></a>Logic Optimization</h4>
+      <p>Advisor optimizes logical chains in expressions. For example, if we have 
+        expression like &quot;<b>1</b> | (Region.Units.Count &gt; 0) | whatever&quot;, 
+        we don't need to fully evaluate it, because we know result by first operand. 
+        In other words, &quot;<b>TRUE</b> <b>or</b> ...&quot; is always true and 
+        &quot;<b>FALSE</b> <b>and</b> ...&quot; is always false. Advisor will 
+        evaluate such expressions only until first significant operator and skip 
+        all other. For example, &quot;1 &amp; 2 &amp; 0 &amp; 3&quot; will be 
+        evaluated until 0; 3 will be skipped.</p>
+      <h3><a name="Regex"></a>Regular expressions</h3>
+      <p>There is one embedded object for regular expressions. To work with it, 
+        set Regex context. Syntax of regular expressions is not subject of this 
+        document, see other available sources for this topic. Here is some examples.</p>
+      <table align="center" cellpadding="4" width="500">
+        <tr> 
+          <td class="scriptheaders">Script</td>
+          <td valign="top" class="scriptheaders">Will return</td>
+        </tr>
+        <tr> 
+          <td nowrap class="script">cnt = Regex.Exec(&quot;(\w+) 
+            eats (\w+)&quot;, _<br>
+            &nbsp;&nbsp;&quot;Uhus eats Jabba&quot;)<br>
+            (cnt)<br>
+            (Regex.Match(0))<br>
+            (Regex.Match(2)), (Regex.MatchPos(2))<br>
+            &nbsp; </td>
+          <td valign="top" class="script"> 3<br>
+            Uhus eats Jabba<br>
+            Jabba, 11 </td>
+        </tr>
+        <tr>
+          <td class="script">cnt = Regex.Exec(&quot;\w+&quot;, &quot;Uhus eats 
+            Jabba&quot;)<br>
+            (cnt)<br>
+            (Regex.Match(0))<br>
+            cnt = Regex.ExecNext<br>
+            (cnt)<br>
+            (Regex.Match(0)) 
+            <p></p>
+          </td>
+          <td valign="top" class="script">1<br>
+            Uhus<br>
+            1<br>
+            eats</td>
+        </tr>
+        <tr> 
+          <td class="script"> (Regex.Replace(&quot;Uhus Sux&quot;, &quot;\w{3}$&quot;, 
+              _<br>
+            &nbsp;&nbsp;&quot;Rules&quot;)) </td>
+          <td valign="top" class="script">Uhus Rules</td>
+        </tr>
+      </table>
+      <p>Modifiers may be added through (?...) construction, so:</p>
+      <table align="center" cellpadding="4" width="300">
+        <tr> 
+          <td class="scriptheaders">Expression</td>
+          <td valign="top" class="scriptheaders">Will match</td>
+        </tr>
+        <tr> 
+          <td nowrap class="script"><font size="-1">uhus</font></td>
+          <td valign="top" class="script"> uhus</td>
+        </tr>
+        <tr> 
+          <td class="script" valign="top">(?i)uhus 
+            <p></p>
+          </td>
+          <td valign="top" class="script">uhus<br>
+            Uhus<br>
+            UHUS </td>
+        </tr>
+      </table>
+      <h3><a name="Symbols"></a>Symbols</h3>
+      <p>If symbol requires an item or skill name as argument, it may be either 
+        short name (&quot;STON&quot;) or full name (&quot;stone&quot;). </p>
+      <p>Troop stays for part of faction, located in given region.</p>
+      <table border="1" cellspacing="0" width="100%" align="center" cellpadding="4">
+        <tr> 
+          <td align="center" bgcolor="#CCCCCC" width="154"> <b>Name</b> 
+          </td>
+          <td align="center" width="190" bgcolor="#CCCCCC"><b>Sample</b></td>
+          <td align="center" bgcolor="#CCCCCC" width="124"><b>Value</b></td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <p align="center"><b><a name="AllContexts"></a>All 
+              contexts</b></p>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">ArgsCount</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of passed arguments</td>
+        </tr>
+        <tr> 
+          <td width="154">Args(idx)</td>
+          <td width="190"><font color="#999999">Args(0)</font></td>
+          <td width="124">Specified argument</td>
+        </tr>
+        <tr> 
+          <td width="154">Global(name)</td>
+          <td width="190"><font color="#999999">Global(&quot;uhus&quot;)</font></td>
+          <td width="124">Get global variable</td>
+        </tr>
+        <tr> 
+          <td width="154">SetGlobal(name, value)</td>
+          <td width="190"><font color="#999999">SetGlobal(&quot;uhus&quot;, 
+            &quot;sux&quot;)</font></td>
+          <td width="124">Set global variable</td>
+        </tr>
+        <tr> 
+          <td width="154">true</td>
+          <td width="190">&nbsp;</td>
+          <td width="124">&quot;1&quot; (string), 1 (number)</td>
+        </tr>
+        <tr> 
+          <td width="154">false</td>
+          <td width="190"><font color="#999999">&nbsp;&nbsp;</font></td>
+          <td width="124">&quot;&quot; (string), 0 (number)</td>
+        </tr>
+        <tr> 
+          <td width="154">eval(str)</td>
+          <td width="190"><font color="#999999">eval(&quot; 1 
+            + &quot; + &quot; 2 &quot;) = 3</font></td>
+          <td width="124">Evaluates string and returns evaluation 
+            result</td>
+        </tr>
+        <tr> 
+          <td width="154">bool(x)</td>
+          <td width="190"><font color="#999999">bool(&quot;uhus&quot;) 
+            = 1</font></td>
+          <td width="124">Returns boolean value of expression</td>
+        </tr>
+        <tr> 
+          <td width="154">Dir(n)</td>
+          <td width="190"> 
+            <p><font color="#999999">Dir(1) = &quot;N&quot;<br>
+              Dir(2) = &quot;NE&quot;<br>
+              Dir(3) = &quot;SE&quot;<br>
+              Dir(4) = &quot;S&quot;<br>
+              Dir(5) = &quot;SW&quot;<br>
+              </font><font color="#999999">Dir(6) = &quot;NW&quot;</font></p>
+          </td>
+          <td width="124">Direction string</td>
+        </tr>
+        <tr> 
+          <td width="154">LevelIndex(name)</td>
+          <td valign="middle" width="190"><font color="#999999">LevelIndex(&quot;surface&quot;)</font></td>
+          <td valign="top" width="124">Z-coord for specified level; 
+            may return 0 for first level, if no level found returns 
+            &quot;&quot;</td>
+        </tr>
+        <tr> 
+          <td width="154">Length(s)</td>
+          <td valign="top" width="190"><font color="#999999">Length(&quot;foobar&quot;) 
+            = 6 </font></td>
+          <td valign="top" width="124">Length of string</td>
+        </tr>
+        <tr> 
+          <td width="154">Substr(s, idx, count)</td>
+          <td valign="top" width="190"><font color="#999999">Substr(&quot;foobar&quot;, 
+            1, 3) = &quot;foo&quot;</font></td>
+          <td valign="top" width="124">Substring</td>
+        </tr>
+        <tr> 
+          <td width="154">Low(array)</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Lowest index of array</td>
+        </tr>
+        <tr> 
+          <td width="154">High(array)</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Highest index of array</td>
+        </tr>
+        <tr> 
+          <td width="154">Turn</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Turn number</td>
+        </tr>
+        <tr> 
+          <td width="154">Random(range)</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Integer random number 0 
+            &lt;= X &lt; range</td>
+        </tr>
+        <tr> 
+          <td width="154">RemoveScript</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Removes script command 
+            @;script ... @;end from orders. Script output are 
+            remains in place.</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Regex</b></td>
+          <td valign="top" width="190"><font color="#999999">&nbsp;</font></td>
+          <td valign="top" width="124">Sets context to <b>regex</b> 
+            object</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Unit(num)</b></td>
+          <td valign="top" width="190"><font color="#999999">Unit(345)</font></td>
+          <td valign="top" width="124">Sets context to an <b>unit 
+            </b>and returns unit number if unit found</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Faction(num)</b></td>
+          <td valign="top" width="190"><font color="#999999">Faction(345)</font></td>
+          <td valign="top" width="124">Sets context to a <b>faction</b> 
+            and returns faction number if faction found</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Region(coords)</b></td>
+          <td valign="top" width="190"><font color="#999999">Region(&quot;0 
+            0 0&quot;)</font></td>
+          <td valign="top" width="124">Sets context to a <b>region</b> 
+            and returns region coords if region explored</td>
+        </tr>
+        <tr> 
+          <td width="154">AllItems</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Count of list of all known 
+            items</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>AllItems(idx)</b></td>
+          <td valign="top" width="190"> 
+            <p>AllItems(0)<br>
+              AllItems(&quot;SILV&quot;) <br>
+              AllItems(&quot;silver&quot;) </p>
+          </td>
+          <td valign="top" width="124">Sets context to <b>item</b> 
+            and returns item short name</td>
+        </tr>
+        <tr> 
+          <td width="154">AllSkills</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Count of list of all known 
+            skills</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>AllSkills(idx)</b></td>
+          <td valign="top" width="190">AllSkills(0)<br>
+            AllSkills(&quot;PATT&quot;) <br>
+            AllSkills(&quot;pattern&quot;) </td>
+          <td valign="top" width="124">Sets context to <b>skill</b> 
+            and returns skill short name</td>
+        </tr>
+        <tr> 
+          <td width="154">AllObjects</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top" width="124">Count of list of all known 
+            objects</td>
+        </tr>
+        <tr> 
+          <td width="154"> 
+            <p><b>AllObjects(idx)</b></p>
+          </td>
+          <td valign="top" width="190">AllObjects(0)<br>
+            AllObjects(&quot;Tower&quot;) </td>
+          <td valign="top" width="124"> 
+            <p>Sets context to <b>object</b> and returns object 
+              type</p>
+          </td>
+        </tr>
+        <tr> 
+          <td>LeaderMaintenance</td>
+          <td valign="top" width="190">20</td>
+          <td valign="top" rowspan="7">Values configured for current 
+            game in Options.</td>
+        </tr>
+        <tr> 
+          <td>PeasantMaintenance</td>
+          <td valign="top" width="190">10</td>
+        </tr>
+        <tr> 
+          <td>EntertainIncome</td>
+          <td valign="top" width="190">20</td>
+        </tr>
+        <tr> 
+          <td>TaxIncome</td>
+          <td valign="top" width="190">50</td>
+        </tr>
+        <tr> 
+          <td>StudentsPerTeacher</td>
+          <td valign="top" width="190">10</td>
+        </tr>
+        <tr> 
+          <td>HealsPerMan</td>
+          <td valign="top" width="190">5</td>
+        </tr>
+        <tr> 
+          <td>FlyingCrossWater</td>
+          <td valign="top" width="190">True</td>
+        </tr>
+        <tr>
+          <td>Unclaimed</td>
+          <td valign="top" width="190">&nbsp;</td>
+          <td valign="top">Amount of unclaimed silver</td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="RegexContext"></a>Regex 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Exec(pattern, string)</td>
+          <td width="190"><font color="#999999">Exec(&quot;\d+&quot;, 
+            &quot;123&quot;)</font></td>
+          <td width="124">Executes <i>pattern</i> on <i>string</i>; 
+            returns count of matches</td>
+        </tr>
+        <tr> 
+          <td width="154">Match(idx)</td>
+          <td width="190"><font color="#999999">Match(0)</font></td>
+          <td width="124">Returns match for pattern defined in 
+            Exec. Match(0) is whole pattern, Match(1) and more 
+            is groups in brackets.</td>
+        </tr>
+        <tr> 
+          <td width="154">MatchPos(idx)</td>
+          <td width="190"><font color="#999999">MatchPos(0)</font></td>
+          <td width="124">Returns character position for match</td>
+        </tr>
+        <tr> 
+          <td width="154">ExecNext</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Find next match</td>
+        </tr>
+        <tr> 
+          <td width="154">Replace(string, pattern, replacement)</td>
+          <td width="190"><font color="#999999">Replace(&quot;foobar&quot;, 
+            &quot;f.o&quot;, &quot;bar&quot;) = &quot;barbar&quot; 
+            </font></td>
+          <td width="124">Replace <i>pattern</i> with <i>replacement</i></td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="RegionContext"></a>Region 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">X</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">X coord</td>
+        </tr>
+        <tr> 
+          <td width="154">Y</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Y coord</td>
+        </tr>
+        <tr> 
+          <td width="154">Level</td>
+          <td width="190"><font color="#999999">surface</font></td>
+          <td width="124">Name of map level</td>
+        </tr>
+        <tr> 
+          <td width="154">Coords</td>
+          <td width="190"><font color="#999999">21 13 1</font></td>
+          <td width="124">X Y Z</td>
+        </tr>
+        <tr> 
+          <td width="154">Terrain</td>
+          <td width="190"><font color="#999999">plain</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Land</td>
+          <td width="190"><font color="#999999">Fetlar</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Visible</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Player's units currently exploring this 
+            region</td>
+        </tr>
+        <tr> 
+          <td width="154">Explored</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">This region was explored (visited sometimes)</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Exit(dir)</b></td>
+          <td width="190"><font color="#999999">Exit(&quot;NE&quot;)</font></td>
+          <td width="124">If there is exit in specified direction, 
+            sets context to neighbor <b>region </b>and returns 
+            coords; otherwise returns False. </td>
+        </tr>
+        <tr> 
+          <td width="154">Settlement</td>
+          <td width="190"><font color="#999999">Canna</font></td>
+          <td width="124">Name of settlement</td>
+        </tr>
+        <tr> 
+          <td width="154">SettlementType</td>
+          <td width="190"><font color="#999999">city</font></td>
+          <td width="124">city, town, village</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Peasants</b></td>
+          <td width="190"><font color="#999999">PLAI</font></td>
+          <td width="124">Sets context to peasants as <b>item</b> 
+            and returns short name or race.</td>
+        </tr>
+        <tr> 
+          <td width="154">TaxRate</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Wages</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">MaxWages</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Entertainment</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Entertainment available</td>
+        </tr>
+        <tr> 
+          <td width="154">Gate</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Number of gate, if any</td>
+        </tr>
+        <tr> 
+          <td width="154">Guard</td>
+          <td width="190"><font color="#999999">147</font></td>
+          <td width="124">Number of guarding faction</td>
+        </tr>
+        <tr> 
+          <td width="154">Weather</td>
+          <td width="190"><font color="#999999">clear</font></td>
+          <td width="124">Weather for next month</td>
+        </tr>
+        <tr> 
+          <td width="154">Battles</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Amount of battles in region</td>
+        </tr>
+        <tr> 
+          <td width="154">Notes</td>
+          <td width="190"><font color="#999999">&nbsp;&nbsp;</font></td>
+          <td width="124">Region notes</td>
+        </tr>
+        <tr> 
+          <td width="154">MoveCost(dir, movement)</td>
+          <td width="190"><font color="#999999">MoveCost(&quot;N&quot;, 
+            &quot;walk&quot;)</font></td>
+          <td width="124">Move Points to enter the neighbour region 
+            (1 for plain and clear, 4 for forest and winter)</td>
+        </tr>
+        <tr> 
+          <td width="154">NextNew</td>
+          <td width="190">&nbsp;</td>
+          <td width="124">Next number for new unit to use in FORM. 
+            Available for any run-time, including before FORM 
+            order.</td>
+        </tr>
+        <tr> 
+          <td width="154">Wanted</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of items wanted</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Wanted(idx)</b></td>
+          <td width="190"> 
+            <p><font color="#999999">Wanted(1)<br>
+              Wanted(&quot;wine&quot;) </font></p>
+          </td>
+          <td width="124"> 
+            <p>Sets context to <b>item</b> and returns item amount 
+            </p>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">ForSale</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of items for sale</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>ForSale(idx)</b></td>
+          <td width="190"><font color="#999999">-&quot;-</font></td>
+          <td width="124">Sets context to <b>item</b> and returns 
+            item amount </td>
+        </tr>
+        <tr> 
+          <td width="154">Products</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of products</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Products(idx)</b></td>
+          <td width="190"><font color="#999999">-&quot;-</font></td>
+          <td width="124">Sets context to <b>item</b> and returns 
+            item amount </td>
+        </tr>
+        <tr> 
+          <td width="154">Objects</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of objects</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Objects(idx)</b></td>
+          <td width="190"><font color="#999999">Objects(1) = 123</font></td>
+          <td width="124"> 
+            <p>Sets context to <b>object </b>and returns number 
+              of object</p>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Troops</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of factions in region</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Troops(idx)</b></td>
+          <td width="190"><font color="#999999">Troops(1) = 123</font></td>
+          <td width="124">Sets context to <b>troop </b>and returns 
+            faction number</td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="UnnitContext"></a>Unit 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Name</td>
+          <td width="190"><font color="#999999">&nbsp;&nbsp;</font></td>
+          <td width="124">Unit name</td>
+        </tr>
+        <tr> 
+          <td width="154">Num</td>
+          <td width="190"><font color="#999999">&nbsp;&nbsp;</font></td>
+          <td width="124">Unit number </td>
+        </tr>
+        <tr> 
+          <td width="154">Description</td>
+          <td width="190"><font color="#999999">&nbsp;&nbsp;</font></td>
+          <td width="124">Unit description</td>
+        </tr>
+        <tr> 
+          <td width="154"> 
+            <p>OnGuard<br>
+              Autotax<br>
+              Avoid<br>
+              Behind<br>
+              Hold<br>
+              Noaid<br>
+              Nocross </p>
+          </td>
+          <td width="190"><font color="#999999">&nbsp;&nbsp;</font></td>
+          <td valign="top" width="124">Unit flags</td>
+        </tr>
+        <tr> 
+          <td width="154">Consume</td>
+          <td width="190"><font color="#999999">consume<br>
+            consume unit<br>
+            consume faction</font></td>
+          <td valign="top" width="124">Consuming flag</td>
+        </tr>
+        <tr> 
+          <td width="154">Reveal</td>
+          <td width="190"><font color="#999999">-&quot;-</font></td>
+          <td width="124">Revealing flag</td>
+        </tr>
+        <tr> 
+          <td width="154">Spoils</td>
+          <td width="190"><font color="#999999">spoils all<br>
+            spoils none<br>
+            spoils walk<br>
+            spoils ride<br>
+            spoils fly</font></td>
+          <td valign="top" width="124">Spoils flag</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Region</b></td>
+          <td width="190"><font color="#999999">12 10 1</font></td>
+          <td width="124">Sets context to <b>region</b> and returns 
+            coords</td>
+        </tr>
+        <tr> 
+          <td width="154">TradeIncome</td>
+          <td width="190">&nbsp;</td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154" height="27">WorkIncome</td>
+          <td width="190" height="27">&nbsp;</td>
+          <td width="124" height="27">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Faction</b></td>
+          <td width="190"><font color="#999999">124</font></td>
+          <td width="124">Sets context to unit <b>faction</b> 
+            and returns faction number</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Troop</b></td>
+          <td width="190"><font color="#999999">124</font></td>
+          <td width="124">Sets context to unit <b>troop</b> and 
+            returns faction number</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Object</b></td>
+          <td width="190"><font color="#999999">1</font></td>
+          <td width="124">Sets context to <b>object</b> and returns 
+            object number</td>
+        </tr>
+        <tr> 
+          <td width="154">CombatSpell</td>
+          <td width="190"><font color="#999999">FIRE</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Former</b></td>
+          <td width="190"><font color="#999999">1223</font></td>
+          <td width="124">Sets context to <b>unit</b> formed this 
+            one (for &quot;new 1&quot; units formed this turn) 
+            and returns unit number</td>
+        </tr>
+        <tr> 
+          <td width="154">Items</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of items in inventory</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Items(idx)</b></td>
+          <td width="190"><font color="#999999">Items(1)<br>
+            Items(&quot;WOOD&quot;) </font></td>
+          <td width="124">Sets context to <b>item</b> and returns 
+            item amount </td>
+        </tr>
+        <tr> 
+          <td width="154">IsMage</td>
+          <td width="190">&nbsp;</td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">LocalDescription</td>
+          <td width="190">&nbsp;</td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">SetLocalDescription(value)</td>
+          <td width="190">&nbsp;</td>
+          <td width="124">Change local description of the unit</td>
+        </tr>
+        <tr> 
+          <td width="154">Skills</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of skills</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Skills(idx)</b></td>
+          <td width="190"><font color="#999999">Skills(1)<br>
+            Skills(&quot;PATT&quot;) </font></td>
+          <td width="124">Sets context to <b>skill </b>and returns 
+            skill level</td>
+        </tr>
+        <tr> 
+          <td width="154">CanStudy</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of CanStudy</td>
+        </tr>
+        <tr> 
+          <td width="154">CanStudy(idx)</td>
+          <td width="190"><font color="#999999">CanStudy(1) = 
+            &quot;NECR&quot;</font></td>
+          <td width="124">Short of I-th CanStudy</td>
+        </tr>
+        <tr> 
+          <td width="154">AmountOf(flag)</td>
+          <td width="190"><font color="#999999">AmountOf(&quot;man&quot;)</font></td>
+          <td width="124">Amount of items of given type. Allowed 
+            types is: &quot;wagon&quot;, &quot;silver&quot;, &quot;man&quot;, 
+            &quot;monster&quot;, &quot;magic&quot;, &quot;weapon&quot;, 
+            &quot;armor&quot;, &quot;mount&quot;, &quot;tool&quot;, 
+            &quot;cantgive&quot;, &quot;resource&quot;, &quot;advanced&quot;, 
+            &quot;food&quot;, &quot;trade&quot;</td>
+        </tr>
+        <tr> 
+          <td width="154">Load(move)</td>
+          <td width="190"><font color="#999999">Load(&quot;walk&quot;)</font></td>
+          <td width="124">Load of item for specified movement 
+            type (see Load tab on Unit tab in main window). Allowed 
+            types is: &quot;walk&quot;, &quot;ride&quot;, &quot;fly&quot;, 
+            &quot;swim&quot;</td>
+        </tr>
+        <tr> 
+          <td width="154">Capacity(move)</td>
+          <td width="190"><font color="#999999">Capacity(&quot;ride&quot;)</font></td>
+          <td width="124">Capacity for specified movement type</td>
+        </tr>
+        <tr> 
+          <td width="154">UsedWagons</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Wagons which has Horses</td>
+        </tr>
+        <tr> 
+          <td width="154">MovementType</td>
+          <td width="190"><font color="#999999">&quot;walk&quot;<br>
+            </font></td>
+          <td width="124">Normal movement (walking, riding or 
+            flying); returns False if unit can't move.</td>
+        </tr>
+        <tr> 
+          <td width="154">Taxers</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Amount of tax-ready men (with combat 
+            skill or weapon)</td>
+        </tr>
+        <tr> 
+          <td width="154">AllOrders</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">All orders in single line (including 
+            added by the script)</td>
+        </tr>
+        <tr> 
+          <td width="154">MonthOrder</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">DelOrder(line)</td>
+          <td width="190"><font color="#999999"><b>do</b> DelOrder(1)</font></td>
+          <td width="124">Delete specified line from orders. Doesn't 
+            return anything.</td>
+        </tr>
+        <tr> 
+          <td width="154">InsOrder(line, text)</td>
+          <td width="190"><font color="#999999"><b>do</b> InsOrder(0, 
+            &quot;move N&quot;)</font></td>
+          <td width="124">Insert line in orders. Doesn't return 
+            anything.</td>
+        </tr>
+        <tr> 
+          <td width="154">Orders</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of order lines</td>
+        </tr>
+        <tr> 
+          <td width="154">Orders(idx)</td>
+          <td width="190"><font color="#999999">Orders(1)</font></td>
+          <td width="124">I-th order line</td>
+        </tr>
+        <tr> 
+          <td width="154">Events</td>
+          <td width="190">&nbsp;</td>
+          <td width="124">Count of events</td>
+        </tr>
+        <tr> 
+          <td width="154">Events(idx)</td>
+          <td width="190"><font color="#999999">Events(1)</font></td>
+          <td width="124">I-th event (if first symbol is &quot;!&quot;, 
+            that's error, if not - event)</td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="FactionContext"></a>Faction 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Name</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Faction name</td>
+        </tr>
+        <tr> 
+          <td width="154">Num</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Faction number</td>
+        </tr>
+        <tr> 
+          <td width="154">Attitude</td>
+          <td width="190"><font color="#999999">&quot;Unfriendly&quot;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Units</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of units throughout the world</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Units(idx)</b></td>
+          <td width="190"><font color="#999999">Units(1) = &quot;new 
+            1&quot;</font></td>
+          <td width="124">Sets context to <b>unit </b>of the faction 
+            and returns unit number</td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="TroopContext"></a>Troop 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Name</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Faction name</td>
+        </tr>
+        <tr> 
+          <td width="154">Num</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Faction number</td>
+        </tr>
+        <tr> 
+          <td width="154">Attitude</td>
+          <td width="190"><font color="#999999">&quot;Unfriendly&quot;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Units</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of units in region</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Units(idx)</b></td>
+          <td width="190"><font color="#999999">Units(1) = &quot;new 
+            1&quot;</font></td>
+          <td width="124">Sets context to <b>unit</b> of the faction 
+            in the region and returns unit number</td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="ObjectContext"></a>Object 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Name</td>
+          <td width="190"><font color="#999999">Gold Fish</font></td>
+          <td width="124">Object name</td>
+        </tr>
+        <tr> 
+          <td width="154">Num</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Object number</td>
+        </tr>
+        <tr> 
+          <td width="154">Description</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Needs</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Type</td>
+          <td width="190"><font color="#999999">Longboat</font></td>
+          <td width="124">Type name</td>
+        </tr>
+        <tr> 
+          <td width="154">Defence</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Object is a defence structure (Castle)</td>
+        </tr>
+        <tr> 
+          <td width="154">Transport</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Object is a transport (Longboat)</td>
+        </tr>
+        <tr> 
+          <td width="154">Flying</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Object is flying (Balloon)</td>
+        </tr>
+        <tr> 
+          <td width="154">Closed</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Closed to player's units</td>
+        </tr>
+        <tr> 
+          <td width="154">InnerLocation</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Contains an inner location</td>
+        </tr>
+        <tr> 
+          <td width="154">Road</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Is a road</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Link</b></td>
+          <td width="190"><font color="#999999">21 12 2</font></td>
+          <td width="124">Sets context to linked <b>region</b> 
+            and returns region coords (for shafts)</td>
+        </tr>
+        <tr> 
+          <td width="154">Direction</td>
+          <td width="190"><font color="#999999">NE</font></td>
+          <td width="124">Returns direction of road as string</td>
+        </tr>
+        <tr> 
+          <td width="154">Size</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Amount of material to build</td>
+        </tr>
+        <tr> 
+          <td width="154">Protection</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">For defstructures - amount of men protected</td>
+        </tr>
+        <tr> 
+          <td width="154">Capacity</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">For transports - carried weight</td>
+        </tr>
+        <tr> 
+          <td width="154">Sailors</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">For transports - man/skill levels to 
+            control</td>
+        </tr>
+        <tr> 
+          <td width="154">Material1</td>
+          <td width="190"><font color="#999999">WOOD</font></td>
+          <td width="124">Build material</td>
+        </tr>
+        <tr> 
+          <td width="154">Material2</td>
+          <td width="190"><font color="#999999">STON</font></td>
+          <td width="124">Alternative build material</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>BuildSkill</b></td>
+          <td width="190"><font color="#999999">SHIP</font></td>
+          <td width="124">Sets context to <b>skill</b> to build 
+            and returns skill short name</td>
+        </tr>
+        <tr> 
+          <td width="154">Resource</td>
+          <td width="190"><font color="#999999">GRAI</font></td>
+          <td width="124">For trade structures - resource aided</td>
+        </tr>
+        <tr> 
+          <td width="154">Load</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>Owner</b></td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Sets context to owner <b>unit</b> and 
+            returns unit number</td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="ItemContext"></a>Item 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Amount</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Amount for sale/wanted/to produce</td>
+        </tr>
+        <tr> 
+          <td width="154">Cost</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Name</td>
+          <td width="190"><font color="#999999">sea elvis</font></td>
+          <td width="124">Item name</td>
+        </tr>
+        <tr> 
+          <td width="154">Short</td>
+          <td width="190"><font color="#999999">SELF</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Wagon<br>
+            Silver<br>
+            Man<br>
+            Monster<br>
+            Magic<br>
+            Weapon<br>
+            Armor<br>
+            Mount<br>
+            Tool<br>
+            Cantgive<br>
+            Resource<br>
+            Advanced<br>
+            Food <br>
+            Trade </td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td valign="top" width="124">Item flags</td>
+        </tr>
+        <tr> 
+          <td width="154">Description</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Item description</td>
+        </tr>
+        <tr> 
+          <td width="154">Weight</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Capacity(move)</td>
+          <td width="190"><font color="#999999">Capacity(&quot;walk&quot;)</font></td>
+          <td width="124">Note that walking items must carry their 
+            weight, so men (weight 10, capacity 5) will actually 
+            have Capacity(&quot;walk&quot;) = 15. Allowed movements 
+            are: &quot;walk&quot;, &quot;ride&quot;, &quot;fly&quot;, 
+            &quot;swim&quot; </td>
+        </tr>
+        <tr> 
+          <td width="154">ProduceSkill</td>
+          <td width="190"><font color="#999999">LUMB</font></td>
+          <td width="124">Sets context to <b>skill</b> to produce 
+            this item and returns skill short name</td>
+        </tr>
+        <tr> 
+          <td width="154">ProduceRate</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Rate: amount of items</td>
+        </tr>
+        <tr> 
+          <td width="154">ProduceManMonths</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Rate: time to produce these items</td>
+        </tr>
+        <tr> 
+          <td width="154">ProduceMaterials</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of items in list</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>ProduceMaterials(idx)</b></td>
+          <td width="190"><font color="#999999">ProduceMaterials(1)<br>
+            ProduceMaterials(&quot;WOOD&quot;) </font></td>
+          <td width="124">Sets context to <b>item </b>and returns 
+            item amount</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>MagProduceSkill</b></td>
+          <td width="190"><font color="#999999">ARTI</font></td>
+          <td width="124">Sets context to <b>skill</b> to magically 
+            produce the item and returns skill short name</td>
+        </tr>
+        <tr> 
+          <td width="154">MagProduceRate</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">MagProduceMaterials</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of items in list</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>MagProduceMaterials(idx)</b></td>
+          <td width="190"><font color="#999999">MagProduceMaterials(1)<br>
+            MagProduceMaterials(&quot;WOOD&quot;) </font></td>
+          <td width="124">Sets context to <b>item </b>and returns 
+            item amount</td>
+        </tr>
+        <tr> 
+          <td width="154">ManLeader</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">This is a leader</td>
+        </tr>
+        <tr> 
+          <td width="154">ManDefLevel</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Default skill level</td>
+        </tr>
+        <tr> 
+          <td width="154">ManSpecLevel</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Special skill level</td>
+        </tr>
+        <tr> 
+          <td width="154">ManSpecSkills</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of special skills</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>ManSpecSkills(idx)</b></td>
+          <td width="190"> 
+            <p><font color="#999999">ManSpecSkills(1)</font></p>
+          </td>
+          <td width="124">Sets context to <b>skill</b> and returns 
+            skill short name</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnNeedSkill</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Weapon needs skill</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnNoFoot</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Can't be used on foot</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnNoMount</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Can't be used on mount</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnShort</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Short</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnLong</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Long</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnRanged</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Ranged</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnNoAttackerSkill</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Attacker's defence is 0 regardless of 
+            Combat skill</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnRidingBonus</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Riding bonus for Attack and Defence</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnRidingBonusDefence</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Riding bonus for Defence only</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnNumAttSkill</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Number of attacks relies on skill</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnNumAttHalfSkill</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Number of attacks relies on skill/2</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnClass</td>
+          <td width="190"><font color="#999999">&quot;slashing&quot;, 
+            &quot;cleaving&quot;...</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnAttackType</td>
+          <td width="190"><font color="#999999">&quot;melee&quot;, 
+            &quot;energy&quot;...</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnSkill1</td>
+          <td width="190"><font color="#999999">XBOW</font></td>
+          <td width="124">Skill to use weapon (if needed)</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnSkill2</td>
+          <td width="190"><font color="#999999">LBOW</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnAttackBonus</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnDefenceBonus</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnMountBonus</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Additional bonus when attacks mounted 
+            opponent</td>
+        </tr>
+        <tr> 
+          <td width="154">WpnNumAttacks</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Number of attacks per round (2 means 
+            2 per 1 round, -2 means 1 per 2 rounds)</td>
+        </tr>
+        <tr> 
+          <td width="154">ArmorUseInAss</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Use the armor in assassination</td>
+        </tr>
+        <tr> 
+          <td width="154">ArmorDefence(idx)</td>
+          <td width="190"><font color="#999999">ArmorDefence(&quot;slashing&quot;)</font></td>
+          <td width="124">Percents of defence</td>
+        </tr>
+        <tr> 
+          <td width="154">MountSkill</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Skill to use mount in battle (usually 
+            Riding)</td>
+        </tr>
+        <tr> 
+          <td width="154">MountMinBonus</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Minimal skill level to use in battle</td>
+        </tr>
+        <tr> 
+          <td width="154">MountMaxBonus</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Maximal -&quot;-</td>
+        </tr>
+        <tr> 
+          <td width="154">MountMaxHamperedBonus</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Maximal bonus for flying mounts if terrain 
+            doesn't allow flying</td>
+        </tr>
+        <tr> 
+          <td width="154">ToolAddsTo</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of items aided</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>ToolAddsTo(idx)</b></td>
+          <td width="190"> 
+            <p><font color="#999999">ToolAddsTo(1)<br>
+              ToolAddsTo(&quot;BAG&quot;)</font></p>
+          </td>
+          <td width="124">Sets context to <b>item </b>and returns 
+            item amount (meaning production bonus)</td>
+        </tr>
+        <tr> 
+          <td colspan="3" bgcolor="#E0E0E0"> 
+            <div align="center"><b><a name="SkillContext"></a>Skill 
+              context</b></div>
+          </td>
+        </tr>
+        <tr> 
+          <td width="154">Level</td>
+          <td width="190"><font color="#999999">1</font></td>
+          <td width="124">Learned level</td>
+        </tr>
+        <tr> 
+          <td width="154">Days</td>
+          <td width="190"><font color="#999999">30</font></td>
+          <td width="124">Days learned</td>
+        </tr>
+        <tr> 
+          <td width="154">Name</td>
+          <td width="190"><font color="#999999">weaponsmith</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Short</td>
+          <td width="190"><font color="#999999">WEAP</font></td>
+          <td width="124">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="154">Description(level)</td>
+          <td width="190"><font color="#999999">Description(1)</font></td>
+          <td width="124">Description for specified level</td>
+        </tr>
+        <tr> 
+          <td width="154">Cost</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Cost to learn per month</td>
+        </tr>
+        <tr> 
+          <td width="154">Common</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Skill is learned by common people</td>
+        </tr>
+        <tr> 
+          <td width="154">Magic</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Skill is learned only by mages</td>
+        </tr>
+        <tr> 
+          <td width="154">Foundation</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Foundation skill</td>
+        </tr>
+        <tr> 
+          <td width="154">CombatSpell</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">May be assigned as combat spell</td>
+        </tr>
+        <tr> 
+          <td width="154">Cast</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">May be cast</td>
+        </tr>
+        <tr> 
+          <td width="154">BasedOn</td>
+          <td width="190"><font color="#999999">&nbsp;</font></td>
+          <td width="124">Count of base skills</td>
+        </tr>
+        <tr> 
+          <td width="154"><b>BasedOn(idx)</b></td>
+          <td width="190"> 
+            <p><font color="#999999">BasedOn(1)<br>
+              BasedOn(&quot;PATT&quot;) </font></p>
+          </td>
+          <td width="124">Sets context to <b>skill </b>and returns 
+            skill level</td>
+        </tr>
+      </table>
+      <h3><a name="ChangeLog"></a>Change Log</h3>
+      <table width="500" border="0" cellspacing="0" cellpadding="4">
+        <tr>
+          <td><b>Changes in v 3.21.6</b></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr> 
+          <td>[startup] runtime</td>
+          <td>Previously fired on each turn load; now fired only on first turn 
+            load when no orders found (same with Needs autodistribution)</td>
+        </tr>
+        <tr> 
+          <td><b>Changes in v 3.20.4</b></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr> 
+          <td>LeaderMaintenance</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>PeasantMaintenance</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>EntertainIncome</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>TaxIncome</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>StudentsPerTeacher</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>HealsPerMan</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>FlyingCrossWater</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>Unclaimed</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td><b>Changes in v 3.20.2</b></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr> 
+          <td>arrays</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>Low</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td>High</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td><b>exec </b>statement</td>
+          <td>Added</td>
+        </tr>
+        <tr> 
+          <td colspan="2"><b>Changes in v 3.18.1</b></td>
+        </tr>
+        <tr> 
+          <td width="173">Item.ManSpecLevel</td>
+          <td width="311">Obsolete; still supported for backward compatibility</td>
+        </tr>
+        <tr> 
+          <td width="173">Item.ManSpecSkills</td>
+          <td width="311">Behavior changed</td>
+        </tr>
+        <tr> 
+          <td width="173">Item.ToolAddsTo</td>
+          <td width="311">Removed</td>
+        </tr>
+        <tr> 
+          <td width="173">Unit.UsedWagons</td>
+          <td width="311">Removed</td>
+        </tr>
+      </table>
+    <p>&nbsp;</p></td>
+  </tr>
+</table>
+</body>
+</html>

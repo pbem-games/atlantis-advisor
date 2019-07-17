@@ -1,0 +1,1189 @@
+<html>
+<head>
+<style>
+ td p, td li, td td {
+  font-family: Tahoma;
+  font-size: x-small;
+ }
+ h2 {
+  text-align: center;
+ }
+ .section {  
+  font-weight: bold; 
+  margin-top: 40px; 
+  padding-top: 3px;
+  border-top: solid #808080 1px;
+ }
+</style>
+<title>Atlantis Advisor Help</title>
+</head>
+<body bgcolor="#FFFFFF">
+<table width="100%">
+  <tr> 
+    <td width="200" valign="top"> 
+      <p>&nbsp;</p>
+      <p><b><font face="Times New Roman, Times, serif" size="+1">Help</font></b></p>
+      <p><b><a href="#Hints">Hints</a></b></p>
+      <p><b>Environment</b><br>
+        <a href="#GameManager">Game Manager</a><br>
+        &nbsp;&nbsp;- <a href="#GameStructure">Structure of the Game</a><br>
+        &nbsp;&nbsp;- <a href="#UsingManager">Using Manager</a><br>
+        &nbsp;&nbsp;- <a href="#ManagerOptions">Options</a><br>
+        &nbsp;&nbsp;- <a href="#SetupGame">Setting up new game</a><br>
+        <a href="#MainWindow">Main Window Interface</a><br>
+        &nbsp;&nbsp;- <a href="#Map">Map</a><br>
+        &nbsp;&nbsp;- <a href="#ObjectList">Object List</a><br>
+        &nbsp;&nbsp;- <a href="#UnitGrid">Unit Grid</a><br>
+        &nbsp;&nbsp;- <a href="#RegionInfo">Region information</a><br>
+        &nbsp;&nbsp;- <a href="#UnitInfo">Unit information</a><br>
+        &nbsp;&nbsp;- <a href="#ObjectInfo">Object information</a><br>
+        &nbsp;&nbsp;- <a href="#ItemsInRegion">Receive Items</a><br>
+        &nbsp;&nbsp;- <a href="#Grids">Grids</a><br>
+        <a href="#NewUnit">New Unit window</a><br>
+        <a href="#ItemEditor">Item Editor</a><br>
+        &nbsp;&nbsp;- <a href="#ItemIndexes">Indexes</a><br>
+        &nbsp;&nbsp;- <a href="#ItemFlags">Flags</a><br>
+        &nbsp;&nbsp;- <a href="#ItemClasses">Item Classes</a><br>
+        <a href="#BattleSim">Battle Viewer/Simulator</a><br>
+        <a href="#Options">Options</a><br>
+        &nbsp;&nbsp;- <a href="#CurrentGame">Current Game</a><br>
+        &nbsp;&nbsp;- <a href="#Environment">Environment</a><br>
+      </p>
+      <p><b>Order tools</b><br>
+        <a href="#OrderTools">Main Window tricks</a><br>
+        &nbsp;&nbsp;- <a href="#Movement">Movement</a><br>
+        &nbsp;&nbsp;- <a href="#Maintenance">Maintenance</a><br>
+        &nbsp;&nbsp;- <a href="#Give">Drag-n-drop GIVE</a><br>
+        &nbsp;&nbsp;- <a href="#Armies">Armies</a> <br>
+        &nbsp;&nbsp;- <a href="#FormTemplates">FORM Templates</a><br>
+        <a href="#AutoOrders"> Automatic orders</a><br>
+        &nbsp;&nbsp;- <a href="#Needs">Needs</a><br>
+        &nbsp;&nbsp;- <a href="#Routes">Routes</a><br>
+        &nbsp;&nbsp;- <a href="#Caravan">Setting up a Caravan</a><br>
+        &nbsp;&nbsp;- <a href="#RedirNew">Redirecting &quot;new&quot; 
+        orders</a><br>
+      </p>
+      <p><b>Turn Analyzers</b><br>
+        &nbsp;&nbsp;- <a href="#Features">Unit tracking</a><br>
+        &nbsp;&nbsp;- <a href="#AnalyzingResources">Analyzing resources</a><br>
+        &nbsp;&nbsp;- <a href="#SpyReports">Spy Reports</a></p>
+      <p><b>Features</b><br>
+        &nbsp;&nbsp;- <a href="#AutoLink">Automatic shaft linkage</a><br>
+        &nbsp;&nbsp;- <a href="#SendOrder">Send Order</a><br>
+        &nbsp;&nbsp;- <a href="#ExportMap">Export and Import Map</a><br>
+        &nbsp;&nbsp;- <a href="#ExportSkills">Export and Import 
+        Skills</a><br>
+        &nbsp;&nbsp;- <a href="#Graphics">Custom Graphics</a><br>
+        &nbsp;&nbsp;- <a href="#EditItems">Editing Rulesets</a><br>
+        &nbsp;&nbsp;- <a href="#AllyReports">Active Faction &amp; 
+        Ally Reports</a><br>
+        &nbsp;&nbsp;- <a href="#LocalGames">Local Games</a></p>
+      <p><b><a href="#FAQ">FAQ </a></b></p>
+      <p><a href="scripts.html"><b><font size="+1" face="Times New Roman, Times, serif">Order 
+        Script</font></b></a> </p>
+      <p><b><a href="registration.html"><font size="+1" face="Times New Roman, Times, serif">Registration</font></a></b></p>
+      <p><small><a href="mailto:gnawer@mailru.com">gnawer@front.ru</a><br>
+        <a href="http://www.wredosoft.tk">http://www.wredosoft.tk</a><br></small>
+      
+      </td>
+    <td> 
+      <p align="right"><font color="#999999">File version 3.21.5</font></p>
+      <h2 align="center">Atlantis Advisor Help</h2>
+      <p>Atlantis Advisor is the client program designed for viewing reports of 
+        Atlantis PBEM, all versions from Atlantis 3.0 to Realms 4.0.10 and Ceran. 
+        &copy; Gnawer aka Wredosoft Software LTD 1999-2003.<br>
+      </p>
+      <p> This program is shareware. Registration fee is 10$. Unregistered version 
+        has limited functionality. See <a href="registration.html">Registration</a> 
+        for further details. </p>
+      <h2><a name="Hints"></a>Useful Hints</h2>
+      <ul>
+        <li><b>Orders</b> (unit popup): Shift-click an order to 
+          make it repeating (like @work)</li>
+        <li><b>Items</b>: Drag items from unit inventory to another 
+          unit to GIVE them. Enter amount to give from keyboard 
+          while dragging. Hold Alt when releasing item to issue 
+          GIVE ALL order.</li>
+        <li><b>Turn Events</b>: Click an event to center region 
+          on map; double-click to center region and close window; 
+          shift-click battle to open Battle Viewer.</li>
+        <li><b>Movement</b>: While moving unit, click an object 
+          in left panel to enter it. If it was linked shaft, unit 
+          will MOVE IN.</li>
+        <li><b>Warnings</b>: Insert &quot;@;!NOP&quot; token in 
+          unit orders to disable &quot;No monthlong order&quot; 
+          warning. </li>
+        <li>RTFM</li>
+      </ul>
+      <p class="section"> <b>Environment </b> </p>
+      <h2><a name="GameManager"></a>Game Manager</h2>
+      <h3><a name="GameStructure"></a>Structure of the Game</h3>
+      <p>In Advisor, Game is folder like Advisor/sample game with all game data. 
+        Important files inside the folder is: <b>game.dat</b> - database for all 
+        game items, skills, map etc; <b>scripts.txt</b> - all scripts for the 
+        game. These files may be edited in text editor. Also this folder by default 
+        keeps all game order and report files.</p>
+      <p>There is some predefined rulesets (databases) available on game creation: 
+        standard.dat, ceran.dat and conquest.dat. That's actually files in Advisor 
+        root folder, which will be copied to newly created game folder. The rulesets 
+        contains most information available in game rules and will <i>never</i> 
+        contain any data for advanced items.</p>
+      <h3><a name="UsingManager"></a>Using Manager</h3>
+      <p>First, you should create a game. In unregistered version you can't create 
+        more than one game, so delete Sample Game and then create new one. Note 
+        that when you removing a game, files will not be actually deleted, so 
+        you'll not lost an information. If you want to completely destroy a game, 
+        remove it from Manager and then manually delete game folder.</p>
+      <p>Then, add reports to the game. You may add report files from disk or 
+        paste report from clipboard. In latter case, report will be saved to game 
+        folder. You may set option to automatically rename all opened files and 
+        move them to game folder; see Options | Manager.</p>
+      <p>When all reports added, you should parse them to transfer data from text 
+        files into memory. To do it, press Read button. Parse log is shown on 
+        the right; blue triangle on the bottom hides or shows the log. Review 
+        the log if there is errors on report parsing. </p>
+      <p>Advisor usually keeps some last reports and kicks out old ones from the 
+        game. You can't view unit disposition from kicked (archived) reports, 
+        but all valuable data (skill reports, map etc) is stored in game database 
+        and available.</p>
+      <p>Another feature is loading orders for last turn. After parsing all reports, 
+        Advisor will scan Game/Orders folder for last turn order file, and load 
+        found orders. So, if you saved orders and then reopened game, no orders 
+        will be lost.</p>
+      <h3><a name="ManagerOptions"></a>Options</h3>
+      <p><b>Keep N last reports</b> - amount of newer reports to keep in memory; 
+        all other will be archived.</p>
+      <p><b>Move reports to game folder</b> - when you adding report files from 
+        disk, Advisor will automatically rename them and move to game folder.</p>
+      <p><b>Prompt to remove wrong reports</b> - Game Manager will ask you to 
+        kick files from batch if they are not recognized as reports.</p>
+      <p><b>Try to load order</b> - Advisor will scan Game/Orders folder for last 
+        turn orders and load them while parsing.</p>
+      <h3><a name="SetupGame"></a>Setting up new game</h3>
+      <p>When you created new game and parsed first report, do following:</p>
+      <ol>
+        <li>Open File | Options.</li>
+        <li>Change game password.</li>
+        <li>Check if Faction Points sequence matches your game's one (see game 
+          rules for your server).</li>
+        <li>If you know map dimensions for the game, enter them now.</li>
+        <li>If you are registered user, fill in E-Mail data for Send Order command.</li>
+      </ol>
+      <h2> <a name="MainWindow"></a>Main Window Interface</h2>
+      <h3><a name="Map"></a>Map</h3>
+      <p>Map has many display options, available from map toolbar right above 
+        it or from Map menu.</p>
+      <p>Right-click and drag to move map to another position. Double-click to 
+        center a region. Press Home to center on selected region. Bookmarks allows 
+        to quickly navigate to bookmarked regions.</p>
+      <p>You can select map level (surface, underworld etc) from drop-down list 
+        near Level button or from Map menu. Level button or &quot;Map | Level 
+        down&quot; selects next level from list. If you want to follow a shaft 
+        rather then just select next level, double-click a shaft in object list.</p>
+      <p>In &quot;autodetect size&quot; mode, map shows the regions you already 
+        explored, plus 4-hex border around them to allow units move further. Map 
+        is cylindric, cycled from east to west. If you found a margin of the map 
+        (last eastern or southern region), you may manually set map size to remove 
+        4-hex border. Open Options, set Manual Map Dimension for selected level, 
+        then enter map size (coordinates of last south-eastern region plus 1 for 
+        each dimension).</p>
+      <p>Mini Map (&quot;View | Mini Map&quot;) used for fast world navigation; 
+        clicking on Mini Map centers clicked region on main map. Red rectangle 
+        on Mini Map shows visible area in main map.</p>
+      <h3><a name="ObjectList"></a>Object list</h3>
+      <p>This list is to the left of map and shows structures in selected region. 
+        If structure is not finished (needs further building), it has small number 
+        of material units Needs. If there is units inside, structure icon also 
+        has flag of owner faction. Double-click a shaft here to open a region 
+        shaft leads to.</p>
+      <h3><a name="UnitGrid"></a>Unit Grid</h3>
+      <p>See also: <a href="#Grids">Grids</a>, <a href="#Environment">Options 
+        | Environment</a></p>
+      <p>This grid shows units in currently selected region. There is some special 
+        columns. Custom column shows part of unit report as it appears in report 
+        file; contents of this column may be defined in Options. Attack shows 
+        attack level of unit (skill level plus weapon modifiers); Defence - best 
+        armor defence rate.</p>
+      <p>If unit's faction is invisible, but was recorded in previous turns (see 
+        <a href="#Tracking">Unit Tracking</a>), it will be shown with ? sign, 
+        in colors of unknown faction. If unit has fought in battle, it will be 
+        marked with sword icon; if it has dead men (in battle or starved) - with 
+        cross icon; mages additionaly marked with mage icon.</p>
+      <p>Sorting by Faction and Faction Num columns is special: player's faction 
+        acts like it has minimal possible number and name, so it will appear first 
+        on ascending sort. </p>
+      <p>Above Unit Grid placed toolbar with grid tools. You may filter only one 
+        faction to show here, or switch in Faction Mode (&quot;View | Faction 
+        Mode&quot;) to show all units of selected faction in all regions. Latter 
+        is useful when you want to find lost unit or check month orders for whole 
+        faction.</p>
+      <p>Right-click on Unit Grid opens menu with unit orders. This menu contains 
+        only orders the unit can complete (for example, only mages has Cast option). 
+        Shift-clicking an item instead of normal click makes command repeating 
+        (like &quot;@work&quot;). &quot;Repeating&quot; flag inverses this behavior: 
+        all commands become repeating, shift-clicked - non-repeating. Many orders 
+        from this meny may be invoked with keyboard shortcuts; see <a href="#Shortcuts">Options 
+        | Shortcuts</a>.</p>
+      <p>When issuing Move, Advance and Sail orders, you should click the regions 
+        on map which unit should move through. Red frame on the map in this mode 
+        shows the regions available to enter. Click on already visited region 
+        to complete order. Issuing another move order cancels all previously issued 
+        ones.</p>
+      <h3><a name="RegionInfo"></a>Region information</h3>
+      <p>This panel contains information about selected region. On the top you 
+        see icon for current month weather and land name. Then comes region information.</p>
+      <ul>
+        <li><b>Hex.</b> Terrain and coords; for regions not visible in current 
+          turn, also last month when they were visible.</li>
+        <li><b>Settlement</b>. Region settlement, if any.</li>
+        <li><b>Peasants.</b> Inhabitants of region.</li>
+        <li><b>Tax Rate.</b> Amount of money available to collect with TAX command. 
+          Grayed numbers is: amount of taxers in region (if any) / amount of men 
+          to collect all tax money. If amount of taxers is more than enough for 
+          region, income per taxer will come in (brackets).</li>
+        <li><b>Wages.</b> Payment for WORKing men.</li>
+        <li><b>Max Wages.</b> Amount of money for all workers. Grayed is amount 
+          of working men (if any) / amount of men to collect all money / income 
+          per man in brackets.</li>
+        <li><b>Entertainment.</b> Amount of money available to collect with entertainment. 
+          Grayed is amount of entertainers multiplied by skill level (if any) 
+          / amount to collect all money / income per level in brackets.</li>
+      </ul>
+      <p>All calculations for taxers, workers and entertainers taking into account 
+        only player's faction, because other faction's units' orders are unknown.</p>
+      <p>Then comes grid for items available to produce in the region. Double-click 
+        on this and following grids opens Item Editor. Resources without amount 
+        shown in strikeout font is advanced resources which may appear in this 
+        type of terrain, but wasn't found in the region (see <a href="#AnalyzingResources">Analyzing 
+        Resources</a>)</p>
+      <p>Next is grids for items Wanted and For Sale here. Empty Amount column 
+        in For Sale grid means &quot;unlimited&quot;. If units buys or sells items, 
+        amount will be shown here as &quot;Currently Wanted/All Wanted&quot;. 
+        For example, if a unit sells 1 sword from wanted 10, number is &quot;9/10&quot;. 
+      </p>
+      <p>Notes tab opens region notes. These notes are valuable only inside Advisor. 
+        If Map | Show Region Notes is on, notes will be shown as hints when mouse 
+        cursor is over the region on the map.</p>
+      <h3><a name="UnitInfo"></a>Unit information</h3>
+      <p>This panel shows info for unit currently selected in grid. On the top 
+        is unit's name, number, and description (line below name). Name and description 
+        may be edited right here. Description line may work in two modes, selected 
+        by button with green head. If head is in normal level, description is 
+        regular game description. If it is down, description is local and will 
+        not be shown to other players. You may assign local descriptions to any 
+        unit, including units of other players.</p>
+      <p>Then comes unit flags.</p>
+      <p>Item grid shows unit inventory. Items in this grid is sorted by item 
+        index (see Item Editor). Double-click opens Item Editor. You may give 
+        items to another units by dragging them to unit grid or discard (GIVE 
+        0) them by dragging to map (see <a href="#Give">GIVE</a>). Items bought 
+        during this turn is grayed and can't be given. Right-click opens popup 
+        menu with advanced GIVE options: for example, by selecting &quot;Give 
+        to Riding&quot; you will command target unit to accept no more items than 
+        it can carry when riding.</p>
+      <p>There is two special types of items, shown here: trade income and work 
+        income. Basically, that's money unit earns this turn.</p>
+      <ul>
+        <li><b>trade income</b> - money from TAX, PILLAGE and SELL. Counted for 
+          BUY, STUDY and mainentance.</li>
+        <li><b>work income</b> - money from ENTERTAIN and WORK. Counted for STUDY 
+          and mainentance.</li>
+      </ul>
+      <p>You can't give income money to other units, because GIVE order are processed 
+        before other ones.</p>
+      <p>Item Grid usually displays all modifications in unit's items: when you 
+        sell or give items, amount will change or item will disappear. If you 
+        wish to have amount of items as they appears in report (without any modifications), 
+        choose &quot;View | Unmodified item amounts&quot;. Unmodified amounts 
+        are grayed.</p>
+      <p>By dragging icons below Item Grid, you may issue masked GIVE orders: 
+        GIVE ALL ITEMS, GIVE ALL WEAPON/ARMOR, and GIVE ALL TRADE. &quot;Give 
+        spoils&quot; icon works slightly different: it issues one order for each 
+        &quot;spoil&quot; item. &quot;Spoils&quot; is any items except silver, 
+        men, weapons, armor, mounts, and misc combat items.</p>
+      <p>Skill grid shows unit skills. &quot;Can Study&quot; skills for mages 
+        are<font color="#999999"> grayed</font>, Combat Spell are marked with 
+        casting hand icon. Double-click on the grid opens Skill Editor; right-click 
+        shows skill context menu. Note that behavior of this menu is similar to 
+        unit's: shift-clicking Study will issue &quot;@study&quot; command.</p>
+      <p>Load tab shows unit load and capacity for various types of movement. 
+        Numbers near Wagons icon is amount of wagons used (supplied with a horse) 
+        / full amount of wagons. Then comes calculations for walking, riding, 
+        flying, and transport. If unit can move this way, numbers are following: 
+        &quot;1 (max 5)&quot;, which means: &quot;Load 1, Capacity 5&quot;. For 
+        Transport (Ship) movement, numbers are: &quot;5/15 (max 200)&quot;, which 
+        means: &quot;Unit weight in ship 5, full ship Load 15, ship Capacity 200&quot;. 
+      </p>
+      <h3><a name="ObjectInfo"></a>Object information</h3>
+      <p>This panel contains information for structure selected in Objects List. 
+        On the top is structure name, number and description (line below name); 
+        name and description may be edited right here. Then comes structure information.</p>
+      <ul>
+        <li><b>Type.</b></li>
+        <li><b>Owner. </b> First unit inside.</li>
+        <li><b>Defence. </b>For defence structures: amount of men which receives 
+          defence bonus when inside.</li>
+        <li><b>Men inside.</b></li>
+        <li><b>Size.</b> Amount of material units to build the structure.</li>
+      </ul>
+      <p>For Transports: Load is weight of men and items inside; Control is men*skill 
+        value to SAIL the ship. For example, both 15 level 1 sailors and 5 level 
+        3 sailors gives 15 Control units.</p>
+      <p>Shafts are known to have passages to another regions. You may link a 
+        shaft to destination region by pressing Link button and selecting a region 
+        on map. When Level button (or &quot;Map | Level down&quot;) pressed on 
+        a region with shaft, map will show linked region. Shafts will be automatically 
+        linked when your units are passing through and server shows their way 
+        in Events (see <a href="#AutoLink">Automatic shaft linkage</a>).</p>
+      <h3><a name="ItemsinRegion"></a>Receive Items</h3>
+      <p>By pressing F5, you may toggle on and off another item grid, containing 
+        all items in all faction units in the region, excluding selected one. 
+        You may drag items from the grid into unit's items, ant they will be given 
+        to the unit. This is useful if you want to collect spoils, load caravan 
+        etc. Items in this grid are sorted by item indexes (see Item Editor).</p>
+      <h3><a name="Grids"></a>Grids</h3>
+      <p>Advisor implements its own type of advanced grids; most cool specimen 
+        is Unit Grid. Grids has some common options, though some of them may be 
+        disabled.</p>
+      <ol>
+        <li><b>Sorting.</b> Click on column header sorts the grid by this column. 
+          Another click on sorted header changes sort order from ascending to 
+          descending. When there is equal rows in column, sorting algorythm will 
+          search other columns, from left to right. There is two types of sort 
+          for a column: string (1, 10, 2, 20) and numeric (1, 2, 10, 20). Sort 
+          type is defined in config file. </li>
+        <li><b>Filtering.</b> There is usually buttons to filter something, for 
+          example My Faction button for Unit Grid.</li>
+        <li><b>Column moving and resizing.</b> Drag column headers to set width 
+          and position of colimns.</li>
+        <li><b>Column hiding.</b> Right-click a column header to open popup menu, 
+          then deselect the columns you want to hide.</li>
+      </ol>
+      <h2>New Unit window</h2>
+      <p>See also: <a href="#FormTemplates">FORM Templates</a></p>
+      <p>When issuing FORM command from unit menu, you receive the designer window 
+        for new unit. The window allows to configure men, silver and flags for 
+        the unit.</p>
+      <p><b>Flags</b> are copied from creator unit. You may set Delayed Guard 
+        and Autotax flags to make unit start taxing from next turn (useful for 
+        newly-created units studying Combat). Guard and Avoid flags are exclusive.</p>
+      <p><b>Men</b> box is intended to provide men for new unit; you may choose 
+        to buy men or take some from other unit in region. When Buy checkbox is 
+        checked, Guard and Autotax flags unchecks, because usually newly-bought 
+        men can't tax. You may check them again, if you want.</p>
+      <p><b>Payment Reqired</b> box provides calculator for unit's funds. &quot;Recruit 
+        fee&quot; flag adds amount of money to buy men; &quot;Study&quot; - cost 
+        of skill studying; &quot;Mainentance&quot; - unit mainentance for given 
+        period. If Autotax flag checked, 50 silver will be subtracted from total 
+        sum for each man-month. Delayed Autotax subtracts same value, except for 
+        first month.</p>
+      <p><b>Silver</b> box allows to take silver from other unit in region or 
+        claim.</p>
+      <p>You may create many identical units in one shot by specifying number 
+        of copies. This allows, for example, to create scouts for all directions.</p>
+      <h2><a name="ItemEditor"></a>Item Editor</h2>
+      <p>See also: <a href="#Rulesets">Editing Rulesets</a></p>
+      <p>This window allows to change item settings. Usually you are not expected 
+        to set this up manually, because Advisor reads almost anything from item 
+        reports. So, if you want to set up items, press &quot;Request All&quot; 
+        button and wait next report with item reports. NB: if you are new player, 
+        don't bother, all really essential information will be sent automatically 
+        when you'll need it.</p>
+      <h3><a name="ItemIndexes"></a>Indexes</h3>
+      <p>All items has indexes, or numbers. These indexes used for two purposes: 
+        first is sorting items in grids (for example unit's items), and second 
+        is preference of combat equipment for Soldiers in Unit, Battle Simulator 
+        and army exchanges. Items with lower indexes are usually considered better. 
+        Rulesets supplied with Advisor already has all weapons and armors ordered 
+        in correct way; <b>do not</b> change this order, or all battle features 
+        will work incorrectly. Note that absolute position is not important: for 
+        example, plate armor may be #10 or #100, but it must be <b>before</b> 
+        chain armor<b>. </b></p>
+      <h3><b><a name="ItemFlags"></a>Flags</b></h3>
+      <p>Type of an item may be set by combo and some checkboxes. Types in combo 
+        are self-explaining; note that <b>Wagon </b>type must be set manually 
+        for wagons. Here is the explanation of extra flags.</p>
+      <ul>
+        <li><b>Tool</b>. Item are raising production of other items.</li>
+        <li><b>Can't be given</b>. Just that.</li>
+        <li><b>Resource</b>. Item doesn't needs raw materials to produce and may 
+          be produced in specific types of terrain.</li>
+        <li><b>Advanced</b>. This is the resource you can't see and produce with 
+          lower skill levels, or the items made from advanced resources (mithril 
+          swords are Advanced).</li>
+        <li><b>Misc combat item</b>. This item has special combat ability (fire 
+          attack, shield etc).</li>
+      </ul>
+      <h3><a name="ItemClasses"></a>Item Classes</h3>
+      <p>Item classes (or masks) may be used in GIVE command (i.e. GIVE ALL TRADE) 
+        and in Needs. Advisor's understanding of these classes is slightly different 
+        than server's and always based on item flags.</p>
+      <table border="1" cellspacing="0" cellpadding="4" align="center">
+        <tr> 
+          <td width="73"><b>items</b></td>
+          <td width="307">GIVE: all items. Needs: all items except men and silver.</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>weapons</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>armor</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>mounts</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>men</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>normal</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>advanced</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>monsters</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>magic</b></td>
+          <td width="307">Misc combat items</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>battle</b></td>
+          <td width="307">Misc combat items</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>special</b></td>
+          <td width="307">Misc combat items</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>tools</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>food</b></td>
+          <td width="307">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>spoils</b></td>
+          <td width="307">For Needs only: all items, except silver, men, weapons, 
+            armor, mounts, and misc combat items.</td>
+        </tr>
+        <tr> 
+          <td width="73"><b>materials</b></td>
+          <td width="307">For Needs only: all pure Resources and Advanced Resources 
+            (mounts is not pure Resources)</td>
+        </tr>
+      </table>
+      <h3><a name="BattleSim"></a>Battle Viewer/Simulator</h3>
+      <p>Battle Viewer is the graphical window which shows you battle disposition. 
+        In the left half of window you see two boxes for army leaders (tactics) 
+        and the armies themselves. Units are usually shown in appropriate armor, 
+        wielding weapons. Small number near unit is the count of men/monsters 
+        in. When you are moving mouse over unit or selecting it by clicking, unit 
+        details are shown on &quot;Unit&quot; tab. To play animation for battle 
+        actions, press Play button.</p>
+      <p>Battle Simulator is the tool which helps you to predict results of a 
+        battle. You may run it on already concluded battle or create your own 
+        situation. When you pressing &quot;Calculate damage&quot; button, Simulator 
+        runs 100 battles, and records winners and loses. Then it shows percent 
+        of victories for each side. Also, small percent numbers appears near damaged 
+        units; for one-man unit they may be considered as possibility to lose 
+        this man; for many-man units - as percentage of men which will be most 
+        likely lost. You may also view animation for one simulated battle; press 
+        Play in simulation mode to do it.</p>
+      <p>To run properly, Simulator requires correct settings for weapons, armor 
+        and mounts used by combatants. Basically, it will rely on numbers similar 
+        to shown in &quot;Soldiers in Unit&quot; window. Proper setup for special 
+        abilities and monsters are extremely important, because they may change 
+        battle dramatically.</p>
+      <h2><a name="Options"></a>Options</h2>
+      <h3><a name="CurrentGame"></a>Current Game</h3>
+      <p>This tab contains settings for opened game. All other are global for 
+        all games.</p>
+      <p><b>Details</b></p>
+      <ul>
+        <li><b>E-Mail</b> settings used for Send Order command and should contain 
+          headers for your order messages. If &quot;Send Immediately&quot; is 
+          not set, email client will open orders in message editor, so you may 
+          review it and send manually.</li>
+        <li><b>Other game settings</b> used to tune Advisor for specific game. 
+          You should review rules of your game server to set these options correctly. 
+          One special option is <b>Code modifications</b>. This select list enables 
+          hard-coded features specific to some supported modifications of Atlantis.</li>
+      </ul>
+      <p><b>Faction Points</b> </p>
+      <ul>
+        <li> sequence of war and trade regions and mages per amount of FP. See 
+          game rules for Faction Points table of your game.</li>
+      </ul>
+      <p><b>Map settings</b></p>
+      <ul>
+        <li><b>Map dimensions</b> is the coordinates of last south-eastern region 
+          on the map. See <a href="#Map">Map</a> for further explanations.</li>
+        <li><b>Bad Seasons</b> box allows Advisor to calculate weather in all 
+          surface regions. To enable this feature, set <b>Guess Weather</b> flag 
+          and define map size for surface. You should enable it as soon as possible, 
+          because calculations of move points rely on weather.</li>
+        <li><b>Show winter terrains</b> is another cool map feature: region looks 
+          different in summer and winter.</li>
+      </ul>
+      <h3><a name="Environment"></a>Environment</h3>
+      <p><b>Main Window</b></p>
+      <ul>
+        <li><b>Custom string</b> is contents of custom column in <a href="#Map">Unit 
+          Grid</a>.</li>
+        <li><b> Long Item lists</b> makes columns for Men and Horses look like 
+          &quot;10 sea elves&quot; instead of &quot;10&quot;. </li>
+        <li><b>Show Name if no Local Description given </b>box commands to fill 
+          empty entries in Local Description column with unit names. Also, all 
+          unit marks will be drawn in Local Description column. Thus, you can 
+          use it instead of Unit column and hide actual unit names from enemies.</li>
+        <li><b>Show army colors</b>. When this box is checked, army unit names 
+          are drawn in army colors.</li>
+      </ul>
+      <ul>
+        <li><b>Show Wrong Avatars.</b> Registered version may include many avatar 
+          packs. If someone exported avatar for a unit, and that avatar's pack 
+          is not installed in your Advisor, with this option it will be shown 
+          as special error image. </li>
+        <li><b>Show Battle Images as Avatars</b>. When this flag is on, images 
+          from Battle Viewer will be drawn in place of avatars.</li>
+        <li><b>Show Turn Events on game startup</b> simply shows Turn Events on 
+          game startup. </li>
+        <li><b>Compact orders before save/send.</b> This option compacts orders 
+          before saving, copying to clipboard or sending to email client, to reduce 
+          size of order message. All comments except repeating &quot;@;&quot; 
+          will be removed, full item and skill names will be replaced with short 
+          names. If <b>Also compact repeating orders</b> flag not checked, full 
+          names in repeating orders will remain intact.</li>
+        <li><b>Overwrite month-long orders.</b> When this option is set, monthlong 
+          order issued from unit popup menu will remove all previous monthlong 
+          orders. For example, if unit has MOVE order and we are issuing WORK, 
+          we will have both MOVE and WORK orders without this option and only 
+          WORK with it.</li>
+        <li><b>Auto-set Needs. </b>This flag enables automatical declaration of 
+          <a href="#Needs">Needs</a> for each PRODUCE, BUILD and STUDY order issued 
+          from environment.</li>
+        <li><b>Redirect &quot;new&quot; orders.</b> See description in &quot;<a href="#RedirNew">Redirect 
+          ...</a>&quot; section.</li>
+        <li><b>Custom Fog.</b> When &quot;Map | Fog Type | Custom&quot; selected, 
+          Advisor will shadow regions older than certain amount of months. This 
+          amount may be set here.</li>
+      </ul>
+      <ul>
+        <li><b>Default faction colors</b> is the colors to show factions with 
+          defined attitude. You may assign special colors to factions in Factions 
+          window. </li>
+      </ul>
+      <p><b>Bookmarks</b></p>
+      <p>This tab allows to remove bookmarks.</p>
+      <p><b>Shortcuts</b></p>
+      <p>In this tab, you may define keyboard shortcuts (hot keys) for unit menu 
+        and main menu items. To define shortcut, select an order and press desired 
+        key combination. </p>
+      <p>Shift key has special meaning. Normally, when you selecting an order 
+        from menu with Shift pressed, it appears with @. If the order is invoked 
+        by shortcut key, Shift has same effect: Shift+Key produces @-order. But 
+        what if you always issuing this order with @ (for example, @work)? You 
+        may want to add it with single key, not Shift+Key combination. To do this, 
+        press Shift when defining shortcut (for bold orders). </p>
+      <p class="section">Order Tools</p>
+      <h2><a name="OrderTools"></a>Main Window tricks</h2>
+      <p>Advisor offers special ways to issue some common orders - smarter than 
+        just entering them manually or adding one-by-one from unit menu. Usually 
+        these methods allows to issue a bunch of orders in couple clicks.</p>
+      <h3><a name="Movement"></a>Movement</h3>
+      <p>Movement mode starts when you issuing MOVE, SAIL or ADVANCE command from 
+        unit's context menu. In this mode, you can click the regions on map which 
+        you would like the unit to move through. Red frame shows regions available 
+        for unit; number in unit's current region - remaining movement points; 
+        and arrows shows the regions unit can enter right now.</p>
+      <p>If men in unit can swim, it will MOVE over water. Otherwise walking units 
+        can't leave land. Ships can SAIL in water and coastal regions.</p>
+      <p>If unit was inside structure when started MOVE, it will MOVE OUT first.</p>
+      <p>While moving, you can enter objects in region. To do it, click an object 
+        in left panel. If you clicked a shaft, unit will MOVE IN. If the shaft 
+        was linked to another region (see <a href="#ObjectInfo">Object information</a>), 
+        map will show linked region and unit will be able to continue movement. 
+        Otherwise, movement will be ended.</p>
+      <p>To work properly, movement mode requires following:</p>
+      <ol>
+        <li>Men and mounts in unit are properly defined in Item Editor (Weight 
+          and Movement tab are particulary important);</li>
+        <li>Map size is defined manually for surface and Guess Weather mode is 
+          on;</li>
+        <li>Explored shafts are linked.</li>
+      </ol>
+      <h3><a name="Maintenance"></a>Maintenance</h3>
+      <p>Advisor calculates maintenance (upkeep) for moving units 
+        by target region. Consider unit without silver. It will 
+        automatically take silver from units in same region to 
+        avoid starvation. When unit moving, it will take money 
+        from units in target region. </p>
+      <p>To view units arriving in selected region, select &quot;View 
+        | Arriving units&quot;. This option is useful when you 
+        receive Advisor warning &quot;No money for maintenance&quot;, 
+        which points to empty region, being target of one or more 
+        units. </p>
+      <h3><a name="Give"></a>Drag-n-drop GIVE</h3>
+      <p>GIVE interface based on Item Grid of <a href="#UnitInfo">Unit Info Panel</a>. 
+        You may GIVE items by dragging them from item grid onto target unit in 
+        unit grid or discard (GIVE 0) them by dragging to map. You may also toggle 
+        <a href="#ItemsInRegion">Receive Items</a> grid on and drag items from 
+        there to Item Grid.</p>
+      <p>Hold Shift when relesing item to issue @GIVE order. Hold Alt to issue 
+        GIVE ALL order. Both keys results in @GIVE ALL.</p>
+      <p>&quot;Give:&quot; box below item grid shows amount to give. By dragging 
+        icons below the grid, you issuing &quot;GIVE ALL ITEMS&quot;, &quot;GIVE 
+        ALL WEAPON, ARMOR&quot; and &quot;GIVE ALL TRADE&quot; orders, respectively. 
+      </p>
+      <p>Right-clicking on grid pops up menu with advanced GIVE options. For example, 
+        when you selecting &quot;Give to Riding&quot; option, target unit will 
+        accept no more given items thain it can carry when riding.</p>
+      <p>Note that GIVE orders will take into account position of items before 
+        any turn processing. Consider example. Unit A has 10 swords and gives 
+        5 swords to unit B. Then unit B gives 2 swords to unit C. </p>
+      <table width="300" border="0" cellspacing="0" cellpadding="4" align="center">
+        <tr> 
+          <td>Unit A</td>
+          <td>10 swords</td>
+          <td>give B 5 swords</td>
+        </tr>
+        <tr> 
+          <td>Unit B</td>
+          <td>&nbsp;</td>
+          <td>give C 2 swords</td>
+        </tr>
+        <tr> 
+          <td>Unit C</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <p>Normally, this sequence will throw an error, because B doesn't have a 
+        swords when processing starts. But if you issued the orders with drag-and-drop, 
+        they will actually look like this:</p>
+      <table width="300" border="0" cellspacing="0" cellpadding="4" align="center">
+        <tr> 
+          <td>Unit A</td>
+          <td>10 swords</td>
+          <td>give B 3 swords<br>
+            give C 2 swords </td>
+        </tr>
+        <tr> 
+          <td>Unit B</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr> 
+          <td>Unit C</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <h3></h3>
+      <h3><a name="Armies"></a>Armies</h3>
+      <p>Army is a group of units which should move together - in other words, 
+        receive similar MOVE orders. </p>
+      <ul>
+        <li>To make an army, open &quot;View | Armies&quot; and click +.</li>
+        <li>To command units to join an army, choose &quot;Army 
+          | army name&quot; in unit popup menu.</li>
+        <li>To move all army units in region together, choose 
+          &quot;Army | Move Army&quot; in popup menu of any army 
+          unit. Army will move with speed of slowest unit.</li>
+      </ul>
+      <h3><a name="FormTemplates"></a>FORM Templates</h3>
+      <p>If you often create some type of units, for example scouts or taxing 
+        squads, you may want to write template for this units and then create 
+        them in one click. To do this, set up new unit as usual, and then press 
+        &quot;Save as Template&quot; button near unit name in <a href="#NewUnit">New 
+        Unit window</a>. You will create template with name given to this unit. 
+        Now you may open &quot;Form&quot; submenu in Unit Menu (right below Form 
+        New item) and choose saved template. </p>
+      <p>Templates could be modified in Options | Environment. Note that template 
+        contains some wildcard strings:</p>
+      <ul>
+        <li>%N - number of new unit</li>
+        <li>%PEASANTS - name of peasants of current region</li>
+        <li>%RECRUITFEE(amount) - cost of men bought * amount</li>
+      </ul>
+      <h2><a name="AutoOrders"></a>Automatic orders</h2>
+      <p>Instead of <a href="scripts.html">OrderScript</a>, Advisor has some built-in 
+        features to automatically perform some common tasks. These features has 
+        no support on server, they are inner matter of Advisor.</p>
+      <h3><a name="Needs"></a>Needs</h3>
+      <p>Each unit in your faction needs a set of items to complete its tasks. 
+        STUDYing units needs silver, PRODUCEing units needs tools and raw materials, 
+        armies needs weapons and horses. Normally you are providing these items 
+        manually, by issuing multiple GIVE commands. Advisor allows you to define 
+        units' needs; these units will automatically request needed items from 
+        the neighbours.</p>
+      <p>Technically, to declare needs, you should add special &quot;@;needs&quot; 
+        comment to unit's orders. You may do it from wizard: select &quot;Specials 
+        | Declare Needs&quot; from unit popup menu. Also, needs may be automatically 
+        declared with each monthlong order; to enable this feature, set the flag 
+        in &quot;Options | Environment&quot;. </p>
+      <p><b>Format of the declaration</b></p>
+      <p><b><font face="Courier New, Courier, mono" color="#999999">@;needs</font></b><font face="Courier New, Courier, mono" color="#999999"> 
+        amount [usable] [unneeded] items1[, amount [usable] [unneeded] items2, 
+        ...][, <b>priority</b> N]</font></p>
+      <p><font face="Courier New, Courier, mono" color="#999999"><b>@;needs equipment</b>[, 
+        <b>priority</b> N]</font></p>
+      <p><font face="Courier New, Courier, mono" color="#999999"><b>@;needs nogive</b></font></p>
+      <p></p>
+      <p><b>amount</b> is number of items (like 10), &quot;all&quot;, or &quot;enough&quot; 
+        (equal to amount of men in unit).</p>
+      <p><b>usable</b> means unit will need only items it can use (units without 
+        Crossbow skill will not consider crossbows Usable).</p>
+      <p><b>unneeded</b> means unit will take only unneeded items. Note: if unit 
+        has no declared needs, it needs all its items (with priority 1). But if 
+        unit declared needs to some items, all other items will be considered 
+        Unneeded.</p>
+      <p><b>items</b> may be name of item (like &quot;silver&quot;), or item class 
+        - same that in GIVE command, with one exception: &quot;items&quot; will 
+        not select neither men nor silver. Normally, you shouldn't declare men 
+        as needs. Needs has two special item classes: Spoils and Materials (see 
+        <a href="#ItemClasses">item classes</a>).</p>
+      <p><b>priority</b> defines strict order for units to take specific items. 
+        If no priority given, priority is 0. Higher priority takes first.</p>
+      <p>&quot;@;needs <b>equipment</b>&quot;, is equal to &quot;@;needs enough 
+        usable weapons, enough armor, enough mounts&quot;.</p>
+      <p>&quot;@;needs <b>nogive</b>&quot; means unit will not give anything to 
+        anyone (automatically). It still may take items, if other needs declared.</p>
+      <p>Examples: </p>
+      <table border="0" cellspacing="0" cellpadding="4">
+        <tr> 
+          <td nowrap>weaponsmith</td>
+          <td>@;needs 3 iron, enough hammers</td>
+        </tr>
+        <tr> 
+          <td nowrap>student</td>
+          <td>@;needs 10 silver</td>
+        </tr>
+        <tr> 
+          <td nowrap>local storage</td>
+          <td>@;needs all unneeded items</td>
+        </tr>
+        <tr> 
+          <td nowrap>special forces</td>
+          <td>@;needs equipment, all unneeded silver, priority 1</td>
+        </tr>
+      </table>
+      <p><b>What if unit has choice?</b></p>
+      <p>If unit declared, say, &quot;@;needs enough weapons&quot;, and has a 
+        choice between crossbows and swords, it will prefer (in that order):</p>
+      <ol>
+        <li>Weapon it skilled with (crossbow, if has Crossbow skill)</li>
+        <li>Ranged weapon, if unit is Behind.</li>
+        <li>Item with bigger total bonus for unit's skills (combat, riding etc; 
+          Behind units will prefer armor with good defence from armor-piercing).</li>
+        <li>Mount with greater capacity.</li>
+      </ol>
+      <p><b>What if two units wants same item?</b></p>
+      <p>Generally, unit with bigger bonus from the item will take first. If units 
+        receive equal bonus, older &quot;veteran&quot; with higher skill levels 
+        will take first. </p>
+      <p><b>When Needs modify orders?</b></p>
+      <p>Needs will not be redistributed on each order processing, because that's 
+        time-consuming process. They will be actually redistributed:</p>
+      <ul>
+        <li>On game startup (when new turn loaded and no saved order file found)</li>
+        <li>When you declaring needs from environment, either by &quot;Declare 
+          Needs&quot;, &quot;Add to Needs&quot; or by entering monthlong order 
+          in auto-set Needs mode</li>
+        <li> When &quot;Specials | Distribute Needs&quot; selected from unit popup</li>
+      </ul>
+      <h3><a name="Routes"></a>Routes</h3>
+      <p>Route is the path unit should constantly follow. Best example is a trade 
+        caravan: it may walk 20 hexes north, then 5 hexes south-east, return back, 
+        and then repeat the route. With this feature, caravan will cover optimal 
+        distances each turn, without any manual kicks.</p>
+      <p>To set a route for unit, you should add &quot;@;route&quot; comment to 
+        its orders. You may do it manually or select &quot;Specials | Declare 
+        Route&quot; from unit menu. In latter case, define route on map like normal 
+        movement. Hold Ctrl to command unit to stop in clicked region; double-click 
+        to finish route. Ctrl+double-click will finish route and make it one-way.</p>
+      <p><b>Format of the declaration</b></p>
+      <p><b><font face="Courier New, Courier, mono" color="#999999">@;route</font></b><font face="Courier New, Courier, mono" color="#999999"> 
+        [<b>oneway</b>] [move_order] (region_coords) path[: position]</font></p>
+      <p><b>oneway</b> means this path sholdn't be repeated. If this token present, 
+        route will be removed when unit found himself in final region. Without 
+        it, unit will repeat route, if it begins and ends in same region.</p>
+      <p><b>move_order</b> should be one of: move, advance, or sail.</p>
+      <p><b>region_coords</b> defines starting region, like it appears in report: 
+        &quot;1,1&quot; for surface or &quot;1,1,underworld&quot; for underworld.</p>
+      <p><b>path</b> is sequence of directions, like for MOVE command. Directions 
+        should be separated with spaces; if you'll insert comma after direction, 
+        unit will stop after this move, even if it can move further.</p>
+      <p><b>position</b> is the automatically maintained number of current move; 
+        normally you shouldn't change it.</p>
+      <p><b>Examples:</b></p>
+      <p><font face="Courier New, Courier, mono" color="#999999">@;route (10,10) 
+        N N NE, SW S S</font></p>
+      <p>Move three regions and stop there (to get some goods). In the next turn, 
+        move back and stop in starting region. Then repeat.</p>
+      <p><font face="Courier New, Courier, mono" color="#999999">@;route sail 
+        (10,10) N N, S S: 1</font></p>
+      <p>Sail two regions north, stop there, then return and repeat. Ship already 
+        made one move north and now should make one more move to reach &quot;comma 
+        region&quot;.</p>
+      <p><font face="Courier New, Courier, mono" color="#999999">@;route oneway 
+        (5,5,underworld) S 1 IN N N</font></p>
+      <p>Move through shaft, walk a little, and stay there.</p>
+      <p><b>When Routes modify orders?</b></p>
+      <p>Routes will not be ran on each order processing. They will be actually 
+        processed:</p>
+      <ul>
+        <li>On game startup (when new turn loaded and no saved order file found)</li>
+        <li>When you declaring route by selecting &quot;Specials | Declare Route&quot; 
+          (only selected unit will be processed)</li>
+        <li>When &quot;Specials | Run Route&quot; selected from unit popup.</li>
+      </ul>
+      <h3><a name="Caravan"></a>Setting up a Caravan</h3>
+      <p>Here is an example of automatic trade caravan between town and production 
+        region two hexes north. </p>
+      <ul>
+        <li>In Town we have: taxing Guards and Smiths producing swords. </li>
+        <li>In Mines we have: Miners digging iron and Ranchers breeding livestock.</li>
+      </ul>
+      <p>We want to regularly move some money from Guards to Mines to support 
+        workers, and bring back their production. Guards should keep all goods, 
+        sell required amount of livestock and give to Smiths required amount of 
+        iron to maintain optimal production ratio.</p>
+      <p>So, let's declare needs and set orders for these units:</p>
+      <table width="500" border="0" cellspacing="0" cellpadding="4">
+        <tr> 
+          <td width="59" valign="top">Guards</td>
+          <td width="390"> <b>@;needs</b> all uneeded livestock, all unneeded 
+            iron, priority 1<br>
+            <b>@;needs</b> 5000 silver<br>
+            @sell all livestock<br>
+            @tax </td>
+        </tr>
+        <tr> 
+          <td width="59" valign="top">Smith</td>
+          <td width="390"><b>@;needs</b> 1 hammer, 3 iron<br>
+            @produce swords</td>
+        </tr>
+        <tr> 
+          <td width="59" valign="top">Miners</td>
+          <td width="390"><b>@;needs</b> enough picks, all silver<br>
+            @produce iron</td>
+        </tr>
+        <tr> 
+          <td width="59" valign="top">Ranchers</td>
+          <td width="390"><b>@;needs</b> enough lassoes, all silver<br>
+            @produce livestock</td>
+        </tr>
+      </table>
+      <p>Now, we'll create new unit - Caravan. We'll set circular route to move 
+        from town to mines, stop, exchange goods, and then go back. </p>
+      <table width="500" border="0" cellspacing="0" cellpadding="4">
+        <tr> 
+          <td width="65" valign="top">Caravan</td>
+          <td width="419"> 
+            <p><b>@;route</b> (10,10) N N, S S<br>
+              <b>@;needs</b> 1000 unneeded silver, all unneeded iron, all unneeded 
+              livestock <br>
+              <b>@;needs</b> 10 horses, 50 silver, priority 1</p>
+          </td>
+        </tr>
+      </table>
+      <p>So, Caravan will:</p>
+      <ol>
+        <li>Exchange silver. In Town, Guards declared needs to 5000 silver, all 
+          other silver they have is unneeded. So Caravan will take up to 1000 
+          silver to pay workers. In Mines, all silver is needed, so either Miners 
+          or Ranchers will take money from Caravan. Note that Caravan also has 
+          50 silver as highly needed - that's its own maintenance fee, noone will 
+          take it.</li>
+        <li>Take unneeded items from workers. They needs only silver and tools, 
+          all produced goods are unneeded. In Town, Guards needs same items, but 
+          with higher priority, so they'll take all. Smith needs 3 iron each turn, 
+          so it'll take it from Guards when necessary.</li>
+      </ol>
+      <h3><a name="RedirNew"></a>Redirecting &quot;new&quot; orders</h3>
+      <p>When you creating new unit, you don't know in advance its real number 
+        and must use alias, like &quot;new 1&quot;. The problem is, if you want 
+        to teach the unit more than one turn (or do something like this), you 
+        must correct the TEACH order in next turn after creation, when unit receives 
+        real number. Advisor can handle this automatically. To do it, &quot;@;new 
+        &lt;number&gt;&quot; token will be supplied to each newly-created unit. 
+        In next turn, Advisor will look for these tokens and correct orders of 
+        other units according to token owners' real numbers. Then tokens will 
+        be removed.</p>
+      <p>To enable this mode, set &quot;Redirect &quot;new&quot; orders&quot; 
+        in Options.</p>
+      <p class="section">Turn Analyzers</p>
+      <h2>Turn Analyzers</h2>
+      <h3><a name="Tracking"></a>Unit tracking</h3>
+      <p>Advisor keeps track of all units met in game by their numbers. For each 
+        unit, it records its faction and magical talent.</p>
+      <p>Faction recording works in following way. You have observer in region, 
+        and see unit from Some Faction. In next turn, observer moves out, and 
+        you see only unit, but not faction. Advisor will show the recorded faction 
+        for you, but it will be marked with <b>?</b>, and whole unit row will 
+        be shown in colors of unknown faction.</p>
+      <p>Also, Advisor will attempt to record and show unit's faction if it was 
+        revealed in battle.</p>
+      <p>Unit will be considered mage, if:</p>
+      <ul>
+        <li>It's your unit, and it knows some magic skills</li>
+        <li>It is one-leader unit of other faction, <b>and:</b> 
+          <ol>
+            <li>Your mages spotted monthlong casts from this unit (they appeared 
+              in turn events); or</li>
+            <li>It was once met in battle, casted something, and this cast seems 
+              to wasn't produced by controlled monsters or battle items. To filter 
+              casts from battle items (staves etc), mark them as Magic in Item 
+              Editor and supply text of spell produced.</li>
+          </ol>
+        </li>
+      </ul>
+      <p>Mages are marked with mage head near unit name.</p>
+      <h3><a name="AnalyzingResources"></a>Analyzing Resources</h3>
+      <p>Consider example. You have expert miner in mountain region, and he is 
+        not found a mithril. Now you know that this region surely not contain 
+        a mithril. Such inexistant resources are remembered in Advisor and shown 
+        in strikeout font in Products on Region information. This analysis requires 
+        following conditions:</p>
+      <ul>
+        <li>The terrain potentially may contain the resource (this may be set 
+          up in Terrain Editor);</li>
+        <li>Resource is marked as Advanced Resource and has production skill defined;</li>
+        <li>Units with the skill are present in region.</li>
+      </ul>
+      <p>If your explorers found in region some unexpected advanced resource, 
+        it will be included in list for that terrain.</p>
+      <h3><a name="SpyReports"></a>Spy Reports</h3>
+      <p>This window are available at Tools. Feature allows you to view activity 
+        of other factions on visible territories. It requires two or more turns 
+        loaded at same time. Basically, Advisor will try to find all units visible 
+        on current turn in previous turns and compare previous unit state with 
+        current one. So, you may spot appeared and disappeared (either moving 
+        or killed in battle) units, changes in unit parameters and inventory. 
+      </p>
+      <p>Last type if information - &quot;economy&quot; - is special. That's not 
+        direct unit events, but rather statistical calculations for regions. For 
+        example, if you have 10 level 1 entertainers in region with Entertainment 
+        Available $200, you expect them to collect exactly $200. And if you got 
+        in events &quot;Earns 180 silver entertaining...&quot;, this means that 
+        someone else is entertaining in region. Advisor will deduct approximate 
+        skill of unknown labourers, in our example that's (200 / 180 * (200 - 
+        180)) / 20 = level 1. Note that this feature works only in overloaded 
+        economy, when you get less than expected.</p>
+      <p>Here is the explanation for tool buttons.</p>
+      <ul>
+        <li>First row of buttons filters information by type.</li>
+        <li><b>Selected Region</b> shows info from selected region only.</li>
+        <li><b>Selected Unit</b> shows info from selected unit, if that was unit 
+          of non-player faction. You may initialize this mode by selecting &quot;Spy 
+          Report&quot; from unit menu.</li>
+        <li><b>All loaded turns</b> performs compare not only for last turn, but 
+          for all turns currently loaded.</li>
+        <li><b>Faction box</b> filters events by faction.</li>
+      </ul>
+      <p class="section">Features</p>
+      <h2><a name="Features"></a>Features</h2>
+      <h3><a name="AutoLink"></a>Automatic shaft linkage</h3>
+      <p>Shafts leading from one level to another, so there is no way to calculate 
+        the region shaft leads to. So, target region will be recovered only when 
+        scout moved through shaft. Advisor will spot this movement from scout's 
+        Events and automatically record target region for the shaft. Explored 
+        shaft otherwise called &quot;Linked&quot;. You may manually link a shaft 
+        from Object info panel.</p>
+      <p>If both source and target regions (the region scout moved from, and the 
+        region it moved to) has one shaft each, both these shafts will be linked: 
+        shaft from source region will lead to target region, and vice versa.</p>
+      <h3><a name="SendOrder"></a>Using Send Order</h3>
+      <p>Send Order command available in registered version and transfers orders 
+        straight to your email client. This option relies on Simple MAPI interface. 
+        Warning: it's still not too reliable and may not work at all. If you have 
+        a problems, try following:</p>
+      <ol>
+        <li>Make sure that your email slient is registered in Windows as default 
+          Simple MAPI handler.</li>
+        <li>Set a default account in your mail client. If you are using The Bat, 
+          select Properties of an account and set "This account is default for 
+          "mailto:" URLs" flag. </li>
+      </ol>
+      <h2></h2>
+      <h3><a name="ExportMap"></a>Exporting and Importing Map</h3>
+      <p>Export Map command available in File menu. It exports 
+        a regions in text file, similar to region section in your 
+        reports. There is two options: export whole map and export 
+        only one region. In second case, you may then add another 
+        regions to export file by selecting them on map and choosing 
+        &quot;File | Add Current Region&quot;. Regions will be 
+        exported with same options as first one. Shaft links will 
+        be exported as comments.</p>
+      <p>You can read exported map from your ally by selecting 
+        Import Map in File menu. </p>
+      <p>Advisor's exported map format is typically compatible 
+        with one used in EAP AtlaClient. Users of other clients 
+        may copy Advisor's map into clipboard and paste it into 
+        region report for their current turn, then parse report 
+        as usual.</p>
+      <h3><a name="ExportMap"></a>Exporting and Importing Unit 
+        Skills </h3>
+      <p>Export/Import skills commands available in File menu. 
+        This option helps you to establish teaching between ally 
+        factions. For example, you have some mages and want an 
+        ally to teach them. You exporting skills of these mages 
+        to clipboard and sending them to ally. They'll look like 
+        this:</p>
+      <pre>!732:240
+PATT 30, SPIR 30, GATE 30, EART 30, WOLF 30
+@study &quot;wolf lore&quot;</pre>
+      <p>Then he imports this data to his client and receives 
+        full information about your mages' skills and current 
+        study orders. He may also send you similar info about 
+        his teacher.</p>
+      <p>This format is compatible with EAP Atlaclient &quot;Export 
+        Mages&quot; feature.</p>
+      <h3></h3>
+      <h3><a name="EditIcons"></a>Custom Graphics</h3>
+      <p>Many of Advisor graphics may be customized. All custom graphics placed 
+        in Advisor/Images folder and being loaded on program startup. You may 
+        freely edit the files or add new. Advisor main pack comes with basic set 
+        of graphics; if you want many more, download latest Image Pack.</p>
+      <p>The subfolders of Images are:</p>
+      <ul>
+        <li><b>Icons.</b> Item and Object icons. 16x16 bmp files named after short 
+          names of items (viki.bmp) or group names of objects (galleon.bmp). </li>
+        <li><b>Extras.</b> Small images of races for map &quot;Status Icon | Peasants&quot; 
+          mode. 10x10 bmp files named after short names of items (viki.bmp).</li>
+        <li><b>Terrain.</b> Terrain images to use on map. 49x43 bmp files. This 
+          folder requires terrain.ini file in following format:<br>
+          <br>
+          <font face="Courier New, Courier, mono">terrain [weather] = filename.bmp</font><br>
+          Example: <font face="Courier New, Courier, mono">plain winter=plain_winter.bmp</font><br>
+          <br>
+          If there is no [weather] section, the image will be used for all weathers. 
+          If a terrain also has line with [weather] section, it will be shown 
+          differently on selected weather.</li>
+        <li><b>Battle.</b> Unit images for battle viewer. 32x32 bmp files. This 
+          folder requires battle.ini in following format:<br>
+          <br>
+          <font face="Courier New, Courier, mono">[ITEMS] [skills] [mage, default] 
+          = filename.bmp[+mask.bmp] [filename2.bmp] [.style]</font><br>
+          <br>
+          Mask is optional image to draw faction color on units (must be monochrome 
+          black &amp; white bmp).<br>
+          Tokens in CAPITAL are item short names, like VIKI. Tokens in regular 
+          letters are skills, like &quot;combat&quot;, &quot;tactics&quot;. &quot;Mage&quot; 
+          is special token, meaning unit casted something in the battle. &quot;Default&quot; 
+          line used as default. So, line &quot;VIKI SWOR combat&quot; will provide 
+          image for trained vikings with swords. Unit will take image from first 
+          matching definition, even if there is other matches.<br>
+          If there is multiple filenames, pictures will be drawn over each other, 
+          last will appear on top. For example, you may draw man, then armor, 
+          then weapon.<br>
+          Instead of name, you may define style and then include another section 
+          named after style, containing additional definitions. First matching 
+          definition from style section will be supplied instead of style entry. 
+          For example:<br>
+          <br>
+          <font face="Courier New, Courier, mono">VIKI=peasant.bmp .def_armor<br>
+          <br>
+          [.def_armor]<br>
+          PARM=def_parm.bmp<br>
+          CARM=def_carm.bmp<br>
+          </font><br>
+          will draw peasant.bmp and then draw one of armor images over it, if 
+          armor was found in unit.<br>
+        </li>
+      </ul>
+      <h3><a name="EditItems"></a>Editing Items, Objects and Skills</h3>
+      <p>Advisor has internal editors for these things. But often there is no 
+        need to enter data manually, because it will be parsed from &quot;Item 
+        reports&quot;, &quot;Skill reports&quot; and &quot;Object reports&quot; 
+        sections of report file. Simpliest way to set up an item is press &quot;Request 
+        info&quot; button or issue SHOW ITEM command and then wait next turn report 
+        with item information. Usually server automatically sends you reports 
+        for items you really need.</p>
+      <p>This feature, although, is highly relies on report format, which may 
+        differ on different servers. There is many versions of Atlantis now, highly 
+        differ in item (skill, object) reports. So if Advisor can't parse data 
+        automatically, you are baned to set it up manually.</p>
+      <h3><a name="AllyReports"></a>Active Faction and Ally Reports</h3>
+      <p>Advisor allows only one controlled faction in one game. It will remember 
+        main faction from first readed report in the game and then always use 
+        it as Active Faction. But you may also load reports from other factions 
+        (added in Game Manager, with your reports). Advisor will treat them as 
+        Ally Reports. You will be able to see all regions, units and battles from 
+        Ally Reports. Units from Ally Reports will be marked in unit grid and 
+        shown with full details, but you can't give orders to them.</p>
+      <h3><a name="LocalGames"></a>Local Games</h3>
+      <p>You may use Atlantis server engine locally to run your own test games. 
+        Advisor offers support for simple game with one faction. <b>Note:</b> 
+        normally you'll not need this feature, that's useful mainly for testing 
+        scripts or specific game conditions.</p>
+      <p>More detailed. Atlantis server engine is simple console application which 
+        takes some text files and writes some other files. Usually it collects 
+        all files with player orders plus two world files, processes these and 
+        then writes reports. Advisor makes this process automatic by placing order 
+        and world files into right locations and running engine in proper time. 
+        You should read engine help to fing more.</p>
+      <p>To use this feature, do following:</p>
+      <ol>
+        <li>Download Windows executable file of engine from <a href="http://groups.yahoo.com/group/atlantisdev">AtlantisDev</a></li>
+        <li>In Game Manager Options, supply path to engine</li>
+        <li>Create new game with &quot;Local&quot; flag checked. Advisor will 
+          run engine in &quot;create world&quot; mode. You will be prompted to 
+          set up some parameters like map size. Then Advisor will run first turn 
+          and load Nexus report. Note that all data files for engine are now in 
+          Advisor/Game/local folder.</li>
+        <li>Read this report and play it as usual.</li>
+        <li>Choose &quot;File | Run next local turn&quot;. Advisor will save orders, 
+          run engine to process them, and then load next turn.</li>
+        <li>To rollback game to some of older turns, open Game Manager and delete 
+          some new turns. Advisor will load report for last turn in Manager.</li>
+      </ol>
+      <h2><a name="FAQ"></a>FAQ</h2>
+      <p><b>Advisor doesn't read reports properly, there is many errors on report 
+        reading, game seems to be broken (map looks wrong etc).</b></p>
+      <ol>
+        <li>Backup your reports.</li>
+        <li>Unpack Advisor from installation archive to new folder</li>
+        <li>Try to load Sample Game. If there was errors - something going really 
+          wrong.</li>
+        <li>Delete Sample Game, create new one. Add the report with errors.</li>
+        <li>If there is still errors - email me. Attach erroneous report and describe 
+          problem. I will <i>never</i> show your report to anyone else.</li>
+      </ol>
+      <p><b>Would you give me the source code to make this and that, I'll not 
+        give it to anyone!</b></p>
+      <ul>
+        <li>I would not. Or at least you must tell me <i>really</i> good reasons 
+          to do so. </li>
+      </ul>
+      <p><b>Advisor reads only three last reports, all other seems to be lost</b></p>
+      <ul>
+        <li>Report files are still in game/reports folder. All valuable data (map, 
+          skill reports etc) from the archived reports was written to game.dat 
+          for faster access. If you want to read more than three reports at a 
+          time, set the amount at Options | Manager.</li>
+      </ul>
+      <p><b>I do not understand what's this scripts about!</b></p>
+      <ul>
+        <li>Do not use scripts. </li>
+      </ul>
+      <p><b>Почему нет хелпа на русском?</b></p>
+      <ul>
+        <li>А потому что мне лень. Кому охота, те сами переводят (см. сайт).</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

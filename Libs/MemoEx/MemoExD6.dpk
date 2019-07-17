@@ -1,0 +1,39 @@
+package MemoExD6;
+
+{$R *.res}
+{$R 'MemoEx.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS OFF}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS OFF}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'TMemoEx package'}
+{$IMPLICITBUILD OFF}
+
+requires
+  dclstd,
+  rtl;
+
+contains
+  MemoEx in 'MemoEx.pas',
+  MemoExClipUtils in 'MemoExClipUtils.pas',
+  MemoExXPCompat in 'MemoExXPCompat.pas',
+  MemoExScrollBar in 'MemoExScrollBar.pas';
+
+end.

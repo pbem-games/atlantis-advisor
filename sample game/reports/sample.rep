@@ -1,0 +1,298 @@
+Atlantis Report For:
+Forest Owls (240) (War 1, Trade 1, Magic 1)
+July, Year 9
+
+Atlantis Engine Version: 4.0.4 (beta)
+Standard Atlantis, Version: 4.0.4 (beta)
+
+Faction Status:
+Tax Regions: 0 (10)
+Trade Regions: 0 (10)
+Mages: 1 (1)
+
+Errors during turn:
+Gil (8717): MOVE: Unit does not have enough movement points.
+Tael (732): Doesn't have the pre-requisite skills to study that.
+
+Battles during turn:
+Brother Darkwing (528) attacks Unit (773) in plain (27,45) in Olenek!
+
+Attackers:
+Brother Darkwing (528), behind, leader [LEAD], 3 horses [HORS], sword
+  [SWOR], combat 2.
+Ogre Manipula V (368), 111 leaders [LEAD], 498 horses [HORS], 38 longbows
+  [LBOW], 26 crossbows [XBOW], 76 swords [SWOR], 18 plate armor
+  [PARM], 2 chain armor [CARM], combat 5, riding 1.
+Overseers (510), behind, 3 leaders [LEAD], 8 horses [HORS], 4 swords
+  [SWOR].
+Ogre Captains (36), 2 leaders [LEAD], 7 horses [HORS], sword [SWOR],
+  tactics 1, combat 5.
+Dark Dryades (738), behind, 26 leaders [LEAD], 80 horses [HORS], 40
+  longbows [LBOW], 4 crossbows [XBOW], 3 swords [SWOR], 2 chain armor
+  [CARM], 4 plate armor [PARM], longbow 5.
+Bolt Squad (657), behind, 20 leaders [LEAD], 67 horses [HORS], 10 longbows
+  [LBOW], 5 swords [SWOR], 24 crossbows [XBOW], 4 plate armor [PARM],
+  crossbow 3.
+Brother Ardhalis (349), behind, leader [LEAD], 5 horses [HORS], sword
+  [SWOR], combat 1.
+Brother Electron (529), behind, leader [LEAD], 4 horses [HORS], sword
+  [SWOR], plate armor [PARM], combat 1.
+Dark Ogre Legion (599), 132 leaders [LEAD], 685 horses [HORS], 11 longbows
+  [LBOW], 26 crossbows [XBOW], 188 swords [SWOR], 17 chain armor
+  [CARM], 45 plate armor [PARM], combat 5, riding 2.
+Goblin Officer (628), behind, leader [LEAD], 3 horses [HORS], tactics 3.
+Overseer (512), behind, leader [LEAD].
+Mount Dryades (888), 40 longbows [LBOW], 40 leaders [LEAD], longbow 1.
+Soldiers (729), 40 leaders [LEAD].
+
+Defenders:
+AizmugureX (519), behind, 25 leaders [LEAD], 25 crossbows [XBOW], 380
+  horses [HORS], combat 1, crossbow 5.
+Unit (616), behind, 5 leaders [LEAD], 5 horses [HORS], tactics 5, combat 5.
+AizmugureX (670), behind, 25 leaders [LEAD], 25 horses [HORS], 25 crossbows
+  [XBOW], combat 1, crossbow 5.
+Unit (773), 50 leaders [LEAD], 50 horses [HORS], combat 5, riding 5.
+Unit (444), 8 leaders [LEAD], 8 horses [HORS], combat 5, riding 5.
+Unit (581), 50 leaders [LEAD], 52 horses [HORS], combat 5, riding 5.
+Unit (582), behind, 5 leaders [LEAD], tactics 5, combat 5.
+Unit (774), behind, 50 leaders [LEAD], 50 longbows [LBOW], combat 1,
+  longbow 5, riding 5.
+Unit (639), 45 leaders [LEAD], 45 horses [HORS], 2 swords [SWOR], combat 5,
+  riding 5.
+Unit (775), 50 leaders [LEAD], 50 horses [HORS], combat 5, riding 5.
+Unit (424), behind, 15 leaders [LEAD], 8 swords [SWOR], 14 crossbows
+  [XBOW], 15 horses [HORS], tactics 3, combat 1, crossbow 5, riding 5.
+Unit (1030), behind, 345 horses [HORS], leader [LEAD].
+Goofy (450), 40 leaders [LEAD], 40 swords [SWOR], combat 5, riding 5.
+Woo (10), behind, leader [LEAD], horse [HORS], 2 staves of fear [STFE].
+Lee (51), behind, leader [LEAD], horse [HORS].
+Leo (52), behind, leader [LEAD], horse [HORS], 2 staves of fear [STFE].
+St Germain (54), behind, leader [LEAD], horse [HORS], 19 staves of light
+  [STLI], tactics 5.
+Unit (617), 15 leaders [LEAD], 15 swords [SWOR], 15 horses [HORS], combat
+  5, riding 5.
+Unit (963), behind, leader [LEAD], combat 1.
+Unit (573), behind, 15 leaders [LEAD], 15 horses [HORS], 15 longbows
+  [LBOW], combat 1, longbow 5.
+Unit (447), behind, 2 leaders [LEAD], tactics 5, combat 5.
+Unit (499), behind, 2 leaders [LEAD], combat 5.
+
+Unit (773) gets a free round of attacks.
+St Germain (54) sends a black whirlwind across the battlefield,
+  killing 359 troops.
+Brother Darkwing (528) loses 379.
+
+Brother Darkwing (528) is routed!
+Total Casualties:
+Brother Darkwing (528) loses 379.
+Damaged units: 738, 657, 529, 510, 349, 528, 512, 628, 599, 368, 729,
+  888, 36.
+Unit (773) loses 0.
+
+Spoils: 125603 silver [SILV], 680 horses [HORS], 141 swords [SWOR], 70
+  longbows [LBOW], 40 crossbows [XBOW], 37 plate armor [PARM], 11
+  chain armor [CARM], 2 amulets of true seeing [AMTS].
+
+Events during turn:
+Times reward of 50 silver.
+Nobody Knows My Name (46) uses earth lore [EART] in plain (31,45) in
+  Fetlar, contains Drumcollogher [city].
+Jameson (556): Discovers that ocean (32,46) in Atlantis Ocean is
+  ocean.
+Tael (732): Consume 20 silver [SILV]
+Tael (732): Jameson (556) borrows 20 silver [SILV] for maintenance.
+Jameson (556): Borrows 20 silver [SILV] from Tael (732) for
+  maintenance.
+Bootmen (5230): Borrows 40 silver [SILV] from Tael (732) for
+  maintenance.
+Gil (8717): Claims 10 silver for maintenance.
+
+Declared Attitudes (default Neutral):
+Hostile : none.
+Unfriendly : none.
+Neutral : none.
+Friendly : none.
+Ally : none.
+
+Unclaimed silver: 9152.
+
+plain (27,45) in Olenek, 540 peasants (nomads), $2700.
+------------------------------------------------------------
+  It was winter last month; it will be winter next month.
+  Wages: $15 (Max: $1620).
+  Wanted: none.
+  For Sale: 108 nomads [NOMA] at $60, 21 leaders [LEAD] at $120.
+  Entertainment available: $135.
+  Products: 75 grain [GRAI], 26 horses [HORS].
+
+Exits:
+  North : plain (27,43) in Olenek.
+  Northeast : plain (28,44) in Olenek.
+  Southeast : plain (28,46) in Olenek.
+  South : swamp (27,47) in Skottskog.
+  Southwest : swamp (26,46) in Skottskog.
+  Northwest : plain (26,44) in Olenek.
+
+* Guards (35834), Forest Owls (240), revealing faction, 49 vikings [VIKI],
+  753 silver [SILV], wine [WINE], 3 jewelry [JEWE], 2 gems [GEM], 3
+  spears [SPEA], 12 livestock [LIVE], 6 parrying daggers [PDAG], 2
+  velvet [VELV], 8 vodka [VODK], 2 chocolate [CHOC], cashmere [CASH],
+  wagon [WAGO], figurines [FIGU], mink [MINK], 3 dye [DYE], 2 spices
+  [SPIC], 6 silk [SILK], rough gem [RGEM], cloth armor [CLAR]. Weight:
+  1280. Capacity: 0/0/1335/0. Skills: combat [COMB] 1 (78).
+* Farmers (31219), Forest Owls (240), avoiding, behind, revealing faction,
+  holding, plainsman [PLAI], 650 silver [SILV], 11 grain [GRAI], bag
+  [BAG]. Weight: 66. Capacity: 0/0/15/0. Skills: farming [FARM] 3
+  (180).
+* Grooms (20847), Forest Owls (240), avoiding, behind, revealing faction,
+  holding, plainsman [PLAI], 35 silver [SILV], 6 horses [HORS].
+  Weight: 310. Capacity: 0/420/435/0. Skills: horse training [HORS] 3
+  (180).
+
++ Magician's Tower [1] : Magician's Tower, closed to player units.
+  - Evil Mages (37159), evil magician [MAGI], 5 evil sorcerers [SORC].
+
+
+plain (31,45) in Fetlar, contains Drumcollogher [city], 3266 peasants
+  (plainsmen), $32660.
+------------------------------------------------------------
+  It was winter last month; it will be winter next month.
+  Wages: $20 (Max: $13064).
+  Wanted: 174 grain [GRAI] at $18, 192 livestock [LIVE] at $24, 194
+    fish [FISH] at $26, 29 iron [IRON] at $47, 39 battle axes [BAXE]
+    at $110, 27 wagons [WAGO] at $209, 18 jewelry [JEWE] at $147, 29
+    wool [WOOL] at $122.
+  For Sale: 49 swords [SWOR] at $161, 29 wine [WINE] at $63, 24 vodka
+    [VODK] at $72, 653 plainsmen [PLAI] at $80, 130 leaders [LEAD] at
+    $160.
+  Entertainment available: $1633.
+  Products: 73 livestock [LIVE], 29 horses [HORS].
+
+Exits:
+  North : plain (31,43) in Fetlar.
+  Northeast : ocean (32,44) in Atlantis Ocean.
+  Southeast : ocean (32,46) in Atlantis Ocean.
+  South : swamp (31,47) in Skottskog.
+  Southwest : swamp (30,46) in Skottskog.
+  Northwest : plain (30,44) in Fetlar.
+
+- Unit (1407), J&J (64), 25 nomads [NOMA], 72 livestock [LIVE].
+- Unit (2470), Faction (41), 255 sea elves [SELF], truffles [TRUF], 2
+  stone [STON], wool [WOOL], perfume [PERF], pearls [PEAR], spices
+  [SPIC], sword [SWOR], 2 light armor [LARM].
+- Unit (4006), GrayAngel (88), nomad [NOMA], 2 swords [SWOR], tarot
+  cards [TARO], mink [MINK], horse [HORS], winged horse [WING], 3
+  chain armor [CARM].
+- Nobody Knows My Name (46), WINGS of WHITE EAGLE (125), leader
+  [LEAD], 11 chain armor [CARM], 16 swords [SWOR]; WWE Leader.
+- Lions (3546), WINGS of WHITE EAGLE (125), 5 vikings [VIKI], 5 swords
+  [SWOR]; WWE Tax collectors.
+- Unit (3278), on guard, Faction (41), 535 plainsmen [PLAI], 2 perfume
+  [PERF], chocolate [CHOC], 26 swords [SWOR], battle axe [BAXE].
+- Unit (6426), Faction (41), 100 plainsmen [PLAI], fur [FUR], pearls
+  [PEAR], 100 battle axes [BAXE].
+- Unit (7167), plainsman [PLAI], 147 swords [SWOR].
+- Unit (4946), Faction (41), 30 sea elves [SELF].
+- Dark scout (4164), Clan of Darkness (44), avoiding, behind, nomad
+  [NOMA], horse [HORS].
+- Unit (7279), Faction (41), leader [LEAD].
+- Unit (7300), J&J (64), 5 leaders [LEAD].
+- Unit (7301), J&J (64), 5 leaders [LEAD].
+- Unit (7183), Faction (41), 10 leaders [LEAD].
+- Unit (7216), Faction (41), 10 leaders [LEAD].
+- Unit (7291), Faction (41), 10 leaders [LEAD].
+- Unit (7295), Faction (41), 2 leaders [LEAD].
+- Unit (4702), Green Cormorant (131), avoiding, behind, nomad [NOMA],
+  horse [HORS].
+- Unit (6488), J&J (64), 5 leaders [LEAD], 60 stone [STON].
+- Unit (7683), J&J (64), 5 leaders [LEAD].
+- Unit (673), Faction (41), viking [VIKI], 140 horses [HORS], 40 stone
+  [STON].
+- Unit (3704), Faction (41), viking [VIKI], horse [HORS].
+- Unit (7738), Faction (41), 30 horses [HORS], nomad [NOMA], 236
+  battle axes [BAXE].
+* Tael (732), Forest Owls (240), revealing faction, leader [LEAD], 145
+  silver [SILV]. Skills: pattern [PATT] 1 (30), spirit [SPIR] 1 (30),
+  gate lore [GATE] 1 (30), earth lore [EART] 1 (30), wolf lore [WOLF]
+  1 (30). Can Study: magical healing [MHEA], farsight [FARS], mind
+  reading [MIND], bird lore [BIRD].
+* Jameson (556), Forest Owls (240), revealing faction, leader [LEAD].
+  Skills: none.
+- Slave of exploring 5 (7232), Slaves of its Might (244), viking
+  [VIKI].
+- caravan (6990), Greedy (116), avoiding, behind, nomad [NOMA],
+  mithril sword [MSWO], 30 winged horses [WING], 75 wool [WOOL].
+
++ Gold Fish [127] : Longboat.
+  * Bootmen (5230), Forest Owls (240), revealing faction, 5 plainsmen
+    [PLAI], fur [FUR]. Skills: sailing [SAIL] 1 (60).
+
+
+forest (33,49) in Mullaghcarn, 320 peasants (vikings), $960.
+------------------------------------------------------------
+  It was winter last month; it will be winter next month.
+  Wages: $13 (Max: $832).
+  Wanted: none.
+  For Sale: 64 vikings [VIKI] at $52, 12 leaders [LEAD] at $104.
+  Entertainment available: $48.
+  Products: 36 livestock [LIVE], 30 wood [WOOD], 18 furs [FUR], 16
+    herbs [HERB].
+
+Exits:
+  North : ocean (33,47) in Atlantis Ocean.
+  Northeast : forest (34,48) in Mullaghcarn.
+  Southeast : forest (34,50) in Mullaghcarn.
+  South : forest (33,51) in Mullaghcarn.
+  Southwest : forest (32,50) in Mullaghcarn.
+  Northwest : swamp (32,48) in Skottskog.
+
+- Unit (3913), Faction (41), viking [VIKI].
+- Unit (2398), J&J (64), leader [LEAD], 2 horses [HORS], 185 wood
+  [WOOD].
+- Unit (2732), Greedy (116), leader [LEAD], horse [HORS], mithril
+  sword [MSWO].
+- Unit (6373), Greedy (116), 2 leaders [LEAD], 2 mithril swords
+  [MSWO], 87 wood [WOOD].
+- Unit (6543), Greedy (116), 3 leaders [LEAD], 3 mithril swords
+  [MSWO], 6 horses [HORS], 15 wood [WOOD].
+* Gil (8717), Forest Owls (240), revealing faction, plainsman [PLAI].
+  Skills: none.
+- Wolf Pack (8774), 7 wolves [WOLF].
+- Unit (7107), Greedy (116), behind, 35 horses [HORS], viking [VIKI],
+  40 grain [GRAI], 81 wood [WOOD].
+
+
+
+Orders Template (Long Format):
+
+#atlantis 240 "xyzzy"
+
+;*** plain (27,45) in Olenek ***
+
+unit 8718
+;Rosko (8718), revealing faction, plainsman [PLAI]. Skills: none.
+@move NW
+
+;*** plain (31,45) in Fetlar, contains Drumcollogher [city] ***
+
+unit 732
+;Tael (732), revealing faction, leader [LEAD], 145 silver [SILV].
+;  Skills: pattern [PATT] 1 (30), spirit [SPIR] 1 (30), gate lore
+;  [GATE] 1 (30), earth lore [EART] 1 (30), wolf lore [WOLF] 1 (30).
+;  Can Study: magical healing [MHEA], farsight [FARS], mind reading
+;  [MIND], bird lore [BIRD].
+@study "wolf lore"
+
+unit 556
+;Jameson (556), revealing faction, leader [LEAD]. Skills: none.
+claim 161
+buy 1 sword
+
+;*** forest (33,49) in Mullaghcarn ***
+
+unit 8717
+;Gil (8717), revealing faction, plainsman [PLAI]. Skills: none.
+@move SE
+
+#end
+
