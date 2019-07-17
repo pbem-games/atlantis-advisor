@@ -1,5 +1,7 @@
 unit uTownTrade;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -35,7 +37,7 @@ implementation
 
 uses Types;
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TTownTradeForm.FormCreate(Sender: TObject);
 var x, y: integer;

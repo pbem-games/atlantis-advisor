@@ -1,5 +1,7 @@
 unit uAvatarEdit;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -69,7 +71,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TAvatarForm.FormCreate(Sender: TObject);
 var i: integer;

@@ -1,5 +1,7 @@
 unit uPathFind;
 
+{$MODE Delphi}
+
 interface
 
 uses

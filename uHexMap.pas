@@ -1,5 +1,7 @@
 unit uHexMap;
 
+{$MODE Delphi}
+
 interface
 
 uses

@@ -1,5 +1,7 @@
 unit uMapExport;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -31,6 +33,6 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 end.

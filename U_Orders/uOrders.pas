@@ -2,6 +2,8 @@
 
 unit uOrders;
 
+{$MODE Delphi}
+
 interface
 
 uses

@@ -1,5 +1,7 @@
 unit uFactions;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -85,7 +87,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 
 procedure TFactionForm.FormCreate(Sender: TObject);

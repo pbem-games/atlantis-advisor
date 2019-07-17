@@ -1,5 +1,7 @@
 unit uHistory;
 
+{$MODE Delphi}
+
 interface
 
 uses

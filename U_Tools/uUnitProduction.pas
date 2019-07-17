@@ -1,5 +1,7 @@
 unit uUnitProduction;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -24,7 +26,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TUnitProductionForm.FormCreate(Sender: TObject);
 var i, row, amt, lv, maxout, turnout: integer;

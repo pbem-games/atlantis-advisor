@@ -1,5 +1,7 @@
 unit uTeach;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -36,7 +38,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TTeachForm.FormCreate(Sender: TObject);
 var i, j: integer;

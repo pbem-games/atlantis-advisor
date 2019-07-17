@@ -2,6 +2,8 @@
 
 unit DataStructs;
 
+{$MODE Delphi}
+
 interface
 
 uses

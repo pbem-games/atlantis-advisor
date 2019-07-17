@@ -1,5 +1,7 @@
 unit uGameSubs;
 
+{$MODE Delphi}
+
 interface
 
 uses

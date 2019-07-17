@@ -1,5 +1,7 @@
 unit uListFilter;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -28,7 +30,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TListFilterForm.ItemBoxDrawItem(Control: TWinControl;
   Index: Integer; Rect: TRect; State: TOwnerDrawState);

@@ -1,5 +1,7 @@
 unit uSkillEdit;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -17,7 +19,7 @@ type
     GroupBox1: TGroupBox;
     Label1: TLabel;
     CodeLabel: TLabel;
-    mDesc: TRichEdit;
+    mDesc: TMemo;
     cbCombat: TCheckBox;
     cbCast: TCheckBox;
     cmType: TComboBox;
@@ -77,7 +79,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TSkillEditForm.FormCreate(Sender: TObject);
 begin

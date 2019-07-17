@@ -1,5 +1,7 @@
 unit uUnitRecs;
 
+{$MODE Delphi}
+
 interface
 
 uses

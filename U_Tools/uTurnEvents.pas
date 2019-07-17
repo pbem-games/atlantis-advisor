@@ -1,5 +1,7 @@
 unit uTurnEvents;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -32,7 +34,7 @@ implementation
 
 uses Main;
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TTurnEventsForm.Setup(ALines: TStrings);
 var i, j, k: integer;

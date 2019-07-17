@@ -1,5 +1,7 @@
 unit uAnalyzers;
 
+{$MODE Delphi}
+
 interface
 
 uses

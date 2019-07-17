@@ -1,5 +1,7 @@
 unit uStructEdit;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -42,7 +44,7 @@ type
     SailorEdit: TIntEdit;
     SkillLvEdit: TIntEdit;
     cmType: TComboBox;
-    mDescription: TRichEdit;
+    mDescription: TMemo;
     lTool: TLabel;
     cmTool: TComboBox;
     eToolBonus: TIntEdit;
@@ -89,7 +91,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TStructEditForm.FormCreate(Sender: TObject);
 var i: integer;

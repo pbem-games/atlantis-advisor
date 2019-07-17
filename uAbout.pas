@@ -1,5 +1,7 @@
 unit uAbout;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -30,7 +32,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TAboutForm.Image1Click(Sender: TObject);
 begin

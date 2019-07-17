@@ -1,5 +1,7 @@
 unit uMiniMap;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -37,7 +39,7 @@ implementation
 
 uses Main;
 
-{$R *.DFM}
+{$R *.lfm}
 
 constructor TMiniMapForm.Create(AOwner: TComponent; AHexMap: TCylinderMap);
 begin

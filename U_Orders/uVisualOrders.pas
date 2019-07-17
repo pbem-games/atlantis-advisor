@@ -1,5 +1,7 @@
 unit uVisualOrders;
 
+{$MODE Delphi}
+
 interface
 
 uses

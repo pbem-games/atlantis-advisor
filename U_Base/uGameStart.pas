@@ -1,4 +1,7 @@
 unit uGameStart;
+
+{$MODE Delphi}
+
 // Performs actions on first game startup (when no orders loaded)
 
 interface

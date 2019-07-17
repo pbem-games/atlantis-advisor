@@ -1,5 +1,7 @@
 unit uUnitNeeds;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -53,7 +55,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 const Masks: array[0..7] of string = ('items', 'weapons', 'usable weapons',
   'armor', 'mounts', 'trade', 'spoils', 'materials');

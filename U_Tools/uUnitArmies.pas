@@ -1,5 +1,7 @@
 unit uUnitArmies;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -46,7 +48,7 @@ implementation
 uses
   Main;
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TUArmyForm.FormCreate(Sender: TObject);
 begin

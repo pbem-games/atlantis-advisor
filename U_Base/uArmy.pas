@@ -1,5 +1,7 @@
 unit uArmy;
 
+{$MODE Delphi}
+
 interface
 
 uses

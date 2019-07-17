@@ -1,5 +1,7 @@
 unit Resources;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -204,7 +206,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 function GameMod: integer;
 begin

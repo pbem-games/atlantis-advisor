@@ -1,5 +1,7 @@
 unit uShortcuts;
 
+{$MODE Delphi}
+
 interface
 
 uses

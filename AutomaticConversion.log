@@ -1,0 +1,1005 @@
+advisor.lpi Note: Added defines -dBorland -dVer150 -dDelphi7 -dCompiler6_Up -dPUREPASCAL in custom options
+ Progress: Found all unit files
+advisor.lpr(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+ : 
+ : *** Converting unit files belonging to project/package ***
+Main.pas(1,11) Note: Added MODE Delphi syntax modifier after unit name.
+uAbout.pas Note: Changed encoding from cp1252 to UTF-8
+uAbout.pas(1,13) Note: Added MODE Delphi syntax modifier after unit name.
+Resources.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uOrderProcessor.pas(1,22) Note: Added MODE Delphi syntax modifier after unit name.
+uVisualOrders.pas(1,20) Note: Added MODE Delphi syntax modifier after unit name.
+uGameSubs.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+DataStructs.pas(3,18) Note: Added MODE Delphi syntax modifier after unit name.
+uHexMap.pas(1,14) Note: Added MODE Delphi syntax modifier after unit name.
+uKeys.pas(1,12) Note: Added MODE Delphi syntax modifier after unit name.
+RepRead.pas Note: Changed encoding from cp1252 to UTF-8
+RepRead.pas(3,14) Note: Added MODE Delphi syntax modifier after unit name.
+uHistory.pas(1,15) Note: Added MODE Delphi syntax modifier after unit name.
+uInterface.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uScript.pas(1,14) Note: Added MODE Delphi syntax modifier after unit name.
+uAvatars.pas(1,15) Note: Added MODE Delphi syntax modifier after unit name.
+uManager.pas(1,15) Note: Added MODE Delphi syntax modifier after unit name.
+uMapExport.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uOrders.pas(3,14) Note: Added MODE Delphi syntax modifier after unit name.
+uUnitRecs.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uBattle.pas(1,14) Note: Added MODE Delphi syntax modifier after unit name.
+uOptions.pas(1,15) Note: Added MODE Delphi syntax modifier after unit name.
+uSoldiers.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uExport.pas(1,14) Note: Added MODE Delphi syntax modifier after unit name.
+uListFilter.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+uAnalyzers.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uSkillEdit.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uSpecEdit.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uItemEdit.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uStructEdit.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+uArmy.pas(1,12) Note: Added MODE Delphi syntax modifier after unit name.
+uUnitArmies.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+MyStrings.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uUnitProduction.pas(1,22) Note: Added MODE Delphi syntax modifier after unit name.
+uUnitFilter.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+uSpyReps.pas(1,15) Note: Added MODE Delphi syntax modifier after unit name.
+uNeeds.pas(1,13) Note: Added MODE Delphi syntax modifier after unit name.
+uUnitNeeds.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uNewUnit.pas(1,15) Note: Added MODE Delphi syntax modifier after unit name.
+uShortcuts.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uTerrEdit.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uRoute.pas(1,13) Note: Added MODE Delphi syntax modifier after unit name.
+uFactions.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uTeach.pas(1,13) Note: Added MODE Delphi syntax modifier after unit name.
+uGameStart.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uMiniMap.pas(1,15) Note: Added MODE Delphi syntax modifier after unit name.
+uTurnEvents.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+uTownTrade.pas(1,17) Note: Added MODE Delphi syntax modifier after unit name.
+uBattleDraw.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+uTaxTrade.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uScriptEdit.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+uWantedItems.pas(1,19) Note: Added MODE Delphi syntax modifier after unit name.
+uAvatarEdit.pas(1,18) Note: Added MODE Delphi syntax modifier after unit name.
+uPathFind.pas(1,16) Note: Added MODE Delphi syntax modifier after unit name.
+uRegistration.pas(1,20) Note: Added MODE Delphi syntax modifier after unit name.
+ : 
+ : *** Converting unit files found during conversion ***
+MemoEx.pas Note: Changed encoding from cp1252 to UTF-8
+ : 
+ Error: Exception happened during unit conversion. Continuing with form files of already converted units...
+ : 
+ : *** Fixing used units and Repairing form files ***
+Main.pas Note: Removed property "AutoHotkeys".
+Main.pas Note: Removed property "DesignSize".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "ColWidths".
+Main.pas Note: Removed property "TextHeight".
+Main.pas Note: Removed property "OldCreateOrder".
+Main.pas Note: Changed Top coord of TToolBar from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TToolBar from "5" to "3" inside TPanel.
+Main.pas Note: Changed Top coord of TSpeedButton from "2" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TSpeedButton from "19" to "17" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "629" to "627" inside TPanel.
+Main.pas Note: Changed Top coord of TToolBar from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TToolBar from "33" to "31" inside TPanel.
+Main.pas Note: Changed Top coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPowerGrid from "180" to "178" inside TPanel.
+Main.pas Note: Changed Top coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TCylinderMap from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TCylinderMap from "148" to "146" inside TPanel.
+Main.pas Note: Changed Top coord of TSplitter from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TSplitter from "145" to "143" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "29" to "27" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TToolBar from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TToolBar from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPowerGrid from "30" to "28" inside TPanel.
+Main.pas Note: Changed Left coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "280" to "278" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "421" to "419" inside TPanel.
+Main.pas Note: Changed Top coord of TToolBar from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TToolBar from "1" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TSplitter from "274" to "272" inside TPanel.
+Main.pas Note: Changed Left coord of TSplitter from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TButton from "68" to "54" inside TGroupBox.
+Main.pas Note: Changed Left coord of TButton from "108" to "106" inside TGroupBox.
+Main.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Main.pas Note: Changed Top coord of TLabel from "36" to "22" inside TGroupBox.
+Main.pas Note: Changed Left coord of TLabel from "68" to "66" inside TGroupBox.
+Main.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+Main.pas Note: Changed Left coord of TLabel from "68" to "66" inside TGroupBox.
+Main.pas Note: Changed Top coord of TLabel from "36" to "22" inside TGroupBox.
+Main.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+Main.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+Main.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+Main.pas Note: Changed Top coord of TIntEdit from "4" to "2" inside TPanel.
+Main.pas Note: Changed Left coord of TIntEdit from "136" to "134" inside TPanel.
+Main.pas Note: Changed Top coord of TToolBar from "4" to "2" inside TPanel.
+Main.pas Note: Changed Left coord of TToolBar from "5" to "3" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "7" to "5" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "106" to "104" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "50" to "48" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TToolBar from "83" to "81" inside TPanel.
+Main.pas Note: Changed Left coord of TToolBar from "2" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TImage from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TImage from "1" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "138" to "136" inside TPanel.
+Main.pas Note: Changed Top coord of TEdit from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TEdit from "24" to "22" inside TPanel.
+Main.pas Note: Changed Top coord of TSpeedButton from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TSpeedButton from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TImage from "20" to "18" inside TPanel.
+Main.pas Note: Changed Left coord of TImage from "44" to "42" inside TPanel.
+Main.pas Note: Changed Top coord of TBevel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TBevel from "20" to "18" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "36" to "34" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "56" to "54" inside TPanel.
+Main.pas Note: Changed Top coord of TImage from "34" to "32" inside TPanel.
+Main.pas Note: Changed Left coord of TImage from "38" to "36" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "36" to "34" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "20" to "18" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "56" to "54" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "20" to "18" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPanel from "28" to "26" inside TPanel.
+Main.pas Note: Changed Left coord of TPanel from "3" to "1" inside TPanel.
+Main.pas Note: Changed Top coord of TEdit from "4" to "2" inside TPanel.
+Main.pas Note: Changed Left coord of TEdit from "4" to "2" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "4" to "2" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "156" to "154" inside TPanel.
+Main.pas Note: Changed Top coord of TBevel from "3" to "1" inside TPanel.
+Main.pas Note: Changed Left coord of TBevel from "3" to "1" inside TPanel.
+Main.pas Note: Changed Top coord of TToolBar from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TToolBar from "152" to "150" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "2" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "24" to "22" inside TPanel.
+Main.pas Note: Changed Top coord of TImage from "1" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TImage from "4" to "2" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "3" to "1" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "3" to "1" inside TPanel.
+Main.pas Note: Changed Top coord of TPowerGrid from "13" to "11" inside TPanel.
+Main.pas Note: Changed Left coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPowerGrid from "146" to "144" inside TPanel.
+Main.pas Note: Changed Left coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TPowerGrid from "78" to "76" inside TPanel.
+Main.pas Note: Changed Left coord of TPowerGrid from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "131" to "129" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "63" to "61" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "112" to "110" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "112" to "110" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "112" to "110" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "124" to "122" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "128" to "126" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "124" to "122" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "124" to "122" inside TPanel.
+Main.pas Note: Changed Top coord of TImage from "4" to "2" inside TPanel.
+Main.pas Note: Changed Left coord of TImage from "4" to "2" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "128" to "126" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "96" to "94" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "64" to "62" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "48" to "46" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "32" to "30" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "8" to "6" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "128" to "126" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "96" to "94" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "64" to "62" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "48" to "46" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "32" to "30" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "80" to "78" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "4" to "2" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "52" to "50" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "12" to "10" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "32" to "30" inside TPanel.
+Main.pas Note: Changed Top coord of TImage from "4" to "2" inside TPanel.
+Main.pas Note: Changed Left coord of TImage from "16" to "14" inside TPanel.
+Main.pas Note: Changed Top coord of TPageControl from "0" to "0" inside TPanel.
+Main.pas Note: Changed Left coord of TPageControl from "0" to "0" inside TPanel.
+Main.pas Note: Changed Top coord of TLabel from "100" to "98" inside TPanel.
+Main.pas Note: Changed Left coord of TLabel from "4" to "2" inside TPanel.
+uAbout.pas Note: Removed property "TextHeight".
+uAbout.pas Note: Removed property "OldCreateOrder".
+Resources.pas Note: Removed property "TextHeight".
+Resources.pas Note: Removed property "OldCreateOrder".
+uManager.pas Note: Removed property "ColWidths".
+uManager.pas Note: Removed property "DesignSize".
+uManager.pas Note: Removed property "TextHeight".
+uManager.pas Note: Removed property "OldCreateOrder".
+uManager.pas Note: Removed property "Icon.Data".
+uManager.pas Note: Changed Top coord of TMemo from "0" to "0" inside TPanel.
+uManager.pas Note: Changed Left coord of TMemo from "0" to "0" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "196" to "194" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "260" to "258" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "288" to "286" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TProgressBar from "172" to "170" inside TPanel.
+uManager.pas Note: Changed Left coord of TProgressBar from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "144" to "142" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "116" to "114" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "88" to "86" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "60" to "58" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "232" to "230" inside TPanel.
+uManager.pas Note: Changed Top coord of TPowerGrid from "56" to "54" inside TPanel.
+uManager.pas Note: Changed Left coord of TPowerGrid from "4" to "2" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "11" to "9" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "260" to "258" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "11" to "9" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "284" to "282" inside TPanel.
+uManager.pas Note: Changed Top coord of TBitBtn from "11" to "9" inside TPanel.
+uManager.pas Note: Changed Left coord of TBitBtn from "236" to "234" inside TPanel.
+uManager.pas Note: Changed Top coord of TComboBox from "12" to "10" inside TPanel.
+uManager.pas Note: Changed Left coord of TComboBox from "52" to "50" inside TPanel.
+uManager.pas Note: Changed Top coord of TLabel from "16" to "14" inside TPanel.
+uManager.pas Note: Changed Left coord of TLabel from "12" to "10" inside TPanel.
+uManager.pas Note: Changed Top coord of TPanel from "4" to "2" inside TPanel.
+uManager.pas Note: Changed Left coord of TPanel from "4" to "2" inside TPanel.
+uManager.pas Note: Changed Top coord of TSpeedButton from "316" to "314" inside TPanel.
+uManager.pas Note: Changed Left coord of TSpeedButton from "312" to "310" inside TPanel.
+uMapExport.pas Note: Removed property "TextHeight".
+uMapExport.pas Note: Removed property "DesignSize".
+uMapExport.pas Note: Removed property "OldCreateOrder".
+uBattle.pas Note: Removed property "ThumbLength".
+uBattle.pas Note: Removed property "ColWidths".
+uBattle.pas Note: Removed property "ColWidths".
+uBattle.pas Note: Removed property "ColWidths".
+uBattle.pas Note: Removed property "DesignSize".
+uBattle.pas Note: Removed property "ColWidths".
+uBattle.pas Note: Removed property "ColWidths".
+uBattle.pas Note: Removed property "ColWidths".
+uBattle.pas Note: Removed property "DesignSize".
+uBattle.pas Note: Removed property "TextHeight".
+uBattle.pas Note: Removed property "DesignSize".
+uBattle.pas Note: Removed property "OldCreateOrder".
+uBattle.pas Note: Changed Top coord of TTrackBar from "0" to "0" inside TPanel.
+uBattle.pas Note: Changed Left coord of TTrackBar from "105" to "103" inside TPanel.
+uBattle.pas Note: Changed Top coord of TLabel from "5" to "3" inside TPanel.
+uBattle.pas Note: Changed Left coord of TLabel from "7" to "5" inside TPanel.
+uBattle.pas Note: Changed Top coord of TPanel from "0" to "0" inside TPanel.
+uBattle.pas Note: Changed Left coord of TPanel from "240" to "238" inside TPanel.
+uBattle.pas Note: Changed Top coord of TToolBar from "0" to "0" inside TPanel.
+uBattle.pas Note: Changed Left coord of TToolBar from "0" to "0" inside TPanel.
+uBattle.pas Note: Changed Top coord of TImage from "1" to "0" inside TPanel.
+uBattle.pas Note: Changed Left coord of TImage from "1" to "0" inside TPanel.
+uBattle.pas Note: Changed Top coord of TImage from "1" to "0" inside TPanel.
+uBattle.pas Note: Changed Left coord of TImage from "1" to "0" inside TPanel.
+uBattle.pas Note: Changed Top coord of TButton from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Left coord of TButton from "164" to "162" inside TPanel.
+uBattle.pas Note: Changed Top coord of TBitBtn from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Left coord of TBitBtn from "80" to "78" inside TPanel.
+uBattle.pas Note: Changed Top coord of TBitBtn from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Left coord of TBitBtn from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Top coord of TToolBar from "30" to "28" inside TPanel.
+uBattle.pas Note: Changed Left coord of TToolBar from "180" to "178" inside TPanel.
+uBattle.pas Note: Changed Top coord of TToolBar from "60" to "58" inside TPanel.
+uBattle.pas Note: Changed Left coord of TToolBar from "180" to "178" inside TPanel.
+uBattle.pas Note: Changed Top coord of TToolBar from "232" to "230" inside TPanel.
+uBattle.pas Note: Changed Left coord of TToolBar from "180" to "178" inside TPanel.
+uBattle.pas Note: Changed Top coord of TComboBox from "32" to "30" inside TPanel.
+uBattle.pas Note: Changed Left coord of TComboBox from "40" to "38" inside TPanel.
+uBattle.pas Note: Changed Top coord of TToolBar from "326" to "324" inside TPanel.
+uBattle.pas Note: Changed Left coord of TToolBar from "168" to "166" inside TPanel.
+uBattle.pas Note: Changed Top coord of TComboBox from "324" to "322" inside TPanel.
+uBattle.pas Note: Changed Left coord of TComboBox from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Top coord of TPowerGrid from "232" to "230" inside TPanel.
+uBattle.pas Note: Changed Left coord of TPowerGrid from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Top coord of TToolBar from "202" to "200" inside TPanel.
+uBattle.pas Note: Changed Left coord of TToolBar from "168" to "166" inside TPanel.
+uBattle.pas Note: Changed Top coord of TComboBox from "200" to "198" inside TPanel.
+uBattle.pas Note: Changed Left coord of TComboBox from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Top coord of TPowerGrid from "60" to "58" inside TPanel.
+uBattle.pas Note: Changed Left coord of TPowerGrid from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Top coord of TCheckBox from "7" to "5" inside TPanel.
+uBattle.pas Note: Changed Left coord of TCheckBox from "152" to "150" inside TPanel.
+uBattle.pas Note: Changed Top coord of TEdit from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Left coord of TEdit from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Top coord of TLabel from "36" to "34" inside TPanel.
+uBattle.pas Note: Changed Left coord of TLabel from "4" to "2" inside TPanel.
+uBattle.pas Note: Changed Top coord of TBevel from "3" to "1" inside TPanel.
+uBattle.pas Note: Changed Left coord of TBevel from "3" to "1" inside TPanel.
+uOptions.pas Note: Removed property "Ctl3D".
+uOptions.pas Note: Removed property "ColWidths".
+uOptions.pas Note: Removed property "DesignSize".
+uOptions.pas Note: Removed property "TextHeight".
+uOptions.pas Note: Removed property "DesignSize".
+uOptions.pas Note: Removed property "OldCreateOrder".
+uOptions.pas Note: Changed Top coord of TColorBtn from "40" to "26" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TColorBtn from "172" to "170" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TColorBtn from "40" to "26" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TColorBtn from "132" to "130" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TColorBtn from "40" to "26" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TColorBtn from "92" to "90" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TColorBtn from "40" to "26" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TColorBtn from "52" to "50" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TColorBtn from "40" to "26" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TColorBtn from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "184" to "182" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "140" to "138" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "100" to "98" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "48" to "46" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TIntEdit from "200" to "186" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TIntEdit from "164" to "162" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "96" to "82" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "32" to "30" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "156" to "142" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TIntEdit from "133" to "119" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TIntEdit from "164" to "162" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "136" to "122" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "36" to "22" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "56" to "42" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "116" to "102" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "76" to "62" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "204" to "190" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "44" to "30" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "24" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "200" to "186" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TComboBox from "36" to "22" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TComboBox from "124" to "122" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "180" to "166" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckListBox from "36" to "22" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckListBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "160" to "146" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "128" to "126" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TTabControl from "20" to "6" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TTabControl from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TIntEdit from "84" to "70" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TIntEdit from "164" to "162" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TIntEdit from "60" to "46" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TIntEdit from "164" to "162" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TRadioButton from "36" to "22" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TRadioButton from "144" to "142" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TRadioButton from "20" to "6" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TRadioButton from "144" to "142" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TListBox from "20" to "6" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TListBox from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TButton from "116" to "102" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TButton from "152" to "150" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "64" to "50" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "151" to "149" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "88" to "74" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "151" to "149" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TCheckBox from "68" to "54" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TCheckBox from "152" to "150" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TEdit from "16" to "2" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TEdit from "56" to "54" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TEdit from "64" to "50" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TEdit from "56" to "54" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TEdit from "40" to "26" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TEdit from "56" to "54" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "68" to "54" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uOptions.pas Note: Changed Top coord of TLabel from "44" to "30" inside TGroupBox.
+uOptions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uSoldiers.pas Note: Removed property "ColWidths".
+uSoldiers.pas Note: Removed property "TextHeight".
+uSoldiers.pas Note: Removed property "OldCreateOrder".
+uListFilter.pas Note: Removed property "TextHeight".
+uListFilter.pas Note: Removed property "OldCreateOrder".
+uSkillEdit.pas Note: Removed property "ColWidths".
+uSkillEdit.pas Note: Removed property "ColWidths".
+uSkillEdit.pas Note: Replaced type "TRichEdit" with "TMemo".
+uSkillEdit.pas Note: Removed property "TextHeight".
+uSkillEdit.pas Note: Removed property "OldCreateOrder".
+uSkillEdit.pas Note: Changed Top coord of TPowerGrid from "104" to "90" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TPowerGrid from "8" to "6" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TComboBox from "176" to "162" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TComboBox from "204" to "202" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TPowerGrid from "40" to "26" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TPowerGrid from "204" to "202" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TToolBar from "179" to "165" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TToolBar from "154" to "152" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TIntEdit from "20" to "6" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TIntEdit from "136" to "134" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TComboBox from "176" to "162" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TComboBox from "8" to "6" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TComboBox from "56" to "42" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TComboBox from "8" to "6" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TCheckBox from "52" to "38" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TCheckBox from "116" to "114" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TCheckBox from "72" to "58" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TCheckBox from "116" to "114" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TMemo from "208" to "194" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TMemo from "8" to "6" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TLabel from "160" to "146" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TLabel from "208" to "206" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TLabel from "208" to "206" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TLabel from "104" to "102" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TLabel from "88" to "74" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TLabel from "48" to "46" inside TGroupBox.
+uSkillEdit.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uSkillEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uSpecEdit.pas Note: Removed property "ColWidths".
+uSpecEdit.pas Note: Replaced type "TRichEdit" with "TMemo".
+uSpecEdit.pas Note: Removed property "ColWidths".
+uSpecEdit.pas Note: Removed property "TextHeight".
+uSpecEdit.pas Note: Removed property "DesignSize".
+uSpecEdit.pas Note: Removed property "OldCreateOrder".
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "171" to "157" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "80" to "78" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "144" to "130" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "80" to "78" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "116" to "102" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "80" to "78" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "88" to "74" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "80" to "78" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "60" to "46" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "80" to "78" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "32" to "18" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "80" to "78" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TLabel from "176" to "162" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TLabel from "148" to "134" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TLabel from "120" to "106" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TLabel from "92" to "78" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TLabel from "64" to "50" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TLabel from "36" to "22" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TCheckBox from "44" to "30" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TCheckBox from "100" to "98" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TToolBar from "42" to "28" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TToolBar from "138" to "136" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "100" to "98" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TListBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TToolBar from "42" to "28" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TToolBar from "138" to "136" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "40" to "26" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "100" to "98" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "100" to "98" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TListBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TToolBar from "115" to "101" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TToolBar from "138" to "136" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "88" to "74" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TCheckBox from "88" to "74" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TCheckBox from "104" to "102" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "64" to "50" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "96" to "94" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "112" to "98" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "48" to "46" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "64" to "50" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "48" to "46" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TIntEdit from "64" to "50" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TIntEdit from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TListBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TLabel from "116" to "102" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TToolBar from "93" to "79" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TToolBar from "110" to "108" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "91" to "77" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TListBox from "36" to "22" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TToolBar from "93" to "79" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TToolBar from "110" to "108" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "91" to "77" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TListBox from "36" to "22" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TToolBar from "109" to "95" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TToolBar from "110" to "108" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TComboBox from "107" to "93" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TComboBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TListBox from "36" to "22" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+uSpecEdit.pas Note: Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+uSpecEdit.pas Note: Changed Left coord of TCheckBox from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Removed property "ColWidths".
+uItemEdit.pas Note: Removed property "ColWidths".
+uItemEdit.pas Note: Removed property "ColWidths".
+uItemEdit.pas Note: Removed property "ColWidths".
+uItemEdit.pas Note: Replaced type "TRichEdit" with "TMemo".
+uItemEdit.pas Note: Removed property "ColWidths".
+uItemEdit.pas Note: Removed property "TextHeight".
+uItemEdit.pas Note: Removed property "DesignSize".
+uItemEdit.pas Note: Removed property "OldCreateOrder".
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "88" to "74" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "244" to "242" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "64" to "50" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "244" to "242" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "40" to "26" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "244" to "242" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "16" to "2" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "244" to "242" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "88" to "74" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "84" to "82" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "64" to "50" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "84" to "82" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "16" to "2" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "84" to "82" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "40" to "26" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "84" to "82" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "70" to "56" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "16" to "14" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "94" to "80" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "16" to "14" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "22" to "8" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "160" to "158" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "46" to "32" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "160" to "158" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "70" to "56" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "160" to "158" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "94" to "80" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "160" to "158" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "46" to "32" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "16" to "14" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "22" to "8" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "16" to "14" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "92" to "78" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "288" to "286" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "68" to "54" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "288" to "286" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "44" to "30" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "288" to "286" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "288" to "286" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "92" to "78" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "128" to "126" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "68" to "54" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "128" to "126" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "44" to "30" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "128" to "126" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "128" to "126" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "92" to "78" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "172" to "170" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "68" to "54" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "172" to "170" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "44" to "30" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "172" to "170" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "172" to "170" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "44" to "30" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "28" to "26" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "92" to "78" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "28" to "26" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "68" to "54" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "28" to "26" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "28" to "26" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "132" to "118" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "72" to "70" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "108" to "94" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "72" to "70" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "84" to "70" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "72" to "70" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "60" to "46" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "72" to "70" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "36" to "22" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "72" to "70" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "12" to "0" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "72" to "70" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "138" to "124" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "114" to "100" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "90" to "76" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "66" to "52" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "42" to "28" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TImage from "18" to "4" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TImage from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "112" to "98" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "24" to "22" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "136" to "122" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "24" to "22" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "88" to "74" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "24" to "22" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "64" to "50" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "24" to "22" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "40" to "26" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "24" to "22" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "24" to "22" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "24" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "64" to "62" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "55" to "41" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "64" to "62" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "28" to "14" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "60" to "46" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "20" to "18" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TComboBox from "44" to "30" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TComboBox from "152" to "150" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "72" to "58" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "152" to "150" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TComboBox from "72" to "58" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TComboBox from "48" to "46" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TCheckBox from "80" to "66" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TCheckBox from "216" to "214" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TCheckBox from "48" to "34" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TCheckBox from "216" to "214" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TMemo from "104" to "90" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TMemo from "8" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TIntEdit from "16" to "2" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TIntEdit from "152" to "150" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TCheckBox from "64" to "50" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TCheckBox from "216" to "214" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TCheckBox from "32" to "18" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TCheckBox from "216" to "214" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TCheckBox from "216" to "214" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TComboBox from "44" to "30" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TComboBox from "48" to "46" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "76" to "62" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "108" to "106" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "48" to "46" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "20" to "6" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uItemEdit.pas Note: Changed Top coord of TLabel from "48" to "34" inside TGroupBox.
+uItemEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uStructEdit.pas Note: Replaced type "TRichEdit" with "TMemo".
+uStructEdit.pas Note: Removed property "ColWidths".
+uStructEdit.pas Note: Removed property "ColWidths".
+uStructEdit.pas Note: Removed property "TextHeight".
+uStructEdit.pas Note: Removed property "DesignSize".
+uStructEdit.pas Note: Removed property "OldCreateOrder".
+uStructEdit.pas Note: Changed Top coord of TComboBox from "20" to "6" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TComboBox from "20" to "18" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TPowerGrid from "56" to "42" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TPowerGrid from "8" to "6" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TIntEdit from "24" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TIntEdit from "72" to "70" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "28" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "128" to "126" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "28" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TIntEdit from "52" to "38" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TIntEdit from "68" to "66" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TIntEdit from "24" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TIntEdit from "68" to "66" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "56" to "42" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "28" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TIntEdit from "216" to "202" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TIntEdit from "124" to "122" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TComboBox from "216" to "202" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TComboBox from "16" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TComboBox from "48" to "34" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TComboBox from "16" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TIntEdit from "168" to "154" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TIntEdit from "124" to "122" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TIntEdit from "96" to "82" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TIntEdit from "112" to "110" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TComboBox from "168" to "154" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TComboBox from "16" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TComboBox from "120" to "106" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TComboBox from "16" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TComboBox from "96" to "82" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TComboBox from "16" to "14" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "200" to "186" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "152" to "138" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "80" to "66" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "48" to "46" inside TGroupBox.
+uStructEdit.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uStructEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uUnitArmies.pas Note: Removed property "Ctl3D".
+uUnitArmies.pas Note: Removed property "ColWidths".
+uUnitArmies.pas Note: Removed property "ColWidths".
+uUnitArmies.pas Note: Removed property "TextHeight".
+uUnitArmies.pas Note: Removed property "OldCreateOrder".
+uUnitArmies.pas Note: Changed Top coord of TPowerGrid from "84" to "70" inside TGroupBox.
+uUnitArmies.pas Note: Changed Left coord of TPowerGrid from "12" to "10" inside TGroupBox.
+uUnitArmies.pas Note: Changed Top coord of TColorBtn from "54" to "40" inside TGroupBox.
+uUnitArmies.pas Note: Changed Left coord of TColorBtn from "60" to "58" inside TGroupBox.
+uUnitArmies.pas Note: Changed Top coord of TEdit from "24" to "10" inside TGroupBox.
+uUnitArmies.pas Note: Changed Left coord of TEdit from "60" to "58" inside TGroupBox.
+uUnitArmies.pas Note: Changed Top coord of TLabel from "56" to "42" inside TGroupBox.
+uUnitArmies.pas Note: Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+uUnitArmies.pas Note: Changed Top coord of TLabel from "28" to "14" inside TGroupBox.
+uUnitArmies.pas Note: Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+uUnitProduction.pas Note: Removed property "ColWidths".
+uUnitProduction.pas Note: Removed property "TextHeight".
+uUnitProduction.pas Note: Removed property "OldCreateOrder".
+uUnitFilter.pas Note: Removed property "TextHeight".
+uUnitFilter.pas Note: Removed property "DesignSize".
+uUnitFilter.pas Note: Removed property "OldCreateOrder".
+uUnitFilter.pas Note: Changed Top coord of TCheckBox from "324" to "322" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TCheckBox from "152" to "150" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TEdit from "48" to "46" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TEdit from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TEdit from "16" to "14" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TEdit from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TToolBar from "78" to "76" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TToolBar from "240" to "238" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TComboBox from "80" to "78" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TComboBox from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TCheckBox from "112" to "110" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TCheckBox from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TListBox from "140" to "138" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TListBox from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TToolBar from "202" to "200" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TToolBar from "228" to "226" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TIntEdit from "200" to "198" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TIntEdit from "192" to "190" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TComboBox from "200" to "198" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TComboBox from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TToolBar from "294" to "292" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TToolBar from "228" to "226" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TComboBox from "292" to "290" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TComboBox from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TListBox from "232" to "230" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TListBox from "60" to "58" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TLabel from "236" to "234" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TLabel from "12" to "10" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TLabel from "144" to "142" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TLabel from "12" to "10" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TLabel from "84" to "82" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TLabel from "12" to "10" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TLabel from "52" to "50" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TLabel from "12" to "10" inside TPanel.
+uUnitFilter.pas Note: Changed Top coord of TLabel from "20" to "18" inside TPanel.
+uUnitFilter.pas Note: Changed Left coord of TLabel from "12" to "10" inside TPanel.
+uSpyReps.pas Note: Removed property "ColWidths".
+uSpyReps.pas Note: Removed property "TextHeight".
+uSpyReps.pas Note: Removed property "OldCreateOrder".
+uUnitNeeds.pas Note: Removed property "ColWidths".
+uUnitNeeds.pas Note: Removed property "ColWidths".
+uUnitNeeds.pas Note: Removed property "TextHeight".
+uUnitNeeds.pas Note: Removed property "DesignSize".
+uUnitNeeds.pas Note: Removed property "OldCreateOrder".
+uNewUnit.pas Note: Removed property "ColWidths".
+uNewUnit.pas Note: Removed property "TextHeight".
+uNewUnit.pas Note: Removed property "DesignSize".
+uNewUnit.pas Note: Removed property "OldCreateOrder".
+uNewUnit.pas Note: Changed Top coord of TIntEdit from "48" to "34" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TIntEdit from "208" to "206" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TComboBox from "48" to "34" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TComboBox from "84" to "82" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TCheckBox from "50" to "36" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TIntEdit from "76" to "62" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TIntEdit from "124" to "122" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TCheckBox from "24" to "10" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TCheckBox from "78" to "64" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TLabel from "52" to "38" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TLabel from "48" to "46" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TSpeedButton from "50" to "36" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TSpeedButton from "30" to "28" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TImage from "16" to "2" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TImage from "176" to "174" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TLabel from "196" to "194" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TLabel from "80" to "66" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TLabel from "176" to "174" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TPowerGrid from "20" to "6" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TPowerGrid from "16" to "14" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TCheckBox from "138" to "124" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TIntEdit from "136" to "122" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TIntEdit from "68" to "66" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TLabel from "140" to "126" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TLabel from "196" to "194" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TImage from "139" to "125" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TImage from "176" to "174" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TIntEdit from "20" to "6" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TIntEdit from "64" to "62" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TComboBox from "20" to "6" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TComboBox from "116" to "114" inside TGroupBox.
+uNewUnit.pas Note: Changed Top coord of TCheckBox from "22" to "8" inside TGroupBox.
+uNewUnit.pas Note: Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+uTerrEdit.pas Note: Removed property "Ctl3D".
+uTerrEdit.pas Note: Removed property "ColWidths".
+uTerrEdit.pas Note: Removed property "ColWidths".
+uTerrEdit.pas Note: Removed property "TextHeight".
+uTerrEdit.pas Note: Removed property "OldCreateOrder".
+uTerrEdit.pas Note: Changed Top coord of TToolBar from "243" to "229" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TToolBar from "118" to "116" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TComboBox from "240" to "226" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TComboBox from "8" to "6" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TPowerGrid from "136" to "122" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TPowerGrid from "8" to "6" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TCheckBox from "108" to "94" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TCheckBox from "24" to "22" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TCheckBox from "92" to "78" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TCheckBox from "24" to "22" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TCheckBox from "52" to "38" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TIntEdit from "20" to "6" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TIntEdit from "100" to "98" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TLabel from "76" to "62" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+uTerrEdit.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uTerrEdit.pas Note: Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+uFactions.pas Note: Removed property "Ctl3D".
+uFactions.pas Note: Removed property "ColWidths".
+uFactions.pas Note: Removed property "ThumbLength".
+uFactions.pas Note: Removed property "ThumbLength".
+uFactions.pas Note: Removed property "ThumbLength".
+uFactions.pas Note: Removed property "TextHeight".
+uFactions.pas Note: Removed property "OldCreateOrder".
+uFactions.pas Note: Removed property "Icon.Data".
+uFactions.pas Note: Changed Top coord of TButton from "76" to "62" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TButton from "100" to "98" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TCheckBox from "104" to "90" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TButton from "76" to "62" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TButton from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TColorBtn from "48" to "34" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TColorBtn from "56" to "54" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TComboBox from "20" to "6" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TComboBox from "56" to "54" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "50" to "36" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TComboBox from "216" to "202" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TComboBox from "64" to "62" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TComboBox from "172" to "158" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TComboBox from "64" to "62" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TTrackBar from "80" to "66" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TTrackBar from "44" to "42" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TTrackBar from "104" to "90" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TTrackBar from "44" to "42" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TTrackBar from "128" to "114" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TTrackBar from "44" to "42" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TComboBox from "44" to "30" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TComboBox from "92" to "90" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "220" to "206" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "196" to "182" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "28" to "26" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "176" to "162" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "130" to "116" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "106" to "92" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "82" to "68" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "130" to "116" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "112" to "110" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "106" to "92" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "112" to "110" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "82" to "68" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "112" to "110" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "48" to "34" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+uFactions.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uTeach.pas Note: Removed property "ColWidths".
+uTeach.pas Note: Removed property "TextHeight".
+uTeach.pas Note: Removed property "OldCreateOrder".
+uMiniMap.pas Note: Removed property "TextHeight".
+uMiniMap.pas Note: Removed property "OldCreateOrder".
+uTurnEvents.pas Note: Removed property "ColWidths".
+uTurnEvents.pas Note: Removed property "TextHeight".
+uTurnEvents.pas Note: Removed property "OldCreateOrder".
+uTownTrade.pas Note: Removed property "ColWidths".
+uTownTrade.pas Note: Removed property "ColWidths".
+uTownTrade.pas Note: Removed property "TextHeight".
+uTownTrade.pas Note: Removed property "DesignSize".
+uTownTrade.pas Note: Removed property "OldCreateOrder".
+uTaxTrade.pas Note: Removed property "ColWidths".
+uTaxTrade.pas Note: Removed property "ColWidths".
+uTaxTrade.pas Note: Removed property "ColWidths".
+uTaxTrade.pas Note: Removed property "ColWidths".
+uTaxTrade.pas Note: Removed property "TextHeight".
+uTaxTrade.pas Note: Removed property "OldCreateOrder".
+uScriptEdit.pas Note: Removed property "TextHeight".
+uScriptEdit.pas Note: Removed property "PixelsPerInch".
+uScriptEdit.pas Note: Removed property "OnCreate".
+uScriptEdit.pas Note: Removed property "OnClose".
+uScriptEdit.pas Note: Removed property "Position".
+uScriptEdit.pas Note: Removed property "OldCreateOrder".
+uScriptEdit.pas Note: Removed property "Font.Style".
+uScriptEdit.pas Note: Removed property "Font.Name".
+uScriptEdit.pas Note: Removed property "Font.Height".
+uScriptEdit.pas Note: Removed property "Font.Color".
+uScriptEdit.pas Note: Removed property "Font.Charset".
+uScriptEdit.pas Note: Removed property "Color".
+uScriptEdit.pas Note: Removed property "Caption".
+uScriptEdit.pas Note: Removed property "Height".
+uScriptEdit.pas Note: Removed property "Width".
+uScriptEdit.pas Note: Removed property "Top".
+uScriptEdit.pas Note: Removed property "Left".
+uWantedItems.pas Note: Removed property "ColWidths".
+uWantedItems.pas Note: Removed property "TextHeight".
+uWantedItems.pas Note: Removed property "OldCreateOrder".
+uAvatarEdit.pas Note: Removed property "TextHeight".
+uAvatarEdit.pas Note: Removed property "OldCreateOrder".
+uAvatarEdit.pas Note: Changed Top coord of TCheckListBox from "48" to "34" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Left coord of TCheckListBox from "8" to "6" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Top coord of TDrawGrid from "11" to "0" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Left coord of TDrawGrid from "208" to "206" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Top coord of TBevel from "212" to "198" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Left coord of TBevel from "8" to "6" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Top coord of TLabel from "213" to "199" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+uAvatarEdit.pas Note: Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+uRegistration.pas Note: Removed property "TextHeight".
+uRegistration.pas Note: Removed property "OldCreateOrder".
+ Fatal: Conversion Aborted.

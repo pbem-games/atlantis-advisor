@@ -2,6 +2,8 @@
 
 unit RepRead;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -1944,7 +1946,7 @@ begin
   for i:=1 to 5 do
     if GetKey(s_Hostile, i - 1) = s then TurnFaction.Attitude := i;
    { Friendly : Green Cormorant (131). }
-   { Neitrâla: Boldriks un citi zveeri... (61), Ugunsveèi (10).
+   { NeitrÃ¢la: Boldriks un citi zveeri... (61), UgunsveÃ¨i (10).
       - cannot use BlockList because of s$%t in faction names }
   NextLine;
   for i:=1 to 5 do begin
@@ -2290,7 +2292,7 @@ begin
     end;
 
      // Weather: It was winter last month; it will be winter next month.
-     // Iepriek¨÷jò m÷nesş bija labs laiks; nòkamajò m÷nesş bvs labs laiks.
+     // IepriekÂ¨Ã·jÃ² mÃ·nesÃ¾ bija labs laiks; nÃ²kamajÃ² mÃ·nesÃ¾ bvs labs laiks.
      //   again, conquest misses it
     NextLine;
     if Pos(Keys[s_Was], GetLine) > 0 then begin

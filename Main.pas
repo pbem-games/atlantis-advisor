@@ -1,5 +1,7 @@
 unit Main;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -729,7 +731,7 @@ uses uOptions, uAbout, uMiniMap, uFactions, uMemo, uStructEdit,
   uItemEdit, uSkillEdit, uAvatarEdit, uRegistration, RegCode, uBattle,
   uScriptEdit, uMapExport, uTownTrade, uSoldiers;
 
-{$R *.DFM}
+{$R *.lfm}
 
 function AddMenuItem(AParent: TMenuItem; ACaption: string; AImage: integer;
   Handler: TNotifyEvent): TMenuItem;

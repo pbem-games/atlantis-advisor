@@ -1,5 +1,7 @@
 unit uSpecEdit;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -60,7 +62,7 @@ type
     ToolBar4: TToolBar;
     btnAddShield: TToolButton;
     btnDelShield: TToolButton;
-    mDescription: TRichEdit;
+    mDescription: TMemo;
     EffGrid: TPowerGrid;
     cbEffOneShot: TCheckBox;
     Label2: TLabel;
@@ -134,7 +136,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TSpecEditForm.FormCreate(Sender: TObject);
 var i: integer;

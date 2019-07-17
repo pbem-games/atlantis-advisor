@@ -1,5 +1,7 @@
 unit uOrderProcessor;
 
+{$MODE Delphi}
+
 interface
 
 uses

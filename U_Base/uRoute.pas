@@ -1,5 +1,7 @@
 unit uRoute;
 
+{$MODE Delphi}
+
 interface
 
 uses

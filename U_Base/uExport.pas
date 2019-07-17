@@ -1,5 +1,7 @@
 unit uExport;
 
+{$MODE Delphi}
+
 interface
 
 uses

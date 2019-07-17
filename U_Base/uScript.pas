@@ -1,5 +1,7 @@
 unit uScript;
 
+{$MODE Delphi}
+
 interface
 
 uses

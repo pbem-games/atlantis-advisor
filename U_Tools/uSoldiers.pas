@@ -1,5 +1,7 @@
 unit uSoldiers;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -32,7 +34,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 function GetBattleImage(Soldier: TSoldier; Section: string): string;
 var Trace: TTrace;

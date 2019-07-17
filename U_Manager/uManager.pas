@@ -1,5 +1,7 @@
 unit uManager;
 
+{$MODE Delphi}
+
 {$WARN UNIT_PLATFORM OFF}
 
 interface
@@ -81,7 +83,7 @@ var
 implementation
 
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure RunEngine(params: string; dir: string);
 var exe: string;

@@ -1,5 +1,7 @@
 unit uTerrEdit;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -51,7 +53,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TTerrEditForm.FormCreate(Sender: TObject);
 var i: integer;

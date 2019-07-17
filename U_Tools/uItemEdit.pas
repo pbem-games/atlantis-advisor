@@ -1,5 +1,7 @@
 unit uItemEdit;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -51,7 +53,7 @@ type
     eSwim: TIntEdit;
     Label8: TLabel;
     cmMaterial: TComboBox;
-    mDescription: TRichEdit;
+    mDescription: TMemo;
     GroupBox2: TGroupBox;
     eMagDefLevel: TIntEdit;
     lMagDefLevel: TLabel;
@@ -286,7 +288,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 function Explored(Data: TItemData): boolean;
 begin

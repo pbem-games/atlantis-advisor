@@ -1,5 +1,7 @@
 unit uOptions;
 
+{$MODE Delphi}
+
 interface
 
 uses
@@ -167,7 +169,7 @@ implementation
 
 uses Types, Main;
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TOptionForm.FormCreate(Sender: TObject);
 begin
