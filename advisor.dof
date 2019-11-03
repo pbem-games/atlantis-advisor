@@ -45,7 +45,7 @@ OutputDir=
 UnitOutputDir=dcu
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=D:\Advisor\Recover\U_Base;D:\Advisor\Recover\U_Orders;D:\Advisor\Recover\U_Manager;D:\Advisor\Recover\U_Tools;D:\Libs\regexpr;D:\Libs\RxD6\Units;D:\Libs\MemoEx\Source
+SearchPath=.\U_Base;.\U_Orders;.\U_Manager;.\U_Tools;.\Libs\regexpr;.\Libs\RxD6;.\Libs\MemoEx
 Packages=vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;dbexpress;dbxcds;indy;dclOffice2k;RxCtl6
 Conditionals=
 DebugSourceDirs=
@@ -90,7 +90,7 @@ Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
 Count=1
-Item0=D:\Advisor\Recover\U_Base;D:\Advisor\Recover\U_Orders;D:\Advisor\Recover\U_Manager;D:\Advisor\Recover\U_Tools;D:\Libs\regexpr;D:\Libs\RxD6\Units;D:\Libs\MemoEx\Source
+Item0=.\U_Base;.\U_Orders;.\U_Manager;.\U_Tools;.\Libs\regexpr;.\Libs\RxD6;.\Libs\MemoEx
 [HistoryLists\hlUnitOutputDirectory]
 Count=1
 Item0=dcu
