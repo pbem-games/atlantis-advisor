@@ -863,8 +863,10 @@ begin
   RouteMode.Route := TRoute.Create;
 
   // Registration
-  ProgOpened := CheckCode(Config.ReadString('Prog', 'RegName', ''),
-    Config.ReadString('Prog', 'RegCode', ''));
+  // ProgOpened := CheckCode(Config.ReadString('Prog', 'RegName', ''),
+  //   Config.ReadString('Prog', 'RegCode', ''));
+  // No more registration
+  ProgOpened := True;
   ImplyRegistration(ProgOpened);
 
   // Load stuff
