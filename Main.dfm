@@ -103,12 +103,11 @@ object MainForm: TMainForm
             Caption = '12'
           end
           object LandLabel: TLabel
-            Left = 52
+            Left = 81
             Top = 4
-            Width = 137
+            Width = 92
             Height = 24
             Alignment = taRightJustify
-            AutoSize = False
             Caption = 'Skottskog'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
@@ -120,25 +119,22 @@ object MainForm: TMainForm
           object HexLabel: TLabel
             Left = 80
             Top = 32
-            Width = 117
+            Width = 93
             Height = 13
-            AutoSize = False
             Caption = 'plain (12,41), jun 12'
           end
           object SettlLabel: TLabel
             Left = 80
             Top = 48
-            Width = 117
+            Width = 87
             Height = 13
-            AutoSize = False
             Caption = 'Drumcollogher city'
           end
           object PeasantsLabel: TLabel
             Left = 80
             Top = 64
-            Width = 117
+            Width = 81
             Height = 13
-            AutoSize = False
             Caption = '1234 wood elves'
           end
           object TaxRateLabel: TLabel
@@ -231,9 +227,8 @@ object MainForm: TMainForm
           object TaxMenLabel: TLabel
             Left = 124
             Top = 80
-            Width = 73
+            Width = 23
             Height = 13
-            AutoSize = False
             Caption = '7 / 7'
             Color = clBtnFace
             Font.Charset = DEFAULT_CHARSET
@@ -247,9 +242,8 @@ object MainForm: TMainForm
           object EnterMenLabel: TLabel
             Left = 124
             Top = 128
-            Width = 73
+            Width = 23
             Height = 13
-            AutoSize = False
             Caption = '7 / 7'
             Color = clBtnFace
             Font.Charset = DEFAULT_CHARSET
@@ -263,9 +257,8 @@ object MainForm: TMainForm
           object WorkLabel: TLabel
             Left = 124
             Top = 112
-            Width = 73
+            Width = 23
             Height = 13
-            AutoSize = False
             Caption = '7 / 7'
             Color = clBtnFace
             Font.Charset = DEFAULT_CHARSET
@@ -436,8 +429,8 @@ object MainForm: TMainForm
             object NotesMemo: TMemo
               Left = 0
               Top = 45
-              Width = 191
-              Height = 146
+              Width = 288
+              Height = 668
               Align = alClient
               TabOrder = 0
               OnExit = NotesMemoExit
@@ -445,7 +438,7 @@ object MainForm: TMainForm
             object Panel1: TPanel
               Left = 0
               Top = 0
-              Width = 191
+              Width = 288
               Height = 45
               Align = alTop
               BevelOuter = bvNone
@@ -455,7 +448,7 @@ object MainForm: TMainForm
               object WeatherLabel: TLabel
                 Left = 3
                 Top = 3
-                Width = 185
+                Width = 282
                 Height = 39
                 Align = alClient
                 AutoSize = False
@@ -2058,9 +2051,9 @@ object MainForm: TMainForm
         TabOrder = 2
         object StructGrid: TPowerGrid
           Left = 0
-          Top = 321
+          Top = 297
           Width = 304
-          Height = 447
+          Height = 471
           Align = alClient
           Color = clBtnFace
           ColCount = 2
@@ -2088,7 +2081,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 304
-          Height = 321
+          Height = 297
           Align = alTop
           BevelOuter = bvNone
           BorderWidth = 4
@@ -2216,7 +2209,7 @@ object MainForm: TMainForm
           end
           object Panel4: TPanel
             Left = 4
-            Top = 318
+            Top = 289
             Width = 296
             Height = 4
             Align = alTop
@@ -2427,26 +2420,27 @@ object MainForm: TMainForm
             Left = 4
             Top = 217
             Width = 296
-            Height = 101
+            Height = 72
             Align = alTop
             Caption = 'Passage To'
             TabOrder = 9
             DesignSize = (
               296
-              101)
+              72)
             object lWayTo: TLabel
               Left = 8
               Top = 20
-              Width = 279
-              Height = 33
+              Width = 201
+              Height = 45
               Anchors = [akLeft, akTop, akRight]
               AutoSize = False
               Caption = 'cave (31, 20, underworld) in Underworld'
+              Layout = tlCenter
               WordWrap = True
             end
             object btnLinkShaft: TButton
               Left = 218
-              Top = 68
+              Top = 32
               Width = 63
               Height = 21
               Anchors = [akTop, akRight]
