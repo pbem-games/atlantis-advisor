@@ -2242,7 +2242,7 @@ object MainForm: TMainForm
       BevelOuter = bvNone
       TabOrder = 2
       object StructSplitter: TSplitter
-        Left = 145
+        Left = 304
         Top = 0
         Width = 3
         Height = 768
@@ -2250,9 +2250,9 @@ object MainForm: TMainForm
         Beveled = True
       end
       object HexMap: TCylinderMap
-        Left = 148
+        Left = 307
         Top = 0
-        Width = 589
+        Width = 430
         Height = 768
         HelpContext = 3
         Align = alClient
@@ -2271,34 +2271,6 @@ object MainForm: TMainForm
         OnMouseUp = HexMapMouseUp
         OnSelectHex = HexMapSelectHex
         OnMoveMap = HexMapMoveMap
-      end
-      object StructGrid: TPowerGrid
-        Left = 0
-        Top = 0
-        Width = 145
-        Height = 768
-        Align = alLeft
-        Color = clBtnFace
-        ColCount = 2
-        DefaultRowColor = clBlack
-        DefaultRowHeight = 21
-        Editing = False
-        FixedRows = 0
-        ImageCol = 0
-        LinesColor = clMedGray
-        Options = [pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
-        RowCount = 0
-        Sorted = True
-        SortBy = 0
-        ShowHint = True
-        StickySelect = True
-        TopRow = 0
-        OnDrawCell = StructGridDrawCell
-        OnMouseDown = StructGridMouseDown
-        OnMouseMove = StructGridMouseMove
-        ColWidths = (
-          2
-          139)
       end
       object gAllItems: TPowerGrid
         Left = 737
@@ -2328,6 +2300,43 @@ object MainForm: TMainForm
           50
           133
           102)
+      end
+      object StructPanel: TPanel
+        Left = 0
+        Top = 0
+        Width = 304
+        Height = 768
+        Align = alLeft
+        BevelOuter = bvNone
+        TabOrder = 2
+        object StructGrid: TPowerGrid
+          Left = 0
+          Top = 0
+          Width = 304
+          Height = 768
+          Align = alClient
+          Color = clBtnFace
+          ColCount = 2
+          DefaultRowColor = clBlack
+          DefaultRowHeight = 21
+          Editing = False
+          FixedRows = 0
+          ImageCol = 0
+          LinesColor = clMedGray
+          Options = [pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+          RowCount = 0
+          Sorted = True
+          SortBy = 0
+          ShowHint = True
+          StickySelect = True
+          TopRow = 0
+          OnDrawCell = StructGridDrawCell
+          OnMouseDown = StructGridMouseDown
+          OnMouseMove = StructGridMouseMove
+          ColWidths = (
+            2
+            298)
+        end
       end
     end
   end
@@ -2649,8 +2658,8 @@ object MainForm: TMainForm
   end
   object MainMenu: TMainMenu
     Images = ResForm.BtnImages
-    Left = 108
-    Top = 125
+    Left = 476
+    Top = 85
     object File1: TMenuItem
       Caption = 'File'
       object GameManagerItm: TMenuItem
@@ -3262,8 +3271,8 @@ object MainForm: TMainForm
   end
   object ActionList: TActionList
     Images = ResForm.BtnImages
-    Left = 108
-    Top = 72
+    Left = 436
+    Top = 80
     object ManagerAction: TAction
       Caption = 'Game Manager'
       ImageIndex = 18
@@ -3569,13 +3578,13 @@ object MainForm: TMainForm
   object OpenDialog: TOpenDialog
     DefaultExt = '*.map'
     Filter = 'Advisor maps (*.map)|*.map|All files|*.*'
-    Left = 336
-    Top = 125
+    Left = 368
+    Top = 77
   end
   object PopMenu: TPopupMenu
     AutoHotkeys = maManual
     Images = ResForm.IconList
-    Left = 160
-    Top = 72
+    Left = 400
+    Top = 80
   end
 end

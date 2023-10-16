@@ -480,6 +480,7 @@ type
     ToolButton52: TToolButton;
     NextError1: TMenuItem;
     LoadPanel: TPanel;
+    StructPanel: TPanel;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
