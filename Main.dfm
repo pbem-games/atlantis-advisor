@@ -1,8 +1,8 @@
 object MainForm: TMainForm
-  Left = 116
-  Top = 100
-  Width = 684
-  Height = 468
+  Left = 646
+  Top = 136
+  Width = 1346
+  Height = 1004
   Caption = 'Atlantis Advisor'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -23,10 +23,10 @@ object MainForm: TMainForm
   PixelsPerInch = 96
   TextHeight = 13
   object InfoPanel: TPanel
-    Left = 469
+    Left = 1026
     Top = 28
-    Width = 207
-    Height = 394
+    Width = 304
+    Height = 917
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 0
@@ -40,8 +40,8 @@ object MainForm: TMainForm
     object InfoPControl: TPageControl
       Left = 0
       Top = 0
-      Width = 207
-      Height = 394
+      Width = 304
+      Height = 917
       ActivePage = tsUnit
       Align = alClient
       Images = ResForm.BtnImages
@@ -54,7 +54,7 @@ object MainForm: TMainForm
         object RegionInfoPanel: TPanel
           Left = 0
           Top = 0
-          Width = 199
+          Width = 296
           Height = 149
           Align = alTop
           BevelOuter = bvNone
@@ -295,8 +295,8 @@ object MainForm: TMainForm
         object RegionPControl: TPageControl
           Left = 0
           Top = 149
-          Width = 199
-          Height = 217
+          Width = 296
+          Height = 739
           ActivePage = ItemSheet
           Align = alClient
           TabIndex = 0
@@ -472,15 +472,15 @@ object MainForm: TMainForm
         object ItemSplit: TSplitter
           Left = 0
           Top = 185
-          Width = 199
+          Width = 296
           Height = 3
           Cursor = crVSplit
           Align = alTop
         end
         object UnitPageSplit: TSplitter
           Left = 0
-          Top = 208
-          Width = 199
+          Top = 730
+          Width = 296
           Height = 3
           Cursor = crVSplit
           Align = alBottom
@@ -488,8 +488,8 @@ object MainForm: TMainForm
         object UnitPControl: TPageControl
           Tag = 2
           Left = 0
-          Top = 211
-          Width = 199
+          Top = 733
+          Width = 296
           Height = 155
           ActivePage = WeightSheet
           Align = alBottom
@@ -936,7 +936,7 @@ object MainForm: TMainForm
           Tag = 3
           Left = 0
           Top = 0
-          Width = 199
+          Width = 296
           Height = 109
           Align = alTop
           BevelOuter = bvNone
@@ -1298,8 +1298,8 @@ object MainForm: TMainForm
         object SkillGrid: TPowerGrid
           Left = 0
           Top = 188
-          Width = 199
-          Height = 20
+          Width = 296
+          Height = 542
           Align = alClient
           ColCount = 3
           DefaultRowColor = clBlack
@@ -1319,12 +1319,12 @@ object MainForm: TMainForm
           ColWidths = (
             126
             25
-            31)
+            141)
         end
         object pItemGrid: TPanel
           Left = 0
           Top = 109
-          Width = 199
+          Width = 296
           Height = 76
           Align = alTop
           BevelOuter = bvNone
@@ -1333,7 +1333,7 @@ object MainForm: TMainForm
           object ItemGrid: TPowerGrid
             Left = 0
             Top = 0
-            Width = 199
+            Width = 296
             Height = 50
             Align = alClient
             ColCount = 2
@@ -1357,12 +1357,12 @@ object MainForm: TMainForm
             OnSelectCell = ItemGridSelectCell
             ColWidths = (
               48
-              147)
+              244)
           end
           object pGiveTools: TPanel
             Left = 0
             Top = 50
-            Width = 199
+            Width = 296
             Height = 26
             Align = alBottom
             BevelOuter = bvNone
@@ -1708,15 +1708,15 @@ object MainForm: TMainForm
   object MapUnitsPanel: TPanel
     Left = 0
     Top = 28
-    Width = 469
-    Height = 394
+    Width = 1026
+    Height = 917
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
     object UnitSplitter: TSplitter
       Left = 0
-      Top = 274
-      Width = 469
+      Top = 797
+      Width = 1026
       Height = 6
       Cursor = crVSplit
       Align = alBottom
@@ -1725,7 +1725,7 @@ object MainForm: TMainForm
     object MapToolPanel: TPanel
       Left = 0
       Top = 0
-      Width = 469
+      Width = 1026
       Height = 29
       HelpContext = 3
       Align = alTop
@@ -1733,7 +1733,7 @@ object MainForm: TMainForm
       object MapToolbar: TToolBar
         Left = 1
         Top = 1
-        Width = 420
+        Width = 977
         Height = 27
         Align = alClient
         ButtonHeight = 23
@@ -1898,17 +1898,16 @@ object MainForm: TMainForm
           OnClick = DownBtnClick
         end
         object ToolButton13: TToolButton
-          Left = 0
+          Left = 206
           Top = 2
           Width = 8
           Caption = 'ToolButton13'
           ImageIndex = 26
-          Wrap = True
           Style = tbsSeparator
         end
         object SIcBtn: TToolButton
-          Left = 0
-          Top = 30
+          Left = 214
+          Top = 2
           Hint = 'Status Icon'
           Caption = 'Status Icon'
           ImageIndex = 14
@@ -1919,8 +1918,8 @@ object MainForm: TMainForm
         end
         object SIcDownBtn: TSpeedButton
           Tag = 4
-          Left = 23
-          Top = 30
+          Left = 237
+          Top = 2
           Width = 12
           Height = 23
           Glyph.Data = {
@@ -1933,16 +1932,16 @@ object MainForm: TMainForm
           OnClick = DownBtnClick
         end
         object ToolButton15: TToolButton
-          Left = 35
-          Top = 30
+          Left = 249
+          Top = 2
           Width = 8
           Caption = 'ToolButton15'
           ImageIndex = 27
           Style = tbsSeparator
         end
         object STxBtn: TToolButton
-          Left = 43
-          Top = 30
+          Left = 257
+          Top = 2
           Hint = 'Status Text'
           Caption = 'Status Text'
           ImageIndex = 15
@@ -1953,8 +1952,8 @@ object MainForm: TMainForm
         end
         object STxDownBtn: TSpeedButton
           Tag = 5
-          Left = 66
-          Top = 30
+          Left = 280
+          Top = 2
           Width = 12
           Height = 23
           Glyph.Data = {
@@ -1967,16 +1966,16 @@ object MainForm: TMainForm
           OnClick = DownBtnClick
         end
         object ToolButton17: TToolButton
-          Left = 78
-          Top = 30
+          Left = 292
+          Top = 2
           Width = 8
           Caption = 'ToolButton17'
           ImageIndex = 28
           Style = tbsSeparator
         end
         object StructBtn: TToolButton
-          Left = 86
-          Top = 30
+          Left = 300
+          Top = 2
           Hint = 'Objects'
           Caption = 'Objects'
           ImageIndex = 1
@@ -1987,8 +1986,8 @@ object MainForm: TMainForm
         end
         object StructDownBtn: TSpeedButton
           Tag = 8
-          Left = 109
-          Top = 30
+          Left = 323
+          Top = 2
           Width = 12
           Height = 23
           Glyph.Data = {
@@ -2001,16 +2000,16 @@ object MainForm: TMainForm
           OnClick = DownBtnClick
         end
         object ToolButton19: TToolButton
-          Left = 121
-          Top = 30
+          Left = 335
+          Top = 2
           Width = 8
           Caption = 'ToolButton19'
           ImageIndex = 9
           Style = tbsSeparator
         end
         object LevelBtn: TToolButton
-          Left = 129
-          Top = 30
+          Left = 343
+          Top = 2
           Hint = 'Level'
           Action = LevelAction
           AllowAllUp = True
@@ -2019,8 +2018,8 @@ object MainForm: TMainForm
         end
         object LevelDownBtn: TSpeedButton
           Tag = 6
-          Left = 152
-          Top = 30
+          Left = 366
+          Top = 2
           Width = 12
           Height = 23
           Glyph.Data = {
@@ -2033,16 +2032,16 @@ object MainForm: TMainForm
           OnClick = DownBtnClick
         end
         object ToolButton7: TToolButton
-          Left = 164
-          Top = 30
+          Left = 378
+          Top = 2
           Width = 8
           Caption = 'ToolButton7'
           ImageIndex = 17
           Style = tbsSeparator
         end
         object BookmarkBtn: TToolButton
-          Left = 172
-          Top = 30
+          Left = 386
+          Top = 2
           Hint = 'Bookmark'
           Action = BookmarkAction
           ImageIndex = 34
@@ -2051,8 +2050,8 @@ object MainForm: TMainForm
         end
         object BmkDownBtn: TSpeedButton
           Tag = 7
-          Left = 195
-          Top = 30
+          Left = 409
+          Top = 2
           Width = 12
           Height = 23
           Glyph.Data = {
@@ -2066,7 +2065,7 @@ object MainForm: TMainForm
         end
       end
       object CoordLabel: TPanel
-        Left = 421
+        Left = 978
         Top = 1
         Width = 47
         Height = 27
@@ -2079,8 +2078,8 @@ object MainForm: TMainForm
     end
     object UnitsPanel: TPanel
       Left = 0
-      Top = 280
-      Width = 469
+      Top = 803
+      Width = 1026
       Height = 114
       HelpContext = 5
       Align = alBottom
@@ -2090,7 +2089,7 @@ object MainForm: TMainForm
       object UnitGrid: TPowerGrid
         Left = 0
         Top = 30
-        Width = 469
+        Width = 1026
         Height = 84
         Align = alClient
         Color = clBlack
@@ -2131,7 +2130,7 @@ object MainForm: TMainForm
       object tbUnitTools: TToolBar
         Left = 0
         Top = 0
-        Width = 469
+        Width = 1026
         Height = 30
         BorderWidth = 1
         Caption = 'tbUnitTools'
@@ -2225,8 +2224,8 @@ object MainForm: TMainForm
     object MapPanel: TPanel
       Left = 0
       Top = 29
-      Width = 469
-      Height = 245
+      Width = 1026
+      Height = 768
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
@@ -2234,15 +2233,15 @@ object MainForm: TMainForm
         Left = 145
         Top = 0
         Width = 3
-        Height = 245
+        Height = 768
         Cursor = crHSplit
         Beveled = True
       end
       object HexMap: TCylinderMap
         Left = 148
         Top = 0
-        Width = 32
-        Height = 245
+        Width = 589
+        Height = 768
         HelpContext = 3
         Align = alClient
         Color = clBlack
@@ -2265,7 +2264,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 145
-        Height = 245
+        Height = 768
         Align = alLeft
         Color = clBtnFace
         ColCount = 2
@@ -2290,10 +2289,10 @@ object MainForm: TMainForm
           139)
       end
       object gAllItems: TPowerGrid
-        Left = 180
+        Left = 737
         Top = 0
         Width = 289
-        Height = 245
+        Height = 768
         Align = alRight
         ColCount = 3
         DefaultRowColor = clBlack
@@ -2323,7 +2322,7 @@ object MainForm: TMainForm
   object ToolPanel: TPanel
     Left = 0
     Top = 0
-    Width = 676
+    Width = 1330
     Height = 28
     Align = alTop
     TabOrder = 2
@@ -2568,7 +2567,7 @@ object MainForm: TMainForm
       end
     end
     object Panel3: TPanel
-      Left = 629
+      Left = 1283
       Top = 1
       Width = 46
       Height = 26
