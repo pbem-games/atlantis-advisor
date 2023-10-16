@@ -23,7 +23,7 @@ object MainForm: TMainForm
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
-    Left = 1421
+    Left = 1302
     Top = 28
     Width = 6
     Height = 917
@@ -32,7 +32,7 @@ object MainForm: TMainForm
     Beveled = True
   end
   object InfoPanel: TPanel
-    Left = 1427
+    Left = 1308
     Top = 28
     Width = 304
     Height = 917
@@ -54,420 +54,8 @@ object MainForm: TMainForm
       ActivePage = tsUnit
       Align = alClient
       Images = ResForm.BtnImages
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
-      object tsRegion: TTabSheet
-        HelpContext = 7
-        Caption = 'Region'
-        ImageIndex = 17
-        object RegionInfoPanel: TPanel
-          Left = 0
-          Top = 0
-          Width = 296
-          Height = 149
-          Align = alTop
-          BevelOuter = bvNone
-          TabOrder = 0
-          object GateImage: TImage
-            Left = 16
-            Top = 4
-            Width = 16
-            Height = 16
-            Picture.Data = {
-              07544269746D617036030000424D360300000000000036000000280000001000
-              000010000000010018000000000000030000CE0E0000C40E0000000000000000
-              0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000C0C0C0C0C0C0C0C0C0C0C0C0
-              C0C0C0000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
-              00000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000C0C0C0C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000000000000000000000000000
-              00000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
-              FF00000080000080000080000080000080000000000000B3B3000000C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000800000800000800000800000
-              80000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
-              FF000000800000FF0000FF000080000080000000000000B3B3000000C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000FF0000800000800000FF0000
-              80000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
-              FF000000800000800000FF000080000080000000000000B3B3000000C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000800000FF0000800000800000
-              FF000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
-              FF000000800000800000FF0000FF000080000000000000B3B3000000C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000800000800000800000800000
-              80000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
-              00000000800000800000800000800000800000000000000000C0C0C0C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000800000800000800000
-              000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-              C0000000C0C0C0000000000000000000C0C0C0000000C0C0C0C0C0C0C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-              C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-              C0C0}
-            Transparent = True
-          end
-          object GateLabel: TLabel
-            Left = 32
-            Top = 12
-            Width = 25
-            Height = 13
-            AutoSize = False
-            Caption = '12'
-          end
-          object LandLabel: TLabel
-            Left = 81
-            Top = 4
-            Width = 92
-            Height = 24
-            Alignment = taRightJustify
-            Caption = 'Skottskog'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -21
-            Font.Name = 'Black Chancery'
-            Font.Style = []
-            ParentFont = False
-          end
-          object HexLabel: TLabel
-            Left = 80
-            Top = 32
-            Width = 93
-            Height = 13
-            Caption = 'plain (12,41), jun 12'
-          end
-          object SettlLabel: TLabel
-            Left = 80
-            Top = 48
-            Width = 87
-            Height = 13
-            Caption = 'Drumcollogher city'
-          end
-          object PeasantsLabel: TLabel
-            Left = 80
-            Top = 64
-            Width = 81
-            Height = 13
-            Caption = '1234 wood elves'
-          end
-          object TaxRateLabel: TLabel
-            Left = 80
-            Top = 80
-            Width = 41
-            Height = 13
-            AutoSize = False
-            Caption = '342'
-          end
-          object WagesLabel: TLabel
-            Left = 80
-            Top = 96
-            Width = 41
-            Height = 13
-            AutoSize = False
-            Caption = '12'
-          end
-          object EnterLabel: TLabel
-            Left = 80
-            Top = 128
-            Width = 41
-            Height = 13
-            AutoSize = False
-            Caption = '13'
-          end
-          object Label1: TLabel
-            Left = 8
-            Top = 32
-            Width = 22
-            Height = 13
-            Caption = 'Hex:'
-          end
-          object Label4: TLabel
-            Left = 8
-            Top = 48
-            Width = 53
-            Height = 13
-            Caption = 'Settlement:'
-          end
-          object Label5: TLabel
-            Left = 8
-            Top = 64
-            Width = 47
-            Height = 13
-            Caption = 'Peasants:'
-          end
-          object Label6: TLabel
-            Left = 8
-            Top = 80
-            Width = 47
-            Height = 13
-            Caption = 'Tax Rate:'
-          end
-          object Label7: TLabel
-            Left = 8
-            Top = 96
-            Width = 37
-            Height = 13
-            Caption = 'Wages:'
-          end
-          object Label8: TLabel
-            Left = 8
-            Top = 128
-            Width = 68
-            Height = 13
-            Caption = 'Entertainment:'
-          end
-          object imgWeatherNext: TImage
-            Left = 4
-            Top = 4
-            Width = 10
-            Height = 10
-            Picture.Data = {
-              07544269746D617076010000424D760100000000000036000000280000000A00
-              00000A000000010018000000000040010000120B0000120B0000000000000000
-              0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-              0000FF00FFFF00FFFF00FF000000FF00FFFF00FF000000FF00FFFF00FFFF00FF
-              0000FF00FF000000FF00FF04FDEF000000FF00FF04FDEF000000FF00FFFF00FF
-              0000FF00FF04FDEF000000000000000000000000000000000000FF00FFFF00FF
-              0000FF00FFFF00FF00000004FDEF04FDEF04FDEF00000004FDEF000000FF00FF
-              0000FF00FF00000000000004FDEF04FDEF04FDEF000000FF00FFFF00FFFF00FF
-              0000FF00FF04FDEF00000004FDEF04FDEF04FDEF000000000000FF00FFFF00FF
-              0000FF00FFFF00FF00000000000000000000000000000004FDEF000000FF00FF
-              0000FF00FFFF00FF04FDEF000000FF00FF04FDEF000000FF00FFFF00FFFF00FF
-              0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-              0000}
-            Transparent = True
-          end
-          object TaxMenLabel: TLabel
-            Left = 124
-            Top = 80
-            Width = 23
-            Height = 13
-            Caption = '7 / 7'
-            Color = clBtnFace
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGrayText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentColor = False
-            ParentFont = False
-          end
-          object EnterMenLabel: TLabel
-            Left = 124
-            Top = 128
-            Width = 23
-            Height = 13
-            Caption = '7 / 7'
-            Color = clBtnFace
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGrayText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentColor = False
-            ParentFont = False
-          end
-          object WorkLabel: TLabel
-            Left = 124
-            Top = 112
-            Width = 23
-            Height = 13
-            Caption = '7 / 7'
-            Color = clBtnFace
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGrayText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentColor = False
-            ParentFont = False
-          end
-          object Label20: TLabel
-            Left = 8
-            Top = 112
-            Width = 57
-            Height = 13
-            Caption = 'Max wages:'
-          end
-          object MaxWagesLabel: TLabel
-            Left = 80
-            Top = 112
-            Width = 41
-            Height = 13
-            AutoSize = False
-            Caption = '108923'
-          end
-        end
-        object RegionPControl: TPageControl
-          Left = 0
-          Top = 149
-          Width = 296
-          Height = 739
-          ActivePage = ItemSheet
-          Align = alClient
-          TabIndex = 0
-          TabOrder = 1
-          TabPosition = tpBottom
-          object ItemSheet: TTabSheet
-            Caption = 'Items'
-            object TradePanel: TPanel
-              Left = 0
-              Top = 0
-              Width = 288
-              Height = 713
-              Align = alClient
-              BevelOuter = bvNone
-              TabOrder = 0
-              OnResize = TradePanelResize
-              object Label18: TLabel
-                Left = 0
-                Top = 63
-                Width = 288
-                Height = 15
-                Align = alTop
-                AutoSize = False
-                Caption = ' Wanted:'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'MS Sans Serif'
-                Font.Style = [fsBold]
-                ParentFont = False
-              end
-              object Label17: TLabel
-                Left = 0
-                Top = 131
-                Width = 288
-                Height = 15
-                Align = alTop
-                AutoSize = False
-                Caption = ' For Sale:'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'MS Sans Serif'
-                Font.Style = [fsBold]
-                ParentFont = False
-              end
-              object Label12: TLabel
-                Left = 0
-                Top = 0
-                Width = 288
-                Height = 13
-                Align = alTop
-                Caption = ' Products:'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'MS Sans Serif'
-                Font.Style = [fsBold]
-                ParentFont = False
-              end
-              object WantedGrid: TPowerGrid
-                Left = 0
-                Top = 78
-                Width = 288
-                Height = 53
-                Align = alTop
-                ColCount = 3
-                DefaultRowColor = clBlack
-                Editing = False
-                FixedRows = 0
-                ImageCol = 0
-                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
-                RowCount = 0
-                Sorted = False
-                SortBy = 1
-                StickySelect = False
-                TopRow = 0
-                OnDblClick = ItemGridDblClick
-                OnDrawCell = ItemGridDrawCell
-                ColWidths = (
-                  45
-                  96
-                  143)
-              end
-              object ForSaleGrid: TPowerGrid
-                Left = 0
-                Top = 146
-                Width = 288
-                Height = 57
-                Align = alTop
-                ColCount = 3
-                DefaultRowColor = clBlack
-                Editing = False
-                FixedRows = 0
-                ImageCol = 0
-                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
-                RowCount = 0
-                Sorted = False
-                SortBy = 0
-                StickySelect = False
-                TopRow = 0
-                OnDblClick = ItemGridDblClick
-                OnDrawCell = ItemGridDrawCell
-                ColWidths = (
-                  45
-                  96
-                  143)
-              end
-              object ProductGrid: TPowerGrid
-                Left = 0
-                Top = 13
-                Width = 288
-                Height = 50
-                Align = alTop
-                ColCount = 2
-                DefaultRowColor = clBlack
-                Editing = False
-                FixedRows = 0
-                ImageCol = 0
-                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
-                RowCount = 0
-                Sorted = False
-                SortBy = 0
-                StickySelect = False
-                TopRow = 0
-                OnDblClick = ItemGridDblClick
-                OnDrawCell = ItemGridDrawCell
-                ColWidths = (
-                  45
-                  239)
-              end
-            end
-          end
-          object NoteSheet: TTabSheet
-            Caption = 'Notes'
-            ImageIndex = 1
-            object NotesMemo: TMemo
-              Left = 0
-              Top = 45
-              Width = 288
-              Height = 668
-              Align = alClient
-              TabOrder = 0
-              OnExit = NotesMemoExit
-            end
-            object Panel1: TPanel
-              Left = 0
-              Top = 0
-              Width = 288
-              Height = 45
-              Align = alTop
-              BevelOuter = bvNone
-              BorderWidth = 3
-              Caption = 'Panel1'
-              TabOrder = 1
-              object WeatherLabel: TLabel
-                Left = 3
-                Top = 3
-                Width = 282
-                Height = 39
-                Align = alClient
-                AutoSize = False
-                Caption = 'It was clear last month; it will be clear next month.'
-                WordWrap = True
-              end
-            end
-          end
-        end
-      end
       object tsUnit: TTabSheet
         HelpContext = 8
         Caption = 'Unit'
@@ -1469,7 +1057,7 @@ object MainForm: TMainForm
   object MapUnitsPanel: TPanel
     Left = 0
     Top = 28
-    Width = 1421
+    Width = 1302
     Height = 917
     Align = alClient
     BevelOuter = bvNone
@@ -1477,7 +1065,7 @@ object MainForm: TMainForm
     object UnitSplitter: TSplitter
       Left = 0
       Top = 797
-      Width = 1421
+      Width = 1302
       Height = 6
       Cursor = crVSplit
       Align = alBottom
@@ -1486,7 +1074,7 @@ object MainForm: TMainForm
     object MapToolPanel: TPanel
       Left = 0
       Top = 0
-      Width = 1421
+      Width = 1302
       Height = 29
       HelpContext = 3
       Align = alTop
@@ -1494,7 +1082,7 @@ object MainForm: TMainForm
       object MapToolbar: TToolBar
         Left = 1
         Top = 1
-        Width = 1372
+        Width = 1253
         Height = 27
         Align = alClient
         ButtonHeight = 23
@@ -1826,7 +1414,7 @@ object MainForm: TMainForm
         end
       end
       object CoordLabel: TPanel
-        Left = 1373
+        Left = 1254
         Top = 1
         Width = 47
         Height = 27
@@ -1840,7 +1428,7 @@ object MainForm: TMainForm
     object UnitsPanel: TPanel
       Left = 0
       Top = 803
-      Width = 1421
+      Width = 1302
       Height = 114
       HelpContext = 5
       Align = alBottom
@@ -1850,7 +1438,7 @@ object MainForm: TMainForm
       object UnitGrid: TPowerGrid
         Left = 0
         Top = 30
-        Width = 1421
+        Width = 1302
         Height = 84
         Align = alClient
         Color = clBlack
@@ -1891,7 +1479,7 @@ object MainForm: TMainForm
       object tbUnitTools: TToolBar
         Left = 0
         Top = 0
-        Width = 1421
+        Width = 1302
         Height = 30
         BorderWidth = 1
         Caption = 'tbUnitTools'
@@ -1985,7 +1573,7 @@ object MainForm: TMainForm
     object MapPanel: TPanel
       Left = 0
       Top = 29
-      Width = 1421
+      Width = 1302
       Height = 768
       Align = alClient
       BevelOuter = bvNone
@@ -2001,7 +1589,7 @@ object MainForm: TMainForm
       object HexMap: TCylinderMap
         Left = 307
         Top = 0
-        Width = 825
+        Width = 706
         Height = 768
         HelpContext = 3
         Align = alClient
@@ -2022,7 +1610,7 @@ object MainForm: TMainForm
         OnMoveMap = HexMapMoveMap
       end
       object gAllItems: TPowerGrid
-        Left = 1132
+        Left = 1013
         Top = 0
         Width = 289
         Height = 768
@@ -2780,13 +2368,447 @@ object MainForm: TMainForm
     end
   end
   object pnRightSidebar: TPanel
-    Left = 1731
+    Left = 1612
     Top = 28
-    Width = 185
+    Width = 304
     Height = 917
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 3
+    object Splitter2: TSplitter
+      Left = 0
+      Top = 441
+      Width = 304
+      Height = 5
+      Cursor = crVSplit
+      Align = alTop
+      Beveled = True
+    end
+    object pnRegion: TPanel
+      Left = 0
+      Top = 0
+      Width = 304
+      Height = 441
+      Align = alTop
+      BevelOuter = bvNone
+      TabOrder = 0
+      object RegionInfoPanel: TPanel
+        Left = 0
+        Top = 0
+        Width = 304
+        Height = 149
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 0
+        object GateImage: TImage
+          Left = 16
+          Top = 4
+          Width = 16
+          Height = 16
+          Picture.Data = {
+            07544269746D617036030000424D360300000000000036000000280000001000
+            000010000000010018000000000000030000CE0E0000C40E0000000000000000
+            0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000C0C0C0C0C0C0C0C0C0C0C0C0
+            C0C0C0000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
+            00000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000C0C0C0C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000000000000000000000000000
+            00000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
+            FF00000080000080000080000080000080000000000000B3B3000000C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000800000800000800000800000
+            80000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
+            FF000000800000FF0000FF000080000080000000000000B3B3000000C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000FF0000800000800000FF0000
+            80000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
+            FF000000800000800000FF000080000080000000000000B3B3000000C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000800000FF0000800000800000
+            FF000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C000000000FF
+            FF000000800000800000FF0000FF000080000000000000B3B3000000C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C000000000FFFF000000800000800000800000800000
+            80000000000000B3B3000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
+            00000000800000800000800000800000800000000000000000C0C0C0C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000800000800000800000
+            000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+            C0000000C0C0C0000000000000000000C0C0C0000000C0C0C0C0C0C0C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+            C0C0}
+          Transparent = True
+        end
+        object GateLabel: TLabel
+          Left = 32
+          Top = 12
+          Width = 25
+          Height = 13
+          AutoSize = False
+          Caption = '12'
+        end
+        object LandLabel: TLabel
+          Left = 81
+          Top = 4
+          Width = 92
+          Height = 24
+          Alignment = taRightJustify
+          Caption = 'Skottskog'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -21
+          Font.Name = 'Black Chancery'
+          Font.Style = []
+          ParentFont = False
+        end
+        object HexLabel: TLabel
+          Left = 80
+          Top = 32
+          Width = 93
+          Height = 13
+          Caption = 'plain (12,41), jun 12'
+        end
+        object SettlLabel: TLabel
+          Left = 80
+          Top = 48
+          Width = 87
+          Height = 13
+          Caption = 'Drumcollogher city'
+        end
+        object PeasantsLabel: TLabel
+          Left = 80
+          Top = 64
+          Width = 81
+          Height = 13
+          Caption = '1234 wood elves'
+        end
+        object TaxRateLabel: TLabel
+          Left = 80
+          Top = 80
+          Width = 41
+          Height = 13
+          AutoSize = False
+          Caption = '342'
+        end
+        object WagesLabel: TLabel
+          Left = 80
+          Top = 96
+          Width = 41
+          Height = 13
+          AutoSize = False
+          Caption = '12'
+        end
+        object EnterLabel: TLabel
+          Left = 80
+          Top = 128
+          Width = 41
+          Height = 13
+          AutoSize = False
+          Caption = '13'
+        end
+        object Label1: TLabel
+          Left = 8
+          Top = 32
+          Width = 22
+          Height = 13
+          Caption = 'Hex:'
+        end
+        object Label4: TLabel
+          Left = 8
+          Top = 48
+          Width = 53
+          Height = 13
+          Caption = 'Settlement:'
+        end
+        object Label5: TLabel
+          Left = 8
+          Top = 64
+          Width = 47
+          Height = 13
+          Caption = 'Peasants:'
+        end
+        object Label6: TLabel
+          Left = 8
+          Top = 80
+          Width = 47
+          Height = 13
+          Caption = 'Tax Rate:'
+        end
+        object Label7: TLabel
+          Left = 8
+          Top = 96
+          Width = 37
+          Height = 13
+          Caption = 'Wages:'
+        end
+        object Label8: TLabel
+          Left = 8
+          Top = 128
+          Width = 68
+          Height = 13
+          Caption = 'Entertainment:'
+        end
+        object imgWeatherNext: TImage
+          Left = 4
+          Top = 4
+          Width = 10
+          Height = 10
+          Picture.Data = {
+            07544269746D617076010000424D760100000000000036000000280000000A00
+            00000A000000010018000000000040010000120B0000120B0000000000000000
+            0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+            0000FF00FFFF00FFFF00FF000000FF00FFFF00FF000000FF00FFFF00FFFF00FF
+            0000FF00FF000000FF00FF04FDEF000000FF00FF04FDEF000000FF00FFFF00FF
+            0000FF00FF04FDEF000000000000000000000000000000000000FF00FFFF00FF
+            0000FF00FFFF00FF00000004FDEF04FDEF04FDEF00000004FDEF000000FF00FF
+            0000FF00FF00000000000004FDEF04FDEF04FDEF000000FF00FFFF00FFFF00FF
+            0000FF00FF04FDEF00000004FDEF04FDEF04FDEF000000000000FF00FFFF00FF
+            0000FF00FFFF00FF00000000000000000000000000000004FDEF000000FF00FF
+            0000FF00FFFF00FF04FDEF000000FF00FF04FDEF000000FF00FFFF00FFFF00FF
+            0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+            0000}
+          Transparent = True
+        end
+        object TaxMenLabel: TLabel
+          Left = 124
+          Top = 80
+          Width = 23
+          Height = 13
+          Caption = '7 / 7'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object EnterMenLabel: TLabel
+          Left = 124
+          Top = 128
+          Width = 23
+          Height = 13
+          Caption = '7 / 7'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object WorkLabel: TLabel
+          Left = 124
+          Top = 112
+          Width = 23
+          Height = 13
+          Caption = '7 / 7'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGrayText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label20: TLabel
+          Left = 8
+          Top = 112
+          Width = 57
+          Height = 13
+          Caption = 'Max wages:'
+        end
+        object MaxWagesLabel: TLabel
+          Left = 80
+          Top = 112
+          Width = 41
+          Height = 13
+          AutoSize = False
+          Caption = '108923'
+        end
+      end
+      object RegionPControl: TPageControl
+        Left = 0
+        Top = 149
+        Width = 304
+        Height = 292
+        ActivePage = ItemSheet
+        Align = alClient
+        TabIndex = 0
+        TabOrder = 1
+        TabPosition = tpBottom
+        object ItemSheet: TTabSheet
+          Caption = 'Items'
+          object TradePanel: TPanel
+            Left = 0
+            Top = 0
+            Width = 296
+            Height = 266
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 0
+            OnResize = TradePanelResize
+            object Label18: TLabel
+              Left = 0
+              Top = 63
+              Width = 296
+              Height = 15
+              Align = alTop
+              AutoSize = False
+              Caption = ' Wanted:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object Label17: TLabel
+              Left = 0
+              Top = 131
+              Width = 296
+              Height = 15
+              Align = alTop
+              AutoSize = False
+              Caption = ' For Sale:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object Label12: TLabel
+              Left = 0
+              Top = 0
+              Width = 296
+              Height = 13
+              Align = alTop
+              Caption = ' Products:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object WantedGrid: TPowerGrid
+              Left = 0
+              Top = 78
+              Width = 296
+              Height = 53
+              Align = alTop
+              ColCount = 3
+              DefaultRowColor = clBlack
+              Editing = False
+              FixedRows = 0
+              ImageCol = 0
+              Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+              RowCount = 0
+              Sorted = False
+              SortBy = 1
+              StickySelect = False
+              TopRow = 0
+              OnDblClick = ItemGridDblClick
+              OnDrawCell = ItemGridDrawCell
+              ColWidths = (
+                45
+                96
+                151)
+            end
+            object ForSaleGrid: TPowerGrid
+              Left = 0
+              Top = 146
+              Width = 296
+              Height = 57
+              Align = alTop
+              ColCount = 3
+              DefaultRowColor = clBlack
+              Editing = False
+              FixedRows = 0
+              ImageCol = 0
+              Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+              RowCount = 0
+              Sorted = False
+              SortBy = 0
+              StickySelect = False
+              TopRow = 0
+              OnDblClick = ItemGridDblClick
+              OnDrawCell = ItemGridDrawCell
+              ColWidths = (
+                45
+                96
+                151)
+            end
+            object ProductGrid: TPowerGrid
+              Left = 0
+              Top = 13
+              Width = 296
+              Height = 50
+              Align = alTop
+              ColCount = 2
+              DefaultRowColor = clBlack
+              Editing = False
+              FixedRows = 0
+              ImageCol = 0
+              Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+              RowCount = 0
+              Sorted = False
+              SortBy = 0
+              StickySelect = False
+              TopRow = 0
+              OnDblClick = ItemGridDblClick
+              OnDrawCell = ItemGridDrawCell
+              ColWidths = (
+                45
+                247)
+            end
+          end
+        end
+        object NoteSheet: TTabSheet
+          Caption = 'Notes'
+          ImageIndex = 1
+          object NotesMemo: TMemo
+            Left = 0
+            Top = 45
+            Width = 296
+            Height = 221
+            Align = alClient
+            TabOrder = 0
+            OnExit = NotesMemoExit
+          end
+          object Panel1: TPanel
+            Left = 0
+            Top = 0
+            Width = 296
+            Height = 45
+            Align = alTop
+            BevelOuter = bvNone
+            BorderWidth = 3
+            Caption = 'Panel1'
+            TabOrder = 1
+            object WeatherLabel: TLabel
+              Left = 3
+              Top = 3
+              Width = 282
+              Height = 39
+              Align = alClient
+              AutoSize = False
+              Caption = 'It was clear last month; it will be clear next month.'
+              WordWrap = True
+            end
+          end
+        end
+      end
+    end
+    object pnUnit: TPanel
+      Left = 0
+      Top = 446
+      Width = 304
+      Height = 471
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 1
+    end
   end
   object MainMenu: TMainMenu
     Images = ResForm.BtnImages

@@ -45,7 +45,6 @@ type
   TMainForm = class(TForm)
     InfoPanel: TPanel;
     InfoPControl: TPageControl;
-    tsRegion: TTabSheet;
     tsUnit: TTabSheet;
     MapUnitsPanel: TPanel;
     UnitSplitter: TSplitter;
@@ -493,6 +492,9 @@ type
     pnStrucInfo: TPanel;
     pnRightSidebar: TPanel;
     Splitter1: TSplitter;
+    pnRegion: TPanel;
+    pnUnit: TPanel;
+    Splitter2: TSplitter;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
