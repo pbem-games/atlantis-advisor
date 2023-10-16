@@ -42,10 +42,10 @@ object MainForm: TMainForm
       Top = 0
       Width = 304
       Height = 917
-      ActivePage = tsUnit
+      ActivePage = tsRegion
       Align = alClient
       Images = ResForm.BtnImages
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       object tsRegion: TTabSheet
         HelpContext = 7
@@ -307,8 +307,8 @@ object MainForm: TMainForm
             object TradePanel: TPanel
               Left = 0
               Top = 0
-              Width = 191
-              Height = 190
+              Width = 288
+              Height = 713
               Align = alClient
               BevelOuter = bvNone
               TabOrder = 0
@@ -316,7 +316,7 @@ object MainForm: TMainForm
               object Label18: TLabel
                 Left = 0
                 Top = 63
-                Width = 191
+                Width = 288
                 Height = 15
                 Align = alTop
                 AutoSize = False
@@ -331,7 +331,7 @@ object MainForm: TMainForm
               object Label17: TLabel
                 Left = 0
                 Top = 131
-                Width = 191
+                Width = 288
                 Height = 15
                 Align = alTop
                 AutoSize = False
@@ -346,7 +346,7 @@ object MainForm: TMainForm
               object Label12: TLabel
                 Left = 0
                 Top = 0
-                Width = 59
+                Width = 288
                 Height = 13
                 Align = alTop
                 Caption = ' Products:'
@@ -360,7 +360,7 @@ object MainForm: TMainForm
               object WantedGrid: TPowerGrid
                 Left = 0
                 Top = 78
-                Width = 191
+                Width = 288
                 Height = 53
                 Align = alTop
                 ColCount = 3
@@ -379,12 +379,12 @@ object MainForm: TMainForm
                 ColWidths = (
                   45
                   96
-                  46)
+                  143)
               end
               object ForSaleGrid: TPowerGrid
                 Left = 0
                 Top = 146
-                Width = 191
+                Width = 288
                 Height = 57
                 Align = alTop
                 ColCount = 3
@@ -403,12 +403,12 @@ object MainForm: TMainForm
                 ColWidths = (
                   45
                   96
-                  46)
+                  143)
               end
               object ProductGrid: TPowerGrid
                 Left = 0
                 Top = 13
-                Width = 191
+                Width = 288
                 Height = 50
                 Align = alTop
                 ColCount = 2
@@ -426,7 +426,7 @@ object MainForm: TMainForm
                 OnDrawCell = ItemGridDrawCell
                 ColWidths = (
                   45
-                  142)
+                  239)
               end
             end
           end
@@ -1462,259 +1462,6 @@ object MainForm: TMainForm
           end
         end
       end
-      object tsStruct: TTabSheet
-        Caption = 'Object'
-        ImageIndex = 1
-        object StructNameBevel: TBevel
-          Left = 3
-          Top = 3
-          Width = 150
-          Height = 23
-          Visible = False
-        end
-        object StructDescrBevel: TBevel
-          Left = 3
-          Top = 28
-          Width = 192
-          Height = 17
-          Visible = False
-        end
-        object StructNumLabel: TLabel
-          Left = 156
-          Top = 4
-          Width = 32
-          Height = 13
-          Alignment = taRightJustify
-          AutoSize = False
-          Caption = '127'
-        end
-        object Label11: TLabel
-          Left = 8
-          Top = 88
-          Width = 44
-          Height = 13
-          Caption = 'Defence:'
-        end
-        object Label13: TLabel
-          Left = 8
-          Top = 104
-          Width = 54
-          Height = 13
-          Caption = 'Men inside:'
-        end
-        object Label16: TLabel
-          Left = 8
-          Top = 120
-          Width = 23
-          Height = 13
-          Caption = 'Size:'
-        end
-        object StructDefLabel: TLabel
-          Left = 72
-          Top = 88
-          Width = 18
-          Height = 13
-          Caption = '100'
-        end
-        object StructMenLabel: TLabel
-          Left = 72
-          Top = 104
-          Width = 12
-          Height = 13
-          Caption = '10'
-        end
-        object StructSizeLabel: TLabel
-          Left = 72
-          Top = 120
-          Width = 45
-          Height = 13
-          AutoSize = False
-          Caption = '2 / 10'
-        end
-        object Label22: TLabel
-          Left = 8
-          Top = 72
-          Width = 34
-          Height = 13
-          Caption = 'Owner:'
-        end
-        object StructOwnerLabel: TLabel
-          Left = 80
-          Top = 72
-          Width = 52
-          Height = 13
-          Caption = 'Sailors (12)'
-        end
-        object OwnerFlagImage: TImage
-          Left = 68
-          Top = 72
-          Width = 10
-          Height = 10
-          Picture.Data = {
-            07544269746D617076010000424D760100000000000036000000280000000A00
-            00000A000000010018000000000040010000CE0E0000C40E0000000000000000
-            0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-            0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
-            0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
-            0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
-            0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
-            0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
-            0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
-            0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
-            0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
-            0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-            0000}
-          Transparent = True
-        end
-        object IncomplStructImage: TImage
-          Left = 120
-          Top = 119
-          Width = 16
-          Height = 16
-          Picture.Data = {
-            07544269746D617036030000424D360300000000000036000000280000001000
-            000010000000010018000000000000030000CE0E0000C40E0000000000000000
-            0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
-            000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
-            000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
-            0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-            FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-            C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
-            0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-            FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-            C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-            0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-            FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-            C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-            0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
-            FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
-            0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0}
-          Transparent = True
-        end
-        object Label19: TLabel
-          Left = 8
-          Top = 56
-          Width = 27
-          Height = 13
-          Caption = 'Type:'
-        end
-        object StructGroupLabel: TLabel
-          Left = 72
-          Top = 56
-          Width = 45
-          Height = 13
-          Caption = 'Longboat'
-        end
-        object StructNameEdit: TEdit
-          Tag = 2
-          Left = 4
-          Top = 4
-          Width = 145
-          Height = 21
-          AutoSize = False
-          BorderStyle = bsNone
-          Color = clBtnFace
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -19
-          Font.Name = 'Black Chancery'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          Text = 'Gold Fish'
-          OnEnter = FormEditEnter
-          OnExit = FormEditExit
-          OnKeyPress = FormEditKeyPress
-        end
-        object StructDescrEdit: TEdit
-          Tag = 3
-          Left = 6
-          Top = 29
-          Width = 185
-          Height = 15
-          AutoSize = False
-          BorderStyle = bsNone
-          Color = clBtnFace
-          TabOrder = 1
-          Text = 'Small fast longboat'
-          OnEnter = FormEditEnter
-          OnExit = FormEditExit
-          OnKeyPress = FormEditKeyPress
-        end
-        object GroupBox1: TGroupBox
-          Left = 4
-          Top = 144
-          Width = 189
-          Height = 65
-          Caption = 'Transport'
-          TabOrder = 2
-          object Label14: TLabel
-            Left = 20
-            Top = 20
-            Width = 27
-            Height = 13
-            Caption = 'Load:'
-          end
-          object Label15: TLabel
-            Left = 20
-            Top = 36
-            Width = 36
-            Height = 13
-            Caption = 'Control:'
-          end
-          object StructLoadLabel: TLabel
-            Left = 68
-            Top = 20
-            Width = 59
-            Height = 13
-            Caption = '1200 / 1800'
-          end
-          object StructControlLabel: TLabel
-            Left = 68
-            Top = 36
-            Width = 29
-            Height = 13
-            Caption = '5 / 15'
-          end
-        end
-        object GroupBox2: TGroupBox
-          Left = 4
-          Top = 212
-          Width = 185
-          Height = 101
-          Caption = 'Passage To'
-          TabOrder = 3
-          object lWayTo: TLabel
-            Left = 8
-            Top = 20
-            Width = 169
-            Height = 33
-            AutoSize = False
-            Caption = 'cave (31, 20, underworld) in Underworld'
-            WordWrap = True
-          end
-          object btnLinkShaft: TButton
-            Left = 108
-            Top = 68
-            Width = 63
-            Height = 21
-            Caption = 'Link'
-            Enabled = False
-            TabOrder = 0
-            OnClick = btnLinkShaftClick
-          end
-        end
-      end
     end
   end
   object MapUnitsPanel: TPanel
@@ -2311,9 +2058,9 @@ object MainForm: TMainForm
         TabOrder = 2
         object StructGrid: TPowerGrid
           Left = 0
-          Top = 304
+          Top = 321
           Width = 304
-          Height = 464
+          Height = 447
           Align = alClient
           Color = clBtnFace
           ColCount = 2
@@ -2337,14 +2084,378 @@ object MainForm: TMainForm
             2
             298)
         end
-        object Structure: TPanel
+        object pStructure: TPanel
           Left = 0
           Top = 0
           Width = 304
-          Height = 304
+          Height = 321
           Align = alTop
-          BevelOuter = bvLowered
+          BevelOuter = bvNone
+          BorderWidth = 4
           TabOrder = 1
+          object pnStructureName: TPanel
+            Left = 4
+            Top = 4
+            Width = 296
+            Height = 32
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 0
+            object StructNumLabel: TLabel
+              Left = 275
+              Top = 0
+              Width = 21
+              Height = 32
+              Align = alRight
+              Caption = '127'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -13
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              Layout = tlCenter
+            end
+            object spPanel1: TPanel
+              Left = 267
+              Top = 0
+              Width = 8
+              Height = 32
+              Align = alRight
+              BevelOuter = bvNone
+              TabOrder = 0
+            end
+            object Panel6: TPanel
+              Left = 0
+              Top = 0
+              Width = 267
+              Height = 32
+              Align = alClient
+              BevelOuter = bvNone
+              Caption = 'Panel6'
+              TabOrder = 1
+              DesignSize = (
+                267
+                32)
+              object StructNameBevel: TBevel
+                Left = 0
+                Top = 0
+                Width = 267
+                Height = 32
+                Align = alClient
+                Visible = False
+              end
+              object StructNameEdit: TEdit
+                Tag = 2
+                Left = 4
+                Top = 4
+                Width = 259
+                Height = 24
+                Anchors = [akLeft, akTop, akRight, akBottom]
+                AutoSize = False
+                BorderStyle = bsNone
+                Color = clBtnFace
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -19
+                Font.Name = 'Black Chancery'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 0
+                Text = 'Gold Fish'
+                OnEnter = FormEditEnter
+                OnExit = FormEditExit
+                OnKeyPress = FormEditKeyPress
+              end
+            end
+          end
+          object pnStrucDescription: TPanel
+            Left = 4
+            Top = 40
+            Width = 296
+            Height = 16
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 1
+            DesignSize = (
+              296
+              16)
+            object StructDescrBevel: TBevel
+              Left = 0
+              Top = 0
+              Width = 296
+              Height = 16
+              Align = alClient
+              Visible = False
+            end
+            object StructDescrEdit: TEdit
+              Tag = 3
+              Left = 6
+              Top = 1
+              Width = 287
+              Height = 15
+              Anchors = [akLeft, akTop, akRight, akBottom]
+              AutoSize = False
+              BorderStyle = bsNone
+              Color = clBtnFace
+              TabOrder = 0
+              Text = 'Small fast longboat'
+              OnEnter = FormEditEnter
+              OnExit = FormEditExit
+              OnKeyPress = FormEditKeyPress
+            end
+          end
+          object spPanel2: TPanel
+            Left = 4
+            Top = 36
+            Width = 296
+            Height = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 2
+          end
+          object Panel4: TPanel
+            Left = 4
+            Top = 318
+            Width = 296
+            Height = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 3
+          end
+          object Panel5: TPanel
+            Left = 4
+            Top = 56
+            Width = 296
+            Height = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 4
+          end
+          object Panel7: TPanel
+            Left = 4
+            Top = 213
+            Width = 296
+            Height = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 5
+          end
+          object Panel8: TPanel
+            Left = 4
+            Top = 144
+            Width = 296
+            Height = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 6
+          end
+          object pnStrucInfo: TPanel
+            Left = 4
+            Top = 60
+            Width = 296
+            Height = 84
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 7
+            object OwnerFlagImage: TImage
+              Left = 60
+              Top = 16
+              Width = 10
+              Height = 10
+              Picture.Data = {
+                07544269746D617076010000424D760100000000000036000000280000000A00
+                00000A000000010018000000000040010000CE0E0000C40E0000000000000000
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
+                0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
+                0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
+                0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
+                0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
+                0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+                0000}
+              Transparent = True
+            end
+            object StructGroupLabel: TLabel
+              Left = 64
+              Top = 0
+              Width = 45
+              Height = 13
+              Caption = 'Longboat'
+            end
+            object Label19: TLabel
+              Left = 0
+              Top = 0
+              Width = 27
+              Height = 13
+              Caption = 'Type:'
+            end
+            object Label22: TLabel
+              Left = 0
+              Top = 16
+              Width = 34
+              Height = 13
+              Caption = 'Owner:'
+            end
+            object StructOwnerLabel: TLabel
+              Left = 72
+              Top = 16
+              Width = 52
+              Height = 13
+              Caption = 'Sailors (12)'
+            end
+            object StructDefLabel: TLabel
+              Left = 64
+              Top = 32
+              Width = 18
+              Height = 13
+              Caption = '100'
+            end
+            object Label11: TLabel
+              Left = 0
+              Top = 32
+              Width = 44
+              Height = 13
+              Caption = 'Defence:'
+            end
+            object Label13: TLabel
+              Left = 0
+              Top = 48
+              Width = 54
+              Height = 13
+              Caption = 'Men inside:'
+            end
+            object StructMenLabel: TLabel
+              Left = 64
+              Top = 48
+              Width = 12
+              Height = 13
+              Caption = '10'
+            end
+            object Label16: TLabel
+              Left = 0
+              Top = 63
+              Width = 23
+              Height = 13
+              Caption = 'Size:'
+            end
+            object StructSizeLabel: TLabel
+              Left = 64
+              Top = 63
+              Width = 45
+              Height = 13
+              AutoSize = False
+              Caption = '2 / 10'
+            end
+            object IncomplStructImage: TImage
+              Left = 112
+              Top = 60
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
+                000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
+                000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
+                0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0}
+              Transparent = True
+            end
+          end
+          object GroupBox1: TGroupBox
+            Left = 4
+            Top = 148
+            Width = 296
+            Height = 65
+            Align = alTop
+            Caption = 'Transport'
+            TabOrder = 8
+            object Label14: TLabel
+              Left = 20
+              Top = 20
+              Width = 27
+              Height = 13
+              Caption = 'Load:'
+            end
+            object Label15: TLabel
+              Left = 20
+              Top = 36
+              Width = 36
+              Height = 13
+              Caption = 'Control:'
+            end
+            object StructLoadLabel: TLabel
+              Left = 68
+              Top = 20
+              Width = 59
+              Height = 13
+              Caption = '1200 / 1800'
+            end
+            object StructControlLabel: TLabel
+              Left = 68
+              Top = 36
+              Width = 29
+              Height = 13
+              Caption = '5 / 15'
+            end
+          end
+          object GroupBox2: TGroupBox
+            Left = 4
+            Top = 217
+            Width = 296
+            Height = 101
+            Align = alTop
+            Caption = 'Passage To'
+            TabOrder = 9
+            DesignSize = (
+              296
+              101)
+            object lWayTo: TLabel
+              Left = 8
+              Top = 20
+              Width = 279
+              Height = 33
+              Anchors = [akLeft, akTop, akRight]
+              AutoSize = False
+              Caption = 'cave (31, 20, underworld) in Underworld'
+              WordWrap = True
+            end
+            object btnLinkShaft: TButton
+              Left = 218
+              Top = 68
+              Width = 63
+              Height = 21
+              Anchors = [akTop, akRight]
+              Caption = 'Link'
+              Enabled = False
+              TabOrder = 0
+              OnClick = btnLinkShaftClick
+            end
+          end
         end
       end
     end

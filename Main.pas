@@ -196,11 +196,9 @@ type
     ToolButton35: TToolButton;
     ToolButton36: TToolButton;
     ToolButton37: TToolButton;
-    tsStruct: TTabSheet;
     StructNameEdit: TEdit;
     StructNameBevel: TBevel;
     StructDescrEdit: TEdit;
-    StructDescrBevel: TBevel;
     StructNumLabel: TLabel;
     GateImage: TImage;
     GateLabel: TLabel;
@@ -481,7 +479,18 @@ type
     NextError1: TMenuItem;
     LoadPanel: TPanel;
     StructPanel: TPanel;
-    Structure: TPanel;
+    pStructure: TPanel;
+    pnStructureName: TPanel;
+    spPanel1: TPanel;
+    Panel6: TPanel;
+    pnStrucDescription: TPanel;
+    StructDescrBevel: TBevel;
+    spPanel2: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
+    pnStrucInfo: TPanel;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -1191,7 +1200,7 @@ begin
   InfoPControl.Enabled := Value;
   tsRegion.Enabled := Value;
   tsUnit.Enabled := Value;
-  tsStruct.Enabled := Value;
+  pStructure.Visible := Value;
   UnitsPanel.Enabled := Value;
   gAllItems.Enabled := Value;
   StructGrid.Enabled := Value;
