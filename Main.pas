@@ -43,9 +43,6 @@ type
   TWorkMode = (mNormal, mMove, mLinkShaft);
 
   TMainForm = class(TForm)
-    InfoPanel: TPanel;
-    InfoPControl: TPageControl;
-    tsUnit: TTabSheet;
     MapUnitsPanel: TPanel;
     UnitSplitter: TSplitter;
     MapToolPanel: TPanel;
@@ -55,7 +52,6 @@ type
     File1: TMenuItem;
     View1: TMenuItem;
     ShowToolbarItm: TMenuItem;
-    Label9: TLabel;
     UnitGrid: TPowerGrid;
     MapToolbar: TToolBar;
     ToolButton4: TToolButton;
@@ -955,9 +951,9 @@ begin
         MiniMapForm.Close; // Just to pickup config changes from OnClose
         Config.WriteBool('MiniMap', 'Visible', True); // Override OnClose's Visible
       end;
-      Config.WriteInteger('MainWin', 'MainTab', InfoPControl.ActivePageIndex);
-      Config.WriteInteger('MainWin', 'UnitTab', UnitPControl.ActivePageIndex);
-      Config.WriteInteger('MainWin', 'RegionTab', RegionPControl.ActivePageIndex);
+      //Config.WriteInteger('MainWin', 'MainTab', InfoPControl.ActivePageIndex);
+      //Config.WriteInteger('MainWin', 'UnitTab', UnitPControl.ActivePageIndex);
+      //Config.WriteInteger('MainWin', 'RegionTab', RegionPControl.ActivePageIndex);
       Config.WriteInteger('MainWin', 'SplitterPos', UnitsPanel.Height);
       Config.WriteInteger('MainWin', 'ItemSplitterPos', pItemGrid.Height);
       Config.WriteInteger('MainWin', 'UnitPageSplitterPos', UnitPControl.Height);
@@ -1059,9 +1055,9 @@ begin
   ClearUnitFilter;
 
   // Tabs
-  InfoPControl.ActivePageIndex := Config.ReadInteger('MainWin', 'MainTab', 0);
-  UnitPControl.ActivePageIndex := Config.ReadInteger('MainWin', 'UnitTab', 0);
-  RegionPControl.ActivePageIndex := Config.ReadInteger('MainWin', 'RegionTab', 0);
+  //InfoPControl.ActivePageIndex := Config.ReadInteger('MainWin', 'MainTab', 0);
+  //UnitPControl.ActivePageIndex := Config.ReadInteger('MainWin', 'UnitTab', 0);
+  //RegionPControl.ActivePageIndex := Config.ReadInteger('MainWin', 'RegionTab', 0);
 
   // Controls setup
   GridModeAction.Checked := Config.ReadBool('MainWin', 'GridMode', False);
@@ -1074,7 +1070,7 @@ begin
   itmUnitTools.Checked := Config.ReadBool('MainWin', 'UnitTools', TRUE);
   tbUnitTools.Visible := itmUnitTools.Checked;
   InfoPanel1.Checked := Config.ReadBool('MainWin', 'InfoPanel', TRUE);
-  InfoPanel.Visible := InfoPanel1.Checked;
+  //InfoPanel.Visible := InfoPanel1.Checked;
   UnitsPanel.Height := Config.ReadInteger('MainWin', 'SplitterPos', 150);
   StructGrid.Width := Config.ReadInteger('MainWin', 'StructSplitterPos', 100);
   pItemGrid.Height := Config.ReadInteger('MainWin', 'ItemSplitterPos', 100);
@@ -1201,9 +1197,8 @@ begin
 
   SetupEngine;
 
-  InfoPControl.Enabled := Value;
-  tsRegion.Enabled := Value;
-  tsUnit.Enabled := Value;
+  //tsRegion.Enabled := Value;
+  //tsUnit.Enabled := Value;
   pStructure.Visible := Value;
   UnitsPanel.Enabled := Value;
   gAllItems.Enabled := Value;
@@ -3154,7 +3149,8 @@ procedure TMainForm.ItemGridDragOver(Sender, Source: TObject; X,
   Y: Integer; State: TDragState; var Accept: Boolean);
 begin
   if Sender = Source then begin
-    if InfoPControl.ActivePage = tsUnit then eGiveAmt.SetFocus;
+//    if InfoPControl.ActivePage = tsUnit then eGiveAmt.SetFocus;
+    eGiveAmt.SetFocus;
   end
   else if Source <> gAllItems then Accept := False;
 end;
@@ -3266,7 +3262,8 @@ procedure TMainForm.gAllItemsDragOver(Sender, Source: TObject; X,
   Y: Integer; State: TDragState; var Accept: Boolean);
 begin
   if Sender = Source then begin
-    if InfoPControl.ActivePage = tsUnit then eGiveAmt.SetFocus;
+    //if InfoPControl.ActivePage = tsUnit then eGiveAmt.SetFocus;
+    eGiveAmt.SetFocus;
   end
   else Accept := False;
 end;
@@ -3436,7 +3433,7 @@ end;
 procedure TMainForm.Infopanel1Click(Sender: TObject);
 begin
   Infopanel1.Checked := not Infopanel1.Checked;
-  InfoPanel.Visible := Infopanel1.Checked;
+  //InfoPanel.Visible := Infopanel1.Checked;
   Config.WriteBool('MainWin', 'InfoPanel', Infopanel1.Checked);
 end;
 

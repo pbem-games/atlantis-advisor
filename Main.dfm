@@ -1,8 +1,8 @@
 object MainForm: TMainForm
-  Left = 440
-  Top = 135
+  Left = 422
+  Top = 84
   Width = 1932
-  Height = 1004
+  Height = 1093
   Caption = 'Atlantis Advisor'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -23,1049 +23,26 @@ object MainForm: TMainForm
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
-    Left = 1302
+    Left = 1606
     Top = 28
     Width = 6
-    Height = 917
+    Height = 1006
     Cursor = crHSplit
     Align = alRight
     Beveled = True
   end
-  object InfoPanel: TPanel
-    Left = 1308
-    Top = 28
-    Width = 304
-    Height = 917
-    Align = alRight
-    BevelOuter = bvNone
-    TabOrder = 0
-    object Label9: TLabel
-      Left = 4
-      Top = 100
-      Width = 32
-      Height = 13
-      Caption = 'Label9'
-    end
-    object InfoPControl: TPageControl
-      Left = 0
-      Top = 0
-      Width = 304
-      Height = 917
-      ActivePage = tsUnit
-      Align = alClient
-      Images = ResForm.BtnImages
-      TabIndex = 0
-      TabOrder = 0
-      object tsUnit: TTabSheet
-        HelpContext = 8
-        Caption = 'Unit'
-        object ItemSplit: TSplitter
-          Left = 0
-          Top = 185
-          Width = 296
-          Height = 3
-          Cursor = crVSplit
-          Align = alTop
-        end
-        object UnitPageSplit: TSplitter
-          Left = 0
-          Top = 605
-          Width = 296
-          Height = 3
-          Cursor = crVSplit
-          Align = alBottom
-        end
-        object UnitPControl: TPageControl
-          Tag = 2
-          Left = 0
-          Top = 608
-          Width = 296
-          Height = 280
-          ActivePage = OrderSheet
-          Align = alBottom
-          DockSite = True
-          MultiLine = True
-          TabIndex = 0
-          TabOrder = 0
-          TabPosition = tpBottom
-          object OrderSheet: TTabSheet
-            Caption = 'Orders'
-            ImageIndex = 3
-            object Panel2: TPanel
-              Left = 0
-              Top = 0
-              Width = 288
-              Height = 21
-              Align = alTop
-              BevelOuter = bvNone
-              TabOrder = 0
-              object lMonthOut: TLabel
-                Left = 24
-                Top = 2
-                Width = 125
-                Height = 13
-                AutoSize = False
-                Caption = '12 / 20'
-              end
-              object imgMonthOrder: TImage
-                Left = 3
-                Top = 0
-                Width = 16
-                Height = 18
-                Transparent = True
-              end
-              object ToolBar1: TToolBar
-                Left = 249
-                Top = 0
-                Width = 39
-                Height = 21
-                Align = alRight
-                ButtonHeight = 18
-                ButtonWidth = 19
-                Caption = 'ToolBar1'
-                EdgeBorders = []
-                Flat = True
-                Images = ResForm.SmallBtnList
-                TabOrder = 0
-                object btnCheckOrder: TToolButton
-                  Left = 0
-                  Top = 0
-                  Hint = 'Check orders'
-                  Caption = 'btnCheckOrder'
-                  ImageIndex = 5
-                  ParentShowHint = False
-                  ShowHint = True
-                  OnClick = CheckOrderBtnClick
-                end
-                object btnClearOrder: TToolButton
-                  Left = 19
-                  Top = 0
-                  Hint = 'Clear orders'
-                  Caption = 'btnClearOrder'
-                  ImageIndex = 4
-                  ParentShowHint = False
-                  ShowHint = True
-                  OnClick = ClearOrderBtnClick
-                end
-              end
-            end
-            object OrderMemo: TMemo
-              Left = 0
-              Top = 21
-              Width = 288
-              Height = 161
-              Align = alClient
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -13
-              Font.Name = 'Consolas'
-              Font.Style = []
-              ParentFont = False
-              ScrollBars = ssBoth
-              TabOrder = 1
-              WordWrap = False
-              OnExit = OrderMemoExit
-              OnKeyUp = OrderMemoKeyUp
-            end
-            object LoadPanel: TPanel
-              Left = 0
-              Top = 182
-              Width = 288
-              Height = 72
-              Align = alBottom
-              BevelOuter = bvNone
-              TabOrder = 2
-              object MoveTypeLabel: TLabel
-                Left = 61
-                Top = 6
-                Width = 36
-                Height = 13
-                Caption = 'walking'
-              end
-              object WingWeightLabel: TLabel
-                Left = 168
-                Top = 28
-                Width = 67
-                Height = 13
-                Caption = '100 (max 200)'
-              end
-              object WingWeightWarning: TImage
-                Left = 132
-                Top = 27
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000C40E0000000000000000
-                  0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
-                  000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
-                  000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
-                  0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0}
-                Transparent = True
-              end
-              object Image5: TImage
-                Left = 148
-                Top = 27
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000D80E0000000000000000
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00
-                  FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FF000000FF00FF
-                  FF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00
-                  FFFF00FFFF00FFFF00FF000000808080FF00FFFF00FF000000FF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FF000000000000000000FF00FF000000000000000000
-                  FF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FF0000008080
-                  80FFFFFF000000000000D0D0D0D0D0D0000000000000FF00FF000000FF00FFFF
-                  00FFFF00FF000000FF00FF000000FFFFFFD0D0D0D0D0D0FFFFFFFFFFFFD0D0D0
-                  000000D0D0D0000000000000FF00FFFF00FFFF00FFFF00FF000000FF00FF0000
-                  00FFFFFFFFFFFF000000000000FFFFFFFFFFFFD0D0D0000000808080FF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000FFFFFFD0D0D0FFFFFF
-                  FFFFFFD0D0D0000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF0000
-                  00000000FFFFFFC0C0C0000000000000FFFFFFD0D0D0000000FF00FFFF00FFFF
-                  00FF000000000000FFFFFF000000C0C0C0FFFFFFFFFFFF000000FF00FF000000
-                  FFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FF000000FFFFFFFFFFFFC0C0
-                  C0FFFFFFFFFFFF000000000000C0C0C0C0C0C0000000FFFFFF000000FF00FFFF
-                  00FFFF00FFFF00FF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF
-                  C0C0C0000000FFFFFF000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FFFF
-                  FFFFFFFFFFFFFF000000000000C0C0C0FFFFFF000000FFFFFF000000FF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FF000000FFFFFFFFFFFF000000FF00FF000000
-                  000000000000FF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FF000000000000FF00FFFF00FF000000FF00FF000000FF00FF000000FF00FFFF
-                  00FF}
-                Transparent = True
-              end
-              object TransportWeightWarning: TImage
-                Left = 132
-                Top = 47
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000C40E0000000000000000
-                  0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
-                  000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
-                  000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
-                  0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0}
-                Transparent = True
-              end
-              object HorsesWeightWarning: TImage
-                Left = 4
-                Top = 47
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000C40E0000000000000000
-                  0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
-                  000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
-                  000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
-                  0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0}
-                Transparent = True
-              end
-              object UnitWeightWarning: TImage
-                Left = 4
-                Top = 27
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000C40E0000000000000000
-                  0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
-                  000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
-                  000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
-                  C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
-                  0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
-                  FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
-                  0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                  C0C0}
-                Transparent = True
-              end
-              object TransportWeightLabel: TLabel
-                Left = 168
-                Top = 48
-                Width = 96
-                Height = 13
-                Caption = '100/200 (max 1000)'
-              end
-              object HorsesWeightLabel: TLabel
-                Left = 40
-                Top = 48
-                Width = 67
-                Height = 13
-                Caption = '100 (max 200)'
-              end
-              object UnitWeightLabel: TLabel
-                Left = 40
-                Top = 28
-                Width = 67
-                Height = 13
-                Caption = '100 (max 200)'
-                Color = clBtnFace
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'MS Sans Serif'
-                Font.Style = []
-                ParentColor = False
-                ParentFont = False
-              end
-              object Image3: TImage
-                Left = 148
-                Top = 47
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000C40E0000000000000000
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FF000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FF808080FF00FFFF00FFFF00FF00000000FFFF00FFFF008080
-                  000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00
-                  FF80808000FFFF00FFFF00FFFF00FFFF008080000000FF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FF808080FFFFFF00000080808080808080808000FFFF00FFFF
-                  000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFF
-                  FF000000FF00FFFF00FF80808000FFFF000000FF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFF000000000000FF00FF000000
-                  FF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
-                  80FFFFFFFFFFFFFFFFFF000000000000000000000000000000FF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFFFFFFF000000
-                  C0C0C0C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
-                  80FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFC0C0C0
-                  C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FF808080FFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFC0C0C0000000
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FF808080FFFFFF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00FFFF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FF}
-                Transparent = True
-              end
-              object Image2: TImage
-                Left = 20
-                Top = 47
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000C40E0000000000000000
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF
-                  FF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00
-                  FFFF00FFFF00FFFF00FF000000808080FF00FFFF00FF000000FF00FFFF00FFFF
-                  00FFFF00FFFF00FF000000808080FF00FFFF00FF000000FF00FF000000000000
-                  FF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FF0000008080
-                  80000000000000000000D0D0D0D0D0D0000000000000FF00FF000000FF00FFFF
-                  00FFFF00FFFF00FFFF00FF000000000000D0D0D0D0D0D0FFFFFFFFFFFFD0D0D0
-                  000000D0D0D0000000000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FFFF
-                  FFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFD0D0D0000000808080FF00FFFF
-                  00FFFF00FF000000FF00FF000000FFFFFFFFFFFFFFFFFFFFFFFFD0D0D0000000
-                  FFFFFFD0D0D0000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF0000
-                  00FFFFFFFFFFFF000000000000000000FFFFFFD0D0D0000000FF00FFFF00FFFF
-                  00FFFF00FF000000FF00FF000000FF00FF000000000000FF00FFFF00FF000000
-                  FFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FF000000000000C0C0C0C0C0C0000000808080FF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FFFFFFFFFFFFFFFFFF
-                  C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FF000000000000000000C0C0C0FFFFFF000000FF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000
-                  000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FFFF00FFFF00FF000000FF00FF000000FF00FFFF00FFFF00FFFF
-                  00FF}
-                Transparent = True
-              end
-              object Image1: TImage
-                Left = 20
-                Top = 27
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000C40E0000C40E0000000000000000
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00
-                  FF000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FF000000000000000000000000FFFF00B5B500000000FF00FFFF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00000080FFFF80FFFF0000
-                  00FFFF00B5B500000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FF000000000000000000000000FFFF00FFFF00FFFF00B5B500000000FF00FF
-                  FF00FFFF00FF000000FF00FFFF00FFFF00FF000000FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00B5B500000000000000000000000000FF00FFFF00FFFF
-                  00FF000000FFFF00FFFF00FFFF00FFFF00000000000000000000000000000000
-                  FFFFFFFFFFFFFFFFFF000000FF00FFFF00FF000000FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00000000FFFFFFFFFFFFFFFFFF000000000000FF00FFFF
-                  00FF000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000FFFFFF
-                  FFFFFF000000FFFFFFFFFFFF000000000000000000FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
-                  0000FF00FF000000000000000000000000000000000000000000000000000000
-                  FFFFFFFFFFFF808080808080000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FF000000000000000000000000FFFFFFFFFFFFFFFFFF000000FF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000000000
-                  000000000000000000000000000000000000FF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FFFF00FF000000000000000000000000000000000000000000FF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000
-                  000000000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FF}
-                Transparent = True
-              end
-              object Label2: TLabel
-                Left = 3
-                Top = 6
-                Width = 53
-                Height = 13
-                Caption = 'Movement:'
-              end
-            end
-          end
-          object MsgSheet: TTabSheet
-            Caption = 'Messages'
-            ImageIndex = 2
-            object MsgGrid: TPowerGrid
-              Left = 0
-              Top = 0
-              Width = 288
-              Height = 254
-              Align = alClient
-              ColCount = 2
-              DefaultRowColor = clBlack
-              Editing = False
-              FixedRows = 0
-              ImageCol = 0
-              Options = [pgoColSizing, pgoColMoving, pgoRowSelect, pgoMultilineCells]
-              RowCount = 1
-              Sorted = False
-              SortBy = 0
-              StickySelect = False
-              TopRow = 0
-              OnDrawCell = MsgGridDrawCell
-              ColWidths = (
-                19
-                153)
-            end
-          end
-        end
-        object UnitDockPanel: TPanel
-          Tag = 3
-          Left = 0
-          Top = 0
-          Width = 296
-          Height = 109
-          Align = alTop
-          BevelOuter = bvNone
-          UseDockManager = False
-          DragKind = dkDock
-          TabOrder = 1
-          object UnitNameBevel: TBevel
-            Left = 3
-            Top = 3
-            Width = 150
-            Height = 23
-            Visible = False
-          end
-          object NumLabel: TLabel
-            Left = 156
-            Top = 4
-            Width = 32
-            Height = 13
-            Alignment = taRightJustify
-            AutoSize = False
-            Caption = '6353'
-          end
-          object UnitNameEdit: TEdit
-            Left = 4
-            Top = 4
-            Width = 145
-            Height = 21
-            AutoSize = False
-            BorderStyle = bsNone
-            Color = clBtnFace
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -19
-            Font.Name = 'Black Chancery'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-            Text = 'Family of Ogres'
-            OnEnter = FormEditEnter
-            OnExit = FormEditExit
-            OnKeyPress = FormEditKeyPress
-          end
-          object UnitMainDataPanel: TPanel
-            Left = 3
-            Top = 28
-            Width = 190
-            Height = 52
-            BevelOuter = bvNone
-            TabOrder = 1
-            object UnitMainDataTextPanel: TPanel
-              Left = 0
-              Top = 0
-              Width = 138
-              Height = 52
-              Align = alClient
-              BevelOuter = bvNone
-              TabOrder = 0
-              OnResize = UnitMainDataTextPanelResize
-              object Label3: TLabel
-                Left = 0
-                Top = 20
-                Width = 38
-                Height = 13
-                Caption = 'Faction:'
-              end
-              object FactionLabel: TLabel
-                Left = 56
-                Top = 20
-                Width = 133
-                Height = 13
-                AutoSize = False
-                Caption = 'Forest Owls'
-                ShowAccelChar = False
-              end
-              object Label10: TLabel
-                Left = 0
-                Top = 36
-                Width = 34
-                Height = 13
-                Caption = 'Object:'
-              end
-              object StructImage: TImage
-                Left = 38
-                Top = 34
-                Width = 16
-                Height = 16
-                Picture.Data = {
-                  07544269746D617036030000424D360300000000000036000000280000001000
-                  000010000000010018000000000000030000CE0E0000C40E0000000000000000
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FFFF00FF000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FF808080FF00FFFF00FFFF00FF00000000FFFF00FFFF008080
-                  000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00
-                  FF80808000FFFF00FFFF00FFFF00FFFF008080000000FF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FF808080FFFFFF00000080808080808080808000FFFF00FFFF
-                  000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFF
-                  FF000000FF00FFFF00FF80808000FFFF000000FF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFF000000000000FF00FF000000
-                  FF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
-                  80FFFFFFFFFFFFFFFFFF000000000000000000000000000000FF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFFFFFFF000000
-                  C0C0C0C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
-                  80FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFC0C0C0
-                  C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FF808080FFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFC0C0C0000000
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FF808080FFFFFF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00FFFF00FF
-                  FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
-                  FFFF00FF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                  00FF}
-                Transparent = True
-              end
-              object StructLabel: TLabel
-                Left = 56
-                Top = 36
-                Width = 133
-                Height = 13
-                AutoSize = False
-                Caption = 'Ship [331] : Galleon'
-                ShowAccelChar = False
-              end
-              object UnitDescrBevel: TBevel
-                Left = 20
-                Top = 0
-                Width = 118
-                Height = 17
-                Visible = False
-              end
-              object FactionFlagImage: TImage
-                Left = 44
-                Top = 20
-                Width = 10
-                Height = 10
-                Picture.Data = {
-                  07544269746D617076010000424D760100000000000036000000280000000A00
-                  00000A000000010018000000000040010000CE0E0000C40E0000000000000000
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
-                  0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
-                  0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
-                  0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
-                  0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
-                  0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
-                  0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-                  0000}
-                Transparent = True
-              end
-              object btnLocal: TSpeedButton
-                Left = 0
-                Top = 0
-                Width = 18
-                Height = 18
-                Hint = 'Local Description (hide from other players)'
-                AllowAllUp = True
-                GroupIndex = -1
-                Flat = True
-                Glyph.Data = {
-                  E6010000424DE60100000000000036000000280000000C0000000C0000000100
-                  180000000000B0010000C40E0000C40E00000000000000000000FFFFFFFFFFFF
-                  FFFFFFFFFFFF000000000000000000000000000000000000FFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFF00000000FF0000FF0000FF0069D20069D20069D200000000FF
-                  FFFFFFFFFFFFFFFF00000000FF0000FF0000000000FF0000000000000069D200
-                  000000FFFFFFFFFFFFFFFFFF00000000FF0000FF0000FF0000000000FF0000FF
-                  00000000000000FFFFFFFFFFFF00000000FF0000000000000000FF0000FF0069
-                  D200000000FFFFFF000000FFFFFFFFFFFF000000000000FFFF00FFFF00000000
-                  000000FFFF00000000FFFFFFFFFFFFFFFFFFFFFFFF00000000FF000000000000
-                  0000FF0000FF00000000000000FFFFFFFFFFFFFFFFFFFFFFFF00000000FF0000
-                  FF0000FF0000FF0000FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000
-                  00FF0000FF0000000000000000FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
-                  FF00000000FF00000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFFFFFFFF}
-                ParentShowHint = False
-                ShowHint = True
-                OnClick = btnLocalClick
-              end
-              object UnitDescrEdit: TEdit
-                Tag = 1
-                Left = 24
-                Top = 1
-                Width = 113
-                Height = 15
-                AutoSize = False
-                BorderStyle = bsNone
-                Color = clBtnFace
-                TabOrder = 0
-                Text = 'Ugly Stupid Ogres'
-                OnEnter = FormEditEnter
-                OnExit = FormEditExit
-                OnKeyPress = FormEditKeyPress
-              end
-            end
-            object UnitImagePanel: TPanel
-              Left = 138
-              Top = 0
-              Width = 52
-              Height = 52
-              Align = alRight
-              BevelInner = bvLowered
-              BevelOuter = bvNone
-              TabOrder = 1
-              object UnitImage: TImage
-                Left = 1
-                Top = 1
-                Width = 50
-                Height = 50
-                OnDblClick = UnitImageDblClick
-              end
-            end
-          end
-          object FlagBar: TToolBar
-            Left = 2
-            Top = 83
-            Width = 195
-            Height = 25
-            Align = alNone
-            ButtonHeight = 19
-            ButtonWidth = 19
-            Caption = 'FlagBar'
-            EdgeBorders = []
-            Images = ResForm.FlagImages
-            TabOrder = 2
-            object GuardFlagBtn: TToolButton
-              Left = 0
-              Top = 2
-              Hint = 'On guard'
-              AllowAllUp = True
-              Caption = 'GuardFlagBtn'
-              ImageIndex = 0
-              ParentShowHint = False
-              ShowHint = True
-              Style = tbsCheck
-              OnClick = UnitFlagBtnClick
-            end
-            object ToolButton33: TToolButton
-              Tag = 1
-              Left = 19
-              Top = 2
-              Hint = 'Taxing'
-              AllowAllUp = True
-              Caption = 'ToolButton33'
-              ImageIndex = 1
-              ParentShowHint = False
-              ShowHint = True
-              Style = tbsCheck
-              OnClick = UnitFlagBtnClick
-            end
-            object AvoidFlagBtn: TToolButton
-              Tag = 2
-              Left = 38
-              Top = 2
-              Hint = 'Avoiding'
-              AllowAllUp = True
-              Caption = 'AvoidFlagBtn'
-              ImageIndex = 2
-              ParentShowHint = False
-              ShowHint = True
-              Style = tbsCheck
-              OnClick = UnitFlagBtnClick
-            end
-            object ToolButton35: TToolButton
-              Tag = 3
-              Left = 57
-              Top = 2
-              Hint = 'Behind'
-              AllowAllUp = True
-              Caption = 'ToolButton35'
-              ImageIndex = 3
-              ParentShowHint = False
-              ShowHint = True
-              Style = tbsCheck
-              OnClick = UnitFlagBtnClick
-            end
-            object ToolButton36: TToolButton
-              Tag = 4
-              Left = 76
-              Top = 2
-              Hint = 'Holding'
-              AllowAllUp = True
-              Caption = 'ToolButton36'
-              ImageIndex = 4
-              ParentShowHint = False
-              ShowHint = True
-              Style = tbsCheck
-              OnClick = UnitFlagBtnClick
-            end
-            object ToolButton37: TToolButton
-              Tag = 5
-              Left = 95
-              Top = 2
-              Hint = 'Receive no aid'
-              AllowAllUp = True
-              Caption = 'ToolButton37'
-              ImageIndex = 5
-              ParentShowHint = False
-              ShowHint = True
-              Style = tbsCheck
-              OnClick = UnitFlagBtnClick
-            end
-            object ToolButton45: TToolButton
-              Tag = 6
-              Left = 114
-              Top = 2
-              Hint = 'Will not cross water'
-              AllowAllUp = True
-              Caption = 'ToolButton45'
-              ImageIndex = 6
-              ParentShowHint = False
-              ShowHint = True
-              Style = tbsCheck
-              OnClick = UnitFlagBtnClick
-            end
-            object ToolButton48: TToolButton
-              Left = 133
-              Top = 2
-              Width = 4
-              Caption = 'ToolButton48'
-              ImageIndex = 8
-              Style = tbsSeparator
-            end
-            object btnConsume: TToolButton
-              Left = 137
-              Top = 2
-              Caption = 'btnConsume'
-              ImageIndex = 7
-              ParentShowHint = False
-              ShowHint = True
-              OnClick = ExtFlagBtnClick
-            end
-            object btnReveal: TToolButton
-              Tag = 1
-              Left = 156
-              Top = 2
-              Caption = 'btnReveal'
-              ImageIndex = 8
-              ParentShowHint = False
-              ShowHint = True
-              OnClick = ExtFlagBtnClick
-            end
-            object btnSpoils: TToolButton
-              Tag = 2
-              Left = 175
-              Top = 2
-              Caption = 'btnSpoils'
-              ImageIndex = 9
-              ParentShowHint = False
-              ShowHint = True
-              OnClick = ExtFlagBtnClick
-            end
-          end
-        end
-        object SkillGrid: TPowerGrid
-          Left = 0
-          Top = 188
-          Width = 296
-          Height = 417
-          Align = alClient
-          ColCount = 3
-          DefaultRowColor = clBlack
-          Editing = False
-          FixedRows = 0
-          Images = ResForm.IconList
-          ImageCol = 0
-          Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
-          PopupMenu = PopMenu
-          RowCount = 0
-          Sorted = False
-          SortBy = 0
-          StickySelect = False
-          TopRow = 0
-          OnDblClick = SkillGridDblClick
-          OnMouseDown = SkillGridMouseDown
-          ColWidths = (
-            126
-            25
-            141)
-        end
-        object pItemGrid: TPanel
-          Left = 0
-          Top = 109
-          Width = 296
-          Height = 76
-          Align = alTop
-          BevelOuter = bvNone
-          Constraints.MinHeight = 40
-          TabOrder = 3
-          object ItemGrid: TPowerGrid
-            Left = 0
-            Top = 0
-            Width = 296
-            Height = 50
-            Align = alClient
-            ColCount = 2
-            DefaultRowColor = clBlack
-            Editing = False
-            FixedRows = 0
-            ImageCol = 0
-            Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
-            RowCount = 0
-            Sorted = True
-            SortBy = 1
-            ShowHint = True
-            StickySelect = False
-            TopRow = 0
-            OnDblClick = ItemGridDblClick
-            OnDrawCell = ItemGridDrawCell
-            OnDragOver = ItemGridDragOver
-            OnEndDrag = ItemGridEndDrag
-            OnEnter = ItemGridEnter
-            OnMouseDown = ItemGridMouseDown
-            OnSelectCell = ItemGridSelectCell
-            ColWidths = (
-              48
-              244)
-          end
-          object pGiveTools: TPanel
-            Left = 0
-            Top = 50
-            Width = 296
-            Height = 26
-            Align = alBottom
-            BevelOuter = bvNone
-            TabOrder = 1
-            object Label21: TLabel
-              Left = 106
-              Top = 7
-              Width = 25
-              Height = 13
-              Caption = 'Give:'
-            end
-            object ToolBar2: TToolBar
-              Left = 5
-              Top = 4
-              Width = 96
-              Height = 24
-              Align = alNone
-              Caption = 'MapToolbar'
-              EdgeBorders = []
-              Flat = True
-              Images = ResForm.BtnImages
-              ParentShowHint = False
-              ShowHint = False
-              TabOrder = 0
-              object tbGiveAll: TToolButton
-                Tag = 1
-                Left = 0
-                Top = 0
-                Hint = 'Give everything'
-                AllowAllUp = True
-                Caption = 'Level'
-                DragMode = dmAutomatic
-                ImageIndex = 0
-                ParentShowHint = False
-                ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
-              end
-              object tbGiveBattle: TToolButton
-                Tag = 2
-                Left = 23
-                Top = 0
-                Hint = 'Give battle items'
-                Caption = 'BookmarkAction'
-                DragMode = dmAutomatic
-                ImageIndex = 28
-                ParentShowHint = False
-                ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
-              end
-              object tbGiveSpoils: TToolButton
-                Tag = 4
-                Left = 46
-                Top = 0
-                Hint = 'Give spoils'
-                Caption = 'tbGiveSpoils'
-                DragMode = dmAutomatic
-                ImageIndex = 63
-                ParentShowHint = False
-                ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
-              end
-              object tbGiveTrade: TToolButton
-                Tag = 3
-                Left = 69
-                Top = 0
-                Hint = 'Give trade goods'
-                Caption = 'tbGiveTrade'
-                DragMode = dmAutomatic
-                ImageIndex = 43
-                ParentShowHint = False
-                ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
-              end
-            end
-            object eGiveAmt: TIntEdit
-              Left = 136
-              Top = 4
-              Width = 63
-              Height = 22
-              MaxValue = 9999999
-              MinValue = 0
-              TabOrder = 1
-              Value = 0
-            end
-          end
-        end
-      end
-    end
-  end
   object MapUnitsPanel: TPanel
     Left = 0
     Top = 28
-    Width = 1302
-    Height = 917
+    Width = 1606
+    Height = 1006
     Align = alClient
     BevelOuter = bvNone
-    TabOrder = 1
+    TabOrder = 0
     object UnitSplitter: TSplitter
       Left = 0
-      Top = 797
-      Width = 1302
+      Top = 886
+      Width = 1606
       Height = 6
       Cursor = crVSplit
       Align = alBottom
@@ -1074,7 +51,7 @@ object MainForm: TMainForm
     object MapToolPanel: TPanel
       Left = 0
       Top = 0
-      Width = 1302
+      Width = 1606
       Height = 29
       HelpContext = 3
       Align = alTop
@@ -1082,7 +59,7 @@ object MainForm: TMainForm
       object MapToolbar: TToolBar
         Left = 1
         Top = 1
-        Width = 1253
+        Width = 1557
         Height = 27
         Align = alClient
         ButtonHeight = 23
@@ -1414,7 +391,7 @@ object MainForm: TMainForm
         end
       end
       object CoordLabel: TPanel
-        Left = 1254
+        Left = 1558
         Top = 1
         Width = 47
         Height = 27
@@ -1427,8 +404,8 @@ object MainForm: TMainForm
     end
     object UnitsPanel: TPanel
       Left = 0
-      Top = 803
-      Width = 1302
+      Top = 892
+      Width = 1606
       Height = 114
       HelpContext = 5
       Align = alBottom
@@ -1438,7 +415,7 @@ object MainForm: TMainForm
       object UnitGrid: TPowerGrid
         Left = 0
         Top = 30
-        Width = 1302
+        Width = 1606
         Height = 84
         Align = alClient
         Color = clBlack
@@ -1479,7 +456,7 @@ object MainForm: TMainForm
       object tbUnitTools: TToolBar
         Left = 0
         Top = 0
-        Width = 1302
+        Width = 1606
         Height = 30
         BorderWidth = 1
         Caption = 'tbUnitTools'
@@ -1573,8 +550,8 @@ object MainForm: TMainForm
     object MapPanel: TPanel
       Left = 0
       Top = 29
-      Width = 1302
-      Height = 768
+      Width = 1606
+      Height = 857
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
@@ -1582,15 +559,15 @@ object MainForm: TMainForm
         Left = 304
         Top = 0
         Width = 3
-        Height = 768
+        Height = 857
         Cursor = crHSplit
         Beveled = True
       end
       object HexMap: TCylinderMap
         Left = 307
         Top = 0
-        Width = 706
-        Height = 768
+        Width = 1010
+        Height = 857
         HelpContext = 3
         Align = alClient
         Color = clBlack
@@ -1610,10 +587,10 @@ object MainForm: TMainForm
         OnMoveMap = HexMapMoveMap
       end
       object gAllItems: TPowerGrid
-        Left = 1013
+        Left = 1317
         Top = 0
         Width = 289
-        Height = 768
+        Height = 857
         Align = alRight
         ColCount = 3
         DefaultRowColor = clBlack
@@ -1642,7 +619,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 304
-        Height = 768
+        Height = 857
         Align = alLeft
         BevelOuter = bvNone
         TabOrder = 2
@@ -1650,7 +627,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 297
           Width = 304
-          Height = 471
+          Height = 560
           Align = alClient
           Color = clBtnFace
           ColCount = 2
@@ -2057,7 +1034,7 @@ object MainForm: TMainForm
     Width = 1916
     Height = 28
     Align = alTop
-    TabOrder = 2
+    TabOrder = 1
     object ToolBar: TToolBar
       Left = 33
       Top = 1
@@ -2371,13 +1348,13 @@ object MainForm: TMainForm
     Left = 1612
     Top = 28
     Width = 304
-    Height = 917
+    Height = 1006
     Align = alRight
     BevelOuter = bvNone
-    TabOrder = 3
+    TabOrder = 2
     object Splitter2: TSplitter
       Left = 0
-      Top = 441
+      Top = 385
       Width = 304
       Height = 5
       Cursor = crVSplit
@@ -2388,7 +1365,7 @@ object MainForm: TMainForm
       Left = 0
       Top = 0
       Width = 304
-      Height = 441
+      Height = 385
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
@@ -2630,7 +1607,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 149
         Width = 304
-        Height = 292
+        Height = 236
         ActivePage = ItemSheet
         Align = alClient
         TabIndex = 0
@@ -2642,7 +1619,7 @@ object MainForm: TMainForm
             Left = 0
             Top = 0
             Width = 296
-            Height = 266
+            Height = 210
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 0
@@ -2771,7 +1748,7 @@ object MainForm: TMainForm
             Left = 0
             Top = 45
             Width = 296
-            Height = 221
+            Height = 165
             Align = alClient
             TabOrder = 0
             OnExit = NotesMemoExit
@@ -2802,12 +1779,1004 @@ object MainForm: TMainForm
     end
     object pnUnit: TPanel
       Left = 0
-      Top = 446
+      Top = 390
       Width = 304
-      Height = 471
+      Height = 616
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
+      object ItemSplit: TSplitter
+        Left = 0
+        Top = 185
+        Width = 304
+        Height = 3
+        Cursor = crVSplit
+        Align = alTop
+      end
+      object UnitPageSplit: TSplitter
+        Left = 0
+        Top = 333
+        Width = 304
+        Height = 3
+        Cursor = crVSplit
+        Align = alBottom
+      end
+      object UnitDockPanel: TPanel
+        Tag = 3
+        Left = 0
+        Top = 0
+        Width = 304
+        Height = 109
+        Align = alTop
+        BevelOuter = bvNone
+        UseDockManager = False
+        DragKind = dkDock
+        TabOrder = 0
+        object UnitNameBevel: TBevel
+          Left = 3
+          Top = 3
+          Width = 150
+          Height = 23
+          Visible = False
+        end
+        object NumLabel: TLabel
+          Left = 156
+          Top = 4
+          Width = 32
+          Height = 13
+          Alignment = taRightJustify
+          AutoSize = False
+          Caption = '6353'
+        end
+        object UnitNameEdit: TEdit
+          Left = 4
+          Top = 4
+          Width = 145
+          Height = 21
+          AutoSize = False
+          BorderStyle = bsNone
+          Color = clBtnFace
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -19
+          Font.Name = 'Black Chancery'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          Text = 'Family of Ogres'
+          OnEnter = FormEditEnter
+          OnExit = FormEditExit
+          OnKeyPress = FormEditKeyPress
+        end
+        object UnitMainDataPanel: TPanel
+          Left = 3
+          Top = 28
+          Width = 190
+          Height = 52
+          BevelOuter = bvNone
+          TabOrder = 1
+          object UnitMainDataTextPanel: TPanel
+            Left = 0
+            Top = 0
+            Width = 138
+            Height = 52
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 0
+            OnResize = UnitMainDataTextPanelResize
+            object Label3: TLabel
+              Left = 0
+              Top = 20
+              Width = 38
+              Height = 13
+              Caption = 'Faction:'
+            end
+            object FactionLabel: TLabel
+              Left = 56
+              Top = 20
+              Width = 133
+              Height = 13
+              AutoSize = False
+              Caption = 'Forest Owls'
+              ShowAccelChar = False
+            end
+            object Label10: TLabel
+              Left = 0
+              Top = 36
+              Width = 34
+              Height = 13
+              Caption = 'Object:'
+            end
+            object StructImage: TImage
+              Left = 38
+              Top = 34
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FF000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FF808080FF00FFFF00FFFF00FF00000000FFFF00FFFF008080
+                000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00
+                FF80808000FFFF00FFFF00FFFF00FFFF008080000000FF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FF808080FFFFFF00000080808080808080808000FFFF00FFFF
+                000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFF
+                FF000000FF00FFFF00FF80808000FFFF000000FF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFF000000000000FF00FF000000
+                FF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
+                80FFFFFFFFFFFFFFFFFF000000000000000000000000000000FF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFFFFFFF000000
+                C0C0C0C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
+                80FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFC0C0C0
+                C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FF808080FFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFC0C0C0000000
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FF808080FFFFFF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00FFFF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FF}
+              Transparent = True
+            end
+            object StructLabel: TLabel
+              Left = 56
+              Top = 36
+              Width = 133
+              Height = 13
+              AutoSize = False
+              Caption = 'Ship [331] : Galleon'
+              ShowAccelChar = False
+            end
+            object UnitDescrBevel: TBevel
+              Left = 20
+              Top = 0
+              Width = 118
+              Height = 17
+              Visible = False
+            end
+            object FactionFlagImage: TImage
+              Left = 44
+              Top = 20
+              Width = 10
+              Height = 10
+              Picture.Data = {
+                07544269746D617076010000424D760100000000000036000000280000000A00
+                00000A000000010018000000000040010000CE0E0000C40E0000000000000000
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FF
+                0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
+                0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
+                0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
+                0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
+                0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+                0000}
+              Transparent = True
+            end
+            object btnLocal: TSpeedButton
+              Left = 0
+              Top = 0
+              Width = 18
+              Height = 18
+              Hint = 'Local Description (hide from other players)'
+              AllowAllUp = True
+              GroupIndex = -1
+              Flat = True
+              Glyph.Data = {
+                E6010000424DE60100000000000036000000280000000C0000000C0000000100
+                180000000000B0010000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+                FFFFFFFFFFFF000000000000000000000000000000000000FFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFF00000000FF0000FF0000FF0069D20069D20069D200000000FF
+                FFFFFFFFFFFFFFFF00000000FF0000FF0000000000FF0000000000000069D200
+                000000FFFFFFFFFFFFFFFFFF00000000FF0000FF0000FF0000000000FF0000FF
+                00000000000000FFFFFFFFFFFF00000000FF0000000000000000FF0000FF0069
+                D200000000FFFFFF000000FFFFFFFFFFFF000000000000FFFF00FFFF00000000
+                000000FFFF00000000FFFFFFFFFFFFFFFFFFFFFFFF00000000FF000000000000
+                0000FF0000FF00000000000000FFFFFFFFFFFFFFFFFFFFFFFF00000000FF0000
+                FF0000FF0000FF0000FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000
+                00FF0000FF0000000000000000FF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FF00000000FF00000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFF}
+              ParentShowHint = False
+              ShowHint = True
+              OnClick = btnLocalClick
+            end
+            object UnitDescrEdit: TEdit
+              Tag = 1
+              Left = 24
+              Top = 1
+              Width = 113
+              Height = 15
+              AutoSize = False
+              BorderStyle = bsNone
+              Color = clBtnFace
+              TabOrder = 0
+              Text = 'Ugly Stupid Ogres'
+              OnEnter = FormEditEnter
+              OnExit = FormEditExit
+              OnKeyPress = FormEditKeyPress
+            end
+          end
+          object UnitImagePanel: TPanel
+            Left = 138
+            Top = 0
+            Width = 52
+            Height = 52
+            Align = alRight
+            BevelInner = bvLowered
+            BevelOuter = bvNone
+            TabOrder = 1
+            object UnitImage: TImage
+              Left = 1
+              Top = 1
+              Width = 50
+              Height = 50
+              OnDblClick = UnitImageDblClick
+            end
+          end
+        end
+        object FlagBar: TToolBar
+          Left = 2
+          Top = 83
+          Width = 195
+          Height = 25
+          Align = alNone
+          ButtonHeight = 19
+          ButtonWidth = 19
+          Caption = 'FlagBar'
+          EdgeBorders = []
+          Images = ResForm.FlagImages
+          TabOrder = 2
+          object GuardFlagBtn: TToolButton
+            Left = 0
+            Top = 2
+            Hint = 'On guard'
+            AllowAllUp = True
+            Caption = 'GuardFlagBtn'
+            ImageIndex = 0
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = UnitFlagBtnClick
+          end
+          object ToolButton33: TToolButton
+            Tag = 1
+            Left = 19
+            Top = 2
+            Hint = 'Taxing'
+            AllowAllUp = True
+            Caption = 'ToolButton33'
+            ImageIndex = 1
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = UnitFlagBtnClick
+          end
+          object AvoidFlagBtn: TToolButton
+            Tag = 2
+            Left = 38
+            Top = 2
+            Hint = 'Avoiding'
+            AllowAllUp = True
+            Caption = 'AvoidFlagBtn'
+            ImageIndex = 2
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = UnitFlagBtnClick
+          end
+          object ToolButton35: TToolButton
+            Tag = 3
+            Left = 57
+            Top = 2
+            Hint = 'Behind'
+            AllowAllUp = True
+            Caption = 'ToolButton35'
+            ImageIndex = 3
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = UnitFlagBtnClick
+          end
+          object ToolButton36: TToolButton
+            Tag = 4
+            Left = 76
+            Top = 2
+            Hint = 'Holding'
+            AllowAllUp = True
+            Caption = 'ToolButton36'
+            ImageIndex = 4
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = UnitFlagBtnClick
+          end
+          object ToolButton37: TToolButton
+            Tag = 5
+            Left = 95
+            Top = 2
+            Hint = 'Receive no aid'
+            AllowAllUp = True
+            Caption = 'ToolButton37'
+            ImageIndex = 5
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = UnitFlagBtnClick
+          end
+          object ToolButton45: TToolButton
+            Tag = 6
+            Left = 114
+            Top = 2
+            Hint = 'Will not cross water'
+            AllowAllUp = True
+            Caption = 'ToolButton45'
+            ImageIndex = 6
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = UnitFlagBtnClick
+          end
+          object ToolButton48: TToolButton
+            Left = 133
+            Top = 2
+            Width = 4
+            Caption = 'ToolButton48'
+            ImageIndex = 8
+            Style = tbsSeparator
+          end
+          object btnConsume: TToolButton
+            Left = 137
+            Top = 2
+            Caption = 'btnConsume'
+            ImageIndex = 7
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = ExtFlagBtnClick
+          end
+          object btnReveal: TToolButton
+            Tag = 1
+            Left = 156
+            Top = 2
+            Caption = 'btnReveal'
+            ImageIndex = 8
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = ExtFlagBtnClick
+          end
+          object btnSpoils: TToolButton
+            Tag = 2
+            Left = 175
+            Top = 2
+            Caption = 'btnSpoils'
+            ImageIndex = 9
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = ExtFlagBtnClick
+          end
+        end
+      end
+      object pItemGrid: TPanel
+        Left = 0
+        Top = 109
+        Width = 304
+        Height = 76
+        Align = alTop
+        BevelOuter = bvNone
+        Constraints.MinHeight = 40
+        TabOrder = 1
+        object ItemGrid: TPowerGrid
+          Left = 0
+          Top = 0
+          Width = 304
+          Height = 50
+          Align = alClient
+          ColCount = 2
+          DefaultRowColor = clBlack
+          Editing = False
+          FixedRows = 0
+          ImageCol = 0
+          Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
+          RowCount = 0
+          Sorted = True
+          SortBy = 1
+          ShowHint = True
+          StickySelect = False
+          TopRow = 0
+          OnDblClick = ItemGridDblClick
+          OnDrawCell = ItemGridDrawCell
+          OnDragOver = ItemGridDragOver
+          OnEndDrag = ItemGridEndDrag
+          OnEnter = ItemGridEnter
+          OnMouseDown = ItemGridMouseDown
+          OnSelectCell = ItemGridSelectCell
+          ColWidths = (
+            48
+            252)
+        end
+        object pGiveTools: TPanel
+          Left = 0
+          Top = 50
+          Width = 304
+          Height = 26
+          Align = alBottom
+          BevelOuter = bvNone
+          TabOrder = 1
+          object Label21: TLabel
+            Left = 106
+            Top = 7
+            Width = 25
+            Height = 13
+            Caption = 'Give:'
+          end
+          object ToolBar2: TToolBar
+            Left = 5
+            Top = 4
+            Width = 96
+            Height = 24
+            Align = alNone
+            Caption = 'MapToolbar'
+            EdgeBorders = []
+            Flat = True
+            Images = ResForm.BtnImages
+            ParentShowHint = False
+            ShowHint = False
+            TabOrder = 0
+            object tbGiveAll: TToolButton
+              Tag = 1
+              Left = 0
+              Top = 0
+              Hint = 'Give everything'
+              AllowAllUp = True
+              Caption = 'Level'
+              DragMode = dmAutomatic
+              ImageIndex = 0
+              ParentShowHint = False
+              ShowHint = True
+              OnEndDrag = tbMaskGiveEndDrag
+            end
+            object tbGiveBattle: TToolButton
+              Tag = 2
+              Left = 23
+              Top = 0
+              Hint = 'Give battle items'
+              Caption = 'BookmarkAction'
+              DragMode = dmAutomatic
+              ImageIndex = 28
+              ParentShowHint = False
+              ShowHint = True
+              OnEndDrag = tbMaskGiveEndDrag
+            end
+            object tbGiveSpoils: TToolButton
+              Tag = 4
+              Left = 46
+              Top = 0
+              Hint = 'Give spoils'
+              Caption = 'tbGiveSpoils'
+              DragMode = dmAutomatic
+              ImageIndex = 63
+              ParentShowHint = False
+              ShowHint = True
+              OnEndDrag = tbMaskGiveEndDrag
+            end
+            object tbGiveTrade: TToolButton
+              Tag = 3
+              Left = 69
+              Top = 0
+              Hint = 'Give trade goods'
+              Caption = 'tbGiveTrade'
+              DragMode = dmAutomatic
+              ImageIndex = 43
+              ParentShowHint = False
+              ShowHint = True
+              OnEndDrag = tbMaskGiveEndDrag
+            end
+          end
+          object eGiveAmt: TIntEdit
+            Left = 136
+            Top = 4
+            Width = 63
+            Height = 22
+            MaxValue = 9999999
+            MinValue = 0
+            TabOrder = 1
+            Value = 0
+          end
+        end
+      end
+      object SkillGrid: TPowerGrid
+        Left = 0
+        Top = 188
+        Width = 304
+        Height = 145
+        Align = alClient
+        ColCount = 3
+        DefaultRowColor = clBlack
+        Editing = False
+        FixedRows = 0
+        Images = ResForm.IconList
+        ImageCol = 0
+        Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+        PopupMenu = PopMenu
+        RowCount = 0
+        Sorted = False
+        SortBy = 0
+        StickySelect = False
+        TopRow = 0
+        OnDblClick = SkillGridDblClick
+        OnMouseDown = SkillGridMouseDown
+        ColWidths = (
+          126
+          25
+          149)
+      end
+      object UnitPControl: TPageControl
+        Tag = 2
+        Left = 0
+        Top = 336
+        Width = 304
+        Height = 280
+        ActivePage = OrderSheet
+        Align = alBottom
+        DockSite = True
+        MultiLine = True
+        TabIndex = 0
+        TabOrder = 3
+        TabPosition = tpBottom
+        object OrderSheet: TTabSheet
+          Caption = 'Orders'
+          ImageIndex = 3
+          object Panel2: TPanel
+            Left = 0
+            Top = 0
+            Width = 296
+            Height = 21
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 0
+            object lMonthOut: TLabel
+              Left = 24
+              Top = 2
+              Width = 125
+              Height = 13
+              AutoSize = False
+              Caption = '12 / 20'
+            end
+            object imgMonthOrder: TImage
+              Left = 3
+              Top = 0
+              Width = 16
+              Height = 18
+              Transparent = True
+            end
+            object ToolBar1: TToolBar
+              Left = 257
+              Top = 0
+              Width = 39
+              Height = 21
+              Align = alRight
+              ButtonHeight = 18
+              ButtonWidth = 19
+              Caption = 'ToolBar1'
+              EdgeBorders = []
+              Flat = True
+              Images = ResForm.SmallBtnList
+              TabOrder = 0
+              object btnCheckOrder: TToolButton
+                Left = 0
+                Top = 0
+                Hint = 'Check orders'
+                Caption = 'btnCheckOrder'
+                ImageIndex = 5
+                ParentShowHint = False
+                ShowHint = True
+                OnClick = CheckOrderBtnClick
+              end
+              object btnClearOrder: TToolButton
+                Left = 19
+                Top = 0
+                Hint = 'Clear orders'
+                Caption = 'btnClearOrder'
+                ImageIndex = 4
+                ParentShowHint = False
+                ShowHint = True
+                OnClick = ClearOrderBtnClick
+              end
+            end
+          end
+          object OrderMemo: TMemo
+            Left = 0
+            Top = 21
+            Width = 296
+            Height = 161
+            Align = alClient
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Consolas'
+            Font.Style = []
+            ParentFont = False
+            ScrollBars = ssBoth
+            TabOrder = 1
+            WordWrap = False
+            OnExit = OrderMemoExit
+            OnKeyUp = OrderMemoKeyUp
+          end
+          object LoadPanel: TPanel
+            Left = 0
+            Top = 182
+            Width = 296
+            Height = 72
+            Align = alBottom
+            BevelOuter = bvNone
+            TabOrder = 2
+            object MoveTypeLabel: TLabel
+              Left = 61
+              Top = 6
+              Width = 36
+              Height = 13
+              Caption = 'walking'
+            end
+            object WingWeightLabel: TLabel
+              Left = 168
+              Top = 28
+              Width = 67
+              Height = 13
+              Caption = '100 (max 200)'
+            end
+            object WingWeightWarning: TImage
+              Left = 132
+              Top = 27
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
+                000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
+                000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
+                0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0}
+              Transparent = True
+            end
+            object Image5: TImage
+              Left = 148
+              Top = 27
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000D80E0000000000000000
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00
+                FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FF000000FF00FF
+                FF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00
+                FFFF00FFFF00FFFF00FF000000808080FF00FFFF00FF000000FF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FF000000000000000000FF00FF000000000000000000
+                FF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FF0000008080
+                80FFFFFF000000000000D0D0D0D0D0D0000000000000FF00FF000000FF00FFFF
+                00FFFF00FF000000FF00FF000000FFFFFFD0D0D0D0D0D0FFFFFFFFFFFFD0D0D0
+                000000D0D0D0000000000000FF00FFFF00FFFF00FFFF00FF000000FF00FF0000
+                00FFFFFFFFFFFF000000000000FFFFFFFFFFFFD0D0D0000000808080FF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000FFFFFFD0D0D0FFFFFF
+                FFFFFFD0D0D0000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF0000
+                00000000FFFFFFC0C0C0000000000000FFFFFFD0D0D0000000FF00FFFF00FFFF
+                00FF000000000000FFFFFF000000C0C0C0FFFFFFFFFFFF000000FF00FF000000
+                FFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FF000000FFFFFFFFFFFFC0C0
+                C0FFFFFFFFFFFF000000000000C0C0C0C0C0C0000000FFFFFF000000FF00FFFF
+                00FFFF00FFFF00FF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF
+                C0C0C0000000FFFFFF000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FFFF
+                FFFFFFFFFFFFFF000000000000C0C0C0FFFFFF000000FFFFFF000000FF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FF000000FFFFFFFFFFFF000000FF00FF000000
+                000000000000FF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FF000000000000FF00FFFF00FF000000FF00FF000000FF00FF000000FF00FFFF
+                00FF}
+              Transparent = True
+            end
+            object TransportWeightWarning: TImage
+              Left = 132
+              Top = 47
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
+                000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
+                000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
+                0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0}
+              Transparent = True
+            end
+            object HorsesWeightWarning: TImage
+              Left = 4
+              Top = 47
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
+                000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
+                000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
+                0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0}
+              Transparent = True
+            end
+            object UnitWeightWarning: TImage
+              Left = 4
+              Top = 27
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0000000000000000000000000000000
+                000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000
+                000000FF0000FF0000000000000000FF0000FF000000C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF0000FF0000000000000000FF
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF0000FF000000C0C0C0C0
+                C0C0C0C0C0C0C0C00000000000FF0000FF0000FF000000FFFFFFFFFFFF000000
+                0000FF0000FF0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000
+                FF0000FF000000FFFFFFFFFFFF0000000000FF0000FF000000C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C00000000000FF0000FF0000000000000000FF
+                0000FF000000C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0000000000000000000000000000000000000C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
+                C0C0}
+              Transparent = True
+            end
+            object TransportWeightLabel: TLabel
+              Left = 168
+              Top = 48
+              Width = 96
+              Height = 13
+              Caption = '100/200 (max 1000)'
+            end
+            object HorsesWeightLabel: TLabel
+              Left = 40
+              Top = 48
+              Width = 67
+              Height = 13
+              Caption = '100 (max 200)'
+            end
+            object UnitWeightLabel: TLabel
+              Left = 40
+              Top = 28
+              Width = 67
+              Height = 13
+              Caption = '100 (max 200)'
+              Color = clBtnFace
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentColor = False
+              ParentFont = False
+            end
+            object Image3: TImage
+              Left = 148
+              Top = 47
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FF000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FF808080FF00FFFF00FFFF00FF00000000FFFF00FFFF008080
+                000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00
+                FF80808000FFFF00FFFF00FFFF00FFFF008080000000FF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FF808080FFFFFF00000080808080808080808000FFFF00FFFF
+                000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFF
+                FF000000FF00FFFF00FF80808000FFFF000000FF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFF000000000000FF00FF000000
+                FF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
+                80FFFFFFFFFFFFFFFFFF000000000000000000000000000000FF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFFFFFFF000000
+                C0C0C0C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8080
+                80FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFFFFFFFC0C0C0
+                C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FF808080FFFFFFFFFFFFFFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080FFFFFFFFFFFFC0C0C0000000
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FF808080FFFFFF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00FFFF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FF}
+              Transparent = True
+            end
+            object Image2: TImage
+              Left = 20
+              Top = 47
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000CE0E0000C40E0000000000000000
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF
+                FF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00
+                FFFF00FFFF00FFFF00FF000000808080FF00FFFF00FF000000FF00FFFF00FFFF
+                00FFFF00FFFF00FF000000808080FF00FFFF00FF000000FF00FF000000000000
+                FF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FF0000008080
+                80000000000000000000D0D0D0D0D0D0000000000000FF00FF000000FF00FFFF
+                00FFFF00FFFF00FFFF00FF000000000000D0D0D0D0D0D0FFFFFFFFFFFFD0D0D0
+                000000D0D0D0000000000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FFFF
+                FFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFD0D0D0000000808080FF00FFFF
+                00FFFF00FF000000FF00FF000000FFFFFFFFFFFFFFFFFFFFFFFFD0D0D0000000
+                FFFFFFD0D0D0000000FF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FF0000
+                00FFFFFFFFFFFF000000000000000000FFFFFFD0D0D0000000FF00FFFF00FFFF
+                00FFFF00FF000000FF00FF000000FF00FF000000000000FF00FFFF00FF000000
+                FFFFFFC0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FF000000000000C0C0C0C0C0C0000000808080FF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FFFFFFFFFFFFFFFFFF
+                C0C0C0000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FF000000000000000000C0C0C0FFFFFF000000FF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000
+                000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FFFF00FFFF00FF000000FF00FF000000FF00FFFF00FFFF00FFFF
+                00FF}
+              Transparent = True
+            end
+            object Image1: TImage
+              Left = 20
+              Top = 27
+              Width = 16
+              Height = 16
+              Picture.Data = {
+                07544269746D617036030000424D360300000000000036000000280000001000
+                000010000000010018000000000000030000C40E0000C40E0000000000000000
+                0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000FF00FFFF00FFFF00FFFF00
+                FF000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FFFF00FF000000000000000000000000FFFF00B5B500000000FF00FFFF00FF
+                FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00000080FFFF80FFFF0000
+                00FFFF00B5B500000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FF000000000000000000000000FFFF00FFFF00FFFF00B5B500000000FF00FF
+                FF00FFFF00FF000000FF00FFFF00FFFF00FF000000FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00B5B500000000000000000000000000FF00FFFF00FFFF
+                00FF000000FFFF00FFFF00FFFF00FFFF00000000000000000000000000000000
+                FFFFFFFFFFFFFFFFFF000000FF00FFFF00FF000000FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00000000FFFFFFFFFFFFFFFFFF000000000000FF00FFFF
+                00FF000000FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00000000FFFFFF
+                FFFFFF000000FFFFFFFFFFFF000000000000000000FFFF00FFFF00FFFF00FFFF
+                00FFFF00FFFF00FFFF00000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
+                0000FF00FF000000000000000000000000000000000000000000000000000000
+                FFFFFFFFFFFF808080808080000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FF000000000000000000000000FFFFFFFFFFFFFFFFFF000000FF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000000000000000
+                000000000000000000000000000000000000FF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FFFF00FF000000000000000000000000000000000000000000FF
+                00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000
+                000000000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+                FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+                00FF}
+              Transparent = True
+            end
+            object Label2: TLabel
+              Left = 3
+              Top = 6
+              Width = 53
+              Height = 13
+              Caption = 'Movement:'
+            end
+          end
+        end
+        object MsgSheet: TTabSheet
+          Caption = 'Messages'
+          ImageIndex = 2
+          object MsgGrid: TPowerGrid
+            Left = 0
+            Top = 0
+            Width = 288
+            Height = 254
+            Align = alClient
+            ColCount = 2
+            DefaultRowColor = clBlack
+            Editing = False
+            FixedRows = 0
+            ImageCol = 0
+            Options = [pgoColSizing, pgoColMoving, pgoRowSelect, pgoMultilineCells]
+            RowCount = 1
+            Sorted = False
+            SortBy = 0
+            StickySelect = False
+            TopRow = 0
+            OnDrawCell = MsgGridDrawCell
+            ColWidths = (
+              19
+              153)
+          end
+        end
+      end
     end
   end
   object MainMenu: TMainMenu
