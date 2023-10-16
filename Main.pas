@@ -491,6 +491,8 @@ type
     Panel7: TPanel;
     Panel8: TPanel;
     pnStrucInfo: TPanel;
+    pnRightSidebar: TPanel;
+    Splitter1: TSplitter;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,

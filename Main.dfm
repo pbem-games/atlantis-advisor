@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 646
-  Top = 136
-  Width = 1346
+  Left = 440
+  Top = 135
+  Width = 1932
   Height = 1004
   Caption = 'Atlantis Advisor'
   Color = clBtnFace
@@ -22,8 +22,17 @@ object MainForm: TMainForm
   OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
+  object Splitter1: TSplitter
+    Left = 1421
+    Top = 28
+    Width = 6
+    Height = 917
+    Cursor = crHSplit
+    Align = alRight
+    Beveled = True
+  end
   object InfoPanel: TPanel
-    Left = 1026
+    Left = 1427
     Top = 28
     Width = 304
     Height = 917
@@ -42,10 +51,10 @@ object MainForm: TMainForm
       Top = 0
       Width = 304
       Height = 917
-      ActivePage = tsRegion
+      ActivePage = tsUnit
       Align = alClient
       Images = ResForm.BtnImages
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       object tsRegion: TTabSheet
         HelpContext = 7
@@ -1460,7 +1469,7 @@ object MainForm: TMainForm
   object MapUnitsPanel: TPanel
     Left = 0
     Top = 28
-    Width = 1026
+    Width = 1421
     Height = 917
     Align = alClient
     BevelOuter = bvNone
@@ -1468,7 +1477,7 @@ object MainForm: TMainForm
     object UnitSplitter: TSplitter
       Left = 0
       Top = 797
-      Width = 1026
+      Width = 1421
       Height = 6
       Cursor = crVSplit
       Align = alBottom
@@ -1477,7 +1486,7 @@ object MainForm: TMainForm
     object MapToolPanel: TPanel
       Left = 0
       Top = 0
-      Width = 1026
+      Width = 1421
       Height = 29
       HelpContext = 3
       Align = alTop
@@ -1485,7 +1494,7 @@ object MainForm: TMainForm
       object MapToolbar: TToolBar
         Left = 1
         Top = 1
-        Width = 977
+        Width = 1372
         Height = 27
         Align = alClient
         ButtonHeight = 23
@@ -1817,7 +1826,7 @@ object MainForm: TMainForm
         end
       end
       object CoordLabel: TPanel
-        Left = 978
+        Left = 1373
         Top = 1
         Width = 47
         Height = 27
@@ -1831,7 +1840,7 @@ object MainForm: TMainForm
     object UnitsPanel: TPanel
       Left = 0
       Top = 803
-      Width = 1026
+      Width = 1421
       Height = 114
       HelpContext = 5
       Align = alBottom
@@ -1841,7 +1850,7 @@ object MainForm: TMainForm
       object UnitGrid: TPowerGrid
         Left = 0
         Top = 30
-        Width = 1026
+        Width = 1421
         Height = 84
         Align = alClient
         Color = clBlack
@@ -1882,7 +1891,7 @@ object MainForm: TMainForm
       object tbUnitTools: TToolBar
         Left = 0
         Top = 0
-        Width = 1026
+        Width = 1421
         Height = 30
         BorderWidth = 1
         Caption = 'tbUnitTools'
@@ -1976,7 +1985,7 @@ object MainForm: TMainForm
     object MapPanel: TPanel
       Left = 0
       Top = 29
-      Width = 1026
+      Width = 1421
       Height = 768
       Align = alClient
       BevelOuter = bvNone
@@ -1992,7 +2001,7 @@ object MainForm: TMainForm
       object HexMap: TCylinderMap
         Left = 307
         Top = 0
-        Width = 430
+        Width = 825
         Height = 768
         HelpContext = 3
         Align = alClient
@@ -2013,7 +2022,7 @@ object MainForm: TMainForm
         OnMoveMap = HexMapMoveMap
       end
       object gAllItems: TPowerGrid
-        Left = 737
+        Left = 1132
         Top = 0
         Width = 289
         Height = 768
@@ -2457,7 +2466,7 @@ object MainForm: TMainForm
   object ToolPanel: TPanel
     Left = 0
     Top = 0
-    Width = 1330
+    Width = 1916
     Height = 28
     Align = alTop
     TabOrder = 2
@@ -2702,7 +2711,7 @@ object MainForm: TMainForm
       end
     end
     object Panel3: TPanel
-      Left = 1283
+      Left = 1869
       Top = 1
       Width = 46
       Height = 26
@@ -2769,6 +2778,15 @@ object MainForm: TMainForm
         Action = ManagerAction
       end
     end
+  end
+  object pnRightSidebar: TPanel
+    Left = 1731
+    Top = 28
+    Width = 185
+    Height = 917
+    Align = alRight
+    BevelOuter = bvNone
+    TabOrder = 3
   end
   object MainMenu: TMainMenu
     Images = ResForm.BtnImages
