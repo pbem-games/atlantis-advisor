@@ -565,8 +565,15 @@ object MainForm: TMainForm
               Width = 288
               Height = 161
               Align = alClient
-              ScrollBars = ssVertical
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -13
+              Font.Name = 'Consolas'
+              Font.Style = []
+              ParentFont = False
+              ScrollBars = ssBoth
               TabOrder = 1
+              WordWrap = False
               OnExit = OrderMemoExit
               OnKeyUp = OrderMemoKeyUp
             end
