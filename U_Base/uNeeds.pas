@@ -212,6 +212,7 @@ begin
             Trace.SkipSpaces;
             Rec.Usable := True;
           end;
+
           // Unneeded
           if Pos('unneeded', Trace.Text) = 1 then begin
             Trace.Before('unneeded');
@@ -227,21 +228,40 @@ begin
           end
           else begin
             j := ItemClassCount-1;
+
             while (j >= 0) and (Pos(ItemClasses[j], Trace.Text) <> 1) do Dec(j);
+
             if j >= 0 then begin
-              if ItemFilters[j] = IT_ALL then
-                 Rec.Mask := IT_ALL - IT_MAN - IT_MONSTER - IT_SILVER
-              else Rec.Mask := ItemFilters[j];
+              if ItemFilters[j] = IT_ALL then begin
+                Rec.Mask := IT_ALL - IT_MAN - IT_MONSTER - IT_SILVER
+              end
+              else begin
+                Rec.Mask := ItemFilters[j];
+              end;
+
               Rec.MaskText := ItemClasses[j];
               Trace.Block;
             end
             else begin
               Rec.Data := Game.ItemData.FindByName(Trace.QBlock);
-              if Rec.Data = nil then FreeAndNil(Rec);
+
+              if Rec.Data = nil then begin
+                FreeAndNil(Rec);
+              end
+              else if Test(Rec.Data.Flags, IT_SILVER) and Rec.EnoughAmt then begin
+                if IsLeader(AUnit) then begin
+                  Rec.Amount := Rec.Amount * GameConfig.ReadInteger('Settings', 'LeaderMaintenance', 20);
+                end
+                else begin
+                  Rec.Amount := Rec.Amount * GameConfig.ReadInteger('Settings', 'PeasantMaintenance', 10);
+                end;
+              end;
             end;
           end;
+
           if Rec <> nil then Needs.Add(Rec);
         end;
+
         Trace.Free;
       except
         on ENaN do ;
@@ -472,6 +492,7 @@ begin
 
   for i := 0 to U.Items.Count-1 do begin
     if U.Items[i].Bought then Continue;
+
     Rec := TNeedItem.Create;
     Rec.AUnit := U;
     Rec.Data := U.Items[i].Data;
