@@ -115,7 +115,6 @@ type
     MsgGrid: TPowerGrid;
     OrderSheet: TTabSheet;
     Panel2: TPanel;
-    WeightSheet: TTabSheet;
     ItemSplit: TSplitter;
     Map1: TMenuItem;
     N4: TMenuItem;
@@ -480,6 +479,7 @@ type
     ToolButton49: TToolButton;
     ToolButton52: TToolButton;
     NextError1: TMenuItem;
+    LoadPanel: TPanel;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
