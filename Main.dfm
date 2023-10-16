@@ -2311,9 +2311,9 @@ object MainForm: TMainForm
         TabOrder = 2
         object StructGrid: TPowerGrid
           Left = 0
-          Top = 0
+          Top = 304
           Width = 304
-          Height = 768
+          Height = 464
           Align = alClient
           Color = clBtnFace
           ColCount = 2
@@ -2336,6 +2336,15 @@ object MainForm: TMainForm
           ColWidths = (
             2
             298)
+        end
+        object Structure: TPanel
+          Left = 0
+          Top = 0
+          Width = 304
+          Height = 304
+          Align = alTop
+          BevelOuter = bvLowered
+          TabOrder = 1
         end
       end
     end

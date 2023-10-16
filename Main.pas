@@ -481,6 +481,7 @@ type
     NextError1: TMenuItem;
     LoadPanel: TPanel;
     StructPanel: TPanel;
+    Structure: TPanel;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
