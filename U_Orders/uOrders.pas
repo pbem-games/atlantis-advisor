@@ -1359,7 +1359,7 @@ begin
   end;
 end;
 
-procedure CheckFPoints(Errors: TStrings);        // TODO : CheckFPoints - Martial
+procedure CheckFPoints(Errors: TStrings);
 var i, tax, trade, fish, road: integer;
   martial:  integer;
 begin
