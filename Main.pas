@@ -168,8 +168,6 @@ type
     MapPanel: TPanel;
     HexMap: TCylinderMap;
     StructSplitter: TSplitter;
-    UnitDockPanel: TPanel;
-    UnitNameBevel: TBevel;
     NumLabel: TLabel;
     UnitNameEdit: TEdit;
     UnitMainDataPanel: TPanel;
@@ -210,7 +208,7 @@ type
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
-    TradePanel: TPanel;
+    pnForSale: TPanel;
     Label18: TLabel;
     WantedGrid: TPowerGrid;
     Label17: TLabel;
@@ -269,11 +267,7 @@ type
     BmkDownBtn: TSpeedButton;
     BookmarksItm: TMenuItem;
     RegionNotesItm: TMenuItem;
-    RegionPControl: TPageControl;
-    ItemSheet: TTabSheet;
-    NoteSheet: TTabSheet;
     NotesMemo: TMemo;
-    Panel1: TPanel;
     WeatherLabel: TLabel;
     ToolButton8: TToolButton;
     FactionAction: TAction;
@@ -490,7 +484,21 @@ type
     Splitter1: TSplitter;
     pnRegion: TPanel;
     pnUnit: TPanel;
-    Splitter2: TSplitter;
+    spRegionUnit: TSplitter;
+    pnWanted: TPanel;
+    pnProducts: TPanel;
+    pnItemsAndSkills: TPanel;
+    pnSkills: TPanel;
+    Label9: TLabel;
+    Label23: TLabel;
+    TradePanel: TPanel;
+    Label24: TLabel;
+    Bevel1: TBevel;
+    Bevel2: TBevel;
+    Bevel3: TBevel;
+    pnUnitName: TPanel;
+    pnName: TPanel;
+    Bevel4: TBevel;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -1952,13 +1960,12 @@ begin
 end;
 
 procedure TMainForm.TradePanelResize(Sender: TObject);
-var gh: integer;
+var wh: integer;
 begin
-  gh := (TradePanel.Height - 45) div 3;
-  if (gh > 0) then begin
-    ProductGrid.Height := gh;
-    WantedGrid.Height := gh;
-    ForSaleGrid.Height := gh;
+  wh := TradePanel.Width div 3;
+  if (wh > 0) then begin
+    pnProducts.Width := wh;
+    pnWanted.Width := wh;
   end;
 end;
 
@@ -3015,23 +3022,25 @@ end;
 
 function TMainForm.EditBevel(N: integer): TBevel;
 begin
+{
   case N of
     0: Result := UnitNameBevel;
     1: Result := UnitDescrBevel;
     2: Result := StructNameBevel;
     else Result := StructDescrBevel;
   end;
+  }
 end;
 
 procedure TMainForm.FormEditEnter(Sender: TObject);
 begin
-  EditBevel(TEdit(Sender).Tag).Visible := TRUE;
+  TEdit(Sender).BevelKind := bkSoft;
 end;
 
 procedure TMainForm.FormEditExit(Sender: TObject);
 var Key: Char;
 begin
-  EditBevel(TEdit(Sender).Tag).Visible := FALSE;
+  TEdit(Sender).BevelKind := bkNone;
   if TEdit(Sender).Modified then begin
     Key := #13;
     FormEditKeyPress(Sender, Key);
@@ -4291,13 +4300,5 @@ begin
   CalcMapCoords(HexMap.Selected.X, HexMap.Selected.Y, Result.X, Result.Y);
   Result.z := Map.Level;
 end;
-
-
-
-
-
-
-
-
 
 end.
