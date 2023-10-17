@@ -365,7 +365,7 @@ begin
   Trace.Free;
 end;
 
-procedure ReadFP;      // TODO : Martial, Magic - report header
+procedure ReadFP;   
 var Trace: TTrace;
 begin
   // Forces of Raxxla (564) (War 1, Trade 1, Magic 1)
