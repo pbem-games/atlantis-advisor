@@ -1,6 +1,6 @@
 object OptionForm: TOptionForm
-  Left = 203
-  Top = 88
+  Left = 246
+  Top = 161
   HelpContext = 2
   BorderStyle = bsDialog
   Caption = 'Options'
@@ -47,10 +47,10 @@ object OptionForm: TOptionForm
     Top = 0
     Width = 487
     Height = 401
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Current game'
@@ -60,8 +60,8 @@ object OptionForm: TOptionForm
         Top = 8
         Width = 469
         Height = 361
-        ActivePage = TabSheet7
-        TabIndex = 0
+        ActivePage = TabSheet9
+        TabIndex = 1
         TabOrder = 0
         object TabSheet7: TTabSheet
           Caption = 'Details'
@@ -312,7 +312,8 @@ object OptionForm: TOptionForm
             Items.Strings = (
               'none'
               'Tarmellion'
-              'MagicDeep')
+              'MagicDeep'
+              'New Origins')
           end
         end
         object TabSheet9: TTabSheet
