@@ -194,10 +194,6 @@ const
   areaTropical = 1;
   areaSouth = 2;
 
-  modStandard = 0;
-  modTarmellion = 1;
-  modMagicdeep = 2;
-
   raCast = 0;
   raTakeHits = 1;
   raHeals = 2;
@@ -217,15 +213,36 @@ const
   HealDefs: array[0..5, 0..1] of integer = ((0, 0), (10, 50), (10, 50),
     (25, 75), (25, 75), (100, 90));
 
-  prWar = 0;
-  prTrade = 1;
-  prMagic = 2;
-  prAppr = 3;
-  prFish = 4;
-  prRoad = 5;
-  prCount = 6;
-  ProgressNames: array[0..prCount-1] of string =
-    ('War', 'Trade', 'Magic', 'Apprentices', 'Fishing', 'Road Build');
+  modStandard = 0;
+  modTarmellion = 1;
+  modMagicdeep = 2;
+  modNewOrigins = 3;
+
+  modFirst = modStandard;
+  modLast = modNewOrigins;
+
+  prMartial = 0;
+  prWar = 1;
+  prTrade = 2;
+  prQMast = 3;
+  prMagic = 4;
+  prAppr = 5;
+  prFish = 6;
+  prRoad = 7;
+
+  prFirst = prMartial;
+  prLast = prRoad;
+  prCount = 8;
+
+  ProgressNames: array[prFirst..prLast] of string =
+    ('Martial', 'War', 'Trade', 'Quartermasters', 'Magic', 'Apprentices', 'Fishing', 'Road Build');
+
+  ModProgress: array[modFirst..modLast] of set of prFirst..prLast =
+    ([prWar, prTrade, prMagic, prAppr],                     // modStandard
+     [prWar, prTrade, prMagic, prAppr],                     // modTarmellion
+     [prWar, prTrade, prMagic, prAppr, prFish, prRoad],     // modMagicdeep
+     [prMartial, prQMast, prMagic, prAppr]);                // modNewOrigins
+
 
 type
   TCoords = record
@@ -622,7 +639,7 @@ type
 
   TTurn = class
     Num: integer;
-    War, Trade, Magic: integer;
+    Martial, War, Trade, Magic: integer;
     FPUsed: array[0..prCount-1] of integer;
     GateCount: integer;
     Unclaimed: integer;
@@ -933,7 +950,7 @@ var
   SimRegion: TRegion;
   SilverData: TItemData;
 
-  Progress: array[0..prCount-1] of array of integer;
+  Progress: array[prFirst..prLast] of array of integer;
 
   WeatherMonths:  array[0..2, 1..12] of TWeatherData;
 
@@ -950,10 +967,40 @@ var
   procedure AddCoords(var A: TCoordArray; C: TCoords);
   procedure AddInt(var A: TIntArray; I: integer);
   // Progress
+  function ProgressCount(AMod: integer): integer;
+  function IndexToProgress(AMod, AIndex: integer): integer;
   procedure SetProgress(pr, fp, value: integer);
 
 
 implementation
+
+function ProgressCount(AMod: integer): integer;
+var
+  i:  integer;
+begin
+  Result := 0;
+  for i := prFirst to prLast do
+    if i in ModProgress[AMod] then
+      Inc(Result);
+end;
+
+function IndexToProgress(AMod, AIndex: integer): integer;
+var
+  pr: integer;
+begin
+  Result := -1;
+  for pr := prFirst to prLast do
+    if pr in ModProgress[AMod] then
+    begin
+      if AIndex = 0 then
+      begin
+        Result := pr;
+        break;
+      end
+      else
+        Dec(AIndex);
+    end;
+end;
 
 procedure SetProgress(pr, fp, value: integer);
 var i: integer;
@@ -1186,6 +1233,7 @@ end;
 // Used to create virtual turn
 procedure TTurn.Assign(Source: TTurn);
 begin
+  Martial := Source.Martial;
   War := Source.War;
   Trade := Source.Trade;
   Magic := Source.Magic;

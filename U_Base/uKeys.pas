@@ -6,7 +6,7 @@ uses
   SysUtils, Classes, Dialogs;
 
 const
-  KeyfileVersion = 'Keyfile v3.19.1';
+  KeyfileVersion = 'Keyfile v3.19.2';
 
 type
   EInvalidKeyfile = class(Exception);
@@ -59,6 +59,7 @@ type
 
   // Report header
   s_Header,
+  s_Martial,
   s_War,
   s_Trade,
   s_Magic,

@@ -365,11 +365,16 @@ begin
   Trace.Free;
 end;
 
-procedure ReadFP;
+procedure ReadFP;      // TODO : Martial, Magic - report header
 var Trace: TTrace;
 begin
   // Forces of Raxxla (564) (War 1, Trade 1, Magic 1)
   Trace := TTrace.Create(GetLine);
+  if Pos(Keys[s_Martial], Trace.Text) > 0 then
+  begin
+    Trace.Before(Keys[s_Martial]);
+    Turn.Martial := Trace.Num;
+  end;
   if Pos(Keys[s_War], Trace.Text) > 0 then begin
     Trace.Before(Keys[s_War]);
     Turn.War := Trace.Num;
