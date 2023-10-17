@@ -45,12 +45,14 @@ uses Main;
 procedure TTaxTradeForm.FormCreate(Sender: TObject);
 var i, tax, trade, fish, road, tax_income: integer;
     R, RealR: TRegion;
-    md: boolean;
+    md:       boolean;
+    modid:    integer;
 begin
   tax_income := GameConfig.ReadInteger('Settings', 'TaxIncome', 50);
+  modid := GameConfig.ReadInteger('Settings', 'Mod', modStandard);
 
   // MagicDeep additions
-  md := (GameConfig.ReadInteger('Settings', 'Mod', modStandard) = modMagicDeep);
+  md := (modid = modMagicDeep);
   tsFishing.TabVisible := md;
   tsRoadBuild.TabVisible := md;
 
@@ -65,6 +67,7 @@ begin
   gTrade.Cells[0, 0] := 'Region';
   gFishing.Cells[0, 0] := 'Region';
   gRoadBuild.Cells[0, 0] := 'Region';
+
   // Fill grids
   tax := 0;
   trade := 0;
@@ -108,15 +111,20 @@ begin
   gTrade.Fixup;
   gFishing.Fixup;
   gRoadBuild.Fixup;
+
   // Labels
-  lTax.Caption := 'Used: ' + IntToStr(tax) + ' of ' +
-    IntToStr(Progress[prWar, VTurn.War]) + ' (War ' + IntToStr(VTurn.War) + ')';
-  lTrade.Caption := 'Used: ' + IntToStr(trade) + ' of ' +
-    IntToStr(Progress[prTrade, VTurn.Trade]) + ' (Trade ' + IntToStr(VTurn.Trade) + ')';
-  lFishing.Caption := 'Used: ' + IntToStr(fish) + ' of ' +
-    IntToStr(Progress[prTrade, VTurn.Trade]) + ' (Trade ' + IntToStr(VTurn.Trade) + ')';
-  lRoadBuild.Caption := 'Used: ' + IntToStr(road) + ' of ' +
-    IntToStr(Progress[prTrade, VTurn.Trade]) + ' (Trade ' + IntToStr(VTurn.Trade) + ')';
+  if modid = modNewOrigins then
+  begin
+    lTax.Caption := 'Used: ' + IntToStr(tax) + ' of ' + IntToStr(Progress[prMartial, VTurn.Martial]) + ' (Martial ' + IntToStr(VTurn.Martial) + ')';
+    lTrade.Caption := 'Used: ' + IntToStr(trade) + ' of ' + IntToStr(Progress[prMartial, VTurn.Martial]) + ' (Martial ' + IntToStr(VTurn.Martial) + ')';
+  end
+  else
+  begin
+    lTax.Caption := 'Used: ' + IntToStr(tax) + ' of ' + IntToStr(Progress[prWar, VTurn.War]) + ' (War ' + IntToStr(VTurn.War) + ')';
+    lTrade.Caption := 'Used: ' + IntToStr(trade) + ' of ' + IntToStr(Progress[prTrade, VTurn.Trade]) + ' (Trade ' + IntToStr(VTurn.Trade) + ')';
+    lFishing.Caption := 'Used: ' + IntToStr(fish) + ' of ' + IntToStr(Progress[prTrade, VTurn.Trade]) + ' (Trade ' + IntToStr(VTurn.Trade) + ')';
+    lRoadBuild.Caption := 'Used: ' + IntToStr(road) + ' of ' + IntToStr(Progress[prTrade, VTurn.Trade]) + ' (Trade ' + IntToStr(VTurn.Trade) + ')';
+  end;
 end;
 
 procedure TTaxTradeForm.GridDblClick(Sender: TObject);

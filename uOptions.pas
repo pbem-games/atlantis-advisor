@@ -302,11 +302,14 @@ end;
 
 procedure TOptionForm.FillProgresses;
 var i, j: integer;
+  modid:  integer;
+  pr:     integer;
 begin
+  modid := cmMod.ItemIndex;
+
   eMaxFP.Value := Length(Progress[0]) - 1;
 
-  if cmMod.ItemIndex <> modMagicdeep then gPoints.RowCount := prAppr + 2
-  else gPoints.RowCount := prCount + 1;
+  gPoints.RowCount := ProgressCount(modid) + gPoints.FixedRows;
   gPoints.ColCount := Length(Progress[0]) + 1;
 
   for i := 1 to gPoints.ColCount-1 do begin
@@ -315,20 +318,29 @@ begin
   end;
 
   for i := 1 to gPoints.RowCount-1 do begin
-    gPoints.Cells[0, i] := ProgressNames[i-1];
-    for j := 0 to High(Progress[i-1]) do
-      gPoints.Cells[j + 1, i] := IntToStr(Progress[i-1, j]);
+    pr := IndexToProgress(modid, i - 1);
+
+    gPoints.Cells[0, i] := ProgressNames[pr];
+    for j := 0 to High(Progress[pr]) do
+      gPoints.Cells[j + 1, i] := IntToStr(Progress[pr, j]);
   end;
 end;
 
 procedure TOptionForm.SetupConfig;
 var mask, flags, i, j: integer;
+  modid:  integer;
+  pr:     integer;
 begin
+  modid := cmMod.ItemIndex;
+
   with Config do begin
     // Progresses
     for i := 1 to gPoints.RowCount-1 do
+    begin
+      pr := IndexToProgress(modid, i - 1);
       for j := 1 to gPoints.ColCount-1 do
-        Progress[i-1, j-1] := StrToInt(gPoints.Cells[j, i]);
+        Progress[pr, j-1] := StrToInt(gPoints.Cells[j, i]);
+    end;
 
    // Attitudes
     for i := 1 to 5 do
@@ -384,7 +396,7 @@ begin
     WriteBool('Settings', 'FlyingCross', cbFlyingCross.Checked);
     WriteBool('Settings', 'MonthTax', cbMonthTax.Checked);
     WriteInteger('Settings', 'ArmyRout', cmArmyRout.ItemIndex);
-    WriteInteger('Settings', 'Mod', cmMod.ItemIndex);
+    WriteInteger('Settings', 'Mod', modid);
 
     // Map
     for i := 0 to Map.Levels.Count-1 do begin

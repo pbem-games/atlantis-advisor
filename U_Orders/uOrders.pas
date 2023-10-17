@@ -361,35 +361,84 @@ begin
 end;
 
 procedure DoFaction(AUnit: TUnit; s: string; var Line: integer);
-var t2: string;
-    AWar, ATrade, AMagic: integer;
+var
+  t2:       string;
+  modid:    integer;
+  martial:  integer;
+  war:      integer;
+  trade:    integer;
+  magic:    integer;
 begin
-  AWar := 0; ATrade := 0; AMagic := 0;
+  modid := GameConfig.ReadInteger('Settings', 'Mod', modStandard);
+
+  martial := 0;
+  war := 0;
+  trade := 0;
+  magic := 0;
+
   t2 := AnsiLowerCase(GetToken(s));
-  if t2 = 'generic' then begin
-    AWar := 1;
-    ATrade := 1;
-    AMagic := 1;
+
+  if modid = modNewOrigins then
+  begin
+    if t2 = 'generic' then
+    begin
+      martial := 1;
+      magic := 1;
+    end
+    else
+    begin
+      try
+        while t2 <> '' do
+        begin
+          if t2 = 'martial' then martial := StrToInt(GetToken(s))
+          else if t2 = 'magic' then magic := StrToInt(GetToken(s));
+
+          t2 := AnsiLowerCase(GetToken(s));
+        end;
+      except
+        on EConvertError do raise EParseError.Create('Invalid value');
+      end;
+
+      if (martial + magic) >= Length(Progress[0]) then
+        raise EParseError.Create('Too many faction points');
+    end;
+
+    Game.VirtTurn.Martial := martial;
+    Game.VirtTurn.Magic := magic;
   end
   else
-  try
-    while t2 <> '' do begin
-      if t2 = 'war' then AWar := StrToInt(GetToken(s))
-      else if t2 = 'trade' then ATrade := StrToInt(GetToken(s))
-      else if t2 = 'magic' then AMagic := StrToInt(GetToken(s));
-      t2 := AnsiLowerCase(GetToken(s));
+  begin
+    if t2 = 'generic' then
+    begin
+      war := 1;
+      trade := 1;
+      magic := 1;
+    end
+    else
+    begin
+      try
+        while t2 <> '' do
+        begin
+          if t2 = 'war' then war := StrToInt(GetToken(s))
+          else if t2 = 'trade' then trade := StrToInt(GetToken(s))
+          else if t2 = 'magic' then magic := StrToInt(GetToken(s));
+
+          t2 := AnsiLowerCase(GetToken(s));
+        end;
+      except
+        on EConvertError do raise EParseError.Create('Invalid value');
+      end;
+
+      if (war + trade + magic) >= Length(Progress[0]) then
+        raise EParseError.Create('Too many faction points');
     end;
-  except
-    on EConvertError do raise EParseError.Create('Invalid value');
+
+    Game.VirtTurn.War := war;
+    Game.VirtTurn.Trade := trade;
+    Game.VirtTurn.Magic := magic;
   end;
-  if AWar + ATrade + AMagic >= Length(Progress[0]) then
-    raise EParseError.Create('Too many FP')
-  else begin
-    Game.VirtTurn.War := AWar;
-    Game.VirtTurn.Trade := ATrade;
-    Game.VirtTurn.Magic := AMagic;
-    // Will not check for mages here, better do it when issuing order
-  end;
+
+  // Will not check for mages here, better do it when issuing order
 end;
 
 procedure DoForm(AUnit: TUnit; s: string; var Line: integer);
@@ -1312,22 +1361,42 @@ end;
 
 procedure CheckFPoints(Errors: TStrings);
 var i, tax, trade, fish, road: integer;
+  martial:  integer;
 begin
+  martial := 0;
   tax := 0;
   trade := 0;
   fish := 0;
   road := 0;
-  for i := 0 to VTurn.Regions.Count-1 do begin
-    if Test(VTurn.Regions[i].Marks, RM_TAX) then Inc(tax);
-    if Test(VTurn.Regions[i].Marks, RM_TRADE) then begin
-      if GameConfig.ReadInteger('Settings', 'Mod', modStandard) = modMagicDeep then begin
+
+  case GameConfig.ReadInteger('Settings', 'Mod', modStandard) of
+  modMagicdeep:
+    for i := 0 to VTurn.Regions.Count-1 do
+    begin
+      if Test(VTurn.Regions[i].Marks, RM_TAX) then Inc(tax);
+      if Test(VTurn.Regions[i].Marks, RM_TRADE) then
+      begin
         if Test(VTurn.Regions[i].Marks, RM_FISHING) then Inc(fish)
         else if Test(VTurn.Regions[i].Marks, RM_ROADBUILD) then Inc(road)
         else Inc(trade);
-      end
-      else Inc(trade);
+      end;
+    end;
+  modNewOrigins:
+    for i := 0 to VTurn.Regions.Count-1 do
+    begin
+      if Test(VTurn.Regions[i].Marks, RM_TAX) then Inc(martial)
+      else if Test(VTurn.Regions[i].Marks, RM_TRADE) then Inc(martial);
+    end;
+  else
+    for i := 0 to VTurn.Regions.Count-1 do
+    begin
+      if Test(VTurn.Regions[i].Marks, RM_TAX) then Inc(tax);
+      if Test(VTurn.Regions[i].Marks, RM_TRADE) then Inc(trade);
     end;
   end;
+
+  if martial > Progress[prMartial, VTurn.Martial] then
+    Errors.AddObject('! 3 Too many tax and/or trade regions', nil);
   if tax > Progress[prWar, VTurn.War] then
     Errors.AddObject('! 3 Too many tax regions', nil);
   if trade > Progress[prTrade, VTurn.Trade] then
@@ -1336,6 +1405,7 @@ begin
     Errors.AddObject('! 3 Too many fishing regions', nil);
   if road > Progress[prRoad, VTurn.Trade] then
     Errors.AddObject('! 3 Too many road build regions', nil);
+  // TODO : check mages?
 end;
 
 procedure ClearErrorComments(Lines: TStrings);
