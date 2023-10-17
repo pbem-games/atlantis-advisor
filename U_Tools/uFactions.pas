@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Grids, ImgList, DataStructs, StdCtrls, ComCtrls, ExtCtrls, PowerGrid,
+  Grids, ImgList, DataStructs, StdCtrls, ComCtrls, ExtCtrls, Math, PowerGrid,
   Buttons, ColorBtn, uKeys, Resources, uGameSubs;
 
 const
@@ -20,15 +20,15 @@ type
     lUnclaim: TLabel;
     Label2: TLabel;
     DefAttCombo: TComboBox;
-    WarNum: TLabel;
-    TradeNum: TLabel;
-    MagicNum: TLabel;
-    MagicTrack: TTrackBar;
-    TradeTrack: TTrackBar;
-    WarTrack: TTrackBar;
-    WarLabel: TLabel;
-    TradeLabel: TLabel;
-    MagicLabel: TLabel;
+    lFP0Num: TLabel;
+    lFP1Num: TLabel;
+    lFP2Num: TLabel;
+    tbFP2Track: TTrackBar;
+    tbFP1Track: TTrackBar;
+    tbFP0Track: TTrackBar;
+    lFP0Label: TLabel;
+    lFP1Label: TLabel;
+    lFP2Label: TLabel;
     GroupBox1: TGroupBox;
     Label3: TLabel;
     AttCombo: TComboBox;
@@ -51,9 +51,9 @@ type
       var CanSelect: Boolean);
     procedure AttComboChange(Sender: TObject);
     procedure DefAttComboChange(Sender: TObject);
-    procedure WarTrackChange(Sender: TObject);
-    procedure TradeTrackChange(Sender: TObject);
-    procedure MagicTrackChange(Sender: TObject);
+    procedure tbFP0TrackChange(Sender: TObject);
+    procedure tbFP1TrackChange(Sender: TObject);
+    procedure tbFP2TrackChange(Sender: TObject);
     procedure LeaderBoxChange(Sender: TObject);
     procedure ColorBtnClick(Sender: TObject);
     procedure btnRequestClick(Sender: TObject);
@@ -65,6 +65,9 @@ type
   private
     FOrders: string;
     MaxFP: integer;
+    FModID: integer;
+    function GetMartial: integer;
+    procedure SetMartial(fp: integer);
     function GetWar: integer;
     procedure SetWar(w: integer);
     function GetTrade: integer;
@@ -73,9 +76,10 @@ type
     procedure SetMagic(m: integer);
     procedure FillFactions;
   public
-    property War: integer read GetWar write SetWar;
-    property Trade: integer read GetTrade write SetTrade;
-    property Magic: integer read GetMagic write SetMagic;
+    property Martial:   integer read GetMartial write SetMartial;
+    property War:       integer read GetWar     write SetWar;
+    property Trade:     integer read GetTrade   write SetTrade;
+    property Magic:     integer read GetMagic   write SetMagic;
     function GetOrders: string;
   end;
 
@@ -90,11 +94,26 @@ implementation
 
 procedure TFactionForm.FormCreate(Sender: TObject);
 var i: integer;
-    tarm: boolean;
 begin
-  tarm := (GameConfig.ReadInteger('Settings', 'Mod', modStandard) = modTarmellion);
-  cmAlignment.Visible := tarm;
-  lAlignment.Visible := tarm;
+  FModID := GameConfig.ReadInteger('Settings', 'Mod', modStandard);
+
+  case FModID of
+  modTarmellion:
+    begin
+      cmAlignment.Visible := true;
+      cmAlignment.ItemIndex := GameConfig.ReadInteger('Game', 'Alignment', alNeutral);
+      lAlignment.Visible := true;
+    end;
+  modNewOrigins:
+    begin
+      lFP0Label.Caption := ProgressNames[prMartial];
+      lFP1Label.Caption := ProgressNames[prMagic];
+
+      lFP2Label.Visible := false;
+      tbFP2Track.Visible := false;
+      lFP2Num.Visible := false;
+    end;
+  end;
 
   // Setup grid
   for i := 0 to GridCols-1 do begin
@@ -102,26 +121,29 @@ begin
     FactionGrid.Cols[i].Format := GridFormats[i];
   end;
 
-  cbHideUnconfirmed.Checked := Config.ReadBool('Factions', 'HideUnconfirmed',
-    False);
+  cbHideUnconfirmed.Checked := Config.ReadBool('Factions', 'HideUnconfirmed', False);
   FillFactions;
 
-  FactionBox.Caption := ' ' + Game.VirtTurn.Factions[1].Name +
-    ' ('+IntToStr(VFaction.Num)+') ';
+  FactionBox.Caption := ' ' + Game.VirtTurn.Factions[1].Name + ' (' + IntToStr(VFaction.Num) + ') ';
 
   MaxFP := Length(Progress[0]) - 1;
-  WarTrack.Max := MaxFP;
-  TradeTrack.Max := MaxFP;
-  MagicTrack.Max := MaxFP;
+  tbFP0Track.Max := MaxFP;
+  tbFP1Track.Max := MaxFP;
+  tbFP2Track.Max := MaxFP;
 
-  War := VTurn.War;
-  Trade := VTurn.Trade;
+  if FModID = modNewOrigins then
+    Martial := VTurn.Martial
+  else
+  begin
+    War := VTurn.War;
+    Trade := VTurn.Trade;
+  end;
   Magic := VTurn.Magic;
 
-  if GameConfig.ReadInteger('Settings', 'Mod', modStandard) = modMagicDeep then
-    lUnclaim.Caption := 'Unclaimed: ' + IntToStr(VTurn.Unclaimed) +
-      ', mana ' + IntToStr(Turn.Mana)
-  else lUnclaim.Caption := 'Unclaimed silver: ' + IntToStr(VTurn.Unclaimed);
+  if FModID = modMagicDeep then
+    lUnclaim.Caption := 'Unclaimed: ' + IntToStr(VTurn.Unclaimed) + ', mana ' + IntToStr(Turn.Mana)
+  else
+    lUnclaim.Caption := 'Unclaimed silver: ' + IntToStr(VTurn.Unclaimed);
 
   DefAttCombo.ItemIndex := VFaction.Attitude - 1;
 
@@ -130,8 +152,6 @@ begin
     if VFaction.Units[i].Num > 0 then
       LeaderBox.AddItem(VFaction.Units[i].FullName, VFaction.Units[i]);
   LeaderBox.ItemIndex := LeaderBox.Items.IndexOfObject(FactionLeader);
-
-  cmAlignment.ItemIndex := GameConfig.ReadInteger('Game', 'Alignment', alNeutral);
 end;
 
 procedure TFactionForm.FillFactions;
@@ -173,10 +193,13 @@ end;
 function TFactionForm.GetOrders: string;
 begin
   Result := FOrders;
-  if (War <> VTurn.War) or (Trade <> VTurn.Trade) or (Magic <> VTurn.Magic) then begin
-    Result := Result + 'faction war ' + IntToStr(War) +
-      ' trade ' + IntToStr(Trade) + ' magic ' + IntToStr(Magic);
-  end;
+  if FModID = modNewOrigins then
+  begin
+    if ((Martial <> VTurn.Martial) or (Magic <> VTurn.Magic)) then
+      Result := Result + 'faction martial ' + IntToStr(Martial) + ' magic ' + IntToStr(Magic);
+  end
+  else if (War <> VTurn.War) or (Trade <> VTurn.Trade) or (Magic <> VTurn.Magic) then
+    Result := Result + 'faction war ' + IntToStr(War) + ' trade ' + IntToStr(Trade) + ' magic ' + IntToStr(Magic);
 end;
 
 function AmountStr(s: string; amt: integer): string;
@@ -185,37 +208,59 @@ begin
   else Result := IntToStr(amt) + ' ' + s;
 end;
 
+function TFactionForm.GetMartial: integer;
+begin
+  Result := tbFP0Track.Position;
+end;
+
+procedure TFactionForm.SetMartial(fp: integer);
+begin
+  tbFP0Track.Position := fp;
+  lFP0Num.Caption := AmountStr('Region', Progress[prMartial, fp]);
+end;
+
 function TFactionForm.GetWar: integer;
 begin
-  GetWar := WarTrack.Position;
+  GetWar := tbFP0Track.Position;
 end;
 
 procedure TFactionForm.SetWar(w: integer);
 begin
-  WarTrack.Position := w;
-  WarNum.Caption := AmountStr('Region', Progress[prWar, w]);
+  tbFP0Track.Position := w;
+  lFP0Num.Caption := AmountStr('Region', Progress[prWar, w]);
 end;
 
 function TFactionForm.GetTrade: integer;
 begin
-  GetTrade := TradeTrack.Position;
+  GetTrade := tbFP1Track.Position;
 end;
 
 procedure TFactionForm.SetTrade(t: integer);
 begin
-  TradeTrack.Position := t;
-  TradeNum.Caption := AmountStr('Region', Progress[prTrade, t]);
+  tbFP1Track.Position := t;
+  lFP1Num.Caption := AmountStr('Region', Progress[prTrade, t]);
 end;
 
 function TFactionForm.GetMagic: integer;
 begin
-  GetMagic := MagicTrack.Position;
+  if FModID = modNewOrigins then
+    Result := tbFP1Track.Position
+  else
+    Result := tbFP2Track.Position;
 end;
 
 procedure TFactionForm.SetMagic(m: integer);
 begin
-  MagicTrack.Position := m;
-  MagicNum.Caption := AmountStr('Mage', Progress[prMagic, m]);
+  if FModID = modNewOrigins then
+  begin
+    tbFP1Track.Position := m;
+    lFP1Num.Caption := AmountStr('Mage', Progress[prMagic, m]);
+  end
+  else
+  begin
+    tbFP2Track.Position := m;
+    lFP2Num.Caption := AmountStr('Mage', Progress[prMagic, m]);
+  end;
 end;
 
 procedure TFactionForm.Button2Click(Sender: TObject);
@@ -276,32 +321,79 @@ begin
   FactionGrid.Fixup;
 end;
 
-procedure TFactionForm.WarTrackChange(Sender: TObject);
+procedure TFactionForm.tbFP0TrackChange(Sender: TObject);
+var
+  adjust: integer;
+  value:  integer;
 begin
-  War := WarTrack.Position;
-  if War + Trade + Magic > MaxFP then begin
-    if Trade > 0 then Trade := Trade - 1;
-    if War + Trade + Magic > MaxFP then Magic := Magic - 1;
+  if FModID = modNewOrigins then
+  begin
+    Martial := tbFP0Track.Position;
+
+    adjust := (Martial + Magic) - MaxFP;
+    if adjust > 0 then
+      Magic := Magic - adjust;
+  end
+  else
+  begin
+    War := tbFP0Track.Position;
+
+    adjust := (War + Trade + Magic) - MaxFP;
+    if adjust > 0 then
+    begin
+      value := Trade;
+      Trade := Max(0, value - adjust);
+      adjust := adjust - value;
+      if adjust > 0 then
+        Magic := Magic - adjust;
+    end;
   end;
 end;
 
-procedure TFactionForm.TradeTrackChange(Sender: TObject);
+procedure TFactionForm.tbFP1TrackChange(Sender: TObject);
+var
+  adjust: integer;
+  value:  integer;
 begin
-  Trade := TradeTrack.Position;
-  if War + Trade + Magic > MaxFP then begin
-    if War > 0 then War := War - 1;
-    if War + Trade + Magic > MaxFP then
-      Magic := Magic - 1;
+  if FModID = modNewOrigins then
+  begin
+    Magic := tbFP1Track.Position;
+
+    adjust := (Martial + Magic) - MaxFP;
+    if adjust > 0 then
+      Martial := Martial - adjust;
+  end
+  else
+  begin
+    Trade := tbFP1Track.Position;
+
+    adjust := (War + Trade + Magic) - MaxFP;
+    if adjust > 0 then
+    begin
+      value := Trade;
+      Trade := Max(0, value - adjust);
+      adjust := adjust - value;
+      if adjust > 0 then
+        Magic := Magic - adjust;
+    end;
   end;
 end;
 
-procedure TFactionForm.MagicTrackChange(Sender: TObject);
+procedure TFactionForm.tbFP2TrackChange(Sender: TObject);
+var
+  adjust: integer;
+  value:  integer;
 begin
-  Magic := MagicTrack.Position;
-  if War + Trade + Magic > MaxFP then begin
-    if War > 0 then War := War - 1;
-    if War + Trade + Magic > MaxFP then
-      Trade := Trade - 1;
+  Magic := tbFP2Track.Position;
+
+  adjust := (War + Trade + Magic) - MaxFP;
+  if adjust > 0 then
+  begin
+    value := War;
+    War := Max(0, value - adjust);
+    adjust := adjust - value;
+    if adjust > 0 then
+      Trade := Trade - adjust;
   end;
 end;
 

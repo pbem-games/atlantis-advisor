@@ -1,7 +1,7 @@
 object FactionForm: TFactionForm
   Tag = 3
-  Left = 206
-  Top = 103
+  Left = 304
+  Top = 134
   HelpContext = 9
   Anchors = []
   BorderIcons = [biSystemMenu, biMaximize]
@@ -64,42 +64,42 @@ object FactionForm: TFactionForm
       Font.Style = []
       ParentFont = False
     end
-    object WarNum: TLabel
+    object lFP0Num: TLabel
       Left = 112
       Top = 82
       Width = 54
       Height = 13
       Caption = '10 Regions'
     end
-    object TradeNum: TLabel
+    object lFP1Num: TLabel
       Left = 112
       Top = 106
       Width = 54
       Height = 13
       Caption = '10 Regions'
     end
-    object MagicNum: TLabel
+    object lFP2Num: TLabel
       Left = 112
       Top = 130
       Width = 36
       Height = 13
       Caption = '1 Mage'
     end
-    object WarLabel: TLabel
+    object lFP0Label: TLabel
       Left = 12
       Top = 82
       Width = 20
       Height = 13
       Caption = 'War'
     end
-    object TradeLabel: TLabel
+    object lFP1Label: TLabel
       Left = 12
       Top = 106
       Width = 28
       Height = 13
       Caption = 'Trade'
     end
-    object MagicLabel: TLabel
+    object lFP2Label: TLabel
       Left = 12
       Top = 130
       Width = 29
@@ -126,6 +126,7 @@ object FactionForm: TFactionForm
       Width = 49
       Height = 13
       Caption = 'Alignment:'
+      Visible = False
     end
     object DefAttCombo: TComboBox
       Left = 92
@@ -143,7 +144,7 @@ object FactionForm: TFactionForm
         'Friendly'
         'Ally')
     end
-    object MagicTrack: TTrackBar
+    object tbFP2Track: TTrackBar
       Left = 44
       Top = 128
       Width = 65
@@ -159,9 +160,9 @@ object FactionForm: TFactionForm
       ThumbLength = 15
       TickMarks = tmBottomRight
       TickStyle = tsAuto
-      OnChange = MagicTrackChange
+      OnChange = tbFP2TrackChange
     end
-    object TradeTrack: TTrackBar
+    object tbFP1Track: TTrackBar
       Left = 44
       Top = 104
       Width = 65
@@ -177,9 +178,9 @@ object FactionForm: TFactionForm
       ThumbLength = 15
       TickMarks = tmBottomRight
       TickStyle = tsAuto
-      OnChange = TradeTrackChange
+      OnChange = tbFP1TrackChange
     end
-    object WarTrack: TTrackBar
+    object tbFP0Track: TTrackBar
       Left = 44
       Top = 80
       Width = 65
@@ -195,7 +196,7 @@ object FactionForm: TFactionForm
       ThumbLength = 15
       TickMarks = tmBottomRight
       TickStyle = tsAuto
-      OnChange = WarTrackChange
+      OnChange = tbFP0TrackChange
     end
     object LeaderBox: TComboBox
       Left = 64
@@ -216,6 +217,7 @@ object FactionForm: TFactionForm
       Style = csDropDownList
       ItemHeight = 13
       TabOrder = 5
+      Visible = False
       OnChange = cmAlignmentChange
       Items.Strings = (
         'neutral'

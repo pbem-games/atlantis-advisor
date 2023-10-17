@@ -21,8 +21,8 @@ object TaxTradeForm: TTaxTradeForm
     Top = 4
     Width = 301
     Height = 345
-    ActivePage = tsFishing
-    TabIndex = 2
+    ActivePage = TabSheet1
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Tax Regions'
