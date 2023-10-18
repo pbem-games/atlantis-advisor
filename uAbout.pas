@@ -16,7 +16,6 @@ type
     Label3: TLabel;
     Label4: TLabel;
     procedure Image1Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure Label1Click(Sender: TObject);
   private
     { Private declarations }
@@ -34,13 +33,6 @@ implementation
 procedure TAboutForm.Image1Click(Sender: TObject);
 begin
   Close;
-end;
-
-procedure TAboutForm.FormCreate(Sender: TObject);
-begin
-  if ProgOpened then RegLabel.Caption := 'Registered to: ' +
-    Config.ReadString('Prog', 'RegName', '')
-  else RegLabel.Caption := 'Unregistered';
 end;
 
 procedure TAboutForm.Label1Click(Sender: TObject);
