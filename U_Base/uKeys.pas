@@ -35,6 +35,7 @@ type
   s_flgOnGuard,
     s_flgTaxing, s_flgAvoiding, s_flgBehind, s_flgHolding, s_flgNoaid,
     s_flgNocross,
+  s_flagSharing,
   s_RevealUnit,
     s_RevealFaction,
   s_ConsumeUnit,

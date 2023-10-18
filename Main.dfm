@@ -2376,7 +2376,6 @@ object MainForm: TMainForm
         Width = 552
         Height = 25
         ButtonHeight = 19
-        ButtonWidth = 19
         Caption = 'FlagBar'
         EdgeBorders = []
         Images = ResForm.FlagImages
@@ -2395,7 +2394,7 @@ object MainForm: TMainForm
         end
         object ToolButton33: TToolButton
           Tag = 1
-          Left = 19
+          Left = 23
           Top = 2
           Hint = 'Taxing'
           AllowAllUp = True
@@ -2408,7 +2407,7 @@ object MainForm: TMainForm
         end
         object AvoidFlagBtn: TToolButton
           Tag = 2
-          Left = 38
+          Left = 46
           Top = 2
           Hint = 'Avoiding'
           AllowAllUp = True
@@ -2421,7 +2420,7 @@ object MainForm: TMainForm
         end
         object ToolButton35: TToolButton
           Tag = 3
-          Left = 57
+          Left = 69
           Top = 2
           Hint = 'Behind'
           AllowAllUp = True
@@ -2434,7 +2433,7 @@ object MainForm: TMainForm
         end
         object ToolButton36: TToolButton
           Tag = 4
-          Left = 76
+          Left = 92
           Top = 2
           Hint = 'Holding'
           AllowAllUp = True
@@ -2447,7 +2446,7 @@ object MainForm: TMainForm
         end
         object ToolButton37: TToolButton
           Tag = 5
-          Left = 95
+          Left = 115
           Top = 2
           Hint = 'Receive no aid'
           AllowAllUp = True
@@ -2460,7 +2459,7 @@ object MainForm: TMainForm
         end
         object ToolButton45: TToolButton
           Tag = 6
-          Left = 114
+          Left = 138
           Top = 2
           Hint = 'Will not cross water'
           AllowAllUp = True
@@ -2471,17 +2470,31 @@ object MainForm: TMainForm
           Style = tbsCheck
           OnClick = UnitFlagBtnClick
         end
-        object ToolButton48: TToolButton
-          Left = 133
+        object SharingFlag: TToolButton
+          Tag = 7
+          Left = 161
           Top = 2
-          Width = 4
+          Hint = 'Sharing inventory'
+          AllowAllUp = True
+          Caption = 'SharingFlag'
+          ImageIndex = 18
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = UnitFlagBtnClick
+        end
+        object ToolButton48: TToolButton
+          Left = 184
+          Top = 2
+          Width = 8
           Caption = 'ToolButton48'
           ImageIndex = 8
           Style = tbsSeparator
         end
         object btnConsume: TToolButton
-          Left = 137
+          Left = 192
           Top = 2
+          Hint = 'Consumption'
           Caption = 'btnConsume'
           ImageIndex = 7
           ParentShowHint = False
@@ -2490,8 +2503,9 @@ object MainForm: TMainForm
         end
         object btnReveal: TToolButton
           Tag = 1
-          Left = 156
+          Left = 215
           Top = 2
+          Hint = 'Revealing'
           Caption = 'btnReveal'
           ImageIndex = 8
           ParentShowHint = False
@@ -2500,8 +2514,9 @@ object MainForm: TMainForm
         end
         object btnSpoils: TToolButton
           Tag = 2
-          Left = 175
+          Left = 238
           Top = 2
+          Hint = 'Spoils'
           Caption = 'btnSpoils'
           ImageIndex = 9
           ParentShowHint = False
@@ -2959,7 +2974,7 @@ object MainForm: TMainForm
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -16
             Font.Name = 'Consolas'
             Font.Style = []
             ParentFont = False

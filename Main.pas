@@ -21,8 +21,8 @@ const
   UnitGridHeadIcons: array[0..UnitGridColCount-1] of integer =
     (0, 0, 0, 0, 0, 0, 0, bmpMen, bmpSilver, bmpMounts, 0, 0, 0, 0, 0,
     bmpSkill);
-  FlagChars: array[0..UnitFlagsCount-1] of char =
-    ('G', 'T', 'A', 'B', 'H', 'N', 'X');
+  FlagChars: array[0..UnitFlagsCount-1] of string =
+    ('G', 'T', 'A', 'B', 'H', 'N', 'X', 'Sh');
   RevFlagChars: array[1..2] of char = ('U', 'F');
   ugcObject = 0;
   ugcObjectNum = 1;
@@ -510,6 +510,7 @@ type
     spWanted: TSplitter;
     Bevel1: TBevel;
     Bevel6: TBevel;
+    SharingFlag: TToolButton;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,

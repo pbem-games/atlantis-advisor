@@ -402,12 +402,12 @@ begin
 end;
 
 procedure AddOrderTo(AUnit: TUnit; s: string; CanRepeat: boolean);
-const SingleCount = 26;
+const SingleCount = 27;
       SingleOrders: array[0..SingleCount-1] of string = ('autotax', 'avoid',
         'behind', 'combat', 'consume', 'faction', 'guard', 'hold', 'noaid',
         'nocross', 'reveal', 'spoils', 'leave', 'enter', 'promote', 'destroy',
         'pillage', 'tax', 'cast', 'build', 'entertain', 'produce',
-        'study', 'teach', 'work', 'steal');
+        'study', 'teach', 'work', 'steal', 'share');
       TokenCount = 4;
       TokenOrders: array[0..TokenCount-1] of string = ('name', 'describe',
         'declare', 'forget');

@@ -156,9 +156,9 @@ const
   dirNW = 6;
 
  // Unit flags
-  UnitFlagsCount = 7;
+  UnitFlagsCount = 8;
   FlagOrders: array[0..UnitFlagsCount-1] of string =
-    ('guard', 'autotax', 'avoid', 'behind', 'hold', 'noaid', 'nocross');
+    ('guard', 'autotax', 'avoid', 'behind', 'hold', 'noaid', 'nocross', 'share');
   ExtFlags: array[0..2, 0..4] of string =
   ( ('consume', 'consume unit', 'consume faction', '', ''),
     ('reveal', 'reveal unit', 'reveal faction', '', ''),
