@@ -110,7 +110,7 @@ type
     MsgGrid: TPowerGrid;
     OrderSheet: TTabSheet;
     Panel2: TPanel;
-    ItemSplit: TSplitter;
+    spItemsSkills: TSplitter;
     Map1: TMenuItem;
     N4: TMenuItem;
     ListItm: TMenuItem;
@@ -245,7 +245,6 @@ type
     Label19: TLabel;
     StructGroupLabel: TLabel;
     ProductGrid: TPowerGrid;
-    Label12: TLabel;
     FactionFlagImage: TImage;
     SkillGrid: TPowerGrid;
     ToolBar: TToolBar;
@@ -481,7 +480,7 @@ type
     Panel8: TPanel;
     pnStrucInfo: TPanel;
     pnRightSidebar: TPanel;
-    Splitter1: TSplitter;
+    spSidebar: TSplitter;
     pnRegion: TPanel;
     pnUnit: TPanel;
     spRegionUnit: TSplitter;
@@ -493,12 +492,24 @@ type
     Label23: TLabel;
     TradePanel: TPanel;
     Label24: TLabel;
-    Bevel1: TBevel;
     Bevel2: TBevel;
     Bevel3: TBevel;
     pnUnitName: TPanel;
     pnName: TPanel;
     Bevel4: TBevel;
+    pnOrdersEvents: TPanel;
+    pnOrders: TPanel;
+    pnEvents: TPanel;
+    Label25: TLabel;
+    spOrdersEvents: TSplitter;
+    Label26: TLabel;
+    Bevel5: TBevel;
+    Label12: TLabel;
+    spRegionInfoNotes: TSplitter;
+    spProducts: TSplitter;
+    spWanted: TSplitter;
+    Bevel1: TBevel;
+    Bevel6: TBevel;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -652,6 +663,7 @@ type
     procedure WantedItemsActionExecute(Sender: TObject);
     procedure FindUnitActionExecute(Sender: TObject);
     procedure NextErrorActionExecute(Sender: TObject);
+    procedure HandleSelectAllKeyPress(Sender: TObject; var Key: Char);
   private
   public
     State: TAdvisorState;
@@ -718,7 +730,6 @@ type
     procedure FillStructInfo(AStruct: TStruct);
     procedure ClearStructInfo;
     procedure SetTurns;
-    function EditBevel(N: integer): TBevel;
     procedure GotoBookmark(Sender: TObject);
     procedure SetupBookmarks;
     procedure SetupScripts;
@@ -959,13 +970,18 @@ begin
         MiniMapForm.Close; // Just to pickup config changes from OnClose
         Config.WriteBool('MiniMap', 'Visible', True); // Override OnClose's Visible
       end;
-      //Config.WriteInteger('MainWin', 'MainTab', InfoPControl.ActivePageIndex);
-      //Config.WriteInteger('MainWin', 'UnitTab', UnitPControl.ActivePageIndex);
-      //Config.WriteInteger('MainWin', 'RegionTab', RegionPControl.ActivePageIndex);
       Config.WriteInteger('MainWin', 'SplitterPos', UnitsPanel.Height);
       Config.WriteInteger('MainWin', 'ItemSplitterPos', pItemGrid.Height);
       Config.WriteInteger('MainWin', 'UnitPageSplitterPos', UnitPControl.Height);
       Config.WriteInteger('MainWin', 'StructSplitterPos', StructGrid.Width);
+      Config.WriteInteger('MainWin', 'RightSidebarPos', pnRightSidebar.Width);
+      Config.WriteInteger('MainWin', 'ProductGridPos', ProductGrid.Width);
+      Config.WriteInteger('MainWin', 'WantedGridPos', WantedGrid.Width);
+      Config.WriteInteger('MainWin', 'TradePanelPos', TradePanel.Height);
+      Config.WriteInteger('MainWin', 'RegionPos', pnRegion.Height);
+      Config.WriteInteger('MainWin', 'ItemsAndSkillsPos', pnItemsAndSkills.Height);
+      Config.WriteInteger('MainWin', 'SkillsPos', pnSkills.Width);
+      Config.WriteInteger('MainWin', 'EventsPos', pnEvents.Width);
       Screen.Cursor := crDefault;
     end;
   end;
@@ -1087,6 +1103,15 @@ begin
   btnLocal.Down := Config.ReadBool('MainWin', 'LocalDescriptions', False);
   gAllItems.Visible := Config.ReadBool('MainWin', 'AllItems', False);
   UnmodItemsAction.Checked := Config.ReadBool('MainWin', 'UnmodItemAmounts', False);
+
+  pnRightSidebar.Width := Config.ReadInteger('MainWin', 'RightSidebarPos', 560);
+  ProductGrid.Width := Config.ReadInteger('MainWin', 'ProductGridPos', 182);
+  WantedGrid.Width := Config.ReadInteger('MainWin', 'WantedGridPos', 182);
+  TradePanel.Height := Config.ReadInteger('MainWin', 'TradePanelPos', 200);
+  pnRegion.Height := Config.ReadInteger('MainWin', 'RegionPos', 460);
+  pnItemsAndSkills.Height := Config.ReadInteger('MainWin', 'ItemsAndSkillsPos', 140);
+  pnSkills.Width := Config.ReadInteger('MainWin', 'SkillsPos', 182);
+  pnEvents.Width := Config.ReadInteger('MainWin', 'EventsPos', 182);
 
   // Mini map
   case Config.ReadInteger('MiniMap', 'Mode', mmGeo) of
@@ -1962,11 +1987,13 @@ end;
 procedure TMainForm.TradePanelResize(Sender: TObject);
 var wh: integer;
 begin
+{
   wh := TradePanel.Width div 3;
   if (wh > 0) then begin
     pnProducts.Width := wh;
     pnWanted.Width := wh;
   end;
+}
 end;
 
 procedure TMainForm.NotesMemoExit(Sender: TObject);
@@ -3020,18 +3047,6 @@ begin
   UnitDescrEdit.Width := UnitDescrBevel.Width - 6;
 end;
 
-function TMainForm.EditBevel(N: integer): TBevel;
-begin
-{
-  case N of
-    0: Result := UnitNameBevel;
-    1: Result := UnitDescrBevel;
-    2: Result := StructNameBevel;
-    else Result := StructDescrBevel;
-  end;
-  }
-end;
-
 procedure TMainForm.FormEditEnter(Sender: TObject);
 begin
   TEdit(Sender).BevelKind := bkSoft;
@@ -3075,6 +3090,9 @@ begin
       2: ExecOrder('name object "' + Text + '"', False);
       else ExecOrder('describe object "' + Text + '"', False);
     end;
+  end
+  else begin
+    HandleSelectAllKeyPress(Sender, Key);
   end;
 end;
 
@@ -4299,6 +4317,18 @@ function TMainForm.SelectedCoords: TCoords;
 begin
   CalcMapCoords(HexMap.Selected.X, HexMap.Selected.Y, Result.X, Result.Y);
   Result.z := Map.Level;
+end;
+
+procedure TMainForm.HandleSelectAllKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = ^A then begin
+    With Sender as TCustomEdit do begin
+      SelStart := Length(Text);
+      Perform(EM_SCROLLCARET, 0, 0);
+      SelectAll;
+    end;
+    Key := #0;    //Eat the key to suppress the beep
+  end;
 end;
 
 end.
