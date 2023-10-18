@@ -1299,7 +1299,7 @@ begin
 end;
 
 function ReadItemDescription(D: TItemData): boolean;
-var i: integer;
+var i, j: integer;
     Trace, FullTrace: TTrace;
     cap, lv, power: integer;
     IData: TItemData;
@@ -1698,12 +1698,25 @@ begin
       // Tool
 
       // This item increases the production of furs by 1 and floater hides by 1.
+      // This item increases the production of furs [FUR] by 1 and floater hides [FLOA] by 1.
       else if TraceKey(Trace, [s_IncProduction]) then begin
         SetFlag(D.Flags, IT_TOOL, True);
         while Pos(Keys[s_By], Trace.Text) > 0 do begin
           s := Trace.Before(Keys[s_By]);
-          if s = Keys[s_ProdEntertainment] then IData := SilverData
-          else IData := Game.ItemData.FindByName(s);
+          if s = Keys[s_ProdEntertainment] then
+            IData := SilverData
+          else
+          begin
+            i := Pos('[', s);
+            if i > 0 then
+            begin
+              Inc(i);
+              s := Copy(s, i, Pos(']', s) - i);
+            end;
+
+            IData := Game.ItemData.FindByName(s);
+          end;
+
           if IData <> nil then begin
             IData.Produce.Tool := D;
             IData.Produce.ToolBonus := Trace.Num;
@@ -1849,6 +1862,7 @@ end;
 function ReadObjectDescription(D: TStructData): boolean;
 var FullTrace, Trace: TTrace;
     i, lv: integer;
+    str:  string;
 begin
   Result := True;
   FullTrace := TTrace.Create(D.Description);
@@ -1884,7 +1898,11 @@ begin
       // This trade structure increases the amount of wood available in the region
       else if (Pos(Keys[s_AvaiInRegion], Trace.Text) > 0)
         and TraceKey(Trace, [s_IncAmount]) then begin
-        D.Resource := Game.ItemData.FindByName(Trace.Before(Keys[s_AvaiInRegion]));
+        str := Trace.Before(Keys[s_AvaiInRegion]);
+        if str = Keys[s_ProdEntertainment] then
+          D.Resource := SilverData
+        else
+          D.Resource := Game.ItemData.FindByName(str);
         if D.Resource = nil then D.Incomplete := True;
       end
       // It provides a bonus of 1 against melee, 0 against energy...
