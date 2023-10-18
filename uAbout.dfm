@@ -4631,27 +4631,12 @@ object AboutForm: TAboutForm
     Width = 39
     Height = 13
     Alignment = taRightJustify
-    Caption = 'v 3.21.8'
+    Caption = 'v 3.30.0'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clSilver
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
-    ParentFont = False
-  end
-  object RegLabel: TLabel
-    Left = 8
-    Top = 292
-    Width = 241
-    Height = 13
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Registered to: xUSSR '#1088#1077#1075#1080#1089#1090#1088#1072#1094#1080#1103
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWhite
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label2: TLabel

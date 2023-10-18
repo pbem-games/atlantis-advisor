@@ -10,7 +10,6 @@ type
   TAboutForm = class(TForm)
     Image1: TImage;
     VerLabel: TLabel;
-    RegLabel: TLabel;
     Label2: TLabel;
     Image2: TImage;
     Label1: TLabel;
