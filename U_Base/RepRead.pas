@@ -1299,7 +1299,7 @@ begin
 end;
 
 function ReadItemDescription(D: TItemData): boolean;
-var i, j: integer;
+var i: integer;
     Trace, FullTrace: TTrace;
     cap, lv, power: integer;
     IData: TItemData;
