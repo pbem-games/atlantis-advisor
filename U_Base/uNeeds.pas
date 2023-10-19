@@ -492,6 +492,8 @@ begin
 
   for i := 0 to U.Items.Count-1 do begin
     if U.Items[i].Bought then Continue;
+    // man items will not be distributed through Needs system
+    if IT_MAN and U.Items[i].Data.Flags <> 0 then Continue;
 
     Rec := TNeedItem.Create;
     Rec.AUnit := U;
