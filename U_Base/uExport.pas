@@ -250,6 +250,7 @@ var i, j: integer;
     C: TCoords;
     R: TRegion;
     transport: boolean;
+    tmpGate: string;
 
   procedure Wrap(s: string; Lines: TStrings);
   var i: integer;
@@ -374,8 +375,14 @@ begin
     // Gates
     if Test(Parts, MAP_GATES) and (Gate > 0) then begin
       Lines.Add('');
-      Lines.Add('There is a Gate here (Gate ' + IntToStr(Gate) + ' of ' +
-        IntToStr(Turn.GateCount) + ').');
+
+      tmpGate := 'There is a Gate here (Gate ' + IntToStr(Gate);
+      if Turn.GateCount > 0 then begin
+        tmpGate := tmpGate + ' of ' + IntToStr(Turn.GateCount);
+      end;
+      tmpGate := tmpGate + ').';
+
+      Lines.Add(tmpGate);
     end;
 
     // Units
