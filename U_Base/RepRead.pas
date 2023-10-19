@@ -2419,8 +2419,14 @@ begin
      Trace.Text := GetLine;
      Trace.Before(Keys[s_GateHere]);
      Gate := Trace.Num;
-     Trace.Before(Keys[s_Of]);
-     Turn.GateCount := Trace.Num;
+
+      if Pos(Keys[s_Of], Trace.Text) > 0 then begin
+        Trace.Before(Keys[s_Of]);
+        Turn.GateCount := Trace.Num;
+      end
+      else begin
+        Turn.GateCount := 0;
+      end;
    end;
   end; // with Region
 
