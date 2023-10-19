@@ -120,6 +120,9 @@ begin
       Tactitian := i;
     end;
   end;
+
+  // first unit is general
+  if Tactitian < 0 then Tactitian := 0;
 end;
 
 function EqualSoldiers(S1, S2: TSoldier): boolean;

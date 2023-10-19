@@ -15,7 +15,7 @@ type
   TBattleForm = class(TForm)
     tsSpoils: TTabSheet;
     gSpoils: TPowerGrid;
-    Panel4: TPanel;
+    pnToolbar: TPanel;
     ToolBar: TToolBar;
     btnSimulation: TToolButton;
     ToolButton8: TToolButton;
@@ -32,13 +32,27 @@ type
     N10battles1: TMenuItem;
     N50battles1: TMenuItem;
     N100battles1: TMenuItem;
+    Panel3: TPanel;
+    pnButtons: TPanel;
+    pnMain: TPanel;
+    pnDetails: TPanel;
+    pnOverview: TPanel;
+    Panel5: TPanel;
+    Bevel1: TBevel;
+    pnSides: TPanel;
+    pnAttacker: TPanel;
+    pnDefender: TPanel;
+    Bevel2: TBevel;
+    Bevel3: TBevel;
+    Panel4: TPanel;
     procedure PControlChange(Sender: TObject);
     procedure trRoundsChange(Sender: TObject);
     procedure btnPlayClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Panel3Resize(Sender: TObject);
   published
     cmBattles: TComboBox;
-    Button1: TButton;
+    btnClose: TButton;
     PControl: TPageControl;
     tsReport: TTabSheet;
     tsSimUnit: TTabSheet;
@@ -367,6 +381,7 @@ begin
   if not btnSimulation.Down then begin
     if Battle.Loses[sideAttack] > 0 then
       lAtkWin.Caption := 'loses ' + IntToStr(Battle.Loses[sideAttack]);
+
     if Battle.Loses[sideDefence] > 0 then
       lDefWin.Caption := 'loses ' + IntToStr(Battle.Loses[sideDefence]);
   end;
@@ -456,6 +471,7 @@ procedure TBattleForm.DrawTactics;
       s: string;
   begin
     lv := TacticsLevel(Battle.Units[Side], idx);
+
     if idx = -1 then begin
       lName.Caption := '';
       lSkill.Caption := '';
@@ -463,7 +479,12 @@ procedure TBattleForm.DrawTactics;
     else begin
       BUnit := Battle.Units[side][idx];
       lName.Caption := BUnit.Name;
-      lSkill.Caption := 'tactics ' + IntToStr(lv);
+
+      if lv > 0 then
+        lSkill.Caption := 'tactics ' + IntToStr(lv)
+      else
+        lSkill.Caption := '';
+
       s := BUnit.Viewer.Picture;
       if Pos(' & ', s) > 0 then s := Copy(s, 1, Pos(' & ', s)-1);
       DrawCombinedAvatar(BUnit.URef, BUnit.Faction, s, Image.Picture.Bitmap,
@@ -473,6 +494,8 @@ procedure TBattleForm.DrawTactics;
   end;
 
 begin
+  if Battle = nil then Exit;
+
   DrawTactic(sideAttack, imgAtkLeader, lAtkLeaderName, lAtkTactics);
   DrawTactic(sideDefence, imgDefLeader, lDefLeaderName, lDefTactics);
 end;
@@ -1062,6 +1085,12 @@ begin
   RepaintBattle;
   Mode := bmNormal;
   SetupPlayControls(False);
+end;
+
+procedure TBattleForm.Panel3Resize(Sender: TObject);
+begin
+  SetupDrawArea(Painter);
+  RepaintBattle();
 end;
 
 end.
