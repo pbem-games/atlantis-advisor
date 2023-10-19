@@ -692,8 +692,7 @@ begin
     end
     // loses 1.
     else if Pos(Keys[s_Loses], s) > 0 then begin
-      Trace := TTrace.Create('');
-      Trace.Text := s;
+      Trace := TTrace.Create(s);
 
       U := nil;
       if Pos('(', Trace.Text) > 0 then begin
@@ -721,6 +720,35 @@ begin
       end;
 
       Trace.Free;
+
+      while EmptyLine(GetLine) do GetNextLine;
+      Continue;
+    end
+    // TakeHits: takes 1(/no) hits, bringing it to 47/50
+    else if Pos(Keys[s_Takes], s) > 0 then begin
+      Trace := TTrace.Create(s);
+
+      U := nil;
+      if Pos('(', Trace.Text) > 0 then begin
+        Trace.Before('(');
+        num := StrToInt(Trace.Before(')'));
+        Trace.SkipSpaces;
+        U := B.FindBUnit(num);
+      end;
+
+      if U <> nil then begin
+        Action.ActionType := raTakeHits;
+        Action.BUnit := U;
+
+        Trace.Before('takes');
+        Trace.SkipSpaces();
+
+        if (Copy(Trace.Text, 1, 1) >= '0') and (Copy(Trace.Text, 1, 1) <= '9') then
+          Action.Power := Trace.Num
+        else Action.Power := 0;
+
+        Trace.Free;
+      end;
 
       while EmptyLine(GetLine) do GetNextLine;
       Continue;
