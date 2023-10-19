@@ -62,19 +62,35 @@ end;
 // (duplicated values comes from duplicated reports for same turn)
 procedure ReadBlockList(list: string; ToList: TList; Former: TFormFunc;
   SkipName: boolean);
-var Trace: TTrace;
-    itm: string;
+var Trace, InnerTrace: TTrace;
+    itm, tmp: string;
     p: pointer;
 begin
   Trace := TTrace.Create(list);
   if SkipName then Trace.Before(': ');
+
   repeat
     itm := Trace.Block;
-    if itm <> Keys[s_None] then begin
-      p := Former(itm, ToList);
-      if p <> nil then ToList.Add(p)
+    // Check if last item is separated by s_And
+    if Pos(Keys[s_And], itm) > 0 then begin
+      InnerTrace := TTrace.Create(itm);
+
+      repeat
+        tmp := InnerTrace.Before(' and ');
+        p := Former(tmp, ToList);
+        if p <> nil then ToList.Add(p);
+      until InnerTrace.Ends;
+
+      InnerTrace.Free;
+    end
+    else begin
+      if itm <> Keys[s_None] then begin
+        p := Former(itm, ToList);
+        if p <> nil then ToList.Add(p)
+      end;
+
+      TraceKey(Trace, [s_And, s_Or]);
     end;
-    TraceKey(Trace, [s_And, s_Or]);
   until Trace.Ends;
   Trace.Free;
 end;
@@ -694,6 +710,8 @@ begin
             Action.ActionType := raSideLoses;
             Action.Power := pow;
             Action.BUnit := U;
+
+            SetLength(Round.Actions, Length(Round.Actions) + 1);
             Round.Actions[High(Round.Actions)] := Action;
           end;
         end
@@ -1553,6 +1571,8 @@ begin
 
       // This race may study multiple skills.
       // This race may study shipbuilding [SHIP], sailing [SAIL] to level 3 and all others to level 2
+      // This race may study sailing [SAIL] to level 3 and all others to level 2
+      // This race may study shipbuilding [SHIP] and sailing [SAIL] to level 3 and all others to level 2
       // This race may study all skills to level 5
       else if Pos(Keys[s_RaceMayStudy], Trace.Text) = 1 then begin
         SetFlag(D.Flags, IT_MAN, True);
