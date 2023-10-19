@@ -82,6 +82,7 @@ type
   s_Spoils,
   s_NoSpoils,
   s_BTactics,
+  s_TacticsBonus,
   s_BCombat,
   s_BRiding,
   s_MonCombat,

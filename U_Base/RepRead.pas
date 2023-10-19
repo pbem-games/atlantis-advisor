@@ -643,6 +643,18 @@ begin
   while RepPos < RepLines.Count do begin
     s := GetNextLine;
 
+    // skip statistics
+    if Pos('statistics', s) > 0 then begin
+      repeat s := GetNextLine until
+          not EmptyLine(s)
+        and (
+          (Pos(Keys[s_FreeRound], s) > 0)
+          or (Pos(Keys[s_Round], s) = 1)
+          or (Pos(Keys[s_Casualities], s) = 1)
+          or (Pos(Keys[s_BattleIndecisively], s) = 1)
+        );
+    end;
+    
     // skip: Ogres (552) is routed!
     if (Pos(Keys[s_Routed], s) > 0) or (Pos(Keys[s_Destroyed], s) > 0) then
       repeat s := GetNextLine until not EmptyLine(s);
@@ -659,6 +671,39 @@ begin
     // The battle ends indecisively.
     else if Pos(Keys[s_BattleIndecisively], s) = 1 then begin
       indecisive := True;
+      while EmptyLine(GetLine) do GetNextLine;
+      Continue;
+    end
+    // loses 1.
+    else if Pos(Keys[s_Loses], s) > 0 then begin
+      Trace := TTrace.Create('');
+      Trace.Text := s;
+
+      U := nil;
+      if Pos('(', Trace.Text) > 0 then begin
+        Trace.Before('(');
+        num := StrToInt(Trace.Before(')'));
+        Trace.SkipSpaces;
+        U := B.FindBUnit(num);
+      end;
+
+      if TraceKey(Trace, [s_Loses]) and (U <> nil) then begin
+        if Round.Num >= 0 then begin
+          pow := Trace.Num;
+          if pow <> 0 then begin
+            Action.ActionType := raSideLoses;
+            Action.Power := pow;
+            Action.BUnit := U;
+            Round.Actions[High(Round.Actions)] := Action;
+          end;
+        end
+        else begin
+          B.Loses[U.Side] := Trace.Num;
+        end;
+      end;
+
+      Trace.Free;
+
       while EmptyLine(GetLine) do GetNextLine;
       Continue;
     end
@@ -737,6 +782,12 @@ begin
       // Heals
       else if TraceKey(Trace, [s_Heals]) then begin
         Action.ActionType := raHeals;
+        Action.Power := Trace.Num;
+      end
+
+      // tactics bonus 1
+      else if TraceKey(Trace, [s_TacticsBonus]) then begin
+        Action.ActionType := raTacticsBonus;
         Action.Power := Trace.Num;
       end
 

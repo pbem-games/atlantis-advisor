@@ -200,6 +200,7 @@ const
   raHeals = 2;
   raSideLoses = 3;
   raMeleeAttack = 4;
+  raTacticsBonus = 5;
 
   ItemClassCount = 20;
   ItemClasses: array[0..ItemClassCount-1] of string = ('normal', 'advanced',
