@@ -206,6 +206,7 @@ begin
   DoOrders(R, 'name',    DoName);
   DoOrders(R, 'noaid',   DoFlag);
   DoOrders(R, 'nocross', DoFlag);
+  DoOrders(R, 'share',   DoFlag);
   DoOrders(R, 'reveal',  DoExtFlag);
   DoOrders(R, 'spoils',  DoExtFlag);
   DoOrders(R, 'leave',   DoLeave);

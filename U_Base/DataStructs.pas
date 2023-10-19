@@ -171,6 +171,7 @@ const
   flgHold = 4;
   flgNoaid = 5;
   flgNocross = 6;
+  flgShare = 7;
 
   attHostile = 1;
   attUnfriendly = 2;

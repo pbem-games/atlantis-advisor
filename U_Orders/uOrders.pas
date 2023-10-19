@@ -254,18 +254,19 @@ end;
 // ** TODO: check if unit can set this flag
 procedure DoFlag(AUnit: TUnit; s: string; var Line: integer);
 var t1, t2: string;
-    Flag, val: integer;
+    flag, val: integer;
 begin
   s := AUnit.Orders[Line];
   t1 := AnsiLowerCase(GetToken(s));
   if Pos('@', t1) = 1 then t1 := Copy(t1, 2, Length(t1));
-  if t1 = 'autotax' then Flag := flgTax
-  else if t1 = 'avoid' then Flag := flgAvoid
-  else if t1 = 'behind' then Flag := flgBehind
-  else if t1 = 'guard' then Flag := flgGuard
-  else if t1 = 'hold' then Flag := flgHold
-  else if t1 = 'noaid' then Flag := flgNoaid
-  else if t1 = 'nocross' then Flag := flgNocross
+  if t1 = 'autotax' then flag := flgTax
+  else if t1 = 'avoid' then flag := flgAvoid
+  else if t1 = 'behind' then flag := flgBehind
+  else if t1 = 'guard' then flag := flgGuard
+  else if t1 = 'hold' then flag := flgHold
+  else if t1 = 'noaid' then flag := flgNoaid
+  else if t1 = 'nocross' then flag := flgNocross
+  else if t1 = 'share' then flag := flgShare
   else raise EParseError.Create('Unknown flag');
   // Instant
   t2 := AnsiLowerCase(GetToken(s));
@@ -273,7 +274,7 @@ begin
   else begin
     val := ParseTF(t2);
     if val = -1 then raise EParseError.Create('Invalid value')
-    else AUnit.Flags[Flag] := (val <> 0);
+    else AUnit.Flags[flag] := (val <> 0);
   end;
 end;
 
