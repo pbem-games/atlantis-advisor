@@ -230,7 +230,10 @@ begin
   // Instant
   s := AUnit.Orders[Line];
   t1 := AnsiLowerCase(GetToken(s));
+  if Pos('@', t1) = 1 then t1 := Copy(t1, 2, Length(t1));
+
   t2 := AnsiLowerCase(GetToken(s));
+
   if (t1 = 'consume') or (t1 = 'reveal') then begin
     if t2 = '' then ExtFlag := 0
     else if t2 = 'unit' then ExtFlag := 1
@@ -245,6 +248,7 @@ begin
     else if t2 = 'fly' then ExtFlag := spoilFly
     else raise EParseError.Create('Invalid value');
   end;
+
   if t1 = 'consume' then AUnit.Consuming := ExtFlag
   else if t1 = 'reveal' then AUnit.Revealing := ExtFlag
   else if t1 = 'spoils' then AUnit.Spoils := ExtFlag
@@ -259,6 +263,7 @@ begin
   s := AUnit.Orders[Line];
   t1 := AnsiLowerCase(GetToken(s));
   if Pos('@', t1) = 1 then t1 := Copy(t1, 2, Length(t1));
+
   if t1 = 'autotax' then flag := flgTax
   else if t1 = 'avoid' then flag := flgAvoid
   else if t1 = 'behind' then flag := flgBehind
