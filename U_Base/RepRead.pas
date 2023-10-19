@@ -1276,6 +1276,7 @@ var Trace: TTrace;
     level: integer;
     SData: TSkillData;
     report: string;
+    temp: TSkillData;
 begin
   Turn.Events.Add(EventHeader('2', 'Skill reports'));
   NextLine;
@@ -1290,9 +1291,18 @@ begin
     Trace.Before(' ');
     Trace.SkipSpaces;
     SData.Descriptions[level] := Trace.Text;
-    if not ReadSkillDescription(SData, Level) then
+
+    temp := TSkillData.Create(SData.Short);
+    temp.Descriptions[level] := SData.Descriptions[level];
+
+    if ReadSkillDescription(temp, Level) then
+      ReadSkillDescription(SData, Level)
+    else
       Log.Add(SData.Short + ': non-standard description');
+
     Turn.Events.AddObject('! 2 ' + report, SData);
+
+    temp.Free;
     Trace.Free;
     NextLine;
   end;
@@ -1841,6 +1851,7 @@ procedure ReadItemDescriptions;
 var Trace: TTrace;
     report: string;
     IData: TItemData;
+    temp: TItemData;
 begin
   Turn.Events.Add(EventHeader('3', 'Item reports'));
   NextLine;
@@ -1851,8 +1862,17 @@ begin
     Trace := TTrace.Create(report);
     IData := FormItemData(Trace.Block, 1);
     IData.Description := Trim(Trace.Text);
-    if not ReadItemDescription(IData) then
+
+    temp := TItemData.Create(IData.Short);
+    temp.Description := IData.Description;
+
+    // try to read it into temp structure, if that succeeds, read it into IData, otherwise nothing will be updated
+    if ReadItemDescription(temp) then
+      ReadItemDescription(IData)
+    else
       Log.Add(IData.Short + ': non-standard description');
+
+    temp.Free;
     Trace.Free;
     Turn.Events.AddObject('! 3 ' + report, IData);
     NextLine;
@@ -1936,6 +1956,7 @@ procedure ReadObjectDescriptions;
 var Trace: TTrace;
     report: string;
     StData: TStructData;
+    temp: TStructData;
 begin
   Turn.Events.Add(EventHeader('4', 'Object reports'));
   NextLine;
@@ -1946,9 +1967,18 @@ begin
     Trace := TTrace.Create(report);
     StData := Game.StructData.Seek(Trace.Before(': '));
     StData.Description := Trace.Text;
-    if not ReadObjectDescription(StData) then
+
+    temp := TStructData.Create(StData.Group);
+    temp.Description := StData.Description;
+
+    if ReadObjectDescription(temp) then
+      ReadObjectDescription(StData)
+    else
       Log.Add(StData.Group + ': non-standard description');
+
     Turn.Events.AddObject('! 4 ' + report, StData);
+
+    temp.Free;
     Trace.Free;
     NextLine;
   end;
