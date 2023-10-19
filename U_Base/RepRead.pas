@@ -60,7 +60,7 @@ end;
 
 // Decode comma-separated lists and get values, if they are not duplicated
 // (duplicated values comes from duplicated reports for same turn)
-procedure ReadBlockList(list: string; ToList: TList; Former: TFormFunc; SkipName: boolean);      // TODO : cope with missing comma before "and"
+procedure ReadBlockList(list: string; ToList: TList; Former: TFormFunc; SkipName: boolean);
 var Trace:  TTrace;
     itm:    string;
     p:      pointer;
@@ -76,6 +76,11 @@ begin
     begin
       Trace.StPos := bkmark;
       itm := Trace.Before(Keys[s_And]);
+    end
+    else if Pos(Keys[s_Or], itm) <> 0 then
+    begin
+      Trace.StPos := bkmark;
+      itm := Trace.Before(Keys[s_Or]);
     end;
 
     if itm <> Keys[s_None] then begin
