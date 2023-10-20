@@ -60,37 +60,36 @@ end;
 
 // Decode comma-separated lists and get values, if they are not duplicated
 // (duplicated values comes from duplicated reports for same turn)
-procedure ReadBlockList(list: string; ToList: TList; Former: TFormFunc;
-  SkipName: boolean);
-var Trace, InnerTrace: TTrace;
-    itm, tmp: string;
-    p: pointer;
+procedure ReadBlockList(list: string; ToList: TList; Former: TFormFunc; SkipName: boolean);
+var Trace:  TTrace;
+    itm:    string;
+    p:      pointer;
+    bkmark: integer;
 begin
   Trace := TTrace.Create(list);
   if SkipName then Trace.Before(': ');
 
   repeat
+    bkmark := Trace.StPos;
     itm := Trace.Block;
-    // Check if last item is separated by s_And
-    if Pos(Keys[s_And], itm) > 0 then begin
-      InnerTrace := TTrace.Create(itm);
 
-      repeat
-        tmp := InnerTrace.Before(' and ');
-        p := Former(tmp, ToList);
-        if p <> nil then ToList.Add(p);
-      until InnerTrace.Ends;
-
-      InnerTrace.Free;
+    if Pos(Keys[s_And], itm) <> 0 then
+    begin
+      Trace.StPos := bkmark;
+      itm := Trace.Before(Keys[s_And]);
     end
-    else begin
-      if itm <> Keys[s_None] then begin
-        p := Former(itm, ToList);
-        if p <> nil then ToList.Add(p)
-      end;
-
-      TraceKey(Trace, [s_And, s_Or]);
+    else if Pos(Keys[s_Or], itm) <> 0 then
+    begin
+      Trace.StPos := bkmark;
+      itm := Trace.Before(Keys[s_Or]);
     end;
+
+    if itm <> Keys[s_None] then begin
+      p := Former(itm, ToList);
+      if p <> nil then ToList.Add(p)
+    end;
+
+    TraceKey(Trace, [s_And, s_Or]);
   until Trace.Ends;
   Trace.Free;
 end;
