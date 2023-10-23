@@ -1,6 +1,6 @@
 object MainForm: TMainForm
-  Left = 432
-  Top = 136
+  Left = 241
+  Top = 104
   Width = 1932
   Height = 1093
   Caption = 'Atlantis Advisor'
@@ -1880,28 +1880,6 @@ object MainForm: TMainForm
         Align = alTop
         Shape = bsSpacer
       end
-      object UnitPControl: TPageControl
-        Tag = 2
-        Left = 4
-        Top = 269
-        Width = 552
-        Height = 262
-        ActivePage = MsgSheet
-        Align = alClient
-        DockSite = True
-        MultiLine = True
-        TabIndex = 1
-        TabOrder = 0
-        TabPosition = tpBottom
-        object OrderSheet: TTabSheet
-          Caption = 'Orders'
-          ImageIndex = 3
-        end
-        object MsgSheet: TTabSheet
-          Caption = 'Messages'
-          ImageIndex = 2
-        end
-      end
       object pnItemsAndSkills: TPanel
         Left = 4
         Top = 126
@@ -1909,7 +1887,7 @@ object MainForm: TMainForm
         Height = 140
         Align = alTop
         BevelOuter = bvNone
-        TabOrder = 1
+        TabOrder = 0
         object spItemsSkills: TSplitter
           Left = 367
           Top = 0
@@ -2124,7 +2102,7 @@ object MainForm: TMainForm
         Height = 29
         Align = alTop
         BevelOuter = bvNone
-        TabOrder = 2
+        TabOrder = 1
         object NumLabel: TLabel
           Left = 524
           Top = 0
@@ -2194,7 +2172,7 @@ object MainForm: TMainForm
         Height = 52
         Align = alTop
         BevelOuter = bvNone
-        TabOrder = 3
+        TabOrder = 2
         object UnitMainDataTextPanel: TPanel
           Left = 0
           Top = 0
@@ -2203,7 +2181,6 @@ object MainForm: TMainForm
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 0
-          OnResize = UnitMainDataTextPanelResize
           DesignSize = (
             500
             52)
@@ -2275,14 +2252,6 @@ object MainForm: TMainForm
             AutoSize = False
             Caption = 'Ship [331] : Galleon'
             ShowAccelChar = False
-          end
-          object UnitDescrBevel: TBevel
-            Left = 20
-            Top = 0
-            Width = 477
-            Height = 17
-            Anchors = [akLeft, akTop, akRight]
-            Visible = False
           end
           object FactionFlagImage: TImage
             Left = 44
@@ -2379,7 +2348,7 @@ object MainForm: TMainForm
         Caption = 'FlagBar'
         EdgeBorders = []
         Images = ResForm.FlagImages
-        TabOrder = 4
+        TabOrder = 3
         object GuardFlagBtn: TToolButton
           Left = 0
           Top = 2
@@ -2531,7 +2500,7 @@ object MainForm: TMainForm
         Height = 262
         Align = alClient
         BevelOuter = bvNone
-        TabOrder = 5
+        TabOrder = 4
         object spOrdersEvents: TSplitter
           Left = 367
           Top = 0

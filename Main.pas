@@ -105,10 +105,7 @@ type
     OpenDialog: TOpenDialog;
     RegisterItm: TMenuItem;
     RegSplit: TMenuItem;
-    UnitPControl: TPageControl;
-    MsgSheet: TTabSheet;
     MsgGrid: TPowerGrid;
-    OrderSheet: TTabSheet;
     Panel2: TPanel;
     spItemsSkills: TSplitter;
     Map1: TMenuItem;
@@ -177,7 +174,6 @@ type
     Label10: TLabel;
     StructImage: TImage;
     StructLabel: TLabel;
-    UnitDescrBevel: TBevel;
     UnitDescrEdit: TEdit;
     UnitImagePanel: TPanel;
     UnitImage: TImage;
@@ -566,7 +562,6 @@ type
     procedure UnitImageDblClick(Sender: TObject);
     procedure MapToolEnableClick(Sender: TObject);
     procedure ListFilterActionExecute(Sender: TObject);
-    procedure UnitMainDataTextPanelResize(Sender: TObject);
     procedure UnitFlagBtnClick(Sender: TObject);
     procedure OrderMemoExit(Sender: TObject);
     procedure CheckOrderBtnClick(Sender: TObject);
@@ -971,15 +966,14 @@ begin
         MiniMapForm.Close; // Just to pickup config changes from OnClose
         Config.WriteBool('MiniMap', 'Visible', True); // Override OnClose's Visible
       end;
-      Config.WriteInteger('MainWin', 'SplitterPos', UnitsPanel.Height);
-      Config.WriteInteger('MainWin', 'ItemSplitterPos', pItemGrid.Height);
-      Config.WriteInteger('MainWin', 'UnitPageSplitterPos', UnitPControl.Height);
-      Config.WriteInteger('MainWin', 'StructSplitterPos', StructGrid.Width);
       Config.WriteInteger('MainWin', 'RightSidebarPos', pnRightSidebar.Width);
-      Config.WriteInteger('MainWin', 'ProductGridPos', ProductGrid.Width);
-      Config.WriteInteger('MainWin', 'WantedGridPos', WantedGrid.Width);
-      Config.WriteInteger('MainWin', 'TradePanelPos', TradePanel.Height);
+      Config.WriteInteger('MainWin', 'StructSplitterPos', StructPanel.Width);
+      Config.WriteInteger('MainWin', 'SplitterPos', UnitsPanel.Height);
       Config.WriteInteger('MainWin', 'RegionPos', pnRegion.Height);
+      Config.WriteInteger('MainWin', 'TradePanelPos', TradePanel.Height);
+      Config.WriteInteger('MainWin', 'WantedGridPos', pnWanted.Width);
+      Config.WriteInteger('MainWin', 'ProductGridPos', pnProducts.Width);
+      Config.WriteInteger('MainWin', 'ItemSplitterPos', pItemGrid.Height);
       Config.WriteInteger('MainWin', 'ItemsAndSkillsPos', pnItemsAndSkills.Height);
       Config.WriteInteger('MainWin', 'SkillsPos', pnSkills.Width);
       Config.WriteInteger('MainWin', 'EventsPos', pnEvents.Width);
@@ -1074,6 +1068,21 @@ end;
 procedure TMainForm.ApplyConfig;
 var listmode: boolean;
     Flags: integer;
+
+    function min(a, b: integer): integer;
+    begin
+      if a < b then Result := a else Result := b;
+    end;
+
+    function max(a, b: integer): integer;
+    begin
+      if a > b then Result := a else Result := b;
+    end;
+
+    function clamp(lo, value, hi: integer): integer;
+    begin
+      Result := min(max(lo, value), hi);
+    end;
 begin
   // Grids
   UnitGrid.LoadColumns(Config);
@@ -1095,24 +1104,22 @@ begin
   itmUnitTools.Checked := Config.ReadBool('MainWin', 'UnitTools', TRUE);
   tbUnitTools.Visible := itmUnitTools.Checked;
   InfoPanel1.Checked := Config.ReadBool('MainWin', 'InfoPanel', TRUE);
-  //InfoPanel.Visible := InfoPanel1.Checked;
-  UnitsPanel.Height := Config.ReadInteger('MainWin', 'SplitterPos', 150);
-  StructGrid.Width := Config.ReadInteger('MainWin', 'StructSplitterPos', 100);
-  pItemGrid.Height := Config.ReadInteger('MainWin', 'ItemSplitterPos', 100);
-  UnitPControl.Height := Config.ReadInteger('MainWin', 'UnitPageSplitterPos', 100);
   itmHideInvisRegions.Checked := Config.ReadBool('MainWin', 'HideInvisRegionSIC', False);
   btnLocal.Down := Config.ReadBool('MainWin', 'LocalDescriptions', False);
-  gAllItems.Visible := Config.ReadBool('MainWin', 'AllItems', False);
   UnmodItemsAction.Checked := Config.ReadBool('MainWin', 'UnmodItemAmounts', False);
+  gAllItems.Visible := Config.ReadBool('MainWin', 'AllItems', False);
+  //InfoPanel.Visible := InfoPanel1.Checked;
 
-  pnRightSidebar.Width := Config.ReadInteger('MainWin', 'RightSidebarPos', 560);
-  ProductGrid.Width := Config.ReadInteger('MainWin', 'ProductGridPos', 182);
-  WantedGrid.Width := Config.ReadInteger('MainWin', 'WantedGridPos', 182);
-  TradePanel.Height := Config.ReadInteger('MainWin', 'TradePanelPos', 200);
-  pnRegion.Height := Config.ReadInteger('MainWin', 'RegionPos', 460);
-  pnItemsAndSkills.Height := Config.ReadInteger('MainWin', 'ItemsAndSkillsPos', 140);
-  pnSkills.Width := Config.ReadInteger('MainWin', 'SkillsPos', 182);
-  pnEvents.Width := Config.ReadInteger('MainWin', 'EventsPos', 182);
+  pnRightSidebar.Width := clamp(50, Config.ReadInteger('MainWin', 'RightSidebarPos', 560), max(MainForm.Width - 100, 50));
+  StructPanel.Width := clamp(50, Config.ReadInteger('MainWin', 'StructSplitterPos', 100), max(MapUnitsPanel.Width - 100, 50));
+  UnitsPanel.Height := clamp(50, Config.ReadInteger('MainWin', 'SplitterPos', 150), max(MapUnitsPanel.Height - 100, 50));
+  pnRegion.Height := clamp(150, Config.ReadInteger('MainWin', 'RegionPos', 460), max(pnRightSidebar.Height - 200, 150));
+  TradePanel.Height := clamp(50, Config.ReadInteger('MainWin', 'TradePanelPos', 200), max(pnRegion.Height - 100, 50));
+  pnWanted.Width := clamp(50, Config.ReadInteger('MainWin', 'WantedGridPos', 182), max(TradePanel.Width - 50, 50));
+  pnProducts.Width := clamp(50, Config.ReadInteger('MainWin', 'ProductGridPos', 182), max(TradePanel.Width - 50, 50));
+  pnItemsAndSkills.Height := clamp(100, Config.ReadInteger('MainWin', 'ItemsAndSkillsPos', 140), max(pnUnit.Height - 150, 100));
+  pnSkills.Width := clamp(50, Config.ReadInteger('MainWin', 'SkillsPos', 182), max(pnItemsAndSkills.Width - 100, 50));
+  pnEvents.Width := clamp(50, Config.ReadInteger('MainWin', 'EventsPos', 182), max(pnOrdersEvents.Width - 100, 50));
 
   // Mini map
   case Config.ReadInteger('MiniMap', 'Mode', mmGeo) of
@@ -3040,12 +3047,6 @@ end;
 procedure TMainForm.UnitImageDblClick(Sender: TObject);
 begin
   AvatarsAction.Execute;
-end;
-
-procedure TMainForm.UnitMainDataTextPanelResize(Sender: TObject);
-begin
-  UnitDescrBevel.Width := UnitMainDataTextPanel.Width - btnLocal.Width - 4;
-  UnitDescrEdit.Width := UnitDescrBevel.Width - 6;
 end;
 
 procedure TMainForm.FormEditEnter(Sender: TObject);
