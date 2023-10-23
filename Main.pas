@@ -507,6 +507,12 @@ type
     Bevel1: TBevel;
     Bevel6: TBevel;
     SharingFlag: TToolButton;
+    pnRegionExtra: TPanel;
+    pnNotes: TPanel;
+    pnEconomy: TPanel;
+    Label27: TLabel;
+    Splitter1: TSplitter;
+    memEconomy: TMemo;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -737,6 +743,8 @@ type
     procedure SetExtFlag(Sender: TObject);
     procedure ChangeTerrain(Sender: TObject);
     function SelectedCoords: TCoords;
+
+    procedure FillEconomyReport(ARegion: TRegion; RealRegion: TRegion; AList: TStrings);
   end;
 
 var
@@ -1989,7 +1997,37 @@ begin
     FillDiffItemGrid(WantedGrid, Wanted, RealRegion.Wanted);
     FillDiffItemGrid(ForSaleGrid, ForSale, RealRegion.ForSale);
     FillDiffItemGrid(ProductGrid, Products, RealRegion.Products);
+
+    FillEconomyReport(ARegion, RealRegion, memEconomy.Lines);
   end;
+end;
+
+procedure TMainForm.FillEconomyReport(ARegion: TRegion; RealRegion: TRegion; AList: TStrings);
+var
+  i: integer;
+  money, work, tax, pillage, sell, buy, consume: integer;
+  units: TUnitList;
+  u: TUnit;
+
+begin
+  AList.Clear;
+
+  if RealRegion.PlayerTroop = nil then Exit;
+  units := RealRegion.PlayerTroop.Units;
+
+
+  money := 0;
+  for i := 0 to units.Count - 1 do begin
+    u := units[i];
+    money := money + u.Items.Amount(IT_SILVER);
+  end;
+
+  // units := ARegion.PlayerTroop.Units;
+  // for i := 0 to units.Count - 1 do begin
+  //   u := units[i];
+  // end;
+
+  AList.Add(Format('Money (start of the turn): $%d', [ money ]));
 end;
 
 procedure TMainForm.TradePanelResize(Sender: TObject);

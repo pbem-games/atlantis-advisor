@@ -1,6 +1,6 @@
 object MainForm: TMainForm
-  Left = 241
-  Top = 104
+  Left = 431
+  Top = 131
   Width = 1932
   Height = 1093
   Caption = 'Atlantis Advisor'
@@ -1380,21 +1380,6 @@ object MainForm: TMainForm
         Caption = 'It was clear last month; it will be clear next month.'
         WordWrap = True
       end
-      object Label24: TLabel
-        Left = 4
-        Top = 341
-        Width = 552
-        Height = 13
-        Align = alTop
-        Caption = 'Notes:'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Layout = tlBottom
-      end
       object Bevel2: TBevel
         Left = 4
         Top = 125
@@ -1663,16 +1648,6 @@ object MainForm: TMainForm
           Caption = '108923'
         end
       end
-      object NotesMemo: TMemo
-        Left = 4
-        Top = 354
-        Width = 552
-        Height = 99
-        Align = alClient
-        TabOrder = 1
-        OnExit = NotesMemoExit
-        OnKeyPress = HandleSelectAllKeyPress
-      end
       object TradePanel: TPanel
         Left = 4
         Top = 133
@@ -1680,7 +1655,7 @@ object MainForm: TMainForm
         Height = 200
         Align = alTop
         BevelOuter = bvNone
-        TabOrder = 2
+        TabOrder = 1
         OnResize = TradePanelResize
         object spProducts: TSplitter
           Left = 185
@@ -1843,6 +1818,98 @@ object MainForm: TMainForm
               45
               96
               39)
+          end
+        end
+      end
+      object pnRegionExtra: TPanel
+        Left = 4
+        Top = 341
+        Width = 552
+        Height = 112
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 2
+        object Splitter1: TSplitter
+          Left = 364
+          Top = 0
+          Width = 3
+          Height = 112
+          Cursor = crHSplit
+          Align = alRight
+        end
+        object pnNotes: TPanel
+          Left = 367
+          Top = 0
+          Width = 185
+          Height = 112
+          Align = alRight
+          BevelOuter = bvNone
+          TabOrder = 0
+          object Label24: TLabel
+            Left = 0
+            Top = 0
+            Width = 185
+            Height = 13
+            Align = alTop
+            Caption = 'Notes:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Layout = tlBottom
+          end
+          object NotesMemo: TMemo
+            Left = 0
+            Top = 13
+            Width = 185
+            Height = 99
+            Align = alClient
+            TabOrder = 0
+            OnExit = NotesMemoExit
+            OnKeyPress = HandleSelectAllKeyPress
+          end
+        end
+        object pnEconomy: TPanel
+          Left = 0
+          Top = 0
+          Width = 364
+          Height = 112
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 1
+          object Label27: TLabel
+            Left = 0
+            Top = 0
+            Width = 364
+            Height = 13
+            Align = alTop
+            Caption = 'Economy:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Layout = tlBottom
+          end
+          object memEconomy: TMemo
+            Left = 0
+            Top = 13
+            Width = 364
+            Height = 99
+            Align = alClient
+            Color = clInfoBk
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Consolas'
+            Font.Style = []
+            ParentFont = False
+            ReadOnly = True
+            ScrollBars = ssBoth
+            TabOrder = 0
           end
         end
       end
@@ -2984,6 +3051,7 @@ object MainForm: TMainForm
             Width = 182
             Height = 249
             Align = alClient
+            Color = clInfoBk
             ColCount = 2
             DefaultRowColor = clBlack
             Editing = False
