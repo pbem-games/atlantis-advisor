@@ -14,9 +14,9 @@ const
     'Name', 'Weight');
   ItemGridFormats: array[0..ItemGridCols-1] of TColFormat = (cfNumber, cfString,
     cfString, cfNumber);
-  TypeIcons: array[0..9] of integer = (bmpUnknownItem, bmpMen, bmpMonsters,
+  TypeIcons: array[0..10] of integer = (bmpUnknownItem, bmpMen, bmpMonsters,
     bmpWeapon, bmpArmor, bmpMounts, bmpWagons, bmpSilver,
-    bmpFood, bmpTradeGoods);
+    bmpFood, bmpTradeGoods, bmpShip);
 
 type
   TItemEditForm = class(TForm)
@@ -451,6 +451,9 @@ begin
     else if (Flags and IT_TRADE <> 0) then begin
       cmType.ItemIndex := 9;
     end
+    else if (Flags and IT_SHIP <> 0) then begin
+      cmType.ItemIndex := 10;
+    end
     else begin
       tabs[tsProduction.PageIndex] := True;
       tabs[tsMagProduction.PageIndex] := True;
@@ -657,7 +660,8 @@ begin
     SetFlag(Flags, IT_WAGON, cmType.ItemIndex = 6);
     SetFlag(Flags, IT_SILVER, cmType.ItemIndex = 7);
     SetFlag(Flags, IT_FOOD, cmType.ItemIndex = 8);
-    SetFlag(Flags, IT_TRADE, cmType.ItemIndex = 9);
+    SetFlag(Flags, IT_TRADE, cmType.ItemIndex = 9); 
+    SetFlag(Flags, IT_SHIP, cmType.ItemIndex = 10);
     SetFlag(Flags, IT_TOOL, cbTool.Checked);
     SetFlag(Flags, IT_RESOURCE, cbResource.Checked);
     SetFlag(Flags, IT_CANTGIVE, cbCantgive.Checked);

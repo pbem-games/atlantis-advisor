@@ -1477,6 +1477,9 @@ begin
       // evil
       else if Pos(Keys[s_itmEvil], Trace.Text) = 1 then
         SetFlag(D.Flags, IT_EVIL)
+      // This is a ship
+      else if Pos(Keys[s_ShipItem], Trace.Text) = 1 then
+        SetFlag(D.Flags, IT_SHIP)
       else begin
         // walking capacity 5, riding capacity 5
         // walking capacity 200 when hitched to a horse

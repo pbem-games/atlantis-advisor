@@ -201,7 +201,8 @@ object ItemEditForm: TItemEditForm
         'Wagon'
         'Silver'
         'Food'
-        'Trade goods')
+        'Trade goods'
+        'Ship')
     end
     object cbTool: TCheckBox
       Left = 216

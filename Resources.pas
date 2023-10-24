@@ -89,6 +89,7 @@ const
   bmpWagons = bmpUnknownItem + 11;
   bmpSilver = bmpUnknownItem + 12;
   bmpTradeGoods = bmpUnknownItem + 13;
+  bmpShip = bmpUnknownItem + 20;
 
   bmpOk = bmpUnknownItem + 14;
   bmpNo = bmpOk + 1;
@@ -455,6 +456,7 @@ begin
   else if (AItemData.Flags and IT_TRADE <> 0) then Result := bmpTradeGoods
   else if (AItemData.Flags and IT_ADVANCED <> 0) then Result := bmpAdvanced
   else if (AItemData.Flags and IT_RESOURCE <> 0) then Result := bmpResources
+  else if (AItemData.Flags and IT_SHIP <> 0) then Result := bmpShip
   else Result := 0;
 end;
 

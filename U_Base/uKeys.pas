@@ -206,6 +206,7 @@ type
   s_MageOnly,
   s_CombatItem,
   s_WhenHitched,
+  s_ShipItem,
 
   // Special Ability reports
   s_MonsterCanCast,
