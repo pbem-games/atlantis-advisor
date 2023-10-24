@@ -33,7 +33,6 @@ uses
   uItemEdit in 'U_Tools\uItemEdit.pas' {ItemEditForm},
   uStructEdit in 'U_Tools\uStructEdit.pas' {StructEditForm},
   uArmy in 'U_Base\uArmy.pas',
-  Grids in 'C:\Program Files\Borland\Delphi6\Source\Vcl\Grids.pas',
   uUnitArmies in 'U_Tools\uUnitArmies.pas' {UArmyForm},
   MyStrings in 'U_Base\MyStrings.pas',
   uUnitProduction in 'U_Tools\uUnitProduction.pas' {UnitProductionForm},
@@ -45,7 +44,7 @@ uses
   uShortcuts in 'uShortcuts.pas',
   uTerrEdit in 'U_Tools\uTerrEdit.pas' {TerrEditForm},
   uRoute in 'U_Base\uRoute.pas',
-  PowerGrid in '..\..\Libs\Components\PowerGrid.pas',
+  PowerGrid in 'Libs\Wredosoft\PowerGrid.pas',
   uFactions in 'U_Tools\uFactions.pas' {FactionForm},
   uTeach in 'U_Orders\uTeach.pas' {TeachForm},
   uGameStart in 'U_Base\uGameStart.pas',
@@ -58,7 +57,8 @@ uses
   uWantedItems in 'U_Tools\uWantedItems.pas' {WantedItemsForm},
   uAvatarEdit in 'U_Tools\uAvatarEdit.pas' {AvatarForm},
   uPathFind in 'U_Base\uPathFind.pas',
-  uRegistration in 'U_Base\uRegistration.pas' {RegForm};
+  uRegistration in 'U_Base\uRegistration.pas' {RegForm},
+  uDistribute in 'U_Orders\uDistribute.pas' {DistributeForm};
 
 {$R *.res}
 
