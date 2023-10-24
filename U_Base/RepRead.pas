@@ -2441,7 +2441,7 @@ var Trace: TTrace;
     Region, PrevRegion, ExitR, NewR: TRegion;
     Item: TItem;
     s, peasants_name: string;
-    i, j, tempRepStart, regRepStart, regRepEnd: integer;
+    i, j, regRepStart, regRepEnd: integer;
     ac_skip: boolean;
 begin
   regRepStart := RepPos;

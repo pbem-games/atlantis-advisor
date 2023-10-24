@@ -2606,26 +2606,38 @@ begin
             bmp_extGrayFlag);
           TxtRect.Right := TxtRect.Right - 8;
         end;
+
         if Test(AUnit.Marks, UM_BATTLE) and not Test(AUnit.Marks, UM_DEADMEN) then begin
           ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
             bmp_extBattle);
           TxtRect.Right := TxtRect.Right - 8;
         end;
+
         if Test(AUnit.Marks, UM_DEADMEN) then begin
           ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
             bmp_extCross);
           TxtRect.Right := TxtRect.Right - 8;
         end;
+
         if Test(AUnit.Marks, UM_ATTACK) then begin
           ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
             bmp_extAttack);
           TxtRect.Right := TxtRect.Right - 8;
         end;
+
         if AUnit.Mage then begin
           ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
             bmp_extMage);
           TxtRect.Right := TxtRect.Right - 8;
         end;
+
+        if (ClearOrder(AUnit.MonthOrder) = 'study') and (AUnit.MonthInfo.Amount > 30) then
+        begin
+          ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
+            bmp_extStudyTarget);
+          TxtRect.Right := TxtRect.Right - 8;
+        end;
+
         if AUnit.Faction.Player and (AUnit.Items.Amount(IT_MAN) = 0) then
           Canvas.Font.Style := [fsStrikeout];
       end;

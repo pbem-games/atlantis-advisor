@@ -73,6 +73,7 @@ const
   bmp_extTax = 40;
   bmp_extAttackTypes = 41;
   bmp_extAttack = 47;
+  bmp_extStudyTarget = 48;
 
   // IconList
   bmpUnknownItem = 0;
