@@ -2167,7 +2167,11 @@ var U, OldU: TUnit;
     i, bk: integer;
     Troop: TTroop;
     full: boolean;
+    repStart: integer;
+
 begin
+  repStart := RepPos;
+
   Trace := TTrace.Create(TrimLeft(GetMultiline));
   U := TUnit.Create;
 
@@ -2319,6 +2323,9 @@ begin
     while (i >= 0) and (Game.UArmies[i].UnitIds.IndexOf(U.Id) = -1) do Dec(i);
     if i >= 0 then U.UArmy := Game.UArmies[i];
   end;
+
+  for i := repStart to RepPos do
+    U.Report.Add(RepLines[i]);
 end;
 
  { Add Structure to Region. Assuming they cannot duplicate. }
@@ -2327,8 +2334,10 @@ var OldR: TRegion;
     Struct, OldStruct: TStruct;
     Trace: TTrace;
     s, shaft_link: string;
-    i: integer;
+    i, repStart: integer;
+
 begin
+  repStart := RepPos;
   Struct := TStruct.Create;
 
 {+ Building [7] : Timber Yard; ladnaja lesopilka iz kamnia,
@@ -2422,6 +2431,9 @@ begin
 
   // Now read units in this Structure
   while not EmptyLine(GetLine) do ReadUnit(Region, Struct);
+
+  for i := repStart to RepPos do
+    Struct.Report.Add(RepLines[i]);
 end;
 
 function ReadRegion: TRegion;
@@ -2429,9 +2441,10 @@ var Trace: TTrace;
     Region, PrevRegion, ExitR, NewR: TRegion;
     Item: TItem;
     s, peasants_name: string;
-    i, j: integer;
+    i, j, tempRepStart, regRepStart, regRepEnd: integer;
     ac_skip: boolean;
 begin
+  regRepStart := RepPos;
   s := GetMultiline;
 
   // Import: ---------------------------------------;130-114
@@ -2592,6 +2605,8 @@ begin
   // Seek unit/Structures list, with lines starting from '-', '*' or '+'.
   //  'Orders' or '--' (next Region) means next section of rep.
 
+  regRepEnd := RepPos;
+
   // - Workers (1565), Faction (162), 150 sea elves [SELF], 39 swords
   //    [SWOR]; My first unit.
   while (RepPos < RepLines.Count) do begin
@@ -2600,12 +2615,28 @@ begin
    if EmptyLine(s) then NextLine
    else
     case s[1] of
-     '-' : if s[2] = '-' then Break else ReadUnit(Region, nil);
-     '*' : ReadUnit(Region, nil);
-     '+' : ReadStruct(Region);
+     '-' :
+        if s[2] = '-' then
+          Break
+        else begin
+          ReadUnit(Region, nil);
+          regRepEnd := RepPos;
+        end;
+     '*' : begin
+        ReadUnit(Region, nil);
+        regRepEnd := RepPos;
+     end;
+     '+' : begin
+        ReadStruct(Region);
+        regRepEnd := RepPos;
+     end;
      else NextLine;
     end;
   end;
+
+  for i := regRepStart to regRepEnd do
+    Result.Report.Add(RepLines[i]);
+
   Trace.Free;
 
   // Pickup inherited data

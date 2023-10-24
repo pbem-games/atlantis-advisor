@@ -3952,7 +3952,13 @@ begin
     Caption := 'Region Report - ';
     if CurrRegion <> nil then begin
       Caption := Caption + MakeRegionName(CurrRegion.Coords, True);
-      CompileRegion(Memo.Lines, Map.Region(CurrRegion.Coords, Turn.Num), MAP_ALL);
+
+      if CurrRegion.Report.Count > 0 then begin
+        Memo.Lines.Clear;
+        Memo.Lines.Assign(CurrRegion.Report);
+      end
+      else
+        CompileRegion(Memo.Lines, Map.Region(CurrRegion.Coords, Turn.Num), MAP_ALL);
     end
     else Caption := Caption + 'Unexplored region';
     Memo.ReadOnly := True;

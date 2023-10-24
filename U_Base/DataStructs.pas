@@ -416,7 +416,9 @@ type
     Runes: integer;
     Owner: TUnit;
     Protection: integer; // for battle calculations
+    Report: TStrings;
     constructor Create;
+    destructor Destroy; override;
     procedure Assign(Source: TStruct);
     function HasExit: boolean;
   end;
@@ -529,6 +531,8 @@ type
     Troops: TTroopList;
     Battles: TBattleList;
     Notes: TStrings;
+
+    Report: TStrings;
   private
     function GetCoords: TCoords;
     procedure SetCoords(const Value: TCoords);
@@ -615,6 +619,7 @@ type
     CanStudy: TSkillDataList;
     ReadyWeapons, ReadyArmor: TItemDataList;
     UArmy: TUArmy;
+    Report: TStrings;
 
     constructor Create;
     destructor Destroy; override;
@@ -1344,12 +1349,19 @@ begin
   Needs := Source.Needs;
   Passage := Source.Passage;
   Runes := Source.Runes;
+  Report.Assign(Source.Report);
   // Assign owner outside
 end;
 
 constructor TStruct.Create;
 begin
   Passage.z := -1;
+  Report := TStringList.Create;
+end;
+
+destructor TStruct.Destroy;
+begin
+  Report.Free;
 end;
 
 function TStruct.HasExit: boolean;
@@ -1400,6 +1412,7 @@ begin
   ReadyWeapons := TItemDataList.Create;
   ReadyArmor := TItemDataList.Create;
   FinalPoint := -1;
+  Report := TStringList.Create;
 end;
 
 destructor TUnit.Destroy;
@@ -1410,6 +1423,7 @@ begin
   Orders.Free;
   ReadyWeapons.Free;
   ReadyArmor.Free;
+  Report.Free;
 end;
 
 function TUnit.Id: string;
@@ -1488,6 +1502,7 @@ begin
   UArmy := Source.UArmy;
   MonthInfo := Source.MonthInfo;
   MonthOrder := Source.MonthOrder;
+  Report.Assign(Source.Report);
   // Faction, Region, Struct must be redeclared outside
 end;
 
@@ -1536,6 +1551,7 @@ begin
   Troops := TTroopList.Create;
   Structs := TStructList.Create;
   Notes := TStringList.Create;
+  Report := TStringList.Create;
 end;
 
 destructor TRegion.Destroy;
@@ -1548,6 +1564,7 @@ begin
   Troops.ClearAndFree;
   Peasants.Free;
   Notes.Free;
+  Report.Free;
 end;
 
 // Copy Units only if Source and Destination's turns equal!
@@ -1590,6 +1607,7 @@ begin
   Notes.Assign(Source.Notes);
   Structs.AssignItems(Source.Structs, CopyTurnData);
   Activity := Source.Activity;
+  Report.Assign(Source.Report);
 
   Guard := nil;
 
