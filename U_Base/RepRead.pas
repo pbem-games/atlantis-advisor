@@ -68,7 +68,6 @@ var Trace:  TTrace;
 begin
   Trace := TTrace.Create(list);
   if SkipName then Trace.Before(': ');
-
   repeat
     bkmark := Trace.StPos;
     itm := Trace.Block;
@@ -691,7 +690,8 @@ begin
     end
     // loses 1.
     else if Pos(Keys[s_Loses], s) > 0 then begin
-      Trace := TTrace.Create(s);
+      Trace := TTrace.Create('');
+      Trace.Text := s;
 
       U := nil;
       if Pos('(', Trace.Text) > 0 then begin
@@ -708,8 +708,6 @@ begin
             Action.ActionType := raSideLoses;
             Action.Power := pow;
             Action.BUnit := U;
-
-            SetLength(Round.Actions, Length(Round.Actions) + 1);
             Round.Actions[High(Round.Actions)] := Action;
           end;
         end
@@ -719,35 +717,6 @@ begin
       end;
 
       Trace.Free;
-
-      while EmptyLine(GetLine) do GetNextLine;
-      Continue;
-    end
-    // TakeHits: takes 1(/no) hits, bringing it to 47/50
-    else if Pos(Keys[s_Takes], s) > 0 then begin
-      Trace := TTrace.Create(s);
-
-      U := nil;
-      if Pos('(', Trace.Text) > 0 then begin
-        Trace.Before('(');
-        num := StrToInt(Trace.Before(')'));
-        Trace.SkipSpaces;
-        U := B.FindBUnit(num);
-      end;
-
-      if U <> nil then begin
-        Action.ActionType := raTakeHits;
-        Action.BUnit := U;
-
-        Trace.Before('takes');
-        Trace.SkipSpaces();
-
-        if (Copy(Trace.Text, 1, 1) >= '0') and (Copy(Trace.Text, 1, 1) <= '9') then
-          Action.Power := Trace.Num
-        else Action.Power := 0;
-
-        Trace.Free;
-      end;
 
       while EmptyLine(GetLine) do GetNextLine;
       Continue;
@@ -1598,8 +1567,6 @@ begin
 
       // This race may study multiple skills.
       // This race may study shipbuilding [SHIP], sailing [SAIL] to level 3 and all others to level 2
-      // This race may study sailing [SAIL] to level 3 and all others to level 2
-      // This race may study shipbuilding [SHIP] and sailing [SAIL] to level 3 and all others to level 2
       // This race may study all skills to level 5
       else if Pos(Keys[s_RaceMayStudy], Trace.Text) = 1 then begin
         SetFlag(D.Flags, IT_MAN, True);

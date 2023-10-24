@@ -102,6 +102,10 @@ var
   function IsMaterial(IData: TItemData): boolean;
   function BookmarkCoords(s: string): TCoords;
 
+  // QM support
+  procedure CalcQMReach(AQmaster: TUnit);
+  function FindReach(const ACoords: TCoords): integer;
+
 implementation
 
 function SkillLevel(AUnit: TUnit; Short: string): integer;
@@ -684,6 +688,159 @@ procedure DoCalcReachedRegions(C: TCoords; AUnit: TUnit);
 begin
   CalcReachedRegions(C, MovePoints, 0, ArmyMovementType(AUnit),
     ArmyCanSwim(AUnit), AUnit.Struct)
+end;
+
+// TODO : Find QM reach
+procedure CalcQMReach(AQmaster: TUnit);
+var
+  iMaxDist: integer;
+  iIdx:     integer;
+
+  procedure BuildReach(const ACoords: TCoords; AStep, AFromDir: integer);
+  var
+    iIdx: integer;
+    iDir: integer;
+  begin
+    if AStep > iMaxDist then
+      Exit;
+
+    iIdx := 0;
+    while (iIdx < Length(Reached)) and not EqualCoords(ACoords, Reached[iIdx].Coords) do
+      Inc(iIdx);
+
+    if iIdx = Length(Reached) then
+    begin
+      iIdx := Length(Reached);
+      SetLength(Reached, iIdx + 1);
+
+      with Reached[iIdx] do
+      begin
+        Coords := ACoords;
+        Moves := AStep;
+      end;
+    end
+    else if AStep < Reached[iIdx].Moves then
+      Reached[iIdx].Moves := AStep
+    else
+      exit;
+
+    Inc(AStep);
+    for iDir := 1 to 6 do
+      if (iDir <> AFromDir) and MovableDir(ACoords, iDir, false, mtWalk, true, nil) then
+        BuildReach(CoordsInDir(ACoords, iDir), AStep, OppositeDir(iDir));
+  end;
+
+  function HasQmaster(const ACoords: TCoords): boolean;
+  var
+    rRegion:    TRegion;
+    iTroopIdx:  integer;
+    ulUnits:    TUnitList;
+    iUnitIdx:   integer;
+    uUnit:      TUnit;
+    sStruct:    TStruct;
+  begin
+    rRegion := Map.Region(ACoords);
+    Result := false;
+
+    if (rRegion <> nil) and (rRegion.Visited = Turn.Num) then
+      for iTroopIdx := 0 to rRegion.Troops.Count - 1 do
+      begin
+        ulUnits := rRegion.Troops[iTroopIdx].Units;
+
+        for iUnitIdx := 0 to ulUnits.Count - 1 do
+        begin
+          uUnit := ulUnits[iUnitIdx];
+          sStruct := uUnit.Struct;
+
+          if (SkillLevel(uUnit, Keys[s_Quartermaster]) > 0) and (sStruct <> nil)
+            and (sStruct.Owner = uUnit) and (sStruct.Data.Group = Keys[s_Caravanserai]) then
+          begin
+            Result := true;
+            exit;
+          end;
+        end;
+      end;
+  end;
+
+  function HasTarget(const ACoords: TCoords): boolean;
+  var
+    rRegion:    TRegion;
+    iTroopIdx:  integer;
+    ulUnits:    TUnitList;
+    iUnitIdx:   integer;
+    uUnit:      TUnit;
+  begin
+    rRegion := Map.Region(ACoords);
+    Result := false;
+
+    if (rRegion <> nil) and (rRegion.Visited = Turn.Num) then
+      for iTroopIdx := 0 to rRegion.Troops.Count - 1 do
+      begin
+        ulUnits := rRegion.Troops[iTroopIdx].Units;
+
+        for iUnitIdx := 0 to ulUnits.Count - 1 do
+        begin
+          uUnit := ulUnits[iUnitIdx];
+
+          if uUnit.Num = AQmaster.Num then
+            continue;
+
+          Result := True;
+          exit;
+        end;
+      end;
+  end;
+
+  procedure DeleteReach(ARemove: integer);
+  var
+    iIdx: integer;
+  begin
+    iIdx := ARemove + 1;
+
+    while iIdx < Length(Reached) do
+    begin
+      Reached[iIdx - 1] := Reached[iIdx];
+      Inc(iIdx);
+    end;
+
+    SetLength(Reached, Length(Reached) - 1);
+  end;
+begin
+  SetLength(Reached, 0);
+
+  iMaxDist := 3 + ((SkillLevel(AQmaster, Keys[s_Quartermaster]) + 1) div 3);
+  if Map.Levels[AQmaster.Region.z].Name <> Keys[s_Surface] then
+    iMaxDist := iMaxDist div 2;
+
+  BuildReach(AQmaster.Region.Coords, 0, 0);
+
+  iIdx := Length(Reached) - 1;
+  while iIdx >= 0 do
+  begin
+    if (Reached[iIdx].Moves > 2) then
+    begin
+      if not HasQmaster(Reached[iIdx].Coords) then
+        DeleteReach(iIdx);
+    end
+    else if not HasTarget(Reached[iIdx].Coords) then
+      DeleteReach(iIdx);
+
+    Dec(iIdx);
+  end;
+end;
+
+function FindReach(const ACoords: TCoords): integer;
+var
+  iIdx: integer;
+begin
+  Result := -1;
+
+  for iIdx := 0 to Length(Reached) - 1 do
+    if EqualCoords(Reached[iIdx].Coords, ACoords) then
+    begin
+      Result := Reached[iIdx].Moves;
+      break;
+    end;
 end;
 
 // Count total of faction's men in region
