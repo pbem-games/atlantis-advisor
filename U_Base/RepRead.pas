@@ -62,9 +62,9 @@ end;
 // (duplicated values comes from duplicated reports for same turn)
 procedure ReadBlockList(list: string; ToList: TList; Former: TFormFunc; SkipName: boolean);
 var Trace:  TTrace;
-    itm:    string;
-    p:      pointer;
-    bkmark: integer;
+    itm, delimeter: string;
+    p: pointer;
+    bkmark, delimeterIdx: integer;
 begin
   Trace := TTrace.Create(list);
   if SkipName then Trace.Before(': ');
@@ -73,15 +73,18 @@ begin
     bkmark := Trace.StPos;
     itm := Trace.Block;
 
-    if Pos(Keys[s_And], itm) <> 0 then
+    delimeterIdx := Pos(Keys[s_And], itm);
+    if delimeterIdx <> 0 then delimeter := Keys[s_And]
+    else begin
+      delimeterIdx := Pos(Keys[s_Or], itm);
+      if delimeterIdx <> 0 then delimeter := Keys[s_Or];
+    end;
+
+    // we need to check that and/or is not part of item name
+    if (delimeterIdx > 0) and ((delimeterIdx = 1) or (itm[delimeterIdx - 1] = ' ')) then
     begin
       Trace.StPos := bkmark;
-      itm := Trace.Before(Keys[s_And]);
-    end
-    else if Pos(Keys[s_Or], itm) <> 0 then
-    begin
-      Trace.StPos := bkmark;
-      itm := Trace.Before(Keys[s_Or]);
+      itm := Trace.Before(delimeter);
     end;
 
     if itm <> Keys[s_None] then begin
@@ -91,6 +94,7 @@ begin
 
     TraceKey(Trace, [s_And, s_Or]);
   until Trace.Ends;
+
   Trace.Free;
 end;
 
