@@ -542,13 +542,23 @@ end;
 procedure DoProduce(AUnit: TUnit; s: string; var Line: integer);
 var IData: TItemData;
     Res: TItem;
-    maxout, turnout: integer;
+    maxout, turnout, limitOut: integer;
+    token: string;
 begin
-  IData := Game.ItemData.FindByName(GetToken(s));
+  token := GetToken(s);
+
+  limitOut := -1;
+  if (token[1] >= '0') and (token[1] <= '9') then begin
+    limitOut := StrToInt(token);
+    IData := Game.ItemData.FindByName(GetToken(s));
+  end
+  else
+    IData := Game.ItemData.FindByName(token);
+
   if IData = nil then
     raise EParseError.Create('Unknown item');
 
-  case ProduceOut(AUnit, AUnit.Region, IData, maxout, turnout, False) of
+  case ProduceOut(AUnit, AUnit.Region, IData, maxout, turnout, limitOut, False) of
     prdWrongAlignment:
       raise EParseError.Create('Item has opposite alignment');
     prdNoSkill:

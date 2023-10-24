@@ -162,7 +162,7 @@ begin
     0:  Result := Taxers(U) * 50;
     1:  Result := R.Wages * U.Items.Amount(IT_MAN);
     2:  Result := EntertainOut(U);
-    3:  if ProduceOut(U, R, IData, maxout, turnout, False) = prdOk then
+    3:  if ProduceOut(U, R, IData, maxout, turnout, -1, False) = prdOk then
           Result := turnout;
   end;
 end;

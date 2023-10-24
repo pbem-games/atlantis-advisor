@@ -46,7 +46,7 @@ begin
     RealR := Map.Region(CurrRegion.Coords, Turn.Num);
     row := 1;
     for i := 0 to Game.ItemData.Count-1 do begin
-      if ProduceOut(CurrUnit, RealR, Game.ItemData[i], maxout, turnout,
+      if ProduceOut(CurrUnit, RealR, Game.ItemData[i], maxout, turnout, -1,
         True) = prdOk then begin
         Grid.Cells[0, row] := IntToStr(i);
         Grid.Cells[2, row] := IntToStr(maxout);

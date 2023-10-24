@@ -1149,8 +1149,10 @@ begin
   if Config.ReadBool('MainWin', 'MonthNeeds', False) then begin
     IData := Game.ItemData.FindByName(TMenuItem(Sender).Caption);
     RealR := Map.Region(CurrUnit.Region.Coords, Turn.Num);
+
+    // TODO: looks like needs adjustment with productio limit
     if (IData <> nil) and (ProduceOut(CurrUnit, RealR, IData,
-      maxout, turnout, True) = prdOk) then begin
+      maxout, turnout, -1, True) = prdOk) then begin
 
       // Tools
       if IData.Produce.Tool <> nil then begin
@@ -1167,7 +1169,9 @@ begin
           Tool.Amount := CompleteNeeds.Amount;
           Tool.Data := CompleteNeeds.IData;
           CurrUnit.Items.Add(Tool);
-          ProduceOut(CurrUnit, RealR, IData, maxout, turnout, True);
+
+          // TODO: looks like needs adjustment with productio limit
+          ProduceOut(CurrUnit, RealR, IData, maxout, turnout, -1, True);
           CurrUnit.Items.Delete(CurrUnit.Items.IndexOf(Tool));
           Tool.Free;
         end;

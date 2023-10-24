@@ -61,7 +61,7 @@ var
   function CanProduce(U: TUnit; R: TRegion; IData: TItemData;
     var Level, Amount: integer): integer;
   function ProduceOut(U: TUnit; R: TRegion; IData: TItemData; var MaxOut,
-    TurnOut: integer; StatInfo: boolean): integer;
+    TurnOut: integer; limitOut: integer; StatInfo: boolean): integer;
   function EntertainOut(U: TUnit): integer;
   function BuildMaterials(AUnit: TUnit; Data: TStructData): integer;
   function BuildSkillLv(AUnit: TUnit; Data: TStructData): integer;
@@ -274,7 +274,7 @@ begin
 end;
 
 function ProduceOut(U: TUnit; R: TRegion; IData: TItemData; var MaxOut,
-  TurnOut: integer; StatInfo: boolean): integer;
+  TurnOut: integer; limitOut: integer; StatInfo: boolean): integer;
 var level, amt, men, bonus: integer;
 begin
   maxout := 0;
@@ -287,7 +287,9 @@ begin
   men := U.Items.Amount(IT_MAN);
   bonus := GetToolsBonus(U.Items, IData, men);
   MaxOut := ProduceAmount(IData, men * level + bonus);
-  TurnOut := Min(amt, MaxOut);
+
+  if limitOut <= 0 then limitOut := MaxOut;
+  TurnOut := Min(Min(amt, MaxOut), limitOut);
 end;
 
 function EntertainOut(U: TUnit): integer;
