@@ -324,7 +324,12 @@ begin
   i := Grid.RowCount;
   if Item.Amount >= 0 then
     Grid.Cells[0, i] := IntToStr(Item.Amount);
-  Grid.Cells[1, i] := Item.Name;
+
+  if Item.Needs > 0 then
+    Grid.Cells[1, i] := Format('%s (needs %d)', [Item.Name, Item.Needs])
+  else
+    Grid.Cells[1, i] := Item.Name;
+
   Grid.SortKeys[1, i] := IntToStr(Game.ItemData.IndexOf(Item.Data));
   if Grid.ColCount > 2 then Grid.Cells[2, i] := '$' + IntToStr(Item.Cost);
   Grid.Rows[i].Data := Item;

@@ -11,78 +11,79 @@ const
   MaxInt = 2147483647;
 
   // Item flags
-  IT_WAGON = $02;
-  IT_SILVER = $04;
-  IT_MAN = $08;
-  IT_MONSTER = $10;
-  IT_MAGIC = $20;
-  IT_WEAPON = $40;
-  IT_ARMOR = $80;
-  IT_MOUNT = $100;
-  IT_TOOL = $200;
-  IT_CANTGIVE = $400;
-  IT_RESOURCE = $800;
-  IT_ADVANCED = $1000;
-  IT_FOOD = $2000;
-  IT_UNKNOWN = $4000;
-  IT_ORMATERIALS = $8000;
-  IT_TRADE =   $10000;
-  IT_SPECIAL = $20000;
-  IT_GOOD =    $40000;
-  IT_EVIL =    $80000;
-  IT_ALL = $FFFFFF;
+  IT_WAGON       =      $2;
+  IT_SILVER      =      $4;
+  IT_MAN         =      $8;
+  IT_MONSTER     =     $10;
+  IT_MAGIC       =     $20;
+  IT_WEAPON      =     $40;
+  IT_ARMOR       =     $80;
+  IT_MOUNT       =    $100;
+  IT_TOOL        =    $200;
+  IT_CANTGIVE    =    $400;
+  IT_RESOURCE    =    $800;
+  IT_ADVANCED    =   $1000;
+  IT_FOOD        =   $2000;
+  IT_UNKNOWN     =   $4000;
+  IT_ORMATERIALS =   $8000;
+  IT_TRADE       =  $10000;
+  IT_SPECIAL     =  $20000;
+  IT_GOOD        =  $40000;
+  IT_EVIL        =  $80000;
+  IT_SHIP        = $100000;
+  IT_ALL         = $FFFFFF;
 
-  WPN_NEEDSKILL = $1; // No bonus or use unless skilled
-  WPN_ALWAYSREADY = $2; // Ignore the 50% chance to attack
-//  WPN_NODEFENSE = $4; // No combat defense against this weapon
-  WPN_NOFOOT = $8; // Weapon cannot be used on foot (e.g. lance)
-  WPN_NOMOUNT = $10; // Weapon cannot be used mounted (e.g. pike)
-  WPN_SHORT = $20; // Short melee weapon (e.g. shortsword, hatchet)
-  WPN_LONG = $40; // Long melee weapon (e.g. lance, pike)
-  WPN_RANGED = $80; // Missile weapon
-  WPN_NOATTACKERSKILL = $100; // Attacker gets no combat/skill defense.
-  WPN_RIDINGBONUS = $200; // Unit gets riding bonus on att and def.
-  WPN_RIDINGBONUSDEFENSE = $400; // Unit gets riding bonus on def only.
-  WPN_NUMATTSKILL = $800; // Unit got number of attack = skill + NumAttacks
-  WPN_NUMATTHALFSKILL = $1000; // Same, skill div 2 round up
+  WPN_NEEDSKILL          =    $1; // No bonus or use unless skilled
+  WPN_ALWAYSREADY        =    $2; // Ignore the 50% chance to attack
+//  WPN_NODEFENSE        =    $4; // No combat defense against this weapon
+  WPN_NOFOOT             =    $8; // Weapon cannot be used on foot (e.g. lance)
+  WPN_NOMOUNT            =   $10; // Weapon cannot be used mounted (e.g. pike)
+  WPN_SHORT              =   $20; // Short melee weapon (e.g. shortsword, hatchet)
+  WPN_LONG               =   $40; // Long melee weapon (e.g. lance, pike)
+  WPN_RANGED             =   $80; // Missile weapon
+  WPN_NOATTACKERSKILL    =  $100; // Attacker gets no combat/skill defense.
+  WPN_RIDINGBONUS        =  $200; // Unit gets riding bonus on att and def.
+  WPN_RIDINGBONUSDEFENSE =  $400; // Unit gets riding bonus on def only.
+  WPN_NUMATTSKILL        =  $800; // Unit got number of attack = skill + NumAttacks
+  WPN_NUMATTHALFSKILL    = $1000; // Same, skill div 2 round up
 
   ARM_USEINASS = $01;
 
   // Skill flags
-  SK_MAGIC = $01;
-  SK_COMBATSPELL = $02;
-  SK_CAST = $04;
-  SK_FOUNDATION = $08;
-  SK_UNKNOWN = $80;
-  SK_ALL = $FF;
+  SK_MAGIC       =  $1;
+  SK_COMBATSPELL =  $2;
+  SK_CAST        =  $4;
+  SK_FOUNDATION  = $08;
+  SK_UNKNOWN     = $80;
+  SK_ALL         = $FF;
 
   // Struct flags
-  ST_DEFENCE = $01;
-  ST_TRANSPORT = $02;
-  ST_FLYING = $04;
-  ST_CLOSED = $08;
-  ST_SHAFT = $10;
-  ST_ROAD = $20;
-  ST_UNKNOWN = $80;
+  ST_DEFENCE   =  $1;
+  ST_TRANSPORT =  $2;
+  ST_FLYING    =  $4;
+  ST_CLOSED    =  $8;
+  ST_SHAFT     = $10;
+  ST_ROAD      = $20;
+  ST_UNKNOWN   = $80;
 
   // Terrain flags
-  TER_RIDINGMOUNTS = $01;
-  TER_FLYINGMOUNTS = $02;
-  TER_WATER = $04;
+  TER_RIDINGMOUNTS = $1;
+  TER_FLYINGMOUNTS = $2;
+  TER_WATER        = $4;
 
   // Effects
   EFF_ONESHOT = $01;
 
   // Specials
-  SP_USE_LEV = $01;
-  SP_NOBUILDING = $02;
-  SP_SHIELD = $04;
+  SP_USE_LEV    = $1;
+  SP_NOBUILDING = $2;
+  SP_SHIELD     = $4;
 
-  HIT_NOMONSTER =      $1000;
-  HIT_EFFECTEXCEPT =   $2000;
-  HIT_BUILDINGEXCEPT = $4000;
-  HIT_ITEMEXCEPT =     $8000;
-  HIT_ILLUSION =       $10000;
+  HIT_NOMONSTER      =  $1000;
+  HIT_EFFECTEXCEPT   =  $2000;
+  HIT_BUILDINGEXCEPT =  $4000;
+  HIT_ITEMEXCEPT     =  $8000;
+  HIT_ILLUSION       = $10000;
 
   // Unit marks
   UM_BATTLE = $01;
@@ -358,6 +359,7 @@ type
     Amount: integer;
     Cost: integer;
     Bought: boolean;
+    Needs: integer;
     procedure Assign(Source: TItem);
     function Name: string;
   end;
@@ -2081,10 +2083,11 @@ end;
 
 procedure TItem.Assign(Source: TItem);
 begin
-  Data := Source.Data;
+  Data   := Source.Data;
   Amount := Source.Amount;
-  Cost := Source.Cost;
+  Cost   := Source.Cost;
   Bought := Source.Bought;
+  Needs  := Source.Needs;
 end;
 
 function TItem.Name: string;

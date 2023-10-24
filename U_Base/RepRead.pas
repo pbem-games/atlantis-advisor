@@ -172,7 +172,11 @@ end;
 
 // Make new item
 function FormItem(itm_string: string): TItem;
-var Trace: TTrace;
+var
+  Trace: TTrace;
+  tmp: string;
+  sPos, ePos: integer;
+
 begin
   Result := TItem.Create;
   Trace := TTrace.Create(itm_string);
@@ -180,6 +184,10 @@ begin
  // unlimited sea elves [SELF] at $68
  // 31 horses [HORS]
  // leader [LEAD]
+ //
+ // and now ship items from Atlantis 5
+ //   unfinished Cog [COG] (needs 10)
+ //   unfinished Longship [LONG] (needs 2)
   if (itm_string[1] >= '0') and (itm_string[1] <= '9')
     then Result.Amount := Trace.Num
   else begin
@@ -187,14 +195,30 @@ begin
     else Result.Amount := 1;
   end;
   if (Result.Amount <> 1) then Trace.Before(' ');
-  if Pos('$',itm_string) > 0 then begin
-    Result.Data := FormItemData(Trace.Before('$'), Result.Amount);
+
+  if Pos(Keys[s_Unfinished], itm_string) = 1 then begin
+    Trace.Before(Keys[s_Unfinished]);
+    sPos := Trace.StPos;
+    ePos := Trace.EnPos;
+
+    Trace.Before(Keys[s_Needs]);
+    Result.Needs := Trace.Num;
+
+    Trace.StPos := sPos;
+    Trace.EnPos := ePos;
+    tmp := Trace.Before(' (');
+  end
+  else if Pos('$', itm_string) > 0 then begin
+    tmp := Trace.Before('$');
     Result.Cost := Trace.Num;
   end
   else begin
-    Result.Data := FormItemData(Trace.Text, Result.Amount);
+    tmp := Trace.Text;
     Result.Cost := 0;
   end;
+
+  Result.Data := FormItemData(tmp, Result.Amount);
+
   Trace.Free;
 end;
 

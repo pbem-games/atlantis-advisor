@@ -289,6 +289,7 @@ type
   s_GateHere,
   s_Of,
   s_NexusGate,
+  s_Unfinished,
 
   // Orders Template
   s_Orders,
