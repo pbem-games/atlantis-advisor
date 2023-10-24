@@ -2,7 +2,7 @@ object MainForm: TMainForm
   Left = 432
   Top = 136
   Width = 1932
-  Height = 1093
+  Height = 1094
   Caption = 'Atlantis Advisor'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -26,7 +26,7 @@ object MainForm: TMainForm
     Left = 1350
     Top = 28
     Width = 6
-    Height = 1006
+    Height = 1007
     Cursor = crHSplit
     Align = alRight
     Beveled = True
@@ -35,13 +35,13 @@ object MainForm: TMainForm
     Left = 0
     Top = 28
     Width = 1350
-    Height = 1006
+    Height = 1007
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     object UnitSplitter: TSplitter
       Left = 0
-      Top = 886
+      Top = 887
       Width = 1350
       Height = 6
       Cursor = crVSplit
@@ -404,7 +404,7 @@ object MainForm: TMainForm
     end
     object UnitsPanel: TPanel
       Left = 0
-      Top = 892
+      Top = 893
       Width = 1350
       Height = 114
       HelpContext = 5
@@ -551,7 +551,7 @@ object MainForm: TMainForm
       Left = 0
       Top = 29
       Width = 1350
-      Height = 857
+      Height = 858
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
@@ -559,7 +559,7 @@ object MainForm: TMainForm
         Left = 304
         Top = 0
         Width = 3
-        Height = 857
+        Height = 858
         Cursor = crHSplit
         Beveled = True
       end
@@ -567,7 +567,7 @@ object MainForm: TMainForm
         Left = 307
         Top = 0
         Width = 754
-        Height = 857
+        Height = 858
         HelpContext = 3
         Align = alClient
         Color = clBlack
@@ -590,7 +590,7 @@ object MainForm: TMainForm
         Left = 1061
         Top = 0
         Width = 289
-        Height = 857
+        Height = 858
         Align = alRight
         ColCount = 3
         DefaultRowColor = clBlack
@@ -619,7 +619,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 304
-        Height = 857
+        Height = 858
         Align = alLeft
         BevelOuter = bvNone
         TabOrder = 2
@@ -627,7 +627,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 297
           Width = 304
-          Height = 560
+          Height = 561
           Align = alClient
           Color = clBtnFace
           ColCount = 2
@@ -1349,7 +1349,7 @@ object MainForm: TMainForm
     Left = 1356
     Top = 28
     Width = 560
-    Height = 1006
+    Height = 1007
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 2
@@ -1481,7 +1481,7 @@ object MainForm: TMainForm
         object LandLabel: TLabel
           Left = 72
           Top = 0
-          Width = 92
+          Width = 81
           Height = 24
           Caption = 'Skottskog'
           Font.Charset = ANSI_CHARSET
@@ -1851,7 +1851,7 @@ object MainForm: TMainForm
       Left = 0
       Top = 471
       Width = 560
-      Height = 535
+      Height = 536
       Align = alClient
       BevelOuter = bvNone
       BorderWidth = 4
@@ -1885,7 +1885,7 @@ object MainForm: TMainForm
         Left = 4
         Top = 269
         Width = 552
-        Height = 262
+        Height = 263
         ActivePage = MsgSheet
         Align = alClient
         DockSite = True
@@ -2528,7 +2528,7 @@ object MainForm: TMainForm
         Left = 4
         Top = 269
         Width = 552
-        Height = 262
+        Height = 263
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 5
@@ -2536,7 +2536,7 @@ object MainForm: TMainForm
           Left = 367
           Top = 0
           Width = 3
-          Height = 262
+          Height = 263
           Cursor = crHSplit
           Align = alRight
         end
@@ -2544,7 +2544,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 367
-          Height = 262
+          Height = 263
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 0
@@ -2623,7 +2623,7 @@ object MainForm: TMainForm
           end
           object LoadPanel: TPanel
             Left = 0
-            Top = 190
+            Top = 191
             Width = 367
             Height = 72
             Align = alBottom
@@ -2970,7 +2970,7 @@ object MainForm: TMainForm
             Left = 0
             Top = 34
             Width = 367
-            Height = 156
+            Height = 157
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
@@ -2990,7 +2990,7 @@ object MainForm: TMainForm
           Left = 370
           Top = 0
           Width = 182
-          Height = 262
+          Height = 263
           Align = alRight
           BevelOuter = bvNone
           TabOrder = 1
@@ -3013,7 +3013,7 @@ object MainForm: TMainForm
             Left = 0
             Top = 13
             Width = 182
-            Height = 249
+            Height = 250
             Align = alClient
             ColCount = 2
             DefaultRowColor = clBlack
