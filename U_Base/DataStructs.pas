@@ -348,6 +348,12 @@ type
     Magic: record
       MageOnly: boolean;
     end;
+    Upkeep: record
+      Silver: integer;
+    end;
+    Food: record
+      Value: integer;
+    end;
     constructor Create(AShort: string);
     destructor Destroy; override;
     function Name(Many: boolean): string; overload;

@@ -5,7 +5,7 @@ unit RepRead;
 interface
 
 uses
-  Classes, SysUtils, Math, Types, DataStructs;
+  Classes, SysUtils, Math, Types, DataStructs, Resources;
 
 const
   rrsNo = 0;
@@ -1973,6 +1973,23 @@ begin
     Trace.Free;
   end;
   FullTrace.Free;
+
+  // Set default values for upkeep and food
+  if Result = true then
+  begin
+    if Test(D.Flags, IT_MAN) and (D.Upkeep.Silver = 0) then
+    begin
+      if D.Man.Leader then
+        D.Upkeep.Silver := GameConfig.ReadInteger('Settings', 'LeaderMaintenance', 20)
+      else
+        D.Upkeep.Silver := GameConfig.ReadInteger('Settings', 'PeasantMaintenance', 10);
+    end;
+
+    if Test(D.Flags, IT_FOOD) and (D.Food.Value = 0) then
+    begin
+      D.Food.Value := 10;
+    end;
+  end;
 end;
 
 // Item reports:

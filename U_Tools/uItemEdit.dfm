@@ -1,6 +1,6 @@
 object ItemEditForm: TItemEditForm
-  Left = 205
-  Top = 86
+  Left = 657
+  Top = 354
   HelpContext = 10
   BorderStyle = bsDialog
   Caption = 'Item Editor'
@@ -323,9 +323,9 @@ object ItemEditForm: TItemEditForm
     Top = 220
     Width = 337
     Height = 205
-    ActivePage = tsWagon
+    ActivePage = tsUpkeep
     MultiLine = True
-    TabIndex = 10
+    TabIndex = 11
     TabOrder = 4
     OnChange = PControlChange
     object tsProduction: TTabSheet
@@ -2073,6 +2073,50 @@ object ItemEditForm: TItemEditForm
         MaxValue = 9999
         MinValue = 0
         TabOrder = 1
+        Value = 0
+        OnChange = DataChange
+      end
+    end
+    object tsUpkeep: TTabSheet
+      Caption = 'Upkeep'
+      ImageIndex = 11
+      object Label62: TLabel
+        Left = 16
+        Top = 16
+        Width = 38
+        Height = 13
+        Caption = 'Upkeep'
+      end
+      object eUpkeepSilver: TIntEdit
+        Left = 60
+        Top = 12
+        Width = 117
+        Height = 22
+        MaxValue = 9999
+        MinValue = 0
+        TabOrder = 0
+        Value = 0
+        OnChange = DataChange
+      end
+    end
+    object tsFood: TTabSheet
+      Caption = 'Food'
+      ImageIndex = 12
+      object Label63: TLabel
+        Left = 16
+        Top = 16
+        Width = 27
+        Height = 13
+        Caption = 'Value'
+      end
+      object eFoodValue: TIntEdit
+        Left = 52
+        Top = 12
+        Width = 117
+        Height = 22
+        MaxValue = 9999
+        MinValue = 0
+        TabOrder = 0
         Value = 0
         OnChange = DataChange
       end

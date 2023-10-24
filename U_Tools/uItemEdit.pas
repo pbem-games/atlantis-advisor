@@ -223,6 +223,12 @@ type
     btnRequest: TToolButton;
     btnRequestAll: TToolButton;
     ToolButton4: TToolButton;
+    tsUpkeep: TTabSheet;
+    Label62: TLabel;
+    tsFood: TTabSheet;
+    Label63: TLabel;
+    eUpkeepSilver: TIntEdit;
+    eFoodValue: TIntEdit;
     procedure cmTypeDrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
     procedure FormCreate(Sender: TObject);
@@ -380,7 +386,7 @@ end;
 
 procedure TItemEditForm.ItemGridSelectCell(Sender: TObject; ACol,
   ARow: Integer; var CanSelect: Boolean);
-const tabcount = 11;
+const tabcount = 13;
 var i, page: integer;
     tabs: array[0..tabcount-1] of boolean;
     s: string;
@@ -406,6 +412,7 @@ begin
       cmType.ItemIndex := 1;
       tabs[tsMan.PageIndex] := True;
       tabs[tsMovement.PageIndex] := True;
+      tabs[tsUpkeep.PageIndex] := True;
     end
     else if (Flags and IT_MONSTER <> 0) then begin
       cmType.ItemIndex := 2;
@@ -440,13 +447,15 @@ begin
       tabs[tsWagon.PageIndex] := True;
     end
     else if (Flags and IT_SILVER <> 0) then begin
-      cmType.ItemIndex := 7
+      cmType.ItemIndex := 7;
+      tabs[tsFood.PageIndex] := True;
     end
     else if (Flags and IT_FOOD <> 0) then begin
       cmType.ItemIndex := 8;
       tabs[tsProduction.PageIndex] := True;
       tabs[tsMagProduction.PageIndex] := True;
       tabs[tsMovement.PageIndex] := True;
+      tabs[tsFood.PageIndex] := True;
     end
     else if (Flags and IT_TRADE <> 0) then begin
       cmType.ItemIndex := 9;
@@ -631,6 +640,12 @@ begin
 
     // Magic
     cbMageOnly.Checked := Magic.MageOnly;
+
+    // Upkeep
+    eUpkeepSilver.Value := Upkeep.Silver;
+
+    // Food
+    eFoodValue.Value := Food.Value;
   end;
   ItemModified := False;
   Filling := False;
@@ -792,6 +807,12 @@ begin
 
     // Magic
     Magic.MageOnly := cbMageOnly.Checked;
+
+    // Upkeep
+    Upkeep.Silver := Max(0, eUpkeepSilver.Value);
+
+    // Food
+    Food.Value := Max(0, eFoodValue.Value);
 
     ItemGrid.ImgRows[ItemGrid.Row].SortKey[1] := IntToStr(ItemIconIndex(AItemData));
     ItemGrid.ImgRows[ItemGrid.Row].ImageIndex := ItemIconIndex(AItemData);
