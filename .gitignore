@@ -2,6 +2,7 @@
 dist/
 test/
 *.dcu
+*.ddp
 *.~*
 *.exe
 *.local
