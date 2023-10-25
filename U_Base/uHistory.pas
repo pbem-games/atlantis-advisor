@@ -476,6 +476,7 @@ begin
 
         FmtStr(s, '%s UpkeepSilver: %d.', [s, Upkeep.Silver]);
         FmtStr(s, '%s FoodValue: %d.', [s, Food.Value]);
+        FmtStr(s, '%s FoodOrder: %d.', [s, Food.Order]);
       end;
 
       Lines.Add(s);
@@ -951,6 +952,12 @@ begin
     if Pos('FoodValue', Trace.Text) > 0 then
     begin
       Trace.Before('FoodValue: ');
+      Food.Value := Trace.Num;
+    end;
+
+    if Pos('FoodOrder', Trace.Text) > 0 then
+    begin
+      Trace.Before('FoodOrder: ');
       Food.Value := Trace.Num;
     end;
   end;

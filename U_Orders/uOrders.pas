@@ -1169,132 +1169,244 @@ begin
 end;
 
 procedure ResolveMaintenance(C: TCoords; ParseErrors: TStrings);
-type TConsumeRec = record
-       Men, Silver, Food: integer;
-       URef: TUnit;
-     end;
-var i, amt, silver, food: integer;
-    Recs: array of TConsumeRec;
+  type TConsumeRec = record
+    Upkeep: integer;
+    URef: TUnit;
+  end;
+
+  type TFoodRec = record
+    Value, Order, Amount: integer;
+  end;
+
+  type TConsumeRecArray = array of TConsumeRec;
+  type TFoodRecArray = array of TFoodRec;
+
+var i: integer;
+    Recs: TConsumeRecArray;
+    silverBag: integer;
+    foodStack: TFoodRecArray;
     warn: boolean;
     R: TRegion;
+    U: TUnit;
 
-  procedure AddToRecs(U: TUnit);
-  var j, needs, rec: integer;
-      order, t: string;
-      SData: TSkillData;
-      Item: TItem;
-      Leaders: boolean;
+  procedure addConsumeRec(var items: TConsumeRecArray; item: TConsumeRec);
   begin
-    SetLength(Recs, Length(Recs) + 1);
-    rec := High(Recs);
-    Recs[rec].URef := U;
-    Leaders := False;
+    SetLength(items, Length(items) + 1);
+    items[High(items)] := item;
+  end;
+
+  procedure addFoodRec(var items: TFoodRecArray; value, order, amount: integer);
+  var
+    food: TFoodRec;
+  begin
+    food.Value := value;
+    food.Order := order;
+    food.Amount := amount;
+
+    SetLength(items, Length(items) + 1);
+    items[High(items)] := food;
+  end;
+
+  procedure swap(var a: TFoodRecArray; i, j: integer);
+  var
+    tmp: TFoodRec;
+  begin
+    tmp := a[i];
+    a[i] := a[j];
+    a[j] := tmp;
+  end;
+
+  procedure sortFood(var arr: TFoodRecArray);
+  var
+    i, j: integer;
+  begin
+    if Length(arr) <= 1 then Exit;
+
+    for i := 0 to High(arr) do
+      for j := 0 to High(arr) - 1 do
+        if arr[j].Order > arr[j + 1].Order then
+          swap(arr, j, j + 1);
+  end;
+
+  // consume food from the stack (stack is sorted from least to most valuable food)
+  // update the food stack
+  // return new upkeep value
+  function consumeFood(var items: TFoodRecArray; upkeep: integer): integer;
+  var
+    amount, value, consume: integer;
+
+  begin
+    while (upkeep > 0) and (Length(items) > 0) do
+    begin
+      amount := items[High(items)].Amount;
+
+      if amount = 0 then
+      begin
+        SetLength(items, Length(items) - 1);
+        Continue;
+      end;
+
+      value := items[High(items)].Value;
+
+      // determine how much food to consume
+      // food can be consumed only in whole units
+      consume := Min(amount, Ceil(upkeep / value));
+
+      // update upkeep and food amount
+      upkeep := Max(0, upkeep - consume * value);
+      Dec(items[High(items)].Amount, consume);
+    end;
+
+    Result := upkeep;
+  end;
+
+  function consumeSilver(var silver: integer; upkeep: integer): integer;
+  var
+    amount: integer;
+
+  begin
+    amount := Min(silver, upkeep);
+    Dec(silver, amount);
+
+    Result := upkeep - amount;
+  end;
+
+  procedure addToRecs(U: TUnit);
+  var
+    j, silver: integer;
+    order, t: string;
+    SData: TSkillData;
+    IData: TItemData;
+    Item: TItem;
+    rec: TConsumeRec;
+    foodBag: TFoodRecArray;
+
+  begin
+    SetLength(foodBag, 0);
+
+    silver := 0;
+    rec.Upkeep := 0;
+    rec.URef := U;
+
     for j := 0 to U.Items.Count-1 do begin
       // Set values from inventory
       Item := U.Items[j];
-      if Test(Item.Data.Flags, IT_MAN) then begin
-        Inc(Recs[rec].Men, Item.Amount);
-        if Item.Data.Man.Leader then Leaders := True;
+
+      if Test(Item.Data.Flags, IT_MAN) then
+      begin
+        Inc(rec.Upkeep, Item.Amount * Item.Data.Upkeep.Silver)
       end
       else if Test(Item.Data.Flags, IT_SILVER) then
-        Inc(Recs[rec].Silver, Item.Amount)
+      begin
+        Inc(silver, Item.Amount);
+      end
       else if Test(Item.Data.Flags, IT_FOOD) then
-        Inc(Recs[rec].Food, Item.Amount);
+      begin
+        addFoodRec(foodBag, Item.Data.Food.Value, Item.Data.Food.Order, Item.Amount);
+      end;
     end;
+
     // Add income silver
-    Inc(Recs[rec].Silver, U.TradeIncome + U.WorkIncome);
+    Inc(silver, U.TradeIncome + U.WorkIncome);
+
+    order := ClearOrder(U.MonthOrder);
+
     // Remove study fees
-    if ClearOrder(U.MonthOrder) = 'study' then begin
+    if order = 'study' then
+    begin
       order := U.MonthOrder;
       GetToken(order); // study
       t := GetToken(order);
       SData := Game.SkillData.FindByName(t);
-      if SData <> nil then Dec(Recs[rec].Silver, StudyCost(U, SData));
+      if SData <> nil then Dec(silver, StudyCost(U, SData));
     end;
-    // Apply maintenance costs
-    if Leaders then
-      needs := GameConfig.ReadInteger('Settings', 'LeaderMaintenance', 20)
-    else needs := GameConfig.ReadInteger('Settings', 'PeasantMaintenance', 10);
-    if U.Consuming <> ctSilver then
-      Dec(Recs[rec].Food, Min(1, (needs * Recs[rec].Men) div 10))
-    else Dec(Recs[rec].Silver, needs * Recs[rec].Men);
+
+    // TODO: items being produced should appear in the items list with special flag set
+    IData := TItemData(U.MonthInfo.Data);
+    if (order = 'produce') and (IData <> nil) and Test(IData.Flags, IT_FOOD) then
+    begin
+      addFoodRec(foodBag, IData.Food.Value, IData.Food.Order, U.MonthInfo.Amount);
+    end;
+
+    // Apply maintenance costs, i.e. eat own supplies first
+    if U.Consuming = ctSilver then
+    begin
+      rec.Upkeep := consumeSilver(silver, rec.Upkeep);
+    end
+    else
+    begin
+      // will consume own food first, food must be consumed in the food preference order
+      sortFood(foodBag);
+      rec.Upkeep := consumeFood(foodBag, rec.Upkeep);
+    end;
+
+    if rec.Upkeep > 0 then addConsumeRec(Recs, rec);
+
+    Inc(silverBag, silver);
+
+    for j := 0 to High(foodBag) do
+    begin
+      if foodBag[j].Amount = 0 then Continue;
+
+      addFoodRec(foodStack, foodBag[j].Value, foodBag[j].Order, foodBag[j].Amount);
+    end;
   end;
 
 begin
   SetLength(Recs, 0);
+  SetLength(foodStack, 0);
+  silverBag := 0;
 
   // Fill Recs with units from the region
   R := Map.Region(C);
   if (R <> nil) and (R.PlayerTroop <> nil) then
     for i := 0 to R.PlayerTroop.Units.Count-1 do
       if EqualCoords(R.PlayerTroop.Units[i].FinalCoords, R.Coords) then
-        AddToRecs(R.PlayerTroop.Units[i]);
+        addToRecs(R.PlayerTroop.Units[i]);
 
   // Add arriving units
   for i := 0 to VFaction.Units.Count-1 do
     if VFaction.Units[i].ArrivingTo(C) then
-      AddToRecs(VFaction.Units[i]);
+      addToRecs(VFaction.Units[i]);
 
-  // Count spare resources
-  silver := 0;
-  food := 0;
-  for i := 0 to High(Recs) do begin
-    if Recs[i].Silver > 0 then Inc(silver, Recs[i].Silver);
-    if Recs[i].Food > 0 then Inc(food, Recs[i].Food);
-  end;
+  // sort food
+  sortFood(foodStack);
 
-  // Units with CONSUME SILVER and CONSUME FACTION FOOD borrows first
-  for i := 0 to Length(Recs) - 1 do begin
-    if (Recs[i].Silver < 0) and (Recs[i].URef.Consuming = ctSilver) then begin
-      amt := Min(silver, -Recs[i].Silver);
-      Inc(Recs[i].Silver, amt);
-      Dec(silver, amt);
-    end
-    else if (Recs[i].Food < 0) and (Recs[i].URef.Consuming = ctFaction) then begin
-      amt := Min(food, -Recs[i].food);
-      Inc(Recs[i].Food, amt);
-      Dec(food, amt);
-    end;
-  end;
-  // Now CONSUME UNIT FOOD
-  for i := 0 to Length(Recs) - 1 do begin
-    if (Recs[i].Food < 0) and (Recs[i].URef.Consuming = ctUnit) then begin
-      amt := Min(food, -Recs[i].food);
-      Inc(Recs[i].Food, amt);
-      Dec(food, amt);
-    end;
-  end;
-  // Now redistribute resources
-  silver := silver + food * 10;
   warn := False;
+
+  // Order of actions:
+  // 1) consume food from other units when Consuming = ctFaction
+  // 2) consume own silver
+  // 3) consume silver from other units
+  // 4) warn that not enough money for maintenance
   for i := 0 to Length(Recs) - 1 do begin
-    if Recs[i].Food < 0 then begin
-      amt := Min(silver div 10, -Recs[i].food);
-      Inc(Recs[i].Food, amt);
-      Dec(silver, amt * 10);
-      if amt > 0 then begin
-        Recs[i].URef.Orders.Insert(0, ';. Will borrow money');
-        ParseErrors.AddObject('!M4 ' + Recs[i].URef.FullName +
-          ': Will borrow money', Recs[i].URef);
-      end;
-    end
-    else if Recs[i].Silver < 0 then begin
-      amt := Min(silver, -Recs[i].Silver);
-      Inc(Recs[i].Silver, amt);
-      Dec(silver, amt);
-      if amt > 0 then begin
-        Recs[i].URef.Orders.Insert(0, ';. Will borrow food');
-        ParseErrors.AddObject('!M4 ' + Recs[i].URef.FullName +
-          ': Will borrow food', Recs[i].URef);
-      end;
+    if Recs[i].Upkeep = 0 then Continue;
+    U := Recs[i].URef;
+
+    if U.Consuming = ctFaction then
+    begin
+      Recs[i].Upkeep := consumeFood(foodStack, Recs[i].Upkeep);
+      
+      if Recs[i].Upkeep = 0 then Continue;
+      
+      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(Recs[i].Upkeep) + ' for maintenance');
     end;
-    if (Recs[i].Silver < 0) or (Recs[i].Food < 0) then begin
-      Recs[i].URef.Orders.Insert(0, ';. No money for maintenance');
-      // Show region warning
-      if not warn then ParseErrors.AddObject('!M4 ' + MakeRegionName(C, True) +
-        ': Units hungry', Recs[i].URef);
+
+    if U.Consuming = ctUnit then
+    begin
+      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(Recs[i].Upkeep) + ' for maintenance');
+    end;
+
+    // consume silver
+    Recs[i].Upkeep := consumeSilver(silverBag, Recs[i].Upkeep);
+
+    // warn if not enough money for maintenance
+    if Recs[i].Upkeep > 0 then
+    begin
+      U.Orders.Insert(0, ';. Missing $' + IntToStr(Recs[i].Upkeep) + ' for maintenance');
+      if not warn then ParseErrors.AddObject('!M4 ' + MakeRegionName(C, True) + ': Units hungry', U);
       warn := True;
-    end
+    end;
   end;
 end;
 

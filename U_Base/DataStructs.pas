@@ -353,6 +353,7 @@ type
     end;
     Food: record
       Value: integer;
+      Order: integer;
     end;
     constructor Create(AShort: string);
     destructor Destroy; override;
