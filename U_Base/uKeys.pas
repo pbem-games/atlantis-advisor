@@ -310,8 +310,10 @@ type
   s_Healing,
   s_MagicalHealing,
   s_RidingSkill,
+  s_Quartermaster,
   s_HealingPotions,
   s_Herbs,
+  s_Caravanserai,
   s_TradeIncome,
   s_WorkIncome,
 

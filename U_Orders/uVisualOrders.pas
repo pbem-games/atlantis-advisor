@@ -7,7 +7,7 @@ uses
   Graphics, Math, Controls, Dialogs, MyStrings, Menus, Classes,
   uClaim, uHexMap, uKeys, uBuy, uNewUnit, uTeach, uScript, uUnitRecs,
   uSpyReps, uNeeds, uRoute, uUnitNeeds, uShortcuts, uWantedItems,
-  uPathFind;
+  uPathFind, uDistribute;
 
 type
   TOrderHandlers = class
@@ -78,6 +78,10 @@ type
     procedure Tax(Sender: TObject);
     procedure Teach(Sender: TObject);
     procedure Work(Sender: TObject);
+
+    // QM support
+    procedure Distribute(Sender: TObject);
+    procedure Transport(Sender: TObject);
   end;
 
 var
@@ -1327,6 +1331,32 @@ begin
   ExecOrder('work', True);
 end;
 
+procedure TOrderHandlers.Distribute(Sender: TObject);
+var
+  bFreeForm:  boolean;
+begin
+  bFreeForm := true;
+  DistributeForm := TDistributeForm.Create(MainForm);
+  DistributeForm.FillForm(CurrUnit);
+
+  case DistributeForm.ShowModal of
+  mrOk:     AddOrderTo(DistributeForm.Qmaster, DistributeForm.GetOrders, false);
+  mrIgnore:
+    begin
+      bFreeForm := false;
+      MainForm.StartDistribute;
+    end;
+  end;
+
+  if bFreeForm then
+    DistributeForm.Free;
+end;
+
+procedure TOrderHandlers.Transport(Sender: TObject);
+begin
+
+end;
+
  { Popup customization }
 
 function AddMenuItem(AParent: TMenuItem; ACaption: string; AImage: integer;
@@ -1809,6 +1839,16 @@ begin
       if Turn.Unclaimed > 0 then
         AddMenuItem(Popup.Items, 'Claim', bmpSilver, Handlers.Claim);
 
+      // TODO : Add QM options
+      if (SkillLevel(AUnit, Keys[s_Quartermaster]) > 0) and (Struct <> nil)
+        and (Struct.Owner = AUnit) and (Struct.Data.Group = Keys[s_Caravanserai]) then
+      begin
+        Item := TMenuItem.Create(MainForm);
+        Item.Caption := 'Distribute';
+        Item.OnClick := Handlers.Distribute;
+        Popup.Items.Add(Item);
+      end;
+
       // Attack
       Item := TMenuItem.Create(MainForm);
       Item.Caption := 'Attack';
@@ -1949,13 +1989,10 @@ begin
       Req := CurrUnit.Region.Wanted.Find(Item.Data.Short);
       if (Req <> nil) and (Req.Amount > 0) then
         AddMenuItem(Popup.Items, 'Sell', bmpSilver, Handlers.ItemSell);
-      AddmenuItem(Popup.Items, 'Wanted Items', -1, Handlers.ItemWanted);  
+      AddmenuItem(Popup.Items, 'Wanted Items', -1, Handlers.ItemWanted);
     end;
   end;
 end;
-
-
-
 
 initialization
   Handlers := TOrderHandlers.Create;

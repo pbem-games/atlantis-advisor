@@ -40,7 +40,7 @@ const
 type
   TAdvisorState = set of (asFirstActivate, asProcessing, asCloseQuery,
     asReadingGame, asFirstProcessing);
-  TWorkMode = (mNormal, mMove, mLinkShaft);
+  TWorkMode = (mNormal, mMove, mLinkShaft, mDistribute);
 
   TMainForm = class(TForm)
     MapUnitsPanel: TPanel;
@@ -711,7 +711,7 @@ type
     procedure StoreMemosInfo;
     procedure ClearRegionInfo;
     procedure ClearUnitInfo;
-    procedure EndMoveMode; 
+    procedure EndMoveMode;
     procedure FillRegionInfo(ARegion: TRegion);
     procedure FillUnitGrid;
     procedure SelectUnit(U: TUnit);
@@ -745,6 +745,10 @@ type
     function SelectedCoords: TCoords;
 
     procedure FillEconomyReport(ARegion: TRegion; RealRegion: TRegion; AList: TStrings);
+
+    // QM support
+    procedure StartDistribute;
+    procedure EndDistribute(ATrgtRegion: TRegion);
   end;
 
 var
@@ -761,7 +765,7 @@ implementation
 
 uses uOptions, uAbout, uMiniMap, uFactions, uMemo, uStructEdit,
   uItemEdit, uSkillEdit, uAvatarEdit, uRegistration, RegCode, uBattle,
-  uScriptEdit, uMapExport, uTownTrade, uSoldiers;
+  uScriptEdit, uMapExport, uTownTrade, uSoldiers, uDistribute;
 
 {$R *.DFM}
 
@@ -1422,6 +1426,61 @@ begin
   ProcessOrders(CurrUnit.Region);
 end;
 
+// TODO : QM support
+procedure TMainForm.StartDistribute;
+var
+  uQmaster: TUnit;
+begin
+  uQmaster := DistributeForm.Qmaster;
+
+  HexMapGoto(uQmaster.Region.Coords);
+  GlobalEnable(False);
+  HexMap.Enabled := True;
+
+  Mode := mDistribute;
+  CalcQMReach(uQmaster);
+
+  with HexMap do
+  begin
+    Cursor := crDefault;
+    Options := Options - [hmShowSelection, hmDblClickCenter];
+
+    Redraw;
+  end;
+end;
+
+procedure TMainForm.EndDistribute(ATrgtRegion: TRegion);
+var
+  iReach: integer;
+begin
+  Mode := mNormal;
+  GlobalEnable(True);
+
+  HexMapGoto(CurrUnit.Region.Coords);
+  with HexMap do
+  begin
+    Cursor := crDefault;
+    Options := Options + [hmShowSelection, hmDblClickCenter];
+
+    Redraw;
+  end;
+
+  iReach := FindReach(ATrgtRegion.Coords);
+  if iReach <> -1 then
+    DistributeForm.FillForm(ATrgtRegion, iReach);
+
+  case DistributeForm.ShowModal of
+  mrOk:
+    begin
+      AddOrderTo(DistributeForm.Qmaster, DistributeForm.GetOrders, false);
+      DistributeForm.Free;
+    end;
+  mrIgnore: StartDistribute;
+  else
+    DistributeForm.Free;
+  end;
+end;
+
 procedure TMainForm.btnLinkShaftClick(Sender: TObject);
 begin
   StartLinkMode;
@@ -1504,7 +1563,12 @@ begin
   if NoDraw then Exit;
   CalcMapCoords(HX, HY, mapX, mapY);
   Region := Map.Region(mapX, mapY);
-  if Mode = mMove then DrawMoveState(Region, ACanvas, mapX, mapY, cx, cy);
+
+  case Mode of
+  mMove:        DrawMoveState(Region, ACanvas, mapX, mapY, cx, cy);
+  mDistribute:  DrawDistribute(Region, ACanvas, CX, CY);
+  end;
+
   if Region <> nil then DrawExtra(ACanvas, CX, CY, Region, (Mode = mMove));
   if CurrUnit <> nil then
     DrawPathArrows(ACanvas, mapX, mapY, cx, cy);
@@ -1539,6 +1603,14 @@ begin
       HexMap.ShowHint := True;
     end
     else HexMap.ShowHint := False;
+
+    if Mode = mDistribute then
+    begin
+      if FindReach(Coords(Hex.X, Hex.Y, Map.Level)) <> -1 then
+        HexMap.Cursor := crMove
+      else
+        HexMap.Cursor := crDefault;
+    end;
   end;
 end;
 
@@ -1584,23 +1656,26 @@ begin
   if NoDraw then Exit;
   CalcMapCoords(HX, HY, mapX, mapY);
 
-  if Mode = mNormal then begin
-    // Setup CurrRegion variable
-    CurrRegion := Map.Region(mapX, mapY);
-    BattlesAction.Enabled := (CurrRegion <> nil) and (CurrRegion.Battles <> nil);
-    // Write config
-    GameConfig.WriteInteger('Map', 'SelX_' + Map.Levels[Map.Level].Name, mapX);
-    GameConfig.WriteInteger('Map', 'SelY_' + Map.Levels[Map.Level].Name, mapY);
-    // Fill panels for selected region
-    if CurrRegion <> nil then FillRegionInfo(Map.Region(mapX, mapY))
-    else ClearRegionInfo;
-    FillStructGrid(CurrRegion);
-    FillUnitGrid;
-  end;
-
-  if Mode = mMove then begin
+  case Mode of
+  mNormal:
+    begin
+      // Setup CurrRegion variable
+      CurrRegion := Map.Region(mapX, mapY);
+      BattlesAction.Enabled := (CurrRegion <> nil) and (CurrRegion.Battles <> nil);
+      // Write config
+      GameConfig.WriteInteger('Map', 'SelX_' + Map.Levels[Map.Level].Name, mapX);
+      GameConfig.WriteInteger('Map', 'SelY_' + Map.Levels[Map.Level].Name, mapY);
+      // Fill panels for selected region
+      if CurrRegion <> nil then FillRegionInfo(CurrRegion)
+      else ClearRegionInfo;
+      FillStructGrid(CurrRegion);
+      FillUnitGrid;
+    end;
+  mMove:
     if SelectMoveModeHex(Coords(mapX, mapY, Map.Level)) then
       FillStructGrid(Map.Region(mapX, mapY));
+  mDistribute:
+    EndDistribute(Map.Region(mapX, mapY));
   end;
 end;
 
