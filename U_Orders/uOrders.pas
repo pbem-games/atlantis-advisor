@@ -676,20 +676,24 @@ var i, k, amount: integer;
 
   procedure GiveItem(AUnit, Target: TUnit; i, amount: integer);
   var j: integer;
+    itemData: TItemData;
   begin
+    itemData := AUnit.Items[i].Data;
+
     if Target <> nil then begin
       // Adjust target unit's skills if men given
-      if Test(AUnit.Items[i].Data.Flags, IT_MAN) then
+      if Test(itemData.Flags, IT_MAN) then
         for j := 0 to AUnit.Skills.Count-1 do
-          AddSkillsToUnit(Target, AUnit.Skills[j].Data.Short,
-            AUnit.Skills[j].Points, amount);
+          AddSkillsToUnit(Target, AUnit.Skills[j].Data.Short, AUnit.Skills[j].Points, amount);
+
       // Give item
-      SetAmountInc(Target, AUnit.Items[i].Data, +amount);
-      Target.Inventory.Add(NewItem(AUnit.Items[i].Data, +amount, tsGiveTake, 'from ' + AUnit.FullName));
+      SetAmountInc(Target, itemData, +amount);
+      Target.Inventory.Add(NewItem(itemData, +amount, tsGiveTake, 'from ' + AUnit.FullName));
     end;
 
-    SetAmountInc(AUnit, AUnit.Items[i].Data, -amount);
-    AUnit.Inventory.Add(NewItem(AUnit.Items[i].Data, -amount, tsGiveTake, 'to ' + Target.FullName));
+    // Remove item
+    SetAmountInc(AUnit, itemData, -amount);
+    AUnit.Inventory.Add(NewItem(itemData, -amount, tsGiveTake, 'to ' + Target.FullName));
   end;
 
 begin
