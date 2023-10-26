@@ -474,9 +474,14 @@ begin
         if Special <> nil then
           FmtStr(s, '%s Spec: %s, %d.', [s, SpecDataToStr(Special), SpecLevel]);
 
-        FmtStr(s, '%s UpkeepSilver: %d.', [s, Upkeep.Silver]);
-        FmtStr(s, '%s FoodValue: %d.', [s, Food.Value]);
-        FmtStr(s, '%s FoodOrder: %d.', [s, Food.Order]);
+        if Test(Flags, IT_MAN) then
+          FmtStr(s, '%s UpkeepSilver: %d.', [s, Upkeep.Silver]);
+
+        if Test(Flags, IT_FOOD) then
+        begin
+          FmtStr(s, '%s FoodValue: %d.', [s, Food.Value]);
+          FmtStr(s, '%s FoodOrder: %d.', [s, Food.Order]);
+        end;
       end;
 
       Lines.Add(s);
@@ -958,7 +963,7 @@ begin
     if Pos('FoodOrder', Trace.Text) > 0 then
     begin
       Trace.Before('FoodOrder: ');
-      Food.Value := Trace.Num;
+      Food.Order := Trace.Num;
     end;
   end;
 end;
