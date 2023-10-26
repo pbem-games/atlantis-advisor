@@ -2185,6 +2185,7 @@ var U, OldU: TUnit;
     Troop: TTroop;
     full: boolean;
     repStart: integer;
+    item: TItem;
 
 begin
   repStart := RepPos;
@@ -2248,7 +2249,11 @@ begin
 
   // Items
   while not Trace.Ends and (Trace.Separator <> '.') do
-    U.Items.Add(FormItem(Trace.Block));
+  begin
+    item := FormItem(Trace.Block);
+    U.Items.Add(item);
+    U.Inventory.Add(NewItem(item.Data, item.Amount, tsInitial));
+  end;
 
   // Self units' sections
   while not Trace.Ends do begin

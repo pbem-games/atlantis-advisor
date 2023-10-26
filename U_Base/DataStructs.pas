@@ -259,6 +259,7 @@ type
   TFactionDataList = class;
   TTroopList = class;
   TItemList = class;
+  TItemChanges = class;
   TItemDataList = class;
   TSkillList = class;
   TSkillDataList = class;
@@ -361,14 +362,30 @@ type
     function Name: string; overload;
   end;
 
+  TTurnStage = (tsInitial, tsClaim, tsGiveTake, tsPillageOrTax, tsSell, tsBuy, tsBuild, tsCast, tsProduce, tsStudy, tsWork, tsEntertain, tsTrasnport, tsDistribute, tsUpkeep, tsFinal);
+
   TItem = class
     Data: TItemData;
+
+    // amount of the future stages can be negative
     Amount: integer;
+    
     Cost: integer;
-    Bought: boolean;
     Needs: integer;
+
+    // item was bought in this turn
+    // this will be deprecated and replaced with Stage := tsBuy
+    Bought: boolean;
+
+    // stage at which item appeared in the inventory
+    Stage: TTurnStage;
+
+    // additional notes to display on the user interface
+    Notes: string;
+    
     procedure Assign(Source: TItem);
     function Name: string;
+    function Copy: TItem;
   end;
 
   TSkillData = class(TData)
@@ -595,7 +612,13 @@ type
     Mage: boolean;
     Faction: TFaction;
     Struct: TStruct;
+    
+    // items that are not in the inventory and that can be manipulated directly with give/take orders
     Items: TItemList;
+
+    // money and item inventory changes during the turn
+    Inventory: TItemChanges;
+
     Skills: TSkillList;
     CombatSpell: TSkillData;
     constructor Create;
@@ -773,6 +796,22 @@ type
     function Seek(Short: string): TItem;
     procedure AssignItems(Source: TItemList);
     function Amount(Mask: DWord): integer;
+  end;
+
+  TItemChanges = class(TList)
+  protected
+    function Get(Index: Integer): TItem;
+    procedure Put(Index: Integer; Item: TItem);
+  public
+    property Items[Index: Integer]: TItem read Get write Put; default;
+    procedure ClearAndFree;
+    procedure ClearItems;
+    function Find(Short: string; Stage: TTurnStage): TItem;
+    function Seek(Short: string; Stage: TTurnStage): TItem;
+    procedure AssignItems(Source: TItemChanges);
+    function Amount(Mask: DWord; Stage: TTurnStage): integer;
+    function BalanceOn(Stage: TTurnStage): TItemList;
+    function BalanceBefore(Stage: TTurnStage): TItemList;
   end;
 
   TSkillList = class(TList)
@@ -987,8 +1026,44 @@ var
   function IndexToProgress(AMod, AIndex: integer): integer;
   procedure SetProgress(pr, fp, value: integer);
 
+  function NewItem(Data: TItemData; Amount: integer = 1; Stage: TTurnStage = tsInitial; Notes: string = ''): TItem; overload;
+  function NewItem(Short: string; Amount: integer = 1; Stage: TTurnStage = tsInitial; Notes: string = ''): TItem; overload;
+  function NewMoneyItem(Amount: integer; Stage: TTurnStage; Notes: string = ''): TItem;
+
 
 implementation
+
+
+function NewItem(Data: TItemData; Amount: integer = 1; Stage: TTurnStage = tsInitial; Notes: string = ''): TItem;
+begin
+  Result := TItem.Create;
+  Result.Data := Data;
+  Result.Amount := Amount;
+  Result.Stage := Stage;
+  Result.Notes := Notes;
+end;
+
+function NewItem(Short: string; Amount: integer = 1; Stage: TTurnStage = tsInitial; Notes: string = ''): TItem;
+var
+  data: TItemData;
+
+begin
+  data := Game.ItemData.Find(Short);
+  if data = nil then
+  begin
+    Result := nil;
+    Exit;
+  end;
+
+  Result := NewItem(data, Amount, Stage, Notes);
+end;
+
+function NewMoneyItem(Amount: integer; Stage: TTurnStage; Notes: string = ''): TItem;
+begin
+  Result := NewItem('SILV', Amount, Stage, Notes);
+end;
+
+{ TItemData }
 
 function ProgressCount(AMod: integer): integer;
 var
@@ -1381,12 +1456,14 @@ end;
 constructor TBaseUnit.Create;
 begin
   Items := TItemList.Create;
+  Inventory := TItemChanges.Create;
   Skills := TSkillList.Create;
 end;
 
 destructor TBaseUnit.Destroy;
 begin
   Items.ClearAndFree;
+  Inventory.ClearAndFree;
   Skills.ClearAndFree;
 end;
 
@@ -1397,6 +1474,7 @@ begin
   Num := Source.Num;
   Mage := Source.Mage;
   Items.AssignItems(Source.Items);
+  Inventory.AssignItems(Source.Inventory);
   Skills.AssignItems(Source.Skills);
   CombatSpell := Source.CombatSpell;
   // Assign Faction and Struct outside
@@ -2113,11 +2191,19 @@ begin
   Cost   := Source.Cost;
   Bought := Source.Bought;
   Needs  := Source.Needs;
+  Stage  := Source.Stage;
+  Notes  := Source.Notes;
 end;
 
 function TItem.Name: string;
 begin
   Result := Data.Name(Amount <> 1);
+end;
+
+function TItem.Copy: TItem;
+begin
+  Result := TItem.Create;
+  Result.Assign(Self);
 end;
 
 { TSkill }
@@ -2349,6 +2435,107 @@ procedure TItemList.Put(Index: integer; Item: TItem);
 begin
   inherited Put(Index, Item);
 end;
+
+////
+
+function TItemChanges.Amount(Mask: DWord; Stage: TTurnStage): integer;
+var i: integer;
+begin
+  Result := 0;
+  for i := 0 to Count-1 do
+    if Test(Items[i].Data.Flags, Mask) and (Items[i].Stage <= Stage) then
+      Result := Result + Items[i].Amount;
+end;
+
+procedure TItemChanges.AssignItems(Source: TItemChanges);
+var i: integer;
+    Item: TItem;
+begin
+  ClearItems;
+  for i := 0 to Source.Count-1 do begin
+    Item := TItem.Create;
+    Item.Assign(Source[i]);
+    Add(Item);
+  end;
+end;
+
+procedure TItemChanges.ClearAndFree;
+begin
+  ClearItems;
+  Free;
+end;
+
+procedure TItemChanges.ClearItems;
+var i: integer;
+begin
+  for i := 0 to Count-1 do Items[i].Free;
+  Clear;
+end;
+
+function TItemChanges.Find(Short: string; Stage: TTurnStage): TItem;
+var i: integer;
+begin
+  Result := nil;
+  i := 0;
+  while (i < Count) and (Items[i].Data.Short <> Short) and (Items[i].Stage <> Stage) do Inc(i);
+  if i < Count then Result := Items[i];
+end;
+
+function TItemChanges.Seek(Short: string; Stage: TTurnStage): TItem;
+begin
+  Result := Find(Short, Stage);
+  if Result = nil then begin
+    Result := TItem.Create;
+    Result.Data := Game.ItemData.Seek(Short);
+    Result.Stage := Stage;
+    Add(Result);
+  end;
+end;
+
+function TItemChanges.Get(Index: integer): TItem;
+begin
+  Result := TItem(inherited Get(Index));
+end;
+
+procedure TItemChanges.Put(Index: integer; Item: TItem);
+begin
+  inherited Put(Index, Item);
+end;
+
+function TItemChanges.BalanceOn(Stage: TTurnStage): TItemList;
+var
+  i, j: integer;
+  src, item: TItem;
+  found: boolean;
+
+begin
+  Result := TItemList.Create;
+
+  for i := 0 to Count - 1 do
+  begin
+    src := Items[i];
+    if src.Stage > Stage then Continue;
+
+    item := Result.Seek(src.Data.Short);
+    item.Amount := item.Amount + src.Amount;
+  end;
+
+  for i := Result.Count - 1 downto 0 do
+  begin
+    item := Result[i];
+    if item.Amount = 0 then
+      Result.Delete(i)
+    else
+      item.Stage := Stage;
+  end;
+end;
+
+function TItemChanges.BalanceBefore(Stage: TTurnStage): TItemList;
+begin
+  Result := BalanceOn(TTurnStage(Ord(Stage) - 1));
+end;
+
+////
 
 procedure TItemDataList.ClearAndFree;
 var i: integer;

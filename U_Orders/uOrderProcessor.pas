@@ -239,7 +239,9 @@ begin
   DoOrders(R, 'teach',   DoTeach);
   DoOrders(R, 'work',    DoWork);
   ResolveWork(R);
-
+  DoOrders(R, 'transport',  DoTransport);
+  DoOrders(R, 'distribute', DoDistribute);
+  
   // Add final regions of moving units to list
   for i := 0 to R.PlayerTroop.Units.Count-1 do begin
     U := R.PlayerTroop.Units[i];
@@ -275,8 +277,10 @@ begin
       (Pos('@;!NOP', UpperCase(U.Orders.Text)) = 0) then
       ParseErrors.AddObject('! 5 ' + U.Name + ' (' + U.NumStr +
         '): No monthlong order', U);
+
     // Set avatars
     SetExportAvatars(U);
+
     // Clear empty orders
     k := 0;
     while k < U.Orders.Count do
