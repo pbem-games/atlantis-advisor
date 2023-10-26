@@ -809,7 +809,8 @@ type
     function Find(Short: string; Stage: TTurnStage): TItem;
     function Seek(Short: string; Stage: TTurnStage): TItem;
     procedure AssignItems(Source: TItemChanges);
-    function Amount(Mask: DWord; Stage: TTurnStage): integer;
+    function AmountOn(Mask: DWord; Stage: TTurnStage): integer;
+    function AmountBefore(Mask: DWord; Stage: TTurnStage): integer;
     function BalanceOn(Stage: TTurnStage): TItemList;
     function BalanceBefore(Stage: TTurnStage): TItemList;
   end;
@@ -2438,13 +2439,18 @@ end;
 
 ////
 
-function TItemChanges.Amount(Mask: DWord; Stage: TTurnStage): integer;
+function TItemChanges.AmountOn(Mask: DWord; Stage: TTurnStage): integer;
 var i: integer;
 begin
   Result := 0;
   for i := 0 to Count-1 do
     if Test(Items[i].Data.Flags, Mask) and (Items[i].Stage <= Stage) then
       Result := Result + Items[i].Amount;
+end;
+
+function TItemChanges.AmountBefore(Mask: DWord; Stage: TTurnStage): integer;
+begin
+  Result := AmountOn(Mask, TTurnStage(Ord(Stage) - 1));
 end;
 
 procedure TItemChanges.AssignItems(Source: TItemChanges);
