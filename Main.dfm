@@ -2506,9 +2506,17 @@ object MainForm: TMainForm
           Style = tbsCheck
           OnClick = UnitFlagBtnClick
         end
+        object ToolButton48: TToolButton
+          Left = 161
+          Top = 2
+          Width = 8
+          Caption = 'ToolButton48'
+          ImageIndex = 8
+          Style = tbsSeparator
+        end
         object SharingFlag: TToolButton
           Tag = 7
-          Left = 161
+          Left = 169
           Top = 2
           Hint = 'Sharing inventory'
           AllowAllUp = True
@@ -2518,14 +2526,6 @@ object MainForm: TMainForm
           ShowHint = True
           Style = tbsCheck
           OnClick = UnitFlagBtnClick
-        end
-        object ToolButton48: TToolButton
-          Left = 184
-          Top = 2
-          Width = 8
-          Caption = 'ToolButton48'
-          ImageIndex = 8
-          Style = tbsSeparator
         end
         object btnConsume: TToolButton
           Left = 192
