@@ -48,6 +48,8 @@ var
   procedure DoTax(AUnit: TUnit; s: string; var Line: integer);
   procedure DoTeach(AUnit: TUnit; s: string; var Line: integer);
   procedure DoWork(AUnit: TUnit; s: string; var Line: integer);
+  procedure DoDistribute(AUnit: TUnit; s: string; var Line: integer);
+  procedure DoTransport(AUnit: TUnit; s: string; var Line: integer);
 
   procedure ResolveTaxes(ARegion: TRegion; TaxUnits: TUnitList; RateMul,
     IncomeMul: integer);
@@ -293,6 +295,7 @@ begin
     val := Min(StrToInt(t2), Game.VirtTurn.Unclaimed);
     Game.VirtTurn.Unclaimed := Game.VirtTurn.Unclaimed - val;
     SetMoneyInc(AUnit, val);
+    AUnit.Inventory.Add(NewMoneyitem(val, tsClaim));
   except
     on EConvertError do raise EParseError.Create('No amount given');
   end;
@@ -542,7 +545,7 @@ end;
 procedure DoProduce(AUnit: TUnit; s: string; var Line: integer);
 var IData: TItemData;
     Res: TItem;
-    maxout, turnout, limitOut: integer;
+    i, maxout, turnout, limitOut: integer;
     token: string;
 begin
   token := GetToken(s);
@@ -582,6 +585,15 @@ begin
   AUnit.MonthInfo.Data := IData;
   AUnit.MonthInfo.Max := maxout;
   AUnit.MonthInfo.Amount := turnout;
+
+  for i := 0 to IData.Produce.Materials.Count - 1 do
+  begin
+    Res := IData.Produce.Materials[i];
+    AUnit.Inventory.Add(NewItem(Res.Data, -Res.Amount * turnout, tsProduce, Format('for %s', [IData.Name])));
+  end;
+
+  AUnit.Inventory.Add(NewItem(IData, turnout, tsProduce));
+
   DoMonth(AUnit, s, Line);
 end;
 
@@ -673,8 +685,11 @@ var i, k, amount: integer;
             AUnit.Skills[j].Points, amount);
       // Give item
       SetAmountInc(Target, AUnit.Items[i].Data, +amount);
+      Target.Inventory.Add(NewItem(AUnit.Items[i].Data, +amount, tsGiveTake, 'from ' + AUnit.FullName));
     end;
+
     SetAmountInc(AUnit, AUnit.Items[i].Data, -amount);
+    AUnit.Inventory.Add(NewItem(AUnit.Items[i].Data, -amount, tsGiveTake, 'to ' + Target.FullName));
   end;
 
 begin
@@ -806,8 +821,8 @@ begin
 end;
 
 procedure DoSell(AUnit: TUnit; s: string; var Line: integer);
-var i, j, amt: integer;
-    t2, t3: string;
+var i, j, amt, income: integer;
+    t2, t3, msg: string;
 begin
   // For simplification, do sell order as instant. If next unit attemts to
   //  sell too many, it will not sell anything (no fair sales distribution,
@@ -842,7 +857,16 @@ begin
       SetFlag(AUnit.Region.Marks, RM_TRADE, True);
     // Changes in unit
     SetAmountInc(AUnit, AUnit.Items[i].Data, -amt);
-    Inc(AUnit.TradeIncome, Wanted[j].Cost * amt);
+
+    income := Wanted[j].Cost * amt;
+    Inc(AUnit.TradeIncome, income);
+
+    if income > 0 then
+    begin
+      msg := Format('sold %d %s', [ amt, AUnit.Items[i].Data.Name(amt > 1) ]);
+      AUnit.Inventory.Add(NewMoneyitem(income, tsSell, msg));
+      AUnit.Inventory.Add(NewItem(AUnit.Items[i].Data, -amt, tsSell, msg));
+    end;
   end;
 end;
 
@@ -857,8 +881,8 @@ begin
 end;
 
 procedure DoBuy(AUnit: TUnit; s: string; var Line: integer);
-var amt, i, j: integer;
-    t2, t3: string;
+var amt, i, j, expense: integer;
+    t2, t3, msg: string;
     Item: TItem;
 begin
   // Same simplification then in Sell
@@ -869,6 +893,7 @@ begin
   except
     on EConvertError do raise EParseError.Create('Invalid value');
   end;
+
   t3 := AnsiLowerCase(GetToken(s));
   with AUnit.Region do begin
     i := 0;
@@ -876,13 +901,14 @@ begin
     if i >= ForSale.Count then raise EParseError.Create('No items for sale');
 
     if amt = -1 then amt := ForSale[i].Amount;
-    if ForSale[i].Amount <> -1 then
-      amt := Min(amt, ForSale[i].Amount);
 
-    amt := Min(amt, (AUnit.Items.Amount(IT_SILVER) + AUnit.TradeIncome)
-      div ForSale[i].Cost);
+    if ForSale[i].Amount <> -1 then amt := Min(amt, ForSale[i].Amount);
+
+    amt := Min(amt, (AUnit.Items.Amount(IT_SILVER) + AUnit.TradeIncome) div ForSale[i].Cost);
+
     if ForSale[i].Amount <> -1 then
       ForSale[i].Amount := ForSale[i].Amount - amt;
+
     if amt > 0 then begin
       // Men
       if Test(ForSale[i].Data.Flags, IT_MAN) then begin
@@ -894,23 +920,36 @@ begin
         for j := 0 to AUnit.Skills.Count-1 do
           AddSkillsToUnit(AUnit, AUnit.Skills[j].Data.Short, 0, amt);
       end;
+
       // Trade items
       if Test(ForSale[i].Data.Flags, IT_TRADE) then
         SetFlag(AUnit.Region.Marks, RM_TRADE, True);
+
       // Good/Evil
       if (GameConfig.ReadInteger('Game', 'Alignment', alNeutral) = alGood)
         and Test(ForSale[i].Data.Flags, IT_EVIL) then
         raise EParseError.Create('Can''t buy evil items');
+
       if (GameConfig.ReadInteger('Game', 'Alignment', alNeutral) = alEvil)
         and Test(ForSale[i].Data.Flags, IT_GOOD) then
         raise EParseError.Create('Can''t buy good items');
+
       // Buy item
       Item := TItem.Create;
       Item.Amount := amt;
       Item.Data := ForSale[i].Data;
       Item.Bought := True;
       AUnit.Items.Add(Item);
-      SubtractTradeMoney(AUnit, ForSale[i].Cost * amt);
+
+      expense := ForSale[i].Cost * amt;
+      SubtractTradeMoney(AUnit, expense);
+
+      if expense > 0 then
+      begin
+        msg := Format('Bought %d %s', [ amt, ForSale[i].Data.Name(amt > 1) ]);
+        AUnit.Inventory.Add(NewMoneyItem(-expense, tsBuy, msg));
+        AUnit.Inventory.Add(NewItem(ForSale[i].Data, amt, tsBuy, msg));
+      end;
     end;
   end;
 end;
@@ -926,16 +965,23 @@ begin
     GetToken(s);
     U := GetUnit(AUnit.Region, s, False);
     if U = nil then Exit;
+    
     i := U.Orders.Count-1;
     while (i >= 0) and (U.Order(i) <> 'build') do Dec(i);
-    if i < 0 then raise EParseError.Create('Target doesn''t building')
-    else order := U.Orders[i];
+    
+    if i < 0 then
+      raise EParseError.Create('Target doesn''t building')
+    else
+      order := U.Orders[i];
+
     StData := nil;
     GetToken(order);
+
     if (Trim(order) = '') then begin
       if (U.Struct <> nil) then StData := U.Struct.Data;
     end
-    else StData := Game.StructData.Find(GetToken(order));
+    else
+      StData := Game.StructData.Find(GetToken(order));
   end
   else if s <> '' then begin
     // BUILD "Object"
@@ -948,23 +994,33 @@ begin
     // BUILD
     if AUnit.Struct = nil then
       raise EParseError.Create('Must be inside object');
+    
     if AUnit.Struct.Needs = 0 then
       raise EParseError.Create('Object is finished');
+    
     StData := AUnit.Struct.Data;
   end;
+
   if StData <> nil then begin
     // Check productivity
     lv := BuildSkillLv(AUnit, StData);
+
     if lv = 0 then
       raise EParseError.Create('Can''t build that');
     amt := BuildMaterials(AUnit, StData);
+
     if amt = 0 then
       raise EParseError.Create('Don''t have the required item');
+
     AUnit.MonthInfo.Data := StData;
     maxout := AUnit.Items.Amount(IT_MAN) * lv;
     Inc(AUnit.MonthInfo.Max, maxout);
     AUnit.MonthInfo.Amount := Min(AUnit.MonthInfo.Max, amt);
+
+    // TODO: determine correct resource
+    AUnit.Inventory.Add(NewItem('ston', -AUnit.MonthInfo.Amount, tsBuild, Format('Spent %d %s to build %s', [ amt, 'stone', StData.Group ])));
   end;
+
   DoMonth(AUnit, s, Line);
 end;
 
@@ -1036,19 +1092,24 @@ procedure DoStudy(AUnit: TUnit; s: string; var Line: integer);
 var t2: string;
     SData: TSkillData;
     Skill: TSkill;
-    i: integer;
+    i, cost: integer;
 begin
   t2 := LowerCase(GetToken(s));
   SData := Game.SkillData.FindByName(t2);
   if SData = nil then raise EParseError.Create('Bad skill');
+  
   // Max level
   Skill := AUnit.Skills.Find(SData.Short);
   if (Skill <> nil) and (Skill.Level = MaxSkillLevel(AUnit, SData)) then
     raise EParseError.Create('Maximum level reached');
+
+
   // Cost
-  if StudyCost(AUnit, SData) > AUnit.Items.Amount(IT_SILVER) +
+  cost := StudyCost(AUnit, SData);
+  if cost > AUnit.Items.Amount(IT_SILVER) +
     AUnit.TradeIncome + AUnit.WorkIncome then
     raise EParseError.Create('Not enough money');
+
   // Prereqisites
   for i := 0 to SData.BasedOn.Count-1 do begin
     Skill := AUnit.Skills.Find(SData.BasedOn[i].Data.Short);
@@ -1056,8 +1117,12 @@ begin
       raise EParseError.Create('No pre-requisite skill (' +
         SData.BasedOn[i].Data.Name + ' ' + IntToStr(SData.BasedOn[i].Level) + ')' );
   end;
+
   // Days learned
   AUnit.MonthInfo.Amount := 30;
+
+  AUnit.Inventory.Add(NewMoneyItem(-cost, tsStudy, Format('Studied %s', [ SData.Name ])));
+
   DoMonth(AUnit, s, Line);
 end;
 
@@ -1168,57 +1233,85 @@ begin
   DoMonth(AUnit, s, Line);
 end;
 
+procedure DoDistribute(AUnit: TUnit; s: string; var Line: integer);
+var
+  skill: TSkill;
+  target: TUnit;
+  trace: TTrace;
+
+begin
+  trace := TTrace.Create(s);
+  try
+    // Possible formats
+    // [unit] [num] [item]
+    // [unit] ALL [item]
+    // [unit] ALL [item] EXCEPT [amount]
+    // parase using trace mentioned formats
+
+//    target :=  trace.Num;
+
+  finally
+    trace.Free;
+  end;
+
+  skill := AUnit.Skills.Find(Keys[s_Quartermaster]);
+  if skill = nil then raise EParseError.Create('Unit has no quartermaster skill');
+
+
+
+end;
+
+procedure DoTransport(AUnit: TUnit; s: string; var Line: integer);
+begin
+
+end;
+
 procedure ResolveMaintenance(C: TCoords; ParseErrors: TStrings);
-  type TConsumeRec = record
+  type TConsumer = record
     Upkeep: integer;
     URef: TUnit;
   end;
 
-  type TFoodRec = record
+  type TFood = record
     Value, Order, Amount: integer;
+    Data: TItemData;
+    Owner: TUnit;
   end;
 
-  type TConsumeRecArray = array of TConsumeRec;
-  type TFoodRecArray = array of TFoodRec;
+  type TMoney = record
+    Amount: integer;
+    Owner: TUnit;
+  end;
+
+  type TConsumerArray = array of TConsumer;
+  type TMoneyArray = array of TMoney;
+  type TFoodArray = array of TFood;
+
+  type TConsumeItem = (ciFood, ciSilver);
+  type TConsumeScope = (csOwn, csAll);
 
 var i: integer;
-    Recs: TConsumeRecArray;
-    silverBag: integer;
-    foodStack: TFoodRecArray;
+    consumers: TConsumerArray;
+    silverStack: TMoneyArray;
+    foodStack: TFoodArray;
     warn: boolean;
     R: TRegion;
     U: TUnit;
 
-  procedure addConsumeRec(var items: TConsumeRecArray; item: TConsumeRec);
-  begin
-    SetLength(items, Length(items) + 1);
-    items[High(items)] := item;
-  end;
-
-  procedure addFoodRec(var items: TFoodRecArray; value, order, amount: integer);
+  procedure swap(var a: TFoodArray; i, j: integer);
   var
-    food: TFoodRec;
-  begin
-    food.Value := value;
-    food.Order := order;
-    food.Amount := amount;
+    tmp: TFood;
 
-    SetLength(items, Length(items) + 1);
-    items[High(items)] := food;
-  end;
-
-  procedure swap(var a: TFoodRecArray; i, j: integer);
-  var
-    tmp: TFoodRec;
   begin
     tmp := a[i];
     a[i] := a[j];
     a[j] := tmp;
   end;
 
-  procedure sortFood(var arr: TFoodRecArray);
+  procedure sortFood(var arr: TFoodArray);
   var
     i, j: integer;
+
   begin
     if Length(arr) <= 1 then Exit;
 
@@ -1228,148 +1321,180 @@ var i: integer;
           swap(arr, j, j + 1);
   end;
 
+  procedure addFood(var items: TFoodArray; amount: integer; data: TItemData; owner: TUnit);
+  var
+    food: TFood;
+  begin
+    food.Value := data.Food.Value;
+    food.Order := data.Food.Order;
+    food.Amount := amount;
+    food.Data := data;
+    food.Owner := owner;
+
+    if food.Value = 0 then Exit;
+    if food.Amount = 0 then Exit;
+
+    SetLength(items, Length(items) + 1);
+    items[High(items)] := food;
+  end;
+
+  procedure addMoney(var items: TMoneyArray; amount: integer; owner: TUnit);
+  var
+    money: TMoney;
+  begin
+    money.Amount := amount;
+    money.Owner := owner;
+
+    SetLength(items, Length(items) + 1);
+    items[High(items)] := money;
+  end;
+
+  procedure addConsumer(U: TUnit);
+  var
+    j, silver: integer;
+    Item: TItem;
+    rec: TConsumer;
+    balance: TItemList;
+
+  begin
+    silver := 0;
+    rec.Upkeep := 0;
+    rec.URef := U;
+
+    balance := U.Inventory.BalanceBefore(tsUpkeep);
+    for j := 0 to balance.Count - 1 do begin
+      // Set values from inventory
+      Item := balance[j];
+
+      if Test(Item.Data.Flags, IT_MAN) then
+        Inc(rec.Upkeep, Item.Amount * Item.Data.Upkeep.Silver)
+      else if Test(Item.Data.Flags, IT_SILVER) then
+        Inc(silver, Item.Amount)
+      else if Test(Item.Data.Flags, IT_FOOD) then
+        addFood(foodStack, Item.Amount, Item.Data, U);
+    end;
+    balance.ClearAndFree();
+
+    if silver > 0 then addMoney(silverStack, silver, U);
+
+
+    SetLength(consumers, Length(consumers) + 1);
+    consumers[High(consumers)] := rec;
+  end;
+
   // consume food from the stack (stack is sorted from least to most valuable food)
   // update the food stack
   // return new upkeep value
-  function consumeFood(var items: TFoodRecArray; upkeep: integer): integer;
+  function consume(consumer: TUnit; upkeep: integer; targetItem: TConsumeItem; scope: TConsumeScope; var silverItems: TMoneyArray; var foodItems: TFoodArray): integer;
   var
-    amount, value, consume: integer;
+    consume, j: integer;
+    owner: TUnit;
+    food: TFood;
+    silver: TMoney;
 
   begin
-    while (upkeep > 0) and (Length(items) > 0) do
-    begin
-      amount := items[High(items)].Amount;
+    if targetItem = ciFood then
+      j := High(foodItems)
+    else
+      j := High(silverItems);
 
-      if amount = 0 then
+    while (upkeep > 0) and (j >= 0) do
+    begin
+      if targetItem = ciFood then
       begin
-        SetLength(items, Length(items) - 1);
+        food := foodItems[j];
+        
+        if food.Amount = 0 then
+        begin
+          SetLength(foodItems, Length(foodItems) - 1);
+          Dec(j);
+
+          Continue;
+        end;
+
+        owner := food.Owner;
+      end
+      else
+      begin
+        silver := silverItems[j];
+        
+        if silver.Amount = 0 then
+        begin
+          SetLength(silverItems, Length(silverItems) - 1);
+          Dec(j);
+
+          Continue;
+        end;
+
+        owner := silver.Owner;
+      end;
+
+      if (scope = csOwn) and (owner <> consumer) then
+      begin
+        Dec(j);
         Continue;
       end;
 
-      value := items[High(items)].Value;
-
-      // determine how much food to consume
+      // determine how much food or silver to consume
       // food can be consumed only in whole units
-      consume := Min(amount, Ceil(upkeep / value));
+      if targetItem = ciFood then
+        consume := Min(food.Amount, Ceil(upkeep / food.Value))
+      else
+        consume := Min(silver.Amount, upkeep);
 
-      // update upkeep and food amount
-      upkeep := Max(0, upkeep - consume * value);
-      Dec(items[High(items)].Amount, consume);
+      if consumer <> owner then
+      begin
+        if targetItem = ciFood then
+        begin
+          owner.Inventory.Add(NewItem(food.Data, -consume, tsUpkeep, Format('Shares food with %s', [ U.FullName ])));
+          U.Inventory.Add(NewItem(food.Data, consume, tsUpkeep, Format('Borrows food from %s', [ owner.FullName ])));
+        end
+        else
+        begin
+          owner.Inventory.Add(NewMoneyItem(-consume, tsUpkeep, Format('Shares silver with %s', [ U.FullName ])));
+          U.Inventory.Add(NewMoneyItem(consume, tsUpkeep, Format('Borrows silver from %s', [ owner.FullName ])));
+        end;
+      end;
+
+      if targetItem = ciFood then
+      begin
+        U.Inventory.Add(NewItem(food.Data, -consume, tsUpkeep));
+
+        upkeep := Max(0, upkeep - consume * food.Value);
+        Dec(foodItems[j].Amount, consume);
+      end
+      else
+      begin
+        U.Inventory.Add(NewMoneyItem(-consume, tsUpkeep));
+
+        upkeep := Max(0, upkeep - consume);
+        Dec(silverItems[j].Amount, consume);
+      end;
+
+      Dec(j);
     end;
 
     Result := upkeep;
   end;
 
-  function consumeSilver(var silver: integer; upkeep: integer): integer;
-  var
-    amount: integer;
-
-  begin
-    amount := Min(silver, upkeep);
-    Dec(silver, amount);
-
-    Result := upkeep - amount;
-  end;
-
-  procedure addToRecs(U: TUnit);
-  var
-    j, silver: integer;
-    order, t: string;
-    SData: TSkillData;
-    IData: TItemData;
-    Item: TItem;
-    rec: TConsumeRec;
-    foodBag: TFoodRecArray;
-
-  begin
-    SetLength(foodBag, 0);
-
-    silver := 0;
-    rec.Upkeep := 0;
-    rec.URef := U;
-
-    for j := 0 to U.Items.Count-1 do begin
-      // Set values from inventory
-      Item := U.Items[j];
-
-      if Test(Item.Data.Flags, IT_MAN) then
-      begin
-        Inc(rec.Upkeep, Item.Amount * Item.Data.Upkeep.Silver)
-      end
-      else if Test(Item.Data.Flags, IT_SILVER) then
-      begin
-        Inc(silver, Item.Amount);
-      end
-      else if Test(Item.Data.Flags, IT_FOOD) then
-      begin
-        addFoodRec(foodBag, Item.Data.Food.Value, Item.Data.Food.Order, Item.Amount);
-      end;
-    end;
-
-    // Add income silver
-    Inc(silver, U.TradeIncome + U.WorkIncome);
-
-    order := ClearOrder(U.MonthOrder);
-
-    // Remove study fees
-    if order = 'study' then
-    begin
-      order := U.MonthOrder;
-      GetToken(order); // study
-      t := GetToken(order);
-      SData := Game.SkillData.FindByName(t);
-      if SData <> nil then Dec(silver, StudyCost(U, SData));
-    end;
-
-    // TODO: items being produced should appear in the items list with special flag set
-    IData := TItemData(U.MonthInfo.Data);
-    if (order = 'produce') and (IData <> nil) and Test(IData.Flags, IT_FOOD) then
-    begin
-      addFoodRec(foodBag, IData.Food.Value, IData.Food.Order, U.MonthInfo.Amount);
-    end;
-
-    // Apply maintenance costs, i.e. eat own supplies first
-    if U.Consuming = ctSilver then
-    begin
-      rec.Upkeep := consumeSilver(silver, rec.Upkeep);
-    end
-    else
-    begin
-      // will consume own food first, food must be consumed in the food preference order
-      sortFood(foodBag);
-      rec.Upkeep := consumeFood(foodBag, rec.Upkeep);
-    end;
-
-    if rec.Upkeep > 0 then addConsumeRec(Recs, rec);
-
-    Inc(silverBag, silver);
-
-    for j := 0 to High(foodBag) do
-    begin
-      if foodBag[j].Amount = 0 then Continue;
-
-      addFoodRec(foodStack, foodBag[j].Value, foodBag[j].Order, foodBag[j].Amount);
-    end;
-  end;
-
 begin
-  SetLength(Recs, 0);
+  SetLength(consumers, 0);
   SetLength(foodStack, 0);
-  silverBag := 0;
+  SetLength(silverStack, 0);
 
   // Fill Recs with units from the region
   R := Map.Region(C);
   if (R <> nil) and (R.PlayerTroop <> nil) then
     for i := 0 to R.PlayerTroop.Units.Count-1 do
       if EqualCoords(R.PlayerTroop.Units[i].FinalCoords, R.Coords) then
-        addToRecs(R.PlayerTroop.Units[i]);
+        addConsumer(R.PlayerTroop.Units[i]);
 
   // Add arriving units
   for i := 0 to VFaction.Units.Count-1 do
     if VFaction.Units[i].ArrivingTo(C) then
-      addToRecs(VFaction.Units[i]);
+      addConsumer(VFaction.Units[i]);
 
-  // sort food
+  // sort food so that more valuable food is consumed first
   sortFood(foodStack);
 
   warn := False;
@@ -1379,31 +1504,45 @@ begin
   // 2) consume own silver
   // 3) consume silver from other units
   // 4) warn that not enough money for maintenance
-  for i := 0 to Length(Recs) - 1 do begin
-    if Recs[i].Upkeep = 0 then Continue;
-    U := Recs[i].URef;
+  for i := 0 to Length(consumers) - 1 do begin
+    if consumers[i].Upkeep = 0 then Continue;
+    U := consumers[i].URef;
 
+    // consume own food first if it is set to consume food
+    if (U.Consuming = ctUnit) or (U.Consuming = ctFaction) then
+    begin
+      consumers[i].Upkeep := consume(U, consumers[i].Upkeep, ciFood, csOwn, silverStack, foodStack);
+      if consumers[i].Upkeep = 0 then Continue;
+    end;
+
+    // if consuming food from other units, consume food from other units
     if U.Consuming = ctFaction then
     begin
-      Recs[i].Upkeep := consumeFood(foodStack, Recs[i].Upkeep);
+      consumers[i].Upkeep := consume(U, consumers[i].Upkeep, ciFood, csAll, silverStack, foodStack);
+      if consumers[i].Upkeep = 0 then Continue;
       
-      if Recs[i].Upkeep = 0 then Continue;
-      
-      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(Recs[i].Upkeep) + ' for maintenance');
+      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(consumers[i].Upkeep) + ' for maintenance');
     end;
 
+    // if not all demands are met, write warning
     if U.Consuming = ctUnit then
     begin
-      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(Recs[i].Upkeep) + ' for maintenance');
+      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(consumers[i].Upkeep) + ' for maintenance');
     end;
 
-    // consume silver
-    Recs[i].Upkeep := consumeSilver(silverBag, Recs[i].Upkeep);
+    // consume silver own silver first
+    consumers[i].Upkeep := consume(U, consumers[i].Upkeep, ciSilver, csOwn, silverStack, foodStack);
+    if consumers[i].Upkeep = 0 then Continue;
+
+    // consume silver from other units if not enough own silver
+    consumers[i].Upkeep := consume(U, consumers[i].Upkeep, ciSilver, csAll, silverStack, foodStack);
 
     // warn if not enough money for maintenance
-    if Recs[i].Upkeep > 0 then
+    if consumers[i].Upkeep > 0 then
     begin
-      U.Orders.Insert(0, ';. Missing $' + IntToStr(Recs[i].Upkeep) + ' for maintenance');
+      U.Orders.Insert(0, ';. Missing $' + IntToStr(consumers[i].Upkeep) + ' for maintenance');
+      U.Inventory.Add(NewMoneyItem(-consumers[i].Upkeep, tsUpkeep, 'Missing for maintenance'));
+
       if not warn then ParseErrors.AddObject('!M4 ' + MakeRegionName(C, True) + ': Units hungry', U);
       warn := True;
     end;
@@ -1424,13 +1563,17 @@ begin
   if total_men > 0 then begin
     tax_rate := ARegion.TaxRate * RateMul;
     cash := Min(tax_income * RateMul, tax_rate / total_men);
+    
     for i := 0 to TaxUnits.Count-1 do begin
       U := TaxUnits[i];
       men := Taxers(U);
       Inc(ARegion.Activity.Taxers, men);
       amt := Round(men * cash);
       tax_rate := tax_rate - amt;
+
       Inc(U.TradeIncome, amt);
+      U.Inventory.Add(NewMoneyItem(amt, tsPillageOrTax));
+
       if GameConfig.ReadBool('Settings', 'MonthTax', False) then begin
         U.MonthInfo.Max := men * tax_income;
         U.MonthInfo.Amount := amt;
@@ -1442,7 +1585,7 @@ begin
 end;
 
 procedure ResolveEntertainment(ARegion: TRegion);
-var i, total, amt, ent_income: integer;
+var i, total, amt, ent_income, income: integer;
     cash: real;
     U: TUnit;
 begin
@@ -1450,16 +1593,25 @@ begin
   total := 0;
   for i := 0 to EntertainUnits.Count-1 do
     Inc(total, EntertainOut(EntertainUnits[i]));
+
   if total > 0 then begin
     cash := Min(1, ARegion.Entertainment / total);
-    for i := 0 to EntertainUnits.Count-1 do begin
+
+    for i := 0 to EntertainUnits.Count-1 do
+    begin
       U := EntertainUnits[i];
       amt := EntertainOut(U);
       Inc(ARegion.Activity.Entertainers, amt div ent_income);
-      Dec(ARegion.Entertainment, Round(amt * cash));
-      Inc(U.WorkIncome, Round(amt * cash));
+      
+      income := Round(amt * cash);
+
+      Dec(ARegion.Entertainment, income);
+      Inc(U.WorkIncome, income);
+
       U.MonthInfo.Max := amt;
-      U.MonthInfo.Amount := Round(amt * cash);
+      U.MonthInfo.Amount := income;
+
+      U.Inventory.Add(NewMoneyItem(income, tsEntertain));
     end;
   end;
 end;
@@ -1472,6 +1624,7 @@ begin
   total_men := 0;
   for i := 0 to WorkUnits.Count-1 do
     Inc(total_men, WorkUnits[i].Items.Amount(IT_MAN));
+  
   if total_men > 0 then begin
     cash := Min(ARegion.Wages, ARegion.MaxWages / total_men);
     for i := 0 to WorkUnits.Count-1 do begin
@@ -1483,6 +1636,8 @@ begin
       Inc(U.WorkIncome, amt);
       U.MonthInfo.Max := ARegion.Wages * men;
       U.MonthInfo.Amount := amt;
+
+      U.Inventory.Add(NewMoneyItem(amt, tsWork));
     end;
   end;
 end;

@@ -229,6 +229,8 @@ type
     Label63: TLabel;
     eUpkeepSilver: TIntEdit;
     eFoodValue: TIntEdit;
+    eFoodOrder: TIntEdit;
+    Label64: TLabel;
     procedure cmTypeDrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
     procedure FormCreate(Sender: TObject);
@@ -646,6 +648,7 @@ begin
 
     // Food
     eFoodValue.Value := Food.Value;
+    eFoodOrder.Value := Food.Order;
   end;
   ItemModified := False;
   Filling := False;
@@ -813,6 +816,7 @@ begin
 
     // Food
     Food.Value := Max(0, eFoodValue.Value);
+    Food.Order := Max(0, eFoodOrder.Value);
 
     ItemGrid.ImgRows[ItemGrid.Row].SortKey[1] := IntToStr(ItemIconIndex(AItemData));
     ItemGrid.ImgRows[ItemGrid.Row].ImageIndex := ItemIconIndex(AItemData);

@@ -765,7 +765,8 @@ implementation
 
 uses uOptions, uAbout, uMiniMap, uFactions, uMemo, uStructEdit,
   uItemEdit, uSkillEdit, uAvatarEdit, uRegistration, RegCode, uBattle,
-  uScriptEdit, uMapExport, uTownTrade, uSoldiers, uDistribute;
+  uScriptEdit, uMapExport, uTownTrade, uSoldiers, uDistribute,
+  TypInfo;
 
 {$R *.DFM}
 
@@ -2085,24 +2086,24 @@ var
   u: TUnit;
 
 begin
-  AList.Clear;
+  // AList.Clear;
 
-  if RealRegion.PlayerTroop = nil then Exit;
-  units := RealRegion.PlayerTroop.Units;
+  // if RealRegion.PlayerTroop = nil then Exit;
+  // units := RealRegion.PlayerTroop.Units;
 
 
-  money := 0;
-  for i := 0 to units.Count - 1 do begin
-    u := units[i];
-    money := money + u.Items.Amount(IT_SILVER);
-  end;
-
-  // units := ARegion.PlayerTroop.Units;
+  // money := 0;
   // for i := 0 to units.Count - 1 do begin
   //   u := units[i];
+  //   money := money + u.Items.Amount(IT_SILVER);
   // end;
 
-  AList.Add(Format('Money (start of the turn): $%d', [ money ]));
+  // // units := ARegion.PlayerTroop.Units;
+  // // for i := 0 to units.Count - 1 do begin
+  // //   u := units[i];
+  // // end;
+
+  // AList.Add(Format('Money (start of the turn): $%d', [ money ]));
 end;
 
 procedure TMainForm.TradePanelResize(Sender: TObject);
@@ -2835,6 +2836,7 @@ var i, j, capacity, load, row: integer;
     IData: TItemData;
     Route: TRoute;
     RealU: TUnit;
+    item: TItem;
 begin
   UnitEnable(True);
 
@@ -3109,7 +3111,21 @@ begin
     end;
 
   end;
+
   FillAllItems(AUnit);
+
+  memEconomy.Lines.Clear();
+  for j := 0 to AUnit.Inventory.Count - 1 do
+  begin
+    item := AUnit.Inventory[j];
+
+    memEconomy.Lines.Add(Format('%s: %d %s (%s)', [
+      GetEnumName(typeInfo(TTurnStage), Ord(item.Stage)),
+      item.Amount,
+      item.Data.Name(item.Amount > 1),
+      item.Notes
+    ]));
+  end;
 end;
 
 procedure TMainForm.ItemGridDrawCell(Sender: TObject; ACol, ARow: Integer;

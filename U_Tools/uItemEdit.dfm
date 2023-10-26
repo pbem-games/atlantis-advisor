@@ -323,9 +323,9 @@ object ItemEditForm: TItemEditForm
     Top = 220
     Width = 337
     Height = 205
-    ActivePage = tsUpkeep
+    ActivePage = tsFood
     MultiLine = True
-    TabIndex = 11
+    TabIndex = 12
     TabOrder = 4
     OnChange = PControlChange
     object tsProduction: TTabSheet
@@ -2109,6 +2109,13 @@ object ItemEditForm: TItemEditForm
         Height = 13
         Caption = 'Value'
       end
+      object Label64: TLabel
+        Left = 16
+        Top = 40
+        Width = 26
+        Height = 13
+        Caption = 'Order'
+      end
       object eFoodValue: TIntEdit
         Left = 52
         Top = 12
@@ -2117,6 +2124,17 @@ object ItemEditForm: TItemEditForm
         MaxValue = 9999
         MinValue = 0
         TabOrder = 0
+        Value = 0
+        OnChange = DataChange
+      end
+      object eFoodOrder: TIntEdit
+        Left = 52
+        Top = 36
+        Width = 117
+        Height = 22
+        MaxValue = 9999
+        MinValue = 0
+        TabOrder = 1
         Value = 0
         OnChange = DataChange
       end
