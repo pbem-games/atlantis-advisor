@@ -1550,21 +1550,23 @@ begin
 end;
 
 // Split taxes evenly between taxers
-procedure ResolveTaxes(ARegion: TRegion; TaxUnits: TUnitList; RateMul,
-  IncomeMul: integer);
+procedure ResolveTaxes(ARegion: TRegion; TaxUnits: TUnitList; RateMul, IncomeMul: integer);
 var i, total_men, men, tax_rate, tax_income, amt: integer;
     cash: real;
     U: TUnit;
 begin
   tax_income := GameConfig.ReadInteger('Settings', 'TaxIncome', 50);
   total_men := 0;
-  for i := 0 to TaxUnits.Count-1 do
+
+  for i := 0 to TaxUnits.Count - 1 do
     total_men := total_men + Taxers(TaxUnits[i]);
+
   if total_men > 0 then begin
     tax_rate := ARegion.TaxRate * RateMul;
-    cash := Min(tax_income * RateMul, tax_rate / total_men);
+    cash := Min(tax_income * IncomeMul, tax_rate / total_men);
     
-    for i := 0 to TaxUnits.Count-1 do begin
+    for i := 0 to TaxUnits.Count - 1 do
+    begin
       U := TaxUnits[i];
       men := Taxers(U);
       Inc(ARegion.Activity.Taxers, men);
@@ -1579,6 +1581,7 @@ begin
         U.MonthInfo.Amount := amt;
       end;
     end;
+
     ARegion.TaxRate := tax_rate div RateMul;
     SetFlag(ARegion.Marks, RM_TAX, True);
   end;
