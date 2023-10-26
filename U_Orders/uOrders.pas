@@ -1513,26 +1513,21 @@ begin
     U := consumers[i].URef;
 
     // consume own food first if it is set to consume food
-    if (U.Consuming = ctUnit) or (U.Consuming = ctFaction) then
+    if U.Consuming <> ctSilver then
     begin
       consumers[i].Upkeep := consume(U, consumers[i].Upkeep, ciFood, csOwn, silverStack, foodStack);
       if consumers[i].Upkeep = 0 then Continue;
     end;
 
-    // if consuming food from other units, consume food from other units
+    // if consuming food from other units
     if U.Consuming = ctFaction then
     begin
       consumers[i].Upkeep := consume(U, consumers[i].Upkeep, ciFood, csAll, silverStack, foodStack);
       if consumers[i].Upkeep = 0 then Continue;
-      
-      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(consumers[i].Upkeep) + ' for maintenance');
     end;
 
-    // if not all demands are met, write warning
-    if U.Consuming = ctUnit then
-    begin
-      U.Orders.Insert(0, ';. Not enough food, will borrow $' + IntToStr(consumers[i].Upkeep) + ' for maintenance');
-    end;
+    if U.Consuming <> ctSilver then
+      U.Orders.Insert(0, ';. Not enough food, will use money for maintenance');
 
     // consume silver own silver first
     consumers[i].Upkeep := consume(U, consumers[i].Upkeep, ciSilver, csOwn, silverStack, foodStack);
