@@ -942,7 +942,7 @@ begin
   gAllItems.Cells[1, 0] := 'Item';
   gAllItems.Cells[2, 0] := 'Unit';
 
-  InventoryChanges.Cols[0].Format := cfNumber;
+  InventoryChanges.Cols[1].Format := cfNumber;
 
   // Makeup window
   ApplyConfig;
