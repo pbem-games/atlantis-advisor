@@ -1365,6 +1365,12 @@ var i: integer;
     rec.Upkeep := 0;
     rec.URef := U;
 
+    // As we going to calculate upkeep, we need to clear the inventory changes for this stage
+    // otherwise we will get incorrect values.
+    // This should not be needed but Advisor does not recreate arriving units and their inventory will be preserved
+    // between maintenance invocations. This is a workaround for that.
+    u.Inventory.ClearStage(tsUpkeep);
+
     balance := U.Inventory.BalanceBefore(tsUpkeep);
     for j := 0 to balance.Count - 1 do begin
       // Set values from inventory

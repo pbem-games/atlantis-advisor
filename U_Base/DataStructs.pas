@@ -806,6 +806,7 @@ type
     property Items[Index: Integer]: TItem read Get write Put; default;
     procedure ClearAndFree;
     procedure ClearItems;
+    procedure ClearStage(Stage: TTurnStage);
     function Find(Short: string; Stage: TTurnStage): TItem;
     function Seek(Short: string; Stage: TTurnStage): TItem;
     procedure AssignItems(Source: TItemChanges);
@@ -2474,8 +2475,19 @@ end;
 procedure TItemChanges.ClearItems;
 var i: integer;
 begin
-  for i := 0 to Count-1 do Items[i].Free;
+  for i := 0 to Count - 1 do Items[i].Free;
   Clear;
+end;
+
+procedure TItemChanges.ClearStage(Stage: TTurnStage);
+var i: integer;
+begin
+  for i := Count - 1 downto 0 do
+    if Items[i].Stage = Stage then
+    begin
+      Items[i].Free;
+      Delete(i);
+    end;
 end;
 
 function TItemChanges.Find(Short: string; Stage: TTurnStage): TItem;
@@ -2510,9 +2522,8 @@ end;
 
 function TItemChanges.BalanceOn(Stage: TTurnStage): TItemList;
 var
-  i, j: integer;
+  i: integer;
   src, item: TItem;
-  found: boolean;
 
 begin
   Result := TItemList.Create;
