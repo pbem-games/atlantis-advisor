@@ -164,6 +164,7 @@ var i, k: integer;
 begin
   // Ensure that the region has player units
   if R.PlayerTroop = nil then Exit;
+
   if RecreateRegion then begin
     SetLength(MaintRegions, 0);
     // Clear parse errors in region units
@@ -182,68 +183,73 @@ begin
     DoGlobalOrders(R);
     Game.RecreateVRegion(R.Coords);
   end;
+
   AddToMaint(R.Coords);
   TaxUnits := TUnitList.Create;
   PillageUnits := TUnitList.Create;
   WorkUnits := TUnitList.Create;
   EntertainUnits := TUnitList.Create;
+
   // Instants
   if Startup then DoScripts(R, 'startup');
   DoScripts(R, '');
-  DoOrders(R, 'form',    DoForm);
-  DoOrders(R, 'autotax', DoFlag);
-  DoOrders(R, 'avoid',   DoFlag);
-  DoOrders(R, 'behind',  DoFlag);
-  DoOrders(R, 'claim',   DoClaim);
-  DoOrders(R, 'combat',  DoCombat);
-  DoOrders(R, 'consume', DoExtFlag);
-  DoOrders(R, 'declare', DoDeclare);
-  DoOrders(R, 'describe',DoDescribe);
-  DoOrders(R, '@;;',     DoLocal);
-  DoOrders(R, 'faction', DoFaction);
-  DoOrders(R, 'guard',   DoFlag);
-  DoOrders(R, 'hold',    DoFlag);
-  DoOrders(R, 'name',    DoName);
-  DoOrders(R, 'noaid',   DoFlag);
-  DoOrders(R, 'nocross', DoFlag);
-  DoOrders(R, 'share',   DoFlag);
-  DoOrders(R, 'reveal',  DoExtFlag);
-  DoOrders(R, 'spoils',  DoExtFlag);
-  DoOrders(R, 'leave',   DoLeave);
-  DoOrders(R, 'enter',   DoEnter);
-  DoOrders(R, 'promote', DoPromote);
-  DoOrders(R, 'evict',   DoEvict);
-  DoOrders(R, 'attack',  DoAttack);
-  DoOrders(R, 'steal',   DoSteal);
-  DoOrders(R, 'destroy', DoDestroy);
-  DoOrders(R, 'give',    DoGive);
-  DoOrders(R, 'pillage', DoPillage);
+  DoOrders(R, 'form',       DoForm);
+  DoOrders(R, 'autotax',    DoFlag);
+  DoOrders(R, 'avoid',      DoFlag);
+  DoOrders(R, 'behind',     DoFlag);
+  DoOrders(R, 'claim',      DoClaim);
+  DoOrders(R, 'combat',     DoCombat);
+  DoOrders(R, 'consume',    DoExtFlag);
+  DoOrders(R, 'declare',    DoDeclare);
+  DoOrders(R, 'describe',   DoDescribe);
+  DoOrders(R, '@;;',        DoLocal);
+  DoOrders(R, 'faction',    DoFaction);
+  DoOrders(R, 'guard',      DoFlag);
+  DoOrders(R, 'hold',       DoFlag);
+  DoOrders(R, 'name',       DoName);
+  DoOrders(R, 'noaid',      DoFlag);
+  DoOrders(R, 'nocross',    DoFlag);
+  DoOrders(R, 'share',      DoFlag);
+  DoOrders(R, 'reveal',     DoExtFlag);
+  DoOrders(R, 'spoils',     DoExtFlag);
+  DoOrders(R, 'leave',      DoLeave);
+  DoOrders(R, 'enter',      DoEnter);
+  DoOrders(R, 'promote',    DoPromote);
+  DoOrders(R, 'evict',      DoEvict);
+  DoOrders(R, 'attack',     DoAttack);
+  DoOrders(R, 'steal',      DoSteal);
+  DoOrders(R, 'destroy',    DoDestroy);
+  DoOrders(R, 'give',       DoGive);
+  DoOrders(R, 'pillage',    DoPillage);
   ResolveTaxes(R, PillageUnits, 2, 4);
-  DoOrders(R, 'tax',     DoTax);
+  DoOrders(R, 'tax',        DoTax);
   ResolveTaxes(R, TaxUnits, 1, 1);
-  DoOrders(R, 'cast',    DoCast);
-  DoOrders(R, 'sell',    DoSell);
-  DoOrders(R, 'buy',     DoBuy);
-  DoOrders(R, 'forget',  DoForget);
+  DoOrders(R, 'cast',       DoCast);
+  DoOrders(R, 'sell',       DoSell);
+  DoOrders(R, 'buy',        DoBuy);
+  DoOrders(R, 'forget',     DoForget);
   DoScripts(R, 'monthlong');
+
   // Move orders
-  DoOrders(R, 'sail',    DoMove);
-  DoOrders(R, 'move',    DoMove);
-  DoOrders(R, 'advance', DoMove);
+  DoOrders(R, 'sail',       DoMove);
+  DoOrders(R, 'move',       DoMove);
+  DoOrders(R, 'advance',    DoMove);
+
   // Month-long orders
-  DoOrders(R, 'build',   DoBuild);
-  DoOrders(R, 'entertain', DoEntertain);
+  DoOrders(R, 'build',      DoBuild);
+  DoOrders(R, 'entertain',  DoEntertain);
   ResolveEntertainment(R);
-  DoOrders(R, 'produce', DoProduce);
-  DoOrders(R, 'study',   DoStudy);
-  DoOrders(R, 'teach',   DoTeach);
-  DoOrders(R, 'work',    DoWork);
+  DoOrders(R, 'produce',    DoProduce);
+  DoOrders(R, 'study',      DoStudy);
+  DoOrders(R, 'teach',      DoTeach);
+  DoOrders(R, 'work',       DoWork);
   ResolveWork(R);
   DoOrders(R, 'transport',  DoTransport);
   DoOrders(R, 'distribute', DoDistribute);
   
   // Add final regions of moving units to list
-  for i := 0 to R.PlayerTroop.Units.Count-1 do begin
+  for i := 0 to R.PlayerTroop.Units.Count - 1 do
+  begin
     U := R.PlayerTroop.Units[i];
     if not EqualCoords(U.FinalCoords, R.Coords) then
       AddToMaint(U.FinalCoords);
@@ -255,6 +261,7 @@ begin
 
   DoScripts(R, 'final');
   DoOrders(R, '@;warning', nil);
+
   TaxUnits.Free;
   PillageUnits.Free;
   WorkUnits.Free;
@@ -263,20 +270,19 @@ begin
   if RecreateRegion then CheckFPoints(ParseErrors);
 
   // Final unit processing
-  for i := 0 to R.PlayerTroop.Units.Count-1 do begin
+  for i := 0 to R.PlayerTroop.Units.Count - 1 do
+  begin
     U := R.PlayerTroop.Units[i];
     // Check if we have stuff without men
-    if (U.Items.Count > 0) and (U.Items.Amount(IT_MAN) = 0) then begin
+    if (U.Items.Count > 0) and (U.Items.Amount(IT_MAN) = 0) then
+    begin
       if U.Orders.IndexOf(';. No men in unit') < 0 then
         U.Orders.Insert(0, ';. No men in unit');
-      ParseErrors.AddObject('!E4 ' + U.Name + ' (' + U.NumStr +
-        '): No men in unit', U);
+      ParseErrors.AddObject(Format('!E4 %s (%s): No men in unit', [U.Name, U.NumStr]), U);
     end
     // Add warnings for units without month order
-    else if (U.Items.Count > 0) and (U.MonthOrder = '') and
-      (Pos('@;!NOP', UpperCase(U.Orders.Text)) = 0) then
-      ParseErrors.AddObject('! 5 ' + U.Name + ' (' + U.NumStr +
-        '): No monthlong order', U);
+    else if (U.Items.Count > 0) and (U.MonthOrder = '') and (Pos('@;!NOP', UpperCase(U.Orders.Text)) = 0) then
+      ParseErrors.AddObject('! 5 ' + U.Name + ' (' + U.NumStr + '): No monthlong order', U);
 
     // Set avatars
     SetExportAvatars(U);
