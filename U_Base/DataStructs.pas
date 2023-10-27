@@ -1066,7 +1066,7 @@ end;
 
 function NewMoneyItem(Amount: integer; Stage: TTurnStage; Notes: string = ''): TItem;
 begin
-  Result := NewItem('SILV', Amount, Stage, Notes);
+  Result := NewItem(SilverData, Amount, Stage, Notes);
 end;
 
 { TItemData }
