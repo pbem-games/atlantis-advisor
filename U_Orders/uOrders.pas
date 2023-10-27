@@ -688,12 +688,12 @@ var i, k, amount: integer;
 
       // Give item
       SetAmountInc(Target, itemData, +amount);
-      Target.Inventory.Add(NewItem(itemData, +amount, tsGiveTake, 'from ' + AUnit.FullName));
+      Target.Inventory.Add(NewItem(itemData, +amount, tsGive, 'from ' + AUnit.FullName));
     end;
 
     // Remove item
     SetAmountInc(AUnit, itemData, -amount);
-    AUnit.Inventory.Add(NewItem(itemData, -amount, tsGiveTake, 'to ' + Target.FullName));
+    AUnit.Inventory.Add(NewItem(itemData, -amount, tsGive, 'to ' + Target.FullName));
   end;
 
 begin
@@ -827,6 +827,7 @@ end;
 procedure DoSell(AUnit: TUnit; s: string; var Line: integer);
 var i, j, amt, income: integer;
     t2, t3, msg: string;
+    idata: TItemData;
 begin
   // For simplification, do sell order as instant. If next unit attemts to
   //  sell too many, it will not sell anything (no fair sales distribution,
@@ -848,6 +849,9 @@ begin
   end;
   if amt = -1 then amt := AUnit.Items[i].Amount;
   amt := Min(amt, AUnit.Items[i].Amount);
+
+  idata := AUnit.Items[i].Data;
+
   with AUnit.Region do begin
     // Make changes to region
     j := 0;
@@ -867,9 +871,9 @@ begin
 
     if income > 0 then
     begin
-      msg := Format('%d %s for $%d', [ amt, AUnit.Items[i].Data.Name(amt > 1), Wanted[j].Cost ]);
+      msg := Format('%d %s for $%d', [ amt, idata.Name(amt > 1), Wanted[j].Cost ]);
       AUnit.Inventory.Add(NewMoneyitem(income, tsSell, msg));
-      AUnit.Inventory.Add(NewItem(AUnit.Items[i].Data, -amt, tsSell, msg));
+      AUnit.Inventory.Add(NewItem(idata, -amt, tsSell, msg));
     end;
   end;
 end;
@@ -959,7 +963,7 @@ begin
 end;
 
 procedure DoBuild(AUnit: TUnit; s: string; var Line: integer);
-var i, lv, amt, maxout, materials: integer;
+var i, lv, amt, maxout: integer;
     StData: TStructData;
     order, t: string;
     U: TUnit;
@@ -1040,7 +1044,7 @@ begin
     AUnit.MonthInfo.Amount := Min(AUnit.MonthInfo.Max, amt);
 
     amt := consumeResource(StData.Material1, amt);
-    amt := consumeResource(StData.Material2, amt);
+    consumeResource(StData.Material2, amt);
   end;
 
   DoMonth(AUnit, s, Line);
@@ -1362,8 +1366,80 @@ begin
 end;
 
 procedure DoTransport(AUnit: TUnit; s: string; var Line: integer);
-begin
+var
+  item: TItemData;
+  target: TUnit;
+  amount, toTransport, limit, dist: integer;
+  t2, t3: string;
 
+begin
+  // Possible formats
+  // [unit] [num] [item]
+  // [unit] ALL [item]
+  // [unit] ALL [item] EXCEPT [amount]
+  try
+    // unit
+    target := VTurn.FindUnit(StrToInt(GetToken(s)));
+    if target = nil then
+      raise EParseError.Create('Target unit not found');
+    
+    // if (target.Faction.Num <> AUnit.Faction.Num) and (target.Faction.Attitude < attFriendly) then
+    //   raise EParseError.Create('Target unit is not friendly');
+
+    if target = AUnit then
+      raise EParseError.Create('Cannot transport to self');
+
+    // num
+    t2 := AnsiLowerCase(GetToken(s));
+    if t2 = '' then
+      raise EParseError.Create('Expected ALL or <number> as number of items')
+    else if t2 = 'all' then
+      toTransport := -1
+    else
+      toTransport := StrToInt(t2);
+
+    // item
+    t3 := GetToken(s);
+    if t3 = '' then
+      raise EParseError.Create('Expected item name');
+    item := Game.ItemData.FindByName(t3);
+    if item = nil then
+      raise EParseError.Create('Unknown item');
+
+    // except
+    limit := 0;
+    if AnsiLowerCase(GetToken(s)) = 'except' then
+      limit := StrToInt(GetToken(s));
+  except
+    on EConvertError do Exit;
+  end;
+
+  dist := Distance(AUnit.FinalCoords, target.FinalCoords);
+  if dist < 0 then
+    raise EParseError.Create('Cannot distribute to another plane');
+
+  if dist > 2 then
+    raise EParseError.Create('Too far to transport');
+
+  if target.Skills.Find(Keys[s_Quartermaster]) = nil then
+    raise EParseError.Create('Target unit must know quartermaster skill');
+
+  if (target.Struct = nil) or (target.Struct.Data.Group <> Keys[s_Caravanserai]) then
+    raise EParseError.Create('Target unit must be in caravanserai');
+
+  if target.Struct.Owner <> target then
+    raise EParseError.Create('Target unit must be owner of caravanserai');
+
+  amount := AUnit.Inventory.AmountOn(item, tsTrasnport);
+  if toTransport = -1 then
+    toTransport := amount;
+  toTransport := toTransport - limit;
+  
+  if toTransport > amount then
+    raise EParseError.Create('Not enough items to distribute');
+
+  AUnit.Inventory.Add(NewItem(item, -toTransport, tsTrasnport, 'to ' + target.FullName));
+  target.Inventory.Add(NewItem(item, toTransport, tsTrasnport, 'from ' + AUnit.FullName));
 end;
 
 procedure ResolveMaintenance(C: TCoords; ParseErrors: TStrings);
@@ -1417,7 +1493,7 @@ var i: integer;
 
     for i := 0 to High(arr) do
       for j := 0 to High(arr) - 1 do
-        if arr[j].Order > arr[j + 1].Order then
+        if arr[j].Order < arr[j + 1].Order then
           swap(arr, j, j + 1);
   end;
 
@@ -1493,51 +1569,46 @@ var i: integer;
   // return new upkeep value
   function consume(consumer: TUnit; upkeep: integer; targetItem: TConsumeItem; scope: TConsumeScope; var silverItems: TMoneyArray; var foodItems: TFoodArray): integer;
   var
-    consume, j: integer;
+    consume, j, hi: integer;
     owner: TUnit;
     food: TFood;
     silver: TMoney;
 
   begin
+    j := 0;
     if targetItem = ciFood then
-      j := High(foodItems)
+      hi := High(foodItems)
     else
-      j := High(silverItems);
+      hi := High(silverItems);
 
-    while (upkeep > 0) and (j >= 0) do
+    while (upkeep > 0) and (j <= hi) do
     begin
       if targetItem = ciFood then
       begin
         food := foodItems[j];
+        owner := food.Owner;
         
         if food.Amount = 0 then
         begin
-          SetLength(foodItems, Length(foodItems) - 1);
-          Dec(j);
-
+          Inc(j);
           Continue;
         end;
-
-        owner := food.Owner;
       end
       else
       begin
         silver := silverItems[j];
+        owner := silver.Owner;
         
         if silver.Amount = 0 then
         begin
-          SetLength(silverItems, Length(silverItems) - 1);
-          Dec(j);
-
+          Inc(j);
           Continue;
         end;
-
-        owner := silver.Owner;
       end;
 
       if (scope = csOwn) and (owner <> consumer) then
       begin
-        Dec(j);
+        Inc(j);
         Continue;
       end;
 
@@ -1577,7 +1648,7 @@ var i: integer;
         Dec(silverItems[j].Amount, consume);
       end;
 
-      Dec(j);
+      Inc(j);
     end;
 
     Result := upkeep;

@@ -89,6 +89,7 @@ begin
     AUnit := R.PlayerTroop.Units[i];
     // Run scripts
     RunScripts(AUnit, Order, ParseErrors);
+
     // Find orders
     k := 0;
     // TAX order may be fired from unit flag
@@ -103,18 +104,23 @@ begin
           repeat
             Inc(k);
           until (AUnit.Order(k) = 'endturn') or (k >= AUnit.Orders.Count);
+
           Inc(k);
         end;
+
         // Check if we found given order
         if AUnit.Order(k) = Order then
           if Order = '@;warning' then
             ParseErrors.AddObject('!W2 ' + AUnit.Name + ' (' + AUnit.NumStr +
               '): ' + Copy(AUnit.Orders[k], Pos(Order, AUnit.Orders[k]) +
               Length(Order) + 1, Length(AUnit.Orders[k])), AUnit)
-          else DoOrder(AUnit, AUnit.Orders[k], k, Processor);
+          else
+            DoOrder(AUnit, AUnit.Orders[k], k, Processor);
+
         Inc(k);
       end;
     end;
+
     Inc(i);
   end;
 end;
@@ -151,6 +157,7 @@ end;
 procedure TProcessThread.ProcessRegion(R: TRegion; RecreateRegion: boolean);
 var i, k: integer;
     U: TUnit;
+    tempItems: TItemList;
 
   procedure AddToMaint(C: TCoords);
   var j: integer;
@@ -244,8 +251,8 @@ begin
   DoOrders(R, 'teach',      DoTeach);
   DoOrders(R, 'work',       DoWork);
   ResolveWork(R);
-  DoOrders(R, 'transport',  DoTransport);
   DoOrders(R, 'distribute', DoDistribute);
+  DoOrders(R, 'transport',  DoTransport);
   
   // Add final regions of moving units to list
   for i := 0 to R.PlayerTroop.Units.Count - 1 do
@@ -292,6 +299,13 @@ begin
     while k < U.Orders.Count do
       if Trim(U.Orders[k]) = '' then U.Orders.Delete(k)
       else Inc(k);
+
+    // Calculate final items
+    U.FinalItems.ClearItems();
+
+    tempItems := U.Inventory.BalanceOn(tsDistribute);
+    U.FinalItems.AssignItems(tempItems);
+    tempItems.ClearAndFree();
   end;
 end;
 
