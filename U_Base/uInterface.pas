@@ -346,11 +346,11 @@ var s: string;
 begin
   s := GetEnumName(typeInfo(TTurnStage), Ord(Item.Stage));
   Grid.Cells[0, row] := Copy(s, 3, Length(s) - 2);
+  Grid.SortKeys[0, row] := IntToStr(row);
     
   Grid.Cells[1, row] := IntToStr(Item.Amount);
 
   Grid.Cells[2, row] := Item.Data.Name(Abs(Item.Amount) > 1);
-  Grid.SortKeys[2, row] := IntToStr(row);
 
   Grid.Cells[3, row] := Item.Notes;
 

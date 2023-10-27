@@ -1321,17 +1321,13 @@ begin
   isRemote := dist > 2;
   costPerUnit := 4 - ((skill.Level + 1) div 2);
 
-  // TODO: put Quatermaster distance to config
-  case skill.Level of
-    1: if dist > 3 then raise EParseError.Create('Too far to distribute');
-    2: if dist > 4 then raise EParseError.Create('Too far to distribute');
-    3: if dist > 4 then raise EParseError.Create('Too far to distribute');
-    4: if dist > 4 then raise EParseError.Create('Too far to distribute');
-    5: if dist > 5 then raise EParseError.Create('Too far to distribute');
-  end;
-
   if isRemote then
   begin
+    // TODO: put Quatermaster distance to config
+    if (skill.Level = 1) and (dist > 3) then raise EParseError.Create('Too far to distribute');
+    if (skill.Level >= 2) and (skill.Level <= 4) and (dist > 4) then raise EParseError.Create('Too far to distribute');
+    if (skill.Level = 5) and (dist > 5) then raise EParseError.Create('Too far to distribute');
+
     if target.Skills.Find(Keys[s_Quartermaster]) = nil then
       raise EParseError.Create('Target unit must know quartermaster skill');
 
@@ -1345,7 +1341,7 @@ begin
   amount := AUnit.Inventory.AmountOn(item, tsDistribute);
   if toDistribute = -1 then
     toDistribute := amount;
-  toDistribute := toDistribute - limit;
+  toDistribute := Max(0, toDistribute - limit);
   
   if toDistribute > amount then
     raise EParseError.Create('Not enough items to distribute');
@@ -1433,7 +1429,7 @@ begin
   amount := AUnit.Inventory.AmountOn(item, tsTrasnport);
   if toTransport = -1 then
     toTransport := amount;
-  toTransport := toTransport - limit;
+  toTransport := Max(0, toTransport - limit);
   
   if toTransport > amount then
     raise EParseError.Create('Not enough items to distribute');

@@ -109,6 +109,8 @@ var
 
 implementation
 
+uses Types;
+
 function SkillLevel(AUnit: TUnit; Short: string): integer;
 var i: integer;
 begin
@@ -599,22 +601,41 @@ begin
 end;
 
 function Distance(a, b: TCoords): integer;
+  function directDistance(a, b: TCoords): integer;
+  var
+    qA, rA, sA, qB, rB, sB: integer;
+
+  begin
+    Result := -1;
+    if a.z <> b.z then Exit;
+
+    qA := a.x;
+    rA := Trunc((a.y - a.x) / 2);
+    sA := -qA - rA;
+
+    qB := b.x;
+    rB := Trunc((b.y - b.x) / 2);
+    sB := -qB - rB;
+
+    Result := Trunc((Abs(qA - qB) + Abs(rA - rB) + Abs(sA - sB)) / 2);
+  end;
+
 var
-  qA, rA, sA, qB, rB, sB: integer;
+  w: integer;
+  c: TCoords;
 
 begin
-  Result := -1;
-  if a.z <> b.z then Exit;
+  Result := directDistance(a, b);
+  if Result = -1 then Exit;
 
-  qA := a.x;
-  rA := Trunc((a.y - a.x) / 2);
-  sA := -qA - rA;
+  w := Map.Levels[a.z].Bounds.Right;
+  c.y := b.y;
+  c.z := b.z;
 
-  qB := b.x;
-  rB := Trunc((b.y - b.x) / 2);
-  sB := -qB - rB;
-
-  Result := Trunc((Abs(qA - qB) + Abs(rA - rB) + Abs(sA - sB)) / 2);
+  c.x := b.x + w;
+  Result := Min(directDistance(a, c), Result);
+  c.x := b.x - w;
+  Result := Min(directDistance(a, c), Result);
 end;
 
 function RegionInDir(Coords: TCoords; Dir: integer): TRegion;

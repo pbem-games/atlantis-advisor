@@ -751,7 +751,7 @@ type
     procedure ChangeTerrain(Sender: TObject);
     function SelectedCoords: TCoords;
 
-    procedure FillEconomyReport(ARegion: TRegion; RealRegion: TRegion; AList: TStrings);
+    procedure FillEconomyReport(Reg: TRegion; RealReg: TRegion; AList: TStrings);
 
     // QM support
     procedure StartDistribute;
@@ -2081,41 +2081,151 @@ begin
     FillDiffItemGrid(WantedGrid, Wanted, RealRegion.Wanted);
     FillDiffItemGrid(ForSaleGrid, ForSale, RealRegion.ForSale);
     FillDiffItemGrid(ProductGrid, Products, RealRegion.Products);
-
-    FillEconomyReport(ARegion, RealRegion, memEconomy.Lines);
   end;
+
+  memEconomy.Lines.BeginUpdate;
+  FillEconomyReport(ARegion, RealRegion, memEconomy.Lines);
+  memEconomy.Lines.EndUpdate;
+  memEconomy.SelStart := 0;
+  memEconomy.SelLength := 0;
+  memEconomy.Perform(EM_SCROLLCARET, 0, 0);
 end;
 
-procedure TMainForm.FillEconomyReport(ARegion: TRegion; RealRegion: TRegion; AList: TStrings);
+procedure TMainForm.FillEconomyReport(Reg: TRegion; RealReg: TRegion; AList: TStrings);
 var
   i: integer;
-  money, work, tax, pillage, sell, buy, consume: integer;
+  money, food, men, mounts, weapons, armor: integer;
+  moneyEnd, foodEnd, menEnd, mountsEnd, weaponsEnd, armorEnd: integer;
+  moneyDiff, foodDiff, menDiff, mountsDiff, weaponsDiff, armorDiff: integer;
+  tax, bought, sold, studied, entertain, work, upkeepSilver, upkeepFood, moveIn, moveOut: integer;
   units: TUnitList;
   u: TUnit;
 
+  function formatDiff(value: integer): string;
+  begin
+    Result := '-';
+    if value > 0 then Result := '+' + IntToStr(value);
+    if value < 0 then Result := IntToStr(value);
+  end;
+
 begin
-  // AList.Clear;
+  AList.Clear;
 
-  // if RealRegion.PlayerTroop = nil then Exit;
-  // units := RealRegion.PlayerTroop.Units;
+  if Reg.PlayerTroop = nil then Exit;
+  units := Reg.PlayerTroop.Units;
+
+  AList.Add('# Start of the Turn');
+
+  money := 0;
+  food := 0;
+  men := 0;
+  mounts := 0;
+  weapons := 0;
+  armor := 0;
+  for i := 0 to units.Count - 1 do begin
+    u := units[i];
+  
+    money := money + u.Inventory.AmountAt(IT_SILVER, tsInitial);
+    food := food + u.Inventory.AmountAt(IT_FOOD, tsInitial);
+    men := men + u.Inventory.AmountAt(IT_MAN, tsInitial);
+    mounts :=+ mounts + u.Inventory.AmountAt(IT_MOUNT, tsInitial);
+    weapons := weapons + u.Inventory.AmountAt(IT_WEAPON, tsInitial);
+    armor := armor + u.Inventory.AmountAt(IT_ARMOR, tsInitial);
+  end;
+
+  AList.Add(Format('- Money: $%d', [ money ]));
+  if food <> 0 then AList.Add(Format('- Food: %d', [ food ]));
+  if men <> 0 then AList.Add(Format('- Men: %d', [ men ]));
+  if mounts <> 0 then AList.Add(Format('- Mounts: %d', [ mounts ]));
+  if weapons <> 0 then AList.Add(Format('- Weapons: %d', [ weapons ]));
+  if armor <> 0 then AList.Add(Format('- Armor: %d', [ armor ]));
 
 
-  // money := 0;
-  // for i := 0 to units.Count - 1 do begin
-  //   u := units[i];
-  //   money := money + u.Items.Amount(IT_SILVER);
-  // end;
+  AList.Add('');
+  AList.Add('# Turn Events');
 
-  // // units := ARegion.PlayerTroop.Units;
-  // // for i := 0 to units.Count - 1 do begin
-  // //   u := units[i];
-  // // end;
+  tax := 0;
+  bought := 0;
+  sold := 0;
+  moveIn := 0;
+  moveOut := 0;
+  studied := 0;
+  entertain := 0;
+  work := 0;
+  upkeepSilver := 0;
+  upkeepFood := 0;
+  for i := 0 to units.Count - 1 do begin
+    u := units[i];
+  
+    tax := tax + u.Inventory.AmountAt(IT_SILVER, tsPillageOrTax);
+  
+    bought := bought + u.Inventory.AmountAt(IT_SILVER, tsBuy);
+    sold := sold + u.Inventory.AmountAt(IT_SILVER, tsSell);
+    studied := studied + u.Inventory.AmountAt(IT_SILVER, tsStudy);
+    entertain := entertain + u.Inventory.AmountAt(IT_SILVER, tsEntertain);
+    work := work + u.Inventory.AmountAt(IT_SILVER, tsWork);
+    upkeepSilver := upkeepSilver + u.Inventory.AmountAt(IT_SILVER, tsUpkeep);
+    upkeepFood := upkeepFood + u.Inventory.AmountAt(IT_FOOD, tsUpkeep);
 
-  // AList.Add(Format('Money (start of the turn): $%d', [ money ]));
+    if not EqualCoords(u.FinalCoords, Reg.Coords) then
+      moveOut := moveOut + u.Inventory.AmountOn(IT_SILVER, tsMove);
+  end;
+
+  // Add arriving units
+  for i := 0 to VFaction.Units.Count-1 do
+    if VFaction.Units[i].ArrivingTo(Reg.Coords) then
+      moveIn := moveIn + VFaction.Units[i].Inventory.AmountOn(IT_SILVER, tsMove);
+
+  if tax <> 0 then AList.Add(Format('- Tax or Pillage: $%d', [ tax ]));
+  if bought <> 0 then AList.Add(Format('- Buy: $%d', [ Abs(bought) ]));
+  if sold <> 0 then AList.Add(Format('- Sell: $%d', [ sold ]));
+  if moveOut <> 0 then AList.Add(Format('- Move Out: $%d', [ moveOut ]));
+  if moveIn <> 0 then AList.Add(Format('- Move In: $%d', [ moveIn ]));
+  if studied <> 0 then AList.Add(Format('- Study: $%d', [ Abs(studied) ]));
+  if entertain <> 0 then AList.Add(Format('- Entertained: $%d', [ entertain ]));
+  if work <> 0 then AList.Add(Format('- Worked: $%d', [ work ]));
+  AList.Add('');
+  AList.Add('# Upkeep');
+  if upkeepSilver <> 0 then AList.Add(Format('- Money: $%d', [ Abs(upkeepSilver) ]));
+  if upkeepFood <> 0 then AList.Add(Format('- Food: %d', [ Abs(upkeepFood) ]));
+
+  AList.Add('');
+  AList.Add('# End of the Turn');
+
+  moneyEnd := moveIn - moveOut;
+  foodEnd := 0;
+  menEnd := 0;
+  mountsEnd := 0;
+  weaponsEnd := 0;
+  armorEnd := 0;
+  for i := 0 to units.Count - 1 do begin
+    u := units[i];
+  
+    moneyEnd := moneyEnd + u.Inventory.AmountOn(IT_SILVER, tsFinal);
+    foodEnd := foodEnd + u.Inventory.AmountOn(IT_FOOD, tsFinal);
+    menEnd := menEnd + u.Inventory.AmountOn(IT_MAN, tsFinal);
+    mountsEnd := mountsEnd + u.Inventory.AmountOn(IT_MOUNT, tsFinal);
+    weaponsEnd := weaponsEnd + u.Inventory.AmountOn(IT_WEAPON, tsFinal);
+    armorEnd := armorEnd + u.Inventory.AmountOn(IT_ARMOR, tsFinal);
+  end;
+
+  moneyDiff := moneyEnd - money;
+  foodDiff := foodEnd - food;
+  menDiff := menEnd - men;
+  mountsDiff := mountsEnd - mounts;
+  weaponsDiff := weaponsEnd - weapons;
+  armorDiff := armorEnd - armor;
+
+  AList.Add(Format('- Money: $%d (%s)', [ moneyEnd, formatDiff(moneyDiff) ]));
+  if (foodEnd <> 0) or (foodDiff <> 0) then AList.Add(Format('- Food: %d (%s)', [ foodEnd, formatDiff(foodDiff) ]));
+  if (menEnd <> 0) or (menDiff <> 0) then AList.Add(Format('- Men: %d (%s)', [ menEnd, formatDiff(menDiff) ]));
+  if (mountsEnd <> 0) or (mountsDiff <> 0) then AList.Add(Format('- Mounts: %d (%s)', [ mountsEnd, formatDiff(mountsDiff) ]));
+  if (weaponsEnd <> 0) or (weaponsDiff <> 0) then AList.Add(Format('- Weapons: %d (%s)', [ weaponsEnd, formatDiff(weaponsDiff) ]));
+  if (armorEnd <> 0) or (armorDiff <> 0) then AList.Add(Format('- Armor: %d (%s)', [ armorEnd, formatDiff(armorDiff) ]));
 end;
 
 procedure TMainForm.TradePanelResize(Sender: TObject);
-var wh: integer;
+//var wh: integer;
 begin
 {
   wh := TradePanel.Width div 3;

@@ -81,12 +81,14 @@ end;
 
 // Process one type of orders for all units in region
 procedure TProcessThread.DoOrders(R: TRegion; Order: string; Processor: TProcessor);
-var i, k: integer;
-    AUnit: TUnit;
-begin
-  i := 0;
-  while (i < R.PlayerTroop.Units.Count) and not Terminated do begin
-    AUnit := R.PlayerTroop.Units[i];
+var i: integer;
+    u: TUnit;
+    inRegion: array of TUnit;
+    inStructs: array of TUnit;
+
+  procedure execOrders(AUnit: TUnit);
+    var k: integer;
+  begin
     // Run scripts
     RunScripts(AUnit, Order, ParseErrors);
 
@@ -120,7 +122,35 @@ begin
         Inc(k);
       end;
     end;
+  end;
+begin
+  SetLength(inRegion, 0);
+  SetLength(inStructs, 0);
 
+  for i := 0 to R.PlayerTroop.Units.Count-1 do begin
+    u := R.PlayerTroop.Units[i];
+
+    if u.Struct <> nil then
+    begin
+      SetLength(inStructs, Length(inStructs) + 1);
+      inStructs[High(inStructs)] := u;
+    end
+    else
+    begin
+      SetLength(inRegion, Length(inRegion) + 1);
+      inRegion[High(inRegion)] := u;
+    end;
+  end;
+
+  i := 0;
+  while (i < Length(inRegion)) and not Terminated do begin
+    execOrders(inRegion[i]);
+    Inc(i);
+  end;
+
+  i := 0;
+  while (i < Length(inStructs)) and not Terminated do begin
+    execOrders(inStructs[i]);
     Inc(i);
   end;
 end;
@@ -251,8 +281,8 @@ begin
   DoOrders(R, 'teach',      DoTeach);
   DoOrders(R, 'work',       DoWork);
   ResolveWork(R);
-  DoOrders(R, 'distribute', DoDistribute);
   DoOrders(R, 'transport',  DoTransport);
+  DoOrders(R, 'distribute', DoDistribute);
   
   // Add final regions of moving units to list
   for i := 0 to R.PlayerTroop.Units.Count - 1 do

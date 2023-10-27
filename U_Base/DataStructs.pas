@@ -362,7 +362,7 @@ type
     function Name: string; overload;
   end;
 
-  TTurnStage = (tsInitial, tsClaim, tsGive, tsPillageOrTax, tsSell, tsBuy, tsBuild, tsCast, tsProduce, tsStudy, tsWork, tsEntertain, tsTrasnport, tsDistribute, tsUpkeep, tsFinal);
+  TTurnStage = (tsInitial, tsClaim, tsGive, tsPillageOrTax, tsSell, tsBuy, tsMove, tsBuild, tsCast, tsProduce, tsStudy, tsWork, tsEntertain, tsTrasnport, tsDistribute, tsUpkeep, tsFinal);
 
   TItem = class
     Data: TItemData;
@@ -817,6 +817,9 @@ type
     function AmountBefore(Mask: DWord; Stage: TTurnStage): integer; overload;
     function AmountBefore(Short: string; Stage: TTurnStage): integer; overload;
     function AmountBefore(Data: TItemData; Stage: TTurnStage): integer; overload;
+    function AmountAt(Mask: DWord; Stage: TTurnStage): integer; overload;
+    function AmountAt(Short: string; Stage: TTurnStage): integer; overload;
+    function AmountAt(Data: TItemData; Stage: TTurnStage): integer; overload;
     function BalanceOn(Stage: TTurnStage): TItemList;
     function BalanceBefore(Stage: TTurnStage): TItemList;
   end;
@@ -2487,6 +2490,33 @@ end;
 function TItemChanges.AmountBefore(Data: TItemData; Stage: TTurnStage): integer;
 begin
   Result := AmountOn(Data, TTurnStage(Ord(Stage) - 1));
+end;
+
+function TItemChanges.AmountAt(Mask: DWord; Stage: TTurnStage): integer;
+var i: integer;
+begin
+  Result := 0;
+  for i := 0 to Count - 1 do
+    if Test(Items[i].Data.Flags, Mask) and (Items[i].Stage = Stage) then
+      Result := Result + Items[i].Amount;
+end;
+
+function TItemChanges.AmountAt(Short: string; Stage: TTurnStage): integer;
+var i: integer;
+begin
+  Result := 0;
+  for i := 0 to Count - 1 do
+    if (Items[i].Data.Short = Short) and (Items[i].Stage = Stage) then
+      Result := Result + Items[i].Amount;
+end;
+
+function TItemChanges.AmountAt(Data: TItemData; Stage: TTurnStage): integer;
+var i: integer;
+begin
+  Result := 0;
+  for i := 0 to Count - 1 do
+    if (Items[i].Data = Data) and (Items[i].Stage = Stage) then
+      Result := Result + Items[i].Amount;
 end;
 
 procedure TItemChanges.AssignItems(Source: TItemChanges);

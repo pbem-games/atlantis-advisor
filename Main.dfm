@@ -2152,8 +2152,8 @@ object MainForm: TMainForm
                 ImageCol = 0
                 Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoNoSelect, pgoStretchLastCol]
                 RowCount = 0
-                Sorted = True
-                SortBy = 2
+                Sorted = False
+                SortBy = 0
                 StickySelect = False
                 TopRow = 0
                 OnDrawCell = InventoryChangesDrawCell
