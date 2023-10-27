@@ -36,6 +36,7 @@ var
   function CoordsInDir(C: TCoords; Dir: integer): TCoords;
   function OppositeDir(Dir: integer): integer;
   function DirectionFromTo(CFrom, CTo: TCoords): integer;
+  function Distance(a, b: TCoords): integer;
   // Strings
   function StripTags(s: string): string;
   function IncludeTags(s, tags: string): string;
@@ -595,6 +596,25 @@ begin
   i := 6;
   while (i >= 1) and not EqualCoords(CoordsInDir(CFrom, i), CTo) do Dec(i);
   Result := i;
+end;
+
+function Distance(a, b: TCoords): integer;
+var
+  qA, rA, sA, qB, rB, sB: integer;
+
+begin
+  Result := -1;
+  if a.z <> b.z then Exit;
+
+  qA := a.x;
+  rA := Trunc((a.y - a.x) / 2);
+  sA := -qA - rA;
+
+  qB := b.x;
+  rB := Trunc((b.y - b.x) / 2);
+  sB := -qB - rB;
+
+  Result := Trunc((Abs(qA - qB) + Abs(rA - rB) + Abs(sA - sB)) / 2);
 end;
 
 function RegionInDir(Coords: TCoords; Dir: integer): TRegion;

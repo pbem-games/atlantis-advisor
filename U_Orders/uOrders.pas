@@ -1258,29 +1258,107 @@ end;
 procedure DoDistribute(AUnit: TUnit; s: string; var Line: integer);
 var
   skill: TSkill;
+  item: TItemData;
   target: TUnit;
-  trace: TTrace;
+  amount, toDistribute, limit, dist, silver, cost, costPerUnit: integer;
+  t2, t3: string;
+  isRemote: boolean;
 
 begin
-  trace := TTrace.Create(s);
+  skill := AUnit.Skills.Find(Keys[s_Quartermaster]);
+  if skill = nil then
+    raise EParseError.Create('Unit has no quartermaster skill');
+
+  // Possible formats
+  // [unit] [num] [item]
+  // [unit] ALL [item]
+  // [unit] ALL [item] EXCEPT [amount]
   try
-    // Possible formats
-    // [unit] [num] [item]
-    // [unit] ALL [item]
-    // [unit] ALL [item] EXCEPT [amount]
-    // parase using trace mentioned formats
+    // unit
+    target := VTurn.FindUnit(StrToInt(GetToken(s)));
+    if target = nil then
+      raise EParseError.Create('Target unit not found');
 
-//    target :=  trace.Num;
+    
+    // if (target.Faction.Num <> AUnit.Faction.Num) and (target.Faction.Attitude < attFriendly) then
+    //   raise EParseError.Create('Target unit is not friendly');
 
-  finally
-    trace.Free;
+    if target = AUnit then
+      raise EParseError.Create('Cannot distribute to self');
+
+    // num
+    t2 := AnsiLowerCase(GetToken(s));
+    if t2 = '' then
+      raise EParseError.Create('Expected ALL or <number> as number of items')
+    else if t2 = 'all' then
+      toDistribute := -1
+    else
+      toDistribute := StrToInt(t2);
+
+    // item
+    t3 := GetToken(s);
+    if t3 = '' then
+      raise EParseError.Create('Expected item name');
+    item := Game.ItemData.FindByName(t3);
+    if item = nil then
+      raise EParseError.Create('Unknown item');
+
+    // except
+    limit := 0;
+    if AnsiLowerCase(GetToken(s)) = 'except' then
+      limit := StrToInt(GetToken(s));
+  except
+    on EConvertError do Exit;
   end;
 
-  skill := AUnit.Skills.Find(Keys[s_Quartermaster]);
-  if skill = nil then raise EParseError.Create('Unit has no quartermaster skill');
+  dist := Distance(AUnit.FinalCoords, target.FinalCoords);
+  if dist < 0 then
+    raise EParseError.Create('Cannot distribute to another plane');
+  isRemote := dist > 2;
+  costPerUnit := 4 - ((skill.Level + 1) div 2);
 
+  // TODO: put Quatermaster distance to config
+  case skill.Level of
+    1: if dist > 3 then raise EParseError.Create('Too far to distribute');
+    2: if dist > 4 then raise EParseError.Create('Too far to distribute');
+    3: if dist > 4 then raise EParseError.Create('Too far to distribute');
+    4: if dist > 4 then raise EParseError.Create('Too far to distribute');
+    5: if dist > 5 then raise EParseError.Create('Too far to distribute');
+  end;
 
+  if isRemote then
+  begin
+    if target.Skills.Find(Keys[s_Quartermaster]) = nil then
+      raise EParseError.Create('Target unit must know quartermaster skill');
 
+    if (target.Struct = nil) or (target.Struct.Data.Group <> Keys[s_Caravanserai]) then
+      raise EParseError.Create('Target unit must be in caravanserai');
+
+    if target.Struct.Owner <> target then
+      raise EParseError.Create('Target unit must be owner of caravanserai');
+  end;
+
+  amount := AUnit.Inventory.AmountOn(item, tsDistribute);
+  if toDistribute = -1 then
+    toDistribute := amount;
+  toDistribute := toDistribute - limit;
+  
+  if toDistribute > amount then
+    raise EParseError.Create('Not enough items to distribute');
+
+  if isRemote then
+  begin
+    silver := AUnit.Inventory.AmountOn(IT_SILVER, tsDistribute);
+    cost := item.Weight * costPerUnit;
+
+    if cost > silver then
+      raise EParseError.Create('Not enough silver to pay for distribution (needs $' + IntToStr(cost) + ')');
+
+    AUnit.Inventory.Add(NewMoneyItem(-cost, tsDistribute, 'to ' + target.FullName));
+  end;
+
+  AUnit.Inventory.Add(NewItem(item, -toDistribute, tsDistribute, 'to ' + target.FullName));
+  target.Inventory.Add(NewItem(item, toDistribute, tsDistribute, 'from ' + AUnit.FullName));
 end;
 
 procedure DoTransport(AUnit: TUnit; s: string; var Line: integer);
