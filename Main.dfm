@@ -1,6 +1,6 @@
 object MainForm: TMainForm
-  Left = 431
-  Top = 131
+  Left = 391
+  Top = 126
   Width = 1932
   Height = 1093
   Caption = 'Atlantis Advisor'
@@ -1972,50 +1972,6 @@ object MainForm: TMainForm
           BevelOuter = bvNone
           Constraints.MinHeight = 40
           TabOrder = 0
-          object Label9: TLabel
-            Left = 0
-            Top = 0
-            Width = 367
-            Height = 13
-            Align = alTop
-            Caption = 'Items:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = [fsBold]
-            ParentFont = False
-            Layout = tlBottom
-          end
-          object ItemGrid: TPowerGrid
-            Left = 0
-            Top = 13
-            Width = 367
-            Height = 101
-            Align = alClient
-            ColCount = 2
-            DefaultRowColor = clBlack
-            Editing = False
-            FixedRows = 0
-            ImageCol = 0
-            Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
-            RowCount = 0
-            Sorted = True
-            SortBy = 1
-            ShowHint = True
-            StickySelect = False
-            TopRow = 0
-            OnDblClick = ItemGridDblClick
-            OnDrawCell = ItemGridDrawCell
-            OnDragOver = ItemGridDragOver
-            OnEndDrag = ItemGridEndDrag
-            OnEnter = ItemGridEnter
-            OnMouseDown = ItemGridMouseDown
-            OnSelectCell = ItemGridSelectCell
-            ColWidths = (
-              48
-              315)
-          end
           object pGiveTools: TPanel
             Left = 0
             Top = 114
@@ -2023,7 +1979,7 @@ object MainForm: TMainForm
             Height = 26
             Align = alBottom
             BevelOuter = bvNone
-            TabOrder = 1
+            TabOrder = 0
             DesignSize = (
               367
               26)
@@ -2108,6 +2064,105 @@ object MainForm: TMainForm
               TabOrder = 1
               Value = 0
               OnKeyPress = HandleSelectAllKeyPress
+            end
+          end
+          object PageControl1: TPageControl
+            Left = 0
+            Top = 0
+            Width = 367
+            Height = 114
+            ActivePage = TabSheet1
+            Align = alClient
+            Style = tsButtons
+            TabIndex = 0
+            TabOrder = 1
+            object TabSheet1: TTabSheet
+              Caption = 'Items'
+              object ItemGrid: TPowerGrid
+                Left = 0
+                Top = 0
+                Width = 359
+                Height = 83
+                Align = alClient
+                ColCount = 2
+                DefaultRowColor = clBlack
+                Editing = False
+                FixedRows = 0
+                ImageCol = 0
+                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
+                RowCount = 0
+                Sorted = True
+                SortBy = 1
+                ShowHint = True
+                StickySelect = False
+                TopRow = 0
+                OnDblClick = ItemGridDblClick
+                OnDrawCell = ItemGridDrawCell
+                OnDragOver = ItemGridDragOver
+                OnEndDrag = ItemGridEndDrag
+                OnEnter = ItemGridEnter
+                OnMouseDown = ItemGridMouseDown
+                OnSelectCell = ItemGridSelectCell
+                ColWidths = (
+                  48
+                  307)
+              end
+            end
+            object TabSheet3: TTabSheet
+              Caption = 'Items (end turn)'
+              ImageIndex = 2
+              object ItemGridFinal: TPowerGrid
+                Left = 0
+                Top = 0
+                Width = 359
+                Height = 83
+                Align = alClient
+                ColCount = 2
+                DefaultRowColor = clBlack
+                Editing = False
+                FixedRows = 0
+                ImageCol = 0
+                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
+                RowCount = 0
+                Sorted = True
+                SortBy = 1
+                ShowHint = True
+                StickySelect = False
+                TopRow = 0
+                OnDblClick = ItemGridDblClick
+                OnDrawCell = ItemGridDrawCell
+                ColWidths = (
+                  48
+                  307)
+              end
+            end
+            object TabSheet2: TTabSheet
+              Caption = 'Inventory Changes'
+              ImageIndex = 1
+              object InventoryChanges: TPowerGrid
+                Left = 0
+                Top = 0
+                Width = 359
+                Height = 83
+                Align = alClient
+                ColCount = 4
+                DefaultRowColor = clBlack
+                Editing = False
+                FixedRows = 0
+                ImageCol = 0
+                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoNoSelect, pgoStretchLastCol]
+                RowCount = 0
+                Sorted = True
+                SortBy = 2
+                StickySelect = False
+                TopRow = 0
+                OnDrawCell = InventoryChangesDrawCell
+                ColWidths = (
+                  64
+                  48
+                  96
+                  147)
+              end
             end
           end
         end

@@ -30,7 +30,8 @@ uses
   procedure FillRegionUnits(Combo: TComboBox; ARegion: TRegion; AUnit: TUnit;
     ExcludeUnit, SelectFormer: boolean);
   procedure AddItemGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor);
-  procedure FillItemGrid(Grid: TPowerGrid; ItemList: TItemList);
+  procedure AddInventoryGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor; row: integer);
+  procedure FillItemGrid(Grid: TPowerGrid; ItemList: TItemList; Clear: boolean = true);
   procedure ItemGridDrawCell(Sender: TObject; ACol, ARow: Integer;
     var TxtRect: TRect; NameCol: integer);
   procedure InsertItemGridRow(Grid: TPowerGrid; Index: integer;
@@ -60,6 +61,9 @@ uses
     List: TSkillList);
 
 implementation
+  
+uses
+  TypInfo;
 
 procedure FillFactionsCombo(Combo: TComboBox; NotPlayer, All: boolean);
 var i, j: integer;
@@ -332,18 +336,40 @@ begin
 
   Grid.SortKeys[1, i] := IntToStr(Game.ItemData.IndexOf(Item.Data));
   if Grid.ColCount > 2 then Grid.Cells[2, i] := '$' + IntToStr(Item.Cost);
+
   Grid.Rows[i].Data := Item;
   Grid.Rows[i].Color := Color;
 end;
 
-procedure FillItemGrid(Grid: TPowerGrid; ItemList: TItemList);
+procedure AddInventoryGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor; row: integer);
+var s: string;
+begin
+  s := GetEnumName(typeInfo(TTurnStage), Ord(Item.Stage));
+  Grid.Cells[0, row] := Copy(s, 3, Length(s) - 2);
+    
+  Grid.Cells[1, row] := IntToStr(Item.Amount);
+
+  Grid.Cells[2, row] := Item.Data.Name(Abs(Item.Amount) > 1);
+  Grid.SortKeys[2, row] := IntToStr(row);
+
+  Grid.Cells[3, row] := Item.Notes;
+
+  Grid.Rows[row].Data := Item;
+  Grid.Rows[row].Color := Color;
+end;
+
+
+procedure FillItemGrid(Grid: TPowerGrid; ItemList: TItemList; Clear: boolean = true);
 var i: integer;
 begin
-  Grid.RowCount := 0;
+  if Clear then Grid.RowCount := 0;
+
   for i := 0 to ItemList.Count-1 do
     if ItemList[i].Bought then
       AddItemGridItem(Grid, ItemList[i], clGrayText)
-    else AddItemGridItem(Grid, ItemList[i], clWindowText);
+    else
+      AddItemGridItem(Grid, ItemList[i], clWindowText);
+
   Grid.Fixup;
 end;
 
@@ -351,12 +377,16 @@ procedure ItemGridDrawCell(Sender: TObject; ACol, ARow: Integer;
   var TxtRect: TRect; NameCol: integer);
 var Item: TItem;
 begin
-  with Sender as TPowerGrid do begin
+  with Sender as TPowerGrid do
+  begin
     Item := TItem(ImgRows[ARow].Data);
-    if (ACol = NameCol) and (ARow >= FixedRows) then begin
+
+    if (ACol = NameCol) and (ARow >= FixedRows) then
+    begin
       if Item <> nil then
         DrawItemIcon(Canvas, TxtRect.Left+1, TxtRect.Top, Item.Data)
-      else ResForm.IconList.Draw(Canvas, TxtRect.Left+1, TxtRect.Top, bmpSilver);
+      else
+        ResForm.IconList.Draw(Canvas, TxtRect.Left+1, TxtRect.Top, bmpSilver);
       TxtRect.Left := TxtRect.Left + 18;
     end;
   end;

@@ -484,7 +484,6 @@ type
     pnProducts: TPanel;
     pnItemsAndSkills: TPanel;
     pnSkills: TPanel;
-    Label9: TLabel;
     Label23: TLabel;
     TradePanel: TPanel;
     Label24: TLabel;
@@ -513,6 +512,12 @@ type
     Label27: TLabel;
     Splitter1: TSplitter;
     memEconomy: TMemo;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    ItemGridFinal: TPowerGrid;
+    InventoryChanges: TPowerGrid;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -666,6 +671,8 @@ type
     procedure FindUnitActionExecute(Sender: TObject);
     procedure NextErrorActionExecute(Sender: TObject);
     procedure HandleSelectAllKeyPress(Sender: TObject; var Key: Char);
+    procedure InventoryChangesDrawCell(Sender: TObject; ACol,
+      ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
   private
   public
     State: TAdvisorState;
@@ -765,8 +772,7 @@ implementation
 
 uses uOptions, uAbout, uMiniMap, uFactions, uMemo, uStructEdit,
   uItemEdit, uSkillEdit, uAvatarEdit, uRegistration, RegCode, uBattle,
-  uScriptEdit, uMapExport, uTownTrade, uSoldiers, uDistribute,
-  TypInfo;
+  uScriptEdit, uMapExport, uTownTrade, uSoldiers, uDistribute;
 
 {$R *.DFM}
 
@@ -935,6 +941,8 @@ begin
   gAllItems.Cells[0, 0] := 'Amount';
   gAllItems.Cells[1, 0] := 'Item';
   gAllItems.Cells[2, 0] := 'Unit';
+
+  InventoryChanges.Cols[0].Format := cfNumber;
 
   // Makeup window
   ApplyConfig;
@@ -2837,6 +2845,7 @@ var i, j, capacity, load, row: integer;
     Route: TRoute;
     RealU: TUnit;
     item: TItem;
+
 begin
   UnitEnable(True);
 
@@ -2926,12 +2935,22 @@ begin
 
     // Fill items
     ItemGrid.NoRepaint := True;
-    if Config.ReadBool('MainWin', 'UnmodItemAmounts', False) then begin
+
+    if Config.ReadBool('MainWin', 'UnmodItemAmounts', False) then
+    begin
       RealU := Turn.Factions[1].Units.Find(AUnit.Num);
-      if RealU <> nil then FillItemGrid(ItemGrid, RealU.Items)
-      else FillItemGrid(ItemGrid, Items);
+      if RealU <> nil then
+        FillItemGrid(ItemGrid, RealU.Items)
+      else
+        FillItemGrid(ItemGrid, Items);
     end
-    else FillItemGrid(ItemGrid, Items);
+    else
+    begin
+      FillItemGrid(ItemGrid, Items);
+    end;
+
+    FillItemGrid(ItemGridFinal, FinalItems);
+
     // Incomes
     with ItemGrid do begin
       if WorkIncome > 0 then
@@ -3114,18 +3133,19 @@ begin
 
   FillAllItems(AUnit);
 
-  memEconomy.Lines.Clear();
+  InventoryChanges.NoRepaint := True;
+  InventoryChanges.RowCount := AUnit.Inventory.Count;
   for j := 0 to AUnit.Inventory.Count - 1 do
   begin
     item := AUnit.Inventory[j];
-
-    memEconomy.Lines.Add(Format('%s: %d %s (%s)', [
-      GetEnumName(typeInfo(TTurnStage), Ord(item.Stage)),
-      item.Amount,
-      item.Data.Name(item.Amount > 1),
-      item.Notes
-    ]));
+    if item.Stage = tsInitial then
+      AddInventoryGridItem(InventoryChanges, AUnit.Inventory[j], clGrayText, j)
+    else
+      AddInventoryGridItem(InventoryChanges, AUnit.Inventory[j], clWindowText, j);
   end;
+  InventoryChanges.Fixup;
+  InventoryChanges.NoRepaint := False;
+  InventoryChanges.Invalidate;
 end;
 
 procedure TMainForm.ItemGridDrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -4478,6 +4498,13 @@ begin
     end;
     Key := #0;    //Eat the key to suppress the beep
   end;
+end;
+
+procedure TMainForm.InventoryChangesDrawCell(Sender: TObject; ACol,
+  ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
+begin
+  if NoDraw then Exit;
+  uInterface.ItemGridDrawCell(Sender, ACol, ARow, TxtRect, 2);
 end;
 
 end.

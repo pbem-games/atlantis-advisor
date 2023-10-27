@@ -362,7 +362,7 @@ type
     function Name: string; overload;
   end;
 
-  TTurnStage = (tsInitial, tsClaim, tsGiveTake, tsPillageOrTax, tsSell, tsBuy, tsBuild, tsCast, tsProduce, tsStudy, tsWork, tsEntertain, tsTrasnport, tsDistribute, tsUpkeep, tsFinal);
+  TTurnStage = (tsInitial, tsClaim, tsGive, tsPillageOrTax, tsSell, tsBuy, tsBuild, tsCast, tsProduce, tsStudy, tsWork, tsEntertain, tsTrasnport, tsDistribute, tsUpkeep, tsFinal);
 
   TItem = class
     Data: TItemData;
@@ -618,6 +618,7 @@ type
 
     // money and item inventory changes during the turn
     Inventory: TItemChanges;
+    FinalItems: TItemList;
 
     Skills: TSkillList;
     CombatSpell: TSkillData;
@@ -1463,12 +1464,14 @@ constructor TBaseUnit.Create;
 begin
   Items := TItemList.Create;
   Inventory := TItemChanges.Create;
+  FinalItems := TItemList.Create;
   Skills := TSkillList.Create;
 end;
 
 destructor TBaseUnit.Destroy;
 begin
   Items.ClearAndFree;
+  FinalItems.ClearAndFree;
   Inventory.ClearAndFree;
   Skills.ClearAndFree;
 end;
