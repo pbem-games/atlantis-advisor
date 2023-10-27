@@ -810,8 +810,12 @@ type
     function Find(Short: string; Stage: TTurnStage): TItem;
     function Seek(Short: string; Stage: TTurnStage): TItem;
     procedure AssignItems(Source: TItemChanges);
-    function AmountOn(Mask: DWord; Stage: TTurnStage): integer;
-    function AmountBefore(Mask: DWord; Stage: TTurnStage): integer;
+    function AmountOn(Mask: DWord; Stage: TTurnStage): integer; overload;
+    function AmountOn(Short: string; Stage: TTurnStage): integer; overload;
+    function AmountOn(Data: TItemData; Stage: TTurnStage): integer; overload;
+    function AmountBefore(Mask: DWord; Stage: TTurnStage): integer; overload;
+    function AmountBefore(Short: string; Stage: TTurnStage): integer; overload;
+    function AmountBefore(Data: TItemData; Stage: TTurnStage): integer; overload;
     function BalanceOn(Stage: TTurnStage): TItemList;
     function BalanceBefore(Stage: TTurnStage): TItemList;
   end;
@@ -2444,14 +2448,42 @@ function TItemChanges.AmountOn(Mask: DWord; Stage: TTurnStage): integer;
 var i: integer;
 begin
   Result := 0;
-  for i := 0 to Count-1 do
+  for i := 0 to Count - 1 do
     if Test(Items[i].Data.Flags, Mask) and (Items[i].Stage <= Stage) then
+      Result := Result + Items[i].Amount;
+end;
+
+function TItemChanges.AmountOn(Short: string; Stage: TTurnStage): integer;
+var i: integer;
+begin
+  Result := 0;
+  for i := 0 to Count - 1 do
+    if (Items[i].Data.Short = Short) and (Items[i].Stage <= Stage) then
+      Result := Result + Items[i].Amount;
+end;
+
+function TItemChanges.AmountOn(Data: TItemData; Stage: TTurnStage): integer;
+var i: integer;
+begin
+  Result := 0;
+  for i := 0 to Count - 1 do
+    if (Items[i].Data = Data) and (Items[i].Stage <= Stage) then
       Result := Result + Items[i].Amount;
 end;
 
 function TItemChanges.AmountBefore(Mask: DWord; Stage: TTurnStage): integer;
 begin
   Result := AmountOn(Mask, TTurnStage(Ord(Stage) - 1));
+end;
+
+function TItemChanges.AmountBefore(Short: string; Stage: TTurnStage): integer;
+begin
+  Result := AmountOn(Short, TTurnStage(Ord(Stage) - 1));
+end;
+
+function TItemChanges.AmountBefore(Data: TItemData; Stage: TTurnStage): integer;
+begin
+  Result := AmountOn(Data, TTurnStage(Ord(Stage) - 1));
 end;
 
 procedure TItemChanges.AssignItems(Source: TItemChanges);

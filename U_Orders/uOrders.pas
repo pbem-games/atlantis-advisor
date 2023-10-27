@@ -867,7 +867,7 @@ begin
 
     if income > 0 then
     begin
-      msg := Format('sold %d %s', [ amt, AUnit.Items[i].Data.Name(amt > 1) ]);
+      msg := Format('%d %s for $%d', [ amt, AUnit.Items[i].Data.Name(amt > 1), Wanted[j].Cost ]);
       AUnit.Inventory.Add(NewMoneyitem(income, tsSell, msg));
       AUnit.Inventory.Add(NewItem(AUnit.Items[i].Data, -amt, tsSell, msg));
     end;
@@ -950,7 +950,7 @@ begin
 
       if expense > 0 then
       begin
-        msg := Format('Bought %d %s', [ amt, ForSale[i].Data.Name(amt > 1) ]);
+        msg := Format('%d %s for $%d', [ amt, ForSale[i].Data.Name(amt > 1), ForSale[i].Cost ]);
         AUnit.Inventory.Add(NewMoneyItem(-expense, tsBuy, msg));
         AUnit.Inventory.Add(NewItem(ForSale[i].Data, amt, tsBuy, msg));
       end;
@@ -959,10 +959,28 @@ begin
 end;
 
 procedure DoBuild(AUnit: TUnit; s: string; var Line: integer);
-var i, lv, amt, maxout: integer;
+var i, lv, amt, maxout, materials: integer;
     StData: TStructData;
     order, t: string;
     U: TUnit;
+
+  function consumeResource(Resource: TItemData; Amount: integer): integer;
+  var onHand, used: integer;
+  begin
+    Result := Amount;
+
+    if Resource = nil then Exit;
+    if Amount = 0 then Exit;
+
+    onHand := AUnit.Inventory.AmountOn(Resource, tsBuild);
+    used := Min(Amount, onHand);
+
+    if used > 0 then
+      AUnit.Inventory.Add(NewItem(StData.Material1, -used, tsBuild, StData.Group));
+
+    Result := Amount - used;
+  end;
+
 begin
   if Pos('help', s) = 1 then begin
     // BUILD HELP <unit>
@@ -1021,8 +1039,8 @@ begin
     Inc(AUnit.MonthInfo.Max, maxout);
     AUnit.MonthInfo.Amount := Min(AUnit.MonthInfo.Max, amt);
 
-    // TODO: determine correct resource
-    AUnit.Inventory.Add(NewItem('ston', -AUnit.MonthInfo.Amount, tsBuild, Format('Spent %d %s to build %s', [ amt, 'stone', StData.Group ])));
+    amt := consumeResource(StData.Material1, amt);
+    amt := consumeResource(StData.Material2, amt);
   end;
 
   DoMonth(AUnit, s, Line);
@@ -1125,7 +1143,7 @@ begin
   // Days learned
   AUnit.MonthInfo.Amount := 30;
 
-  AUnit.Inventory.Add(NewMoneyItem(-cost, tsStudy, Format('Studied %s', [ SData.Name ])));
+  AUnit.Inventory.Add(NewMoneyItem(-cost, tsStudy, SData.Name));
 
   DoMonth(AUnit, s, Line);
 end;
@@ -1546,7 +1564,7 @@ begin
     if consumers[i].Upkeep > 0 then
     begin
       U.Orders.Insert(0, ';. Missing $' + IntToStr(consumers[i].Upkeep) + ' for maintenance');
-      U.Inventory.Add(NewMoneyItem(-consumers[i].Upkeep, tsUpkeep, 'Missing for maintenance'));
+      U.Inventory.Add(NewMoneyItem(-consumers[i].Upkeep, tsUpkeep, 'Missing'));
 
       if not warn then ParseErrors.AddObject('!M4 ' + MakeRegionName(C, True) + ': Units hungry', U);
       warn := True;
