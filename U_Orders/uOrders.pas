@@ -15,41 +15,40 @@ var
   TaxUnits, PillageUnits, EntertainUnits, WorkUnits: TUnitList;
   MaintRegions: TCoordArray;
 
-  procedure DoAttack(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoBuy(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoBuild(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoCast(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoClaim(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoClaimRepeat(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoCombat(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoDeclare(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoDescribe(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoDestroy(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoEnter(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoEntertain(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoEvict(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoExtFlag(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoFlag(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoFaction(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoForm(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoForget(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoGive(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoLeave(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoLocal(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoMonth(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoMove(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoName(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoPillage(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoProduce(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoPromote(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoSell(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoSteal(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoStudy(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoTax(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoTeach(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoWork(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoDistribute(AUnit: TUnit; s: string; var Line: integer);
-  procedure DoTransport(AUnit: TUnit; s: string; var Line: integer);
+  procedure DoAttack(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoBuy(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoBuild(AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+  procedure DoCast(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoClaim(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoClaimRepeat(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoCombat(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoDeclare(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoDescribe(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoDestroy(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoEnter(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoEntertain(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoEvict(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoExtFlag(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoFlag(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoFaction(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoForm(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoForget(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoGive(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoLeave(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoLocal(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoMonth(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoMove(AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+  procedure DoName(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoPillage(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoProduce(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoPromote(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoSell(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoSteal(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoStudy(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTax(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTeach(AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+  procedure DoWork(AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTransport(AUnit: TUnit; s: string; var Line: integer; Order: string);
 
   procedure ResolveTaxes(ARegion: TRegion; TaxUnits: TUnitList; RateMul,
     IncomeMul: integer);
@@ -166,7 +165,7 @@ begin
     raise EParseError.Create('Bad target');
 end;
 
-procedure DoDescribe(AUnit: TUnit; s: string; var Line: integer);
+procedure DoDescribe(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2, t3: string;
 begin
   // Instant
@@ -188,12 +187,12 @@ begin
   else raise EParseError.Create('Can''t describe that');
 end;
 
-procedure DoLocal(AUnit: TUnit; s: string; var Line: integer);
+procedure DoLocal(AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
   UnitRecs.AddUnitRec(AUnit, s);
 end;
 
-procedure DoName(AUnit: TUnit; s: string; var Line: integer);
+procedure DoName(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2, t3: string;
 begin
   // Instant
@@ -225,7 +224,7 @@ begin
   else raise EParseError.Create('Can''t name that');
 end;
 
-procedure DoExtFlag(AUnit: TUnit; s: string; var Line: integer);
+procedure DoExtFlag(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t1, t2: string;
     ExtFlag: integer;
 begin
@@ -258,7 +257,7 @@ begin
 end;
 
 // ** TODO: check if unit can set this flag
-procedure DoFlag(AUnit: TUnit; s: string; var Line: integer);
+procedure DoFlag(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t1, t2: string;
     flag, val: integer;
 begin
@@ -285,7 +284,7 @@ begin
   end;
 end;
 
-procedure DoClaim(AUnit: TUnit; s: string; var Line: integer);
+procedure DoClaim(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     val: integer;
 begin
@@ -302,7 +301,7 @@ begin
 end;
 
 // Take money from unclaimed, but do not modify unit (for global orders)
-procedure DoClaimRepeat(AUnit: TUnit; s: string; var Line: integer);
+procedure DoClaimRepeat(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     val: integer;
 begin
@@ -316,7 +315,7 @@ begin
   end;
 end;
 
-procedure DoCombat(AUnit: TUnit; s: string; var Line: integer);
+procedure DoCombat(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     data: TSkillData;
     i: integer;
@@ -339,7 +338,7 @@ begin
   end;
 end;
 
-procedure DoDeclare(AUnit: TUnit; s: string; var Line: integer);
+procedure DoDeclare(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2, t3: string;
     AFaction: TFaction;
     att: integer;
@@ -369,7 +368,7 @@ begin
   end;
 end;
 
-procedure DoFaction(AUnit: TUnit; s: string; var Line: integer);
+procedure DoFaction(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var
   t2:       string;
   modid:    integer;
@@ -450,7 +449,7 @@ begin
   // Will not check for mages here, better do it when issuing order
 end;
 
-procedure DoForm(AUnit: TUnit; s: string; var Line: integer);
+procedure DoForm(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, j, k, a, num: integer;
     NewUnit: TUnit;
     cturn: integer;
@@ -504,7 +503,7 @@ begin
     end;
 end;
 
-procedure DoLeave(AUnit: TUnit; s: string; var Line: integer);
+procedure DoLeave(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Troop: TTroop;
     i: integer;
 begin
@@ -522,7 +521,7 @@ begin
   AUnit.Struct := nil;
 end;
 
-procedure DoEnter(AUnit: TUnit; s: string; var Line: integer);
+procedure DoEnter(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var num, i: integer;
 begin
   try
@@ -534,7 +533,7 @@ begin
   while (i < AUnit.Region.Structs.Count) and (AUnit.Region.Structs[i].Num <> num) do
     Inc(i);
   if i < AUnit.Region.Structs.Count then begin
-    DoLeave(AUnit, s, Line);
+    DoLeave(AUnit, s, Line, 'leave');
     AUnit.Struct := AUnit.Region.Structs[i];
     if AUnit.Region.Structs[i].Owner = nil then
       AUnit.Region.Structs[i].Owner := AUnit;
@@ -542,7 +541,7 @@ begin
   else raise EParseError.Create('Wrong object');
 end;
 
-procedure DoProduce(AUnit: TUnit; s: string; var Line: integer);
+procedure DoProduce(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var IData: TItemData;
     Res: TItem;
     i, maxout, turnout, limitOut: integer;
@@ -594,10 +593,10 @@ begin
 
   AUnit.Inventory.Add(NewItem(IData, turnout, tsProduce));
 
-  DoMonth(AUnit, s, Line);
+  DoMonth(AUnit, s, Line, Order);
 end;
 
-procedure DoPromote(AUnit: TUnit; s: string; var Line: integer);
+procedure DoPromote(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Target: TUnit;
 begin
   Target := GetUnit(AUnit.Region, s, False);
@@ -612,7 +611,7 @@ begin
   SetFlag(Target.Marks, UM_PROMOTED);
 end;
 
-procedure DoSteal(AUnit: TUnit; s: string; var Line: integer);
+procedure DoSteal(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var num, i, amt: integer;
     t3: string;
     Target: TUnit;
@@ -649,7 +648,7 @@ begin
   end;
 end;
 
-procedure DoDestroy(AUnit: TUnit; s: string; var Line: integer);
+procedure DoDestroy(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, j: integer;
     AStruct: TStruct;
     R: TRegion;
@@ -668,7 +667,7 @@ begin
   end;
 end;
 
-procedure DoGive(AUnit: TUnit; s: string; var Line: integer);
+procedure DoGive(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, k, amount: integer;
     t3, t4: string;
     Target: TUnit;
@@ -740,7 +739,7 @@ begin
   if not_enough then raise EParseError.Create('Not enough');
 end;
 
-procedure DoPillage(AUnit: TUnit; s: string; var Line: integer);
+procedure DoPillage(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var R: TRegion;
 begin
   if (AUnit.Region.Guard <> nil) and (AUnit.Region.Guard.Num <> Faction.Num) then
@@ -753,7 +752,7 @@ begin
   PillageUnits.Add(AUnit);
 end;
 
-procedure DoTax(AUnit: TUnit; s: string; var Line: integer);
+procedure DoTax(AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
   if (AUnit.Region.Guard <> nil) and (AUnit.Region.Guard.Num <> Faction.Num)
     and (AUnit.Region.Guard.Attitude < attFriendly) then
@@ -761,10 +760,10 @@ begin
   if Taxers(AUnit) = 0 then raise EParseError.Create('Unit can''t tax');
   TaxUnits.Add(AUnit);
   if GameConfig.ReadBool('Settings', 'MonthTax', False) then
-    DoMonth(AUnit, s, Line);
+    DoMonth(AUnit, s, Line, Order);
 end;
 
-procedure DoTeach(AUnit: TUnit; s: string; var Line: integer);
+procedure DoTeach(AUnit: TUnit; s: string; var Line: integer; AOrder: string);
 var Students: TUnitList;
     i, men, st_count, help, max_students: integer;
     U: TUnit;
@@ -813,10 +812,10 @@ begin
     Students[i].MonthInfo.Details := Students[i].MonthInfo.Details + AUnit.Name;
   end;
   Students.Free;
-  DoMonth(AUnit, s, Line);
+  DoMonth(AUnit, s, Line, Order);
 end;
 
-procedure DoCast(AUnit: TUnit; s: string; var Line: integer);
+procedure DoCast(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i: integer;
 begin
   i := 0;
@@ -824,7 +823,7 @@ begin
   if i < Line then raise EParseError.Create('One cast permitted');
 end;
 
-procedure DoSell(AUnit: TUnit; s: string; var Line: integer);
+procedure DoSell(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, j, amt, income: integer;
     t2, t3, msg: string;
     idata: TItemData;
@@ -878,7 +877,7 @@ begin
   end;
 end;
 
-procedure DoAttack(AUnit: TUnit; s: string; var Line: integer);
+procedure DoAttack(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Target: TUnit;
 begin
   while (Trim(s) <> '') do begin
@@ -888,7 +887,7 @@ begin
   end;
 end;
 
-procedure DoBuy(AUnit: TUnit; s: string; var Line: integer);
+procedure DoBuy(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var amt, i, j, expense: integer;
     t2, t3, msg: string;
     Item: TItem;
@@ -962,7 +961,7 @@ begin
   end;
 end;
 
-procedure DoBuild(AUnit: TUnit; s: string; var Line: integer);
+procedure DoBuild(AUnit: TUnit; s: string; var Line: integer; AOrder: string);
 var i, lv, amt, maxout: integer;
     StData: TStructData;
     order, t: string;
@@ -1047,10 +1046,10 @@ begin
     consumeResource(StData.Material2, amt);
   end;
 
-  DoMonth(AUnit, s, Line);
+  DoMonth(AUnit, s, Line, AOrder);
 end;
 
-procedure DoForget(AUnit: TUnit; s: string; var Line: integer);
+procedure DoForget(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     i: integer;
 begin
@@ -1065,7 +1064,7 @@ begin
   else raise EParseError.Create('Bad skill');
 end;
 
-procedure DoMonth(AUnit: TUnit; s: string; var Line: integer);
+procedure DoMonth(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var ord: string;
 begin
   ord := AUnit.MonthOrder;
@@ -1085,16 +1084,16 @@ begin
   end;
 end;
 
-procedure DoEntertain(AUnit: TUnit; s: string; var Line: integer);
+procedure DoEntertain(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Skill: TSkill;
 begin
   Skill := AUnit.Skills.Find(Keys[s_EntertainSkill]);
   if Skill = nil then raise EParseError.Create('No entertainment skill');
   EntertainUnits.Add(AUnit);
-  DoMonth(AUnit, s, Line);
+  DoMonth(AUnit, s, Line, Order);
 end;
 
-procedure DoEvict(AUnit: TUnit; s: string; var Line: integer);
+procedure DoEvict(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Target: TUnit;
 begin
   Target := GetUnit(AUnit.Region, s, False);
@@ -1108,13 +1107,13 @@ begin
   Target.Struct := nil;
 end;
 
-procedure DoWork(AUnit: TUnit; s: string; var Line: integer);
+procedure DoWork(AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
   WorkUnits.Add(AUnit);
-  DoMonth(AUnit, s, Line);
+  DoMonth(AUnit, s, Line, Order);
 end;
 
-procedure DoStudy(AUnit: TUnit; s: string; var Line: integer);
+procedure DoStudy(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     SData: TSkillData;
     Skill: TSkill;
@@ -1149,10 +1148,10 @@ begin
 
   AUnit.Inventory.Add(NewMoneyItem(-cost, tsStudy, SData.Name));
 
-  DoMonth(AUnit, s, Line);
+  DoMonth(AUnit, s, Line, Order);
 end;
 
-procedure DoMove(AUnit: TUnit; s: string; var Line: integer);
+procedure DoMove(AUnit: TUnit; s: string; var Line: integer; AOrder: string);
 var i, mt, mp, d, struct, cap: integer;
     order, t2: string;
     C: TCoords;
@@ -1256,117 +1255,119 @@ begin
     end;
   end;
 
-  DoMonth(AUnit, s, Line);
+  DoMonth(AUnit, s, Line, AOrder);
 end;
 
-procedure DoDistribute(AUnit: TUnit; s: string; var Line: integer);
+// procedure DoDistribute(AUnit: TUnit; s: string; var Line: integer; Order: string);
+// var
+//   skill: TSkill;
+//   item: TItemData;
+//   target: TUnit;
+//   amount, toDistribute, limit, dist, silver, cost, costPerUnit: integer;
+//   t2, t3: string;
+//   isRemote: boolean;
+
+// begin
+//   skill := AUnit.Skills.Find(Keys[s_Quartermaster]);
+//   if skill = nil then
+//     raise EParseError.Create('Unit has no quartermaster skill');
+
+//   // Possible formats
+//   // [unit] [num] [item]
+//   // [unit] ALL [item]
+//   // [unit] ALL [item] EXCEPT [amount]
+//   try
+//     // unit
+//     target := VTurn.FindUnit(StrToInt(GetToken(s)));
+//     if target = nil then
+//       raise EParseError.Create('Target unit not found');
+
+    
+//     // if (target.Faction.Num <> AUnit.Faction.Num) and (target.Faction.Attitude < attFriendly) then
+//     //   raise EParseError.Create('Target unit is not friendly');
+
+//     if target = AUnit then
+//       raise EParseError.Create('Cannot distribute to self');
+
+//     // num
+//     t2 := AnsiLowerCase(GetToken(s));
+//     if t2 = '' then
+//       raise EParseError.Create('Expected ALL or <number> as number of items')
+//     else if t2 = 'all' then
+//       toDistribute := -1
+//     else
+//       toDistribute := StrToInt(t2);
+
+//     // item
+//     t3 := GetToken(s);
+//     if t3 = '' then
+//       raise EParseError.Create('Expected item name');
+//     item := Game.ItemData.FindByName(t3);
+//     if item = nil then
+//       raise EParseError.Create('Unknown item');
+
+//     // except
+//     limit := 0;
+//     if AnsiLowerCase(GetToken(s)) = 'except' then
+//       limit := StrToInt(GetToken(s));
+//   except
+//     on EConvertError do Exit;
+//   end;
+
+//   dist := Distance(AUnit.FinalCoords, target.FinalCoords);
+//   if dist < 0 then
+//     raise EParseError.Create('Cannot distribute to another plane');
+//   isRemote := dist > 2;
+//   costPerUnit := 4 - ((skill.Level + 1) div 2);
+
+//   if isRemote then
+//   begin
+//     // TODO: put Quatermaster distance to config
+//     if (skill.Level = 1) and (dist > 3) then raise EParseError.Create('Too far to distribute');
+//     if (skill.Level >= 2) and (skill.Level <= 4) and (dist > 4) then raise EParseError.Create('Too far to distribute');
+//     if (skill.Level = 5) and (dist > 5) then raise EParseError.Create('Too far to distribute');
+
+//     if target.Skills.Find(Keys[s_Quartermaster]) = nil then
+//       raise EParseError.Create('Target unit must know quartermaster skill');
+
+//     if (target.Struct = nil) or (target.Struct.Data.Group <> Keys[s_Caravanserai]) then
+//       raise EParseError.Create('Target unit must be in caravanserai');
+
+//     if target.Struct.Owner <> target then
+//       raise EParseError.Create('Target unit must be owner of caravanserai');
+//   end;
+
+//   amount := AUnit.Inventory.AmountOn(item, tsDistribute);
+//   if toDistribute = -1 then
+//     toDistribute := amount;
+//   toDistribute := Max(0, toDistribute - limit);
+  
+//   if toDistribute > amount then
+//     raise EParseError.Create('Not enough items to distribute');
+
+//   if isRemote then
+//   begin
+//     silver := AUnit.Inventory.AmountOn(IT_SILVER, tsDistribute);
+//     cost := item.Weight * costPerUnit;
+
+//     if cost > silver then
+//       raise EParseError.Create('Not enough silver to pay for distribution (needs $' + IntToStr(cost) + ')');
+
+//     AUnit.Inventory.Add(NewMoneyItem(-cost, tsDistribute, 'to ' + target.FullName));
+//   end;
+
+//   AUnit.Inventory.Add(NewItem(item, -toDistribute, tsDistribute, 'to ' + target.FullName));
+//   target.Inventory.Add(NewItem(item, toDistribute, tsDistribute, 'from ' + AUnit.FullName));
+// end;
+
+procedure DoTransport(AUnit: TUnit; s: string; var Line: integer; Order: string);
 var
   skill: TSkill;
   item: TItemData;
   target: TUnit;
-  amount, toDistribute, limit, dist, silver, cost, costPerUnit: integer;
+  amount, toTransport, limit, dist, silver, cost, costPerUnit: integer;
   t2, t3: string;
   isRemote: boolean;
-
-begin
-  skill := AUnit.Skills.Find(Keys[s_Quartermaster]);
-  if skill = nil then
-    raise EParseError.Create('Unit has no quartermaster skill');
-
-  // Possible formats
-  // [unit] [num] [item]
-  // [unit] ALL [item]
-  // [unit] ALL [item] EXCEPT [amount]
-  try
-    // unit
-    target := VTurn.FindUnit(StrToInt(GetToken(s)));
-    if target = nil then
-      raise EParseError.Create('Target unit not found');
-
-    
-    // if (target.Faction.Num <> AUnit.Faction.Num) and (target.Faction.Attitude < attFriendly) then
-    //   raise EParseError.Create('Target unit is not friendly');
-
-    if target = AUnit then
-      raise EParseError.Create('Cannot distribute to self');
-
-    // num
-    t2 := AnsiLowerCase(GetToken(s));
-    if t2 = '' then
-      raise EParseError.Create('Expected ALL or <number> as number of items')
-    else if t2 = 'all' then
-      toDistribute := -1
-    else
-      toDistribute := StrToInt(t2);
-
-    // item
-    t3 := GetToken(s);
-    if t3 = '' then
-      raise EParseError.Create('Expected item name');
-    item := Game.ItemData.FindByName(t3);
-    if item = nil then
-      raise EParseError.Create('Unknown item');
-
-    // except
-    limit := 0;
-    if AnsiLowerCase(GetToken(s)) = 'except' then
-      limit := StrToInt(GetToken(s));
-  except
-    on EConvertError do Exit;
-  end;
-
-  dist := Distance(AUnit.FinalCoords, target.FinalCoords);
-  if dist < 0 then
-    raise EParseError.Create('Cannot distribute to another plane');
-  isRemote := dist > 2;
-  costPerUnit := 4 - ((skill.Level + 1) div 2);
-
-  if isRemote then
-  begin
-    // TODO: put Quatermaster distance to config
-    if (skill.Level = 1) and (dist > 3) then raise EParseError.Create('Too far to distribute');
-    if (skill.Level >= 2) and (skill.Level <= 4) and (dist > 4) then raise EParseError.Create('Too far to distribute');
-    if (skill.Level = 5) and (dist > 5) then raise EParseError.Create('Too far to distribute');
-
-    if target.Skills.Find(Keys[s_Quartermaster]) = nil then
-      raise EParseError.Create('Target unit must know quartermaster skill');
-
-    if (target.Struct = nil) or (target.Struct.Data.Group <> Keys[s_Caravanserai]) then
-      raise EParseError.Create('Target unit must be in caravanserai');
-
-    if target.Struct.Owner <> target then
-      raise EParseError.Create('Target unit must be owner of caravanserai');
-  end;
-
-  amount := AUnit.Inventory.AmountOn(item, tsDistribute);
-  if toDistribute = -1 then
-    toDistribute := amount;
-  toDistribute := Max(0, toDistribute - limit);
-  
-  if toDistribute > amount then
-    raise EParseError.Create('Not enough items to distribute');
-
-  if isRemote then
-  begin
-    silver := AUnit.Inventory.AmountOn(IT_SILVER, tsDistribute);
-    cost := item.Weight * costPerUnit;
-
-    if cost > silver then
-      raise EParseError.Create('Not enough silver to pay for distribution (needs $' + IntToStr(cost) + ')');
-
-    AUnit.Inventory.Add(NewMoneyItem(-cost, tsDistribute, 'to ' + target.FullName));
-  end;
-
-  AUnit.Inventory.Add(NewItem(item, -toDistribute, tsDistribute, 'to ' + target.FullName));
-  target.Inventory.Add(NewItem(item, toDistribute, tsDistribute, 'from ' + AUnit.FullName));
-end;
-
-procedure DoTransport(AUnit: TUnit; s: string; var Line: integer);
-var
-  item: TItemData;
-  target: TUnit;
-  amount, toTransport, limit, dist: integer;
-  t2, t3: string;
 
 begin
   // Possible formats
@@ -1410,32 +1411,61 @@ begin
     on EConvertError do Exit;
   end;
 
+  skill := AUnit.Skills.Find(Keys[s_Quartermaster]);
+  if (Order = 'distribute') and (skill = nil) then
+    raise EParseError.Create('Unit has no quartermaster skill');
+
   dist := Distance(AUnit.FinalCoords, target.FinalCoords);
+  isRemote := dist > 2;
+
   if dist < 0 then
     raise EParseError.Create('Cannot distribute to another plane');
 
-  if dist > 2 then
-    raise EParseError.Create('Too far to transport');
+  if (Order = 'transport') and isRemote then
+      raise EParseError.Create('Too far to transport');
 
-  if target.Skills.Find(Keys[s_Quartermaster]) = nil then
-    raise EParseError.Create('Target unit must know quartermaster skill');
+  if isRemote then
+  begin
+    // TODO: put Quatermaster distance to config
+    if (skill.Level = 1) and (dist > 3) then raise EParseError.Create('Too far to distribute');
+    if (skill.Level >= 2) and (skill.Level <= 4) and (dist > 4) then raise EParseError.Create('Too far to distribute');
+    if (skill.Level = 5) and (dist > 5) then raise EParseError.Create('Too far to distribute');
+  end;
 
-  if (target.Struct = nil) or (target.Struct.Data.Group <> Keys[s_Caravanserai]) then
-    raise EParseError.Create('Target unit must be in caravanserai');
+  if isRemote or (Order = 'transport') then
+  begin
+    if target.Skills.Find(Keys[s_Quartermaster]) = nil then
+      raise EParseError.Create('Target unit must know quartermaster skill');
 
-  if target.Struct.Owner <> target then
-    raise EParseError.Create('Target unit must be owner of caravanserai');
+    if (target.Struct = nil) or (target.Struct.Data.Group <> Keys[s_Caravanserai]) then
+      raise EParseError.Create('Target unit must be in caravanserai');
 
-  amount := AUnit.Inventory.AmountOn(item, tsTrasnport);
+    if target.Struct.Owner <> target then
+      raise EParseError.Create('Target unit must be owner of caravanserai');
+  end;
+
+  amount := AUnit.Inventory.AmountOn(item, tsTransport);
   if toTransport = -1 then
     toTransport := amount;
   toTransport := Max(0, toTransport - limit);
   
   if toTransport > amount then
-    raise EParseError.Create('Not enough items to distribute');
+    raise EParseError.Create('Not enough items to ' + Order);
 
-  AUnit.Inventory.Add(NewItem(item, -toTransport, tsTrasnport, 'to ' + target.FullName));
-  target.Inventory.Add(NewItem(item, toTransport, tsTrasnport, 'from ' + AUnit.FullName));
+  if isRemote then
+  begin
+    silver := AUnit.Inventory.AmountOn(IT_SILVER, tsTransport);         
+    costPerUnit := 4 - ((skill.Level + 1) div 2);
+    cost := item.Weight * costPerUnit;
+
+    if cost > silver then
+      raise EParseError.Create('Not enough silver to pay for distribution (needs $' + IntToStr(cost) + ')');
+
+    AUnit.Inventory.Add(NewMoneyItem(-cost, tsTransport, 'to ' + target.FullName));
+  end;
+
+  AUnit.Inventory.Add(NewItem(item, -toTransport, tsTransport, 'to ' + target.FullName));
+  target.Inventory.Add(NewItem(item, toTransport, tsTransport, 'from ' + AUnit.FullName));
 end;
 
 procedure ResolveMaintenance(C: TCoords; ParseErrors: TStrings);

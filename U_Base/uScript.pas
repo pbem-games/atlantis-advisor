@@ -50,7 +50,6 @@ const
 
 type
   EScriptError = class(Exception);
-  TStringArray = array of string;
   TIndexFinder = function(List: TList; s: string): integer;
   TListValue = function(Obj: TObject): string;
 

@@ -20,14 +20,14 @@ var
 implementation
 
 type
-  TProcessor = procedure (AUnit: TUnit; s: string; var Line: integer);
+  TProcessor = procedure (AUnit: TUnit; s: string; var Line: integer; Order: string);
 
   TProcessThread = class(TThread)
   private
     procedure DoManualScript;
     procedure DoOrder(AUnit: TUnit; Order: string; var Line: integer;
-      Processor: TProcessor);
-    procedure DoOrders(R: TRegion; Order: string; Processor: TProcessor);
+      Processor: TProcessor; CurrentOrder: string);
+    procedure DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor);
     procedure DoScripts(R: TRegion; Order: string);
     procedure DoGlobalOrders(R: TRegion);
     procedure ProcessRegion(R: TRegion; RecreateRegion: boolean);
@@ -52,7 +52,7 @@ var
   Terminator: TTerminator;
 
 procedure TProcessThread.DoOrder(AUnit: TUnit; Order: string; var Line:
-  integer; Processor: TProcessor);
+  integer; Processor: TProcessor; CurrentOrder: string);
 var args, msg: string;
 begin
   Order := Trim(Order);
@@ -60,7 +60,7 @@ begin
   else if Pos(' ', Order) = 0 then args := ''
   else args := Copy(Order, Pos(' ', Order) + 1, Length(Order));
   try
-    Processor(AUnit, args, Line);
+    Processor(AUnit, args, Line, CurrentOrder);
   except
     on E: EParseError do begin
       msg := ';. ' + E.Message;
@@ -80,24 +80,40 @@ begin
 end;
 
 // Process one type of orders for all units in region
-procedure TProcessThread.DoOrders(R: TRegion; Order: string; Processor: TProcessor);
+procedure TProcessThread.DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor);
 var i: integer;
     u: TUnit;
     inRegion: array of TUnit;
     inStructs: array of TUnit;
 
+  function isOrder(const order: string; out foundOrder: string): boolean;
+  var p: integer;
+  begin
+    Result := False;
+    for p := 0 to High(Orders) do
+      if order = orders[p] then
+      begin
+        foundOrder := orders[p];
+        Result := True;
+        Break;
+      end;
+  end;
+
   procedure execOrders(AUnit: TUnit);
     var k: integer;
+        currentOrder: string;
   begin
+    currentOrder := Orders[0];
+
     // Run scripts
-    RunScripts(AUnit, Order, ParseErrors);
+    RunScripts(AUnit, currentOrder, ParseErrors);
 
     // Find orders
     k := 0;
     // TAX order may be fired from unit flag
-    if AUnit.Flags[flgTax] and (Order = 'tax') then begin
+    if AUnit.Flags[flgTax] and (currentOrder = 'tax') then begin
       k := -1;
-      DoOrder(AUnit, 'tax', k, Processor);
+      DoOrder(AUnit, 'tax', k, Processor, 'tax');
     end
     else begin
       while k < AUnit.Orders.Count do begin
@@ -111,14 +127,15 @@ var i: integer;
         end;
 
         // Check if we found given order
-        if AUnit.Order(k) = Order then
-          if Order = '@;warning' then
+        if isOrder(AUnit.Order(k), currentOrder) then
+        begin
+          if currentOrder = '@;warning' then
             ParseErrors.AddObject('!W2 ' + AUnit.Name + ' (' + AUnit.NumStr +
-              '): ' + Copy(AUnit.Orders[k], Pos(Order, AUnit.Orders[k]) +
-              Length(Order) + 1, Length(AUnit.Orders[k])), AUnit)
+              '): ' + Copy(AUnit.Orders[k], Pos(currentOrder, AUnit.Orders[k]) +
+              Length(currentOrder) + 1, Length(AUnit.Orders[k])), AUnit)
           else
-            DoOrder(AUnit, AUnit.Orders[k], k, Processor);
-
+            DoOrder(AUnit, AUnit.Orders[k], k, Processor, currentOrder);
+        end;
         Inc(k);
       end;
     end;
@@ -178,13 +195,14 @@ begin
   // Execute global orders for all regions
   for i := 0 to VTurn.Regions.Count-1 do
     if (VTurn.Regions[i] <> R) and (VTurn.Regions[i].PlayerTroop <> nil) then begin
-      DoOrders(VTurn.Regions[i], 'declare', DoDeclare);
-      DoOrders(VTurn.Regions[i], 'claim', DoClaimRepeat);
+      DoOrders(VTurn.Regions[i], ['declare'], DoDeclare);
+      DoOrders(VTurn.Regions[i], ['claim'], DoClaimRepeat);
     end;
 end;
 
 // Process orders for region
-procedure TProcessThread.ProcessRegion(R: TRegion; RecreateRegion: boolean);
+// NOTE: the problem is that orders must be processed by phases in EACH region per phase
+procedure TProcessThread.ProcessRegion(RegToProcess: TRegion; RecreateRegion: boolean);
 var i, k: integer;
     U: TUnit;
     tempItems: TItemList;
@@ -229,60 +247,56 @@ begin
 
   // Instants
   if Startup then DoScripts(R, 'startup');
+
   DoScripts(R, '');
-  DoOrders(R, 'form',       DoForm);
-  DoOrders(R, 'autotax',    DoFlag);
-  DoOrders(R, 'avoid',      DoFlag);
-  DoOrders(R, 'behind',     DoFlag);
-  DoOrders(R, 'claim',      DoClaim);
-  DoOrders(R, 'combat',     DoCombat);
-  DoOrders(R, 'consume',    DoExtFlag);
-  DoOrders(R, 'declare',    DoDeclare);
-  DoOrders(R, 'describe',   DoDescribe);
-  DoOrders(R, '@;;',        DoLocal);
-  DoOrders(R, 'faction',    DoFaction);
-  DoOrders(R, 'guard',      DoFlag);
-  DoOrders(R, 'hold',       DoFlag);
-  DoOrders(R, 'name',       DoName);
-  DoOrders(R, 'noaid',      DoFlag);
-  DoOrders(R, 'nocross',    DoFlag);
-  DoOrders(R, 'share',      DoFlag);
-  DoOrders(R, 'reveal',     DoExtFlag);
-  DoOrders(R, 'spoils',     DoExtFlag);
-  DoOrders(R, 'leave',      DoLeave);
-  DoOrders(R, 'enter',      DoEnter);
-  DoOrders(R, 'promote',    DoPromote);
-  DoOrders(R, 'evict',      DoEvict);
-  DoOrders(R, 'attack',     DoAttack);
-  DoOrders(R, 'steal',      DoSteal);
-  DoOrders(R, 'destroy',    DoDestroy);
-  DoOrders(R, 'give',       DoGive);
-  DoOrders(R, 'pillage',    DoPillage);
+  DoOrders(R, ['form'],       DoForm);
+  DoOrders(R, ['@;;'],        DoLocal);
+  DoOrders(R, ['name'],       DoName);
+  DoOrders(R, ['autotax', 'avoid', 'behind', 'guard', 'hold', 'noaid', 'nocross', 'share'], DoFlag);
+  DoOrders(R, ['consume', 'reveal', 'spoils'], DoExtFlag);
+  DoOrders(R, ['claim'],      DoClaim);
+  DoOrders(R, ['combat'],     DoCombat);
+  DoOrders(R, ['declare'],    DoDeclare);
+  DoOrders(R, ['describe'],   DoDescribe);
+  DoOrders(R, ['faction'],    DoFaction);
+  DoOrders(R, ['leave'],      DoLeave);
+  DoOrders(R, ['enter'],      DoEnter);
+  DoOrders(R, ['promote'],    DoPromote);
+  DoOrders(R, ['evict'],      DoEvict);
+  DoOrders(R, ['attack'],     DoAttack);
+  DoOrders(R, ['steal'],      DoSteal);
+  DoOrders(R, ['destroy'],    DoDestroy);
+  DoOrders(R, ['give'],       DoGive);
+
+  DoOrders(R, ['pillage'],    DoPillage);
   ResolveTaxes(R, PillageUnits, 2, 4);
-  DoOrders(R, 'tax',        DoTax);
+
+  DoOrders(R, ['tax'],        DoTax);
   ResolveTaxes(R, TaxUnits, 1, 1);
-  DoOrders(R, 'cast',       DoCast);
-  DoOrders(R, 'sell',       DoSell);
-  DoOrders(R, 'buy',        DoBuy);
-  DoOrders(R, 'forget',     DoForget);
+
+  DoOrders(R, ['cast'],       DoCast);
+  DoOrders(R, ['sell'],       DoSell);
+  DoOrders(R, ['buy'],        DoBuy);
+  DoOrders(R, ['forget'],     DoForget);
   DoScripts(R, 'monthlong');
 
   // Move orders
-  DoOrders(R, 'sail',       DoMove);
-  DoOrders(R, 'move',       DoMove);
-  DoOrders(R, 'advance',    DoMove);
+  DoOrders(R, ['sail', 'move', 'advance'], DoMove);
 
   // Month-long orders
-  DoOrders(R, 'build',      DoBuild);
-  DoOrders(R, 'entertain',  DoEntertain);
+  DoOrders(R, ['build'],      DoBuild);
+  
+  DoOrders(R, ['entertain'],  DoEntertain);
   ResolveEntertainment(R);
-  DoOrders(R, 'produce',    DoProduce);
-  DoOrders(R, 'study',      DoStudy);
-  DoOrders(R, 'teach',      DoTeach);
-  DoOrders(R, 'work',       DoWork);
+  
+  DoOrders(R, ['produce'],    DoProduce);
+  DoOrders(R, ['study'],      DoStudy);
+  DoOrders(R, ['teach'],      DoTeach);
+  
+  DoOrders(R, ['work'],       DoWork);
   ResolveWork(R);
-  DoOrders(R, 'transport',  DoTransport);
-  DoOrders(R, 'distribute', DoDistribute);
+  
+  DoOrders(R, ['transport', 'distribute'],  DoTransport);
   
   // Add final regions of moving units to list
   for i := 0 to R.PlayerTroop.Units.Count - 1 do
@@ -297,7 +311,7 @@ begin
       ResolveMaintenance(MaintRegions[i], ParseErrors);
 
   DoScripts(R, 'final');
-  DoOrders(R, '@;warning', nil);
+  DoOrders(R, ['@;warning'], nil);
 
   TaxUnits.Free;
   PillageUnits.Free;
@@ -333,7 +347,7 @@ begin
     // Calculate final items
     U.FinalItems.ClearItems();
 
-    tempItems := U.Inventory.BalanceOn(tsDistribute);
+    tempItems := U.Inventory.BalanceOn(tsTransport);
     U.FinalItems.AssignItems(tempItems);
     tempItems.ClearAndFree();
   end;
@@ -352,24 +366,34 @@ procedure TProcessThread.ProcessAllRegions;
 var i: integer;
 begin
   Game.CreateVirtualTurn;
+  
   for i := 0 to VFaction.Units.Count-1 do
     ClearErrorComments(VFaction.Units[i].Orders);
+
   ParseErrors.Clear;
   DoManualScript;
+  
   if Terminated then Exit;
+
   SetLength(MaintRegions, 0);
+  
   for i := 0 to VTurn.Regions.Count-1 do
     ProcessRegion(VTurn.Regions[i], False);
+
   for i := 0 to High(MaintRegions) do
     ResolveMaintenance(MaintRegions[i], ParseErrors);
+  
   CheckFPoints(ParseErrors);
 end;
 
 procedure TProcessThread.Execute;
 begin
   TerminatedQuery := IsTerminated;
-  if Region <> nil then ProcessRegion(Region, True)
-  else ProcessAllRegions;
+
+  if Region <> nil then
+    ProcessRegion(Region, True)
+  else
+    ProcessAllRegions;
 end;
 
 // We need it to set ProcessThread to nil; thread will actually free by itself
@@ -380,8 +404,7 @@ begin
 end;
 
 // Start order-processing thread
-procedure DoProcessOrders(ARegion: TRegion; AScript: integer; Args: string;
-  AStartup: boolean);
+procedure DoProcessOrders(ARegion: TRegion; AScript: integer; Args: string; AStartup: boolean);
 begin
   if ProcessThread = nil then begin
     ProcessThread := TProcessThread.Create(True);

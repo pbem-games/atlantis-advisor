@@ -24,6 +24,8 @@ type
     Moves: integer;
   end;
 
+  TStringArray = array of string;
+
 var
   MapBounds: array of TRect;
   Reached: array of TReached;
