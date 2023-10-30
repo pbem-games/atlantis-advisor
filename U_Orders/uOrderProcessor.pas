@@ -208,6 +208,7 @@ var i, k, n: integer;
     tempItems: TItemList;
     R, freg: TRegion;
     finalRegions: array of TRegion;
+    troop: TTroop;
 
   procedure addToFinal(r: TRegion);
   var m: integer;
@@ -313,18 +314,24 @@ begin
     R := Regs[n];
 
     // Ensure that the region has player units
-    if R.PlayerTroop = nil then Continue;
+    troop := R.PlayerTroop;
+    if troop = nil then Continue;
 
-    for i := 0 to R.PlayerTroop.Units.Count - 1 do
+    for i := 0 to troop.Units.Count - 1 do
     begin
-      U := R.PlayerTroop.Units[i];
+      U := troop.Units[i];
       freg := R;
 
       if not EqualCoords(U.FinalCoords, freg.Coords) then
         freg := VTurn.Regions.Find(U.FinalCoords);
 
-      freg.FinalTroops.Seek(U.Faction.Num).Units.Add(U);
-      addToFinal(freg);
+      if freg <> nil then
+      begin
+        // if region not found then unit will end up in the unexplored region
+        // we will calculate their maintenance separately
+        freg.FinalTroops.Seek(U.Faction.Num).Units.Add(U);
+        addToFinal(freg);
+      end;
     end;
   end;
 
@@ -359,11 +366,16 @@ begin
   end;
 
   if RecreateRegion then
+  begin
     for n := 0 to High(finalRegions) do
     begin
       R := finalRegions[n];
-      ResolveMaintenance(R, ParseErrors);
+      ResolveMaintenance(R.Coords, R.FinalPlayerTroop.Units, ParseErrors);
     end;
+
+    for n := 0 to High(Unexplored) do
+      ResolveMaintenance(Unexplored[n].Coords, Unexplored[n].Units, ParseErrors);
+  end;
 
   for n := 0 to High(finalRegions) do
   begin
@@ -423,48 +435,63 @@ end;
 
 procedure TProcessThread.ProcessAllRegions;
 var i: integer;
+  reg: TRegion;
+  troop: TTroop;
 begin
-  Game.CreateVirtualTurn;
-  
-  for i := 0 to VFaction.Units.Count-1 do
-    ClearErrorComments(VFaction.Units[i].Orders);
+  InitUnexplored;
+  try
+    Game.CreateVirtualTurn;
+    
+    for i := 0 to VFaction.Units.Count-1 do
+      ClearErrorComments(VFaction.Units[i].Orders);
 
-  ParseErrors.Clear;
-  DoManualScript;
-  
-  if Terminated then Exit;
+    ParseErrors.Clear;
+    DoManualScript;
+    
+    if Terminated then Exit;
 
-  // NOTE: ORDERS can influence other regions, so we must process them all.
-  //       To always process all regions will slow down the client.
-  //       To speed up the client, we need to keep track of dependencies.
-  //       And always process all regions that depend on the current one.
-  //
-  //       MOVE orders place units in the new region and all further stages will be influenced with arrived unit.
-  //       TRANSPORT/DISTRIBUTE move items into different regions before maintenance stage.
-  //       Regions must have a list of dependent regions that must be processed after the current one.
-  //       We must collect all dependent regions before processing and process them after the current one.
-  //       If during processing we find a new dependent region, we must add it to the list and reprocess all regions again.
+    // NOTE: ORDERS can influence other regions, so we must process them all.
+    //       To always process all regions will slow down the client.
+    //       To speed up the client, we need to keep track of dependencies.
+    //       And always process all regions that depend on the current one.
+    //
+    //       MOVE orders place units in the new region and all further stages will be influenced with arrived unit.
+    //       TRANSPORT/DISTRIBUTE move items into different regions before maintenance stage.
+    //       Regions must have a list of dependent regions that must be processed after the current one.
+    //       We must collect all dependent regions before processing and process them after the current one.
+    //       If during processing we find a new dependent region, we must add it to the list and reprocess all regions again.
 
-  // Need to clean up dependencies
-  for i := 0 to VTurn.Regions.Count - 1 do
-  begin
-    VTurn.Regions[i].DependsOn.Clear;
-    VTurn.Regions[i].DependedBy.Clear;
+    // Need to clean up dependencies
+    for i := 0 to VTurn.Regions.Count - 1 do
+    begin
+      reg := VTurn.Regions[i];
+
+      Assert(reg = Map.Region(reg.Coords), 'Region from VTurn is not in Map');
+
+      reg.DependsOn.Clear;
+      reg.DependedBy.Clear;
+    end;
+
+    ProcessRegion(VTurn.Regions, False);
+
+    // After all regions were processed, the dirty flag must be cleared
+    VTurn.Dirty := False;
+
+    for i := 0 to VTurn.Regions.Count - 1 do
+    begin
+      troop := VTurn.Regions[i].FinalPlayerTroop;
+      if troop = nil then Continue;
+
+      ResolveMaintenance(VTurn.Regions[i].Coords, troop.Units, ParseErrors);
+    end;
+
+    for i := 0 to High(Unexplored) do
+      ResolveMaintenance(Unexplored[i].Coords, Unexplored[i].Units, ParseErrors);
+    
+    CheckFPoints(ParseErrors);
+  finally
+    ClearUnexplored;
   end;
-
-  ProcessRegion(VTurn.Regions, False);
-
-  // After all regions were processed, the dirty flag must be cleared
-  VTurn.Dirty := False;
-
-  for i := 0 to VTurn.Regions.Count - 1 do
-  begin
-    if VTurn.Regions[i].FinalPlayerTroop = nil then Continue;
-
-    ResolveMaintenance(VTurn.Regions[i], ParseErrors);
-  end;
-  
-  CheckFPoints(ParseErrors);
 end;
 
 procedure TProcessThread.Execute;
@@ -564,23 +591,28 @@ var
   end;
 
 begin
-  TerminatedQuery := IsTerminated;
+  InitUnexplored;
+  try
+    TerminatedQuery := IsTerminated;
 
-  // Only one region (with its dependencies) can be processed if all dependencies are known
-  if (Region <> nil) and not VTurn.Dirty then
-  begin
-    regs := getRegionsToProcess(Region);
-    try
-      ProcessRegion(regs, True);
-    finally
-      regs.Free;
-    end;
+    // Only one region (with its dependencies) can be processed if all dependencies are known
+    if (Region <> nil) and not VTurn.Dirty then
+    begin
+      regs := getRegionsToProcess(Region);
+      try
+        ProcessRegion(regs, True);
+      finally
+        regs.Free;
+      end;
 
-    if VTurn.Dirty then
+      if VTurn.Dirty then
+        ProcessAllRegions;
+    end
+    else
       ProcessAllRegions;
-  end
-  else
-    ProcessAllRegions;
+  finally
+    ClearUnexplored;
+  end;
 end;
 
 // We need it to set ProcessThread to nil; thread will actually free by itself

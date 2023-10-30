@@ -11,8 +11,16 @@ uses
 type
   EParseError = class(Exception);
 
+  TUnexplored = class
+    Coords: TCoords;
+    Units: TUnitList;
+  end;
+
+  TUnexploredArray = array of TUnexplored;
+
 var
   TaxUnits, PillageUnits, EntertainUnits, WorkUnits: TUnitList;
+  Unexplored: TUnexploredArray;
 
   procedure DoAttack(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
   procedure DoBuy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
@@ -53,12 +61,67 @@ var
   procedure ResolveEntertainment(ARegion: TRegion);
   procedure ResolveWork(ARegion: TRegion);
   procedure CheckFPoints(Errors: TStrings);
-  procedure ResolveMaintenance(R: TRegion; ParseErrors: TStrings);
+  procedure ResolveMaintenance(Coords: TCoords; Units: TUnitList; ParseErrors: TStrings);
 
   procedure ClearErrorComments(Lines: TStrings);
 
+  procedure InitUnexplored;
+  procedure AddToUnexplored(Coords: TCoords; AUnit: TUnit);
+  procedure ClearUnexplored;
+
 
 implementation
+
+procedure InitUnexplored;
+begin
+  SetLength(Unexplored, 0);
+end;
+
+procedure AddToUnexplored(Coords: TCoords; AUnit: TUnit);
+var
+  i: integer;
+  reg: TUnexplored;
+
+begin
+  // 1. find the region in the UnexploredRegions if it exists
+  // 1.1 if not exists, create new record
+  // 2. add unit to the record
+
+  reg := nil;
+  for i := 0 to High(Unexplored) do
+    if EqualCoords(Coords, Unexplored[i].Coords) then
+    begin
+      reg := Unexplored[i];
+      Break;
+    end;
+
+  if reg = nil then
+  begin
+    SetLength(Unexplored, Length(Unexplored) + 1);
+
+    reg := TUnexplored.Create;
+    reg.Coords := Coords;
+    reg.Units := TUnitList.Create;
+    
+    Unexplored[High(Unexplored)] := reg;
+  end;
+
+  reg.Units.Add(AUnit);
+end;
+
+procedure ClearUnexplored;
+var
+  i: integer;
+  reg: TUnexplored;
+begin
+  for i := 0 to High(Unexplored) do
+  begin
+    Unexplored[i].Units.Free;
+    Unexplored[i].Free;
+  end;
+
+  SetLength(Unexplored, 0);
+end;
 
 function LevelByPoints(Points: integer): integer;
 var pt: integer;
@@ -1268,8 +1331,15 @@ begin
   if not EqualCoords(ARegion.Coords, AUnit.FinalCoords) then
   begin
     R := VTurn.Regions.Find(AUnit.FinalCoords);
-    R.ArrivingTroops.Seek(AUnit.Faction.Num).Units.Add(AUnit);
-    VTurn.MakeDependecy(ARegion, R);
+    if R = nil then
+      // if region was not found then unit moves into an unexplored region
+      // no dependency is needed
+      AddToUnexplored(AUnit.FinalCoords, AUnit)
+    else
+    begin
+      R.ArrivingTroops.Seek(AUnit.Faction.Num).Units.Add(AUnit);
+      VTurn.MakeDependecy(ARegion, R);
+    end;
   end;
 
   DoMonth(ARegion, AUnit, s, Line, AOrder);
@@ -1411,7 +1481,7 @@ begin
     VTurn.MakeDependecy(ARegion, VTurn.Regions.Find(target.FinalCoords));
 end;
 
-procedure ResolveMaintenance(R: TRegion; ParseErrors: TStrings);
+procedure ResolveMaintenance(Coords: TCoords; Units: TUnitList; ParseErrors: TStrings);
   type TConsumer = record
     Upkeep: integer;
     URef: TUnit;
@@ -1627,11 +1697,8 @@ begin
   SetLength(foodStack, 0);
   SetLength(silverStack, 0);
 
-  // Fill Recs with units from the region
-  if (R <> nil) and (R.FinalPlayerTroop <> nil) then
-    for i := 0 to R.FinalPlayerTroop.Units.Count-1 do
-      if EqualCoords(R.FinalPlayerTroop.Units[i].FinalCoords, R.Coords) then
-        addConsumer(R.FinalPlayerTroop.Units[i]);
+  for i := 0 to Units.Count - 1 do
+    addConsumer(Units[i]);
 
   // sort food so that more valuable food is consumed first
   sortFood(foodStack);
@@ -1677,7 +1744,7 @@ begin
       U.Orders.Insert(0, ';. Missing $' + IntToStr(consumers[i].Upkeep) + ' for maintenance');
       U.Inventory.Add(NewMoneyItem(-consumers[i].Upkeep, tsUpkeep, 'Missing'));
 
-      if not warn then ParseErrors.AddObject('!M4 ' + MakeRegionName(R.Coords, True) + ': Units hungry', U);
+      if not warn then ParseErrors.AddObject('!M4 ' + MakeRegionName(Coords, True) + ': Units hungry', U);
       warn := True;
     end;
   end;
