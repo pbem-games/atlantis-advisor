@@ -112,7 +112,6 @@ end;
 procedure ClearUnexplored;
 var
   i: integer;
-  reg: TUnexplored;
 begin
   for i := 0 to High(Unexplored) do
   begin

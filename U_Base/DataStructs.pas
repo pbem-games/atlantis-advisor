@@ -579,6 +579,7 @@ type
     procedure Assign(Source: TRegion; CopyTurnData: boolean);
     property Coords: TCoords read GetCoords write SetCoords;
     function PlayerTroop: TTroop;
+    function ArrivingPlayerTroop: TTroop;
     function FinalPlayerTroop: TTroop;
     function FindUnit(Num: integer; Stage: TTurnStage): TUnit;
     function FindFaction(Num: integer; Stage: TTurnStage): TTroop;
@@ -1837,6 +1838,12 @@ function TRegion.PlayerTroop: TTroop;
 begin
   if (Troops.Count = 0) or not Troops[0].Faction.Player then Result := nil
   else Result := Troops[0];
+end;
+
+function TRegion.ArrivingPlayerTroop: TTroop;
+begin
+  if (ArrivingTroops.Count = 0) or not ArrivingTroops[0].Faction.Player then Result := nil
+  else Result := ArrivingTroops[0];
 end;
 
 function TRegion.FinalPlayerTroop: TTroop;

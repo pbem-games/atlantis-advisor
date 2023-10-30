@@ -2094,7 +2094,8 @@ end;
 procedure TMainForm.FillEconomyReport(Reg: TRegion; RealReg: TRegion; AList: TStrings);
 var
   i: integer;
-  money, food, men, mounts, weapons, armor: integer;
+  moneyStart, foodStart, menStart, mountsStart, weaponsStart, armorStart: integer;
+  food, men, mounts, weapons, armor: integer;
   moneyEnd, foodEnd, menEnd, mountsEnd, weaponsEnd, armorEnd: integer;
   moneyDiff, foodDiff, menDiff, mountsDiff, weaponsDiff, armorDiff: integer;
   tax, bought, sold, studied, entertain, work, upkeepSilver, upkeepFood, moveIn, moveOut: integer;
@@ -2116,30 +2117,30 @@ begin
 
   AList.Add('# Start of the Turn');
 
-  money := 0;
-  food := 0;
-  men := 0;
-  mounts := 0;
-  weapons := 0;
-  armor := 0;
+  moneyStart := 0;
+  foodStart := 0;
+  menStart := 0;
+  mountsStart := 0;
+  weaponsStart := 0;
+  armorStart := 0;
+
   for i := 0 to units.Count - 1 do begin
     u := units[i];
   
-    money := money + u.Inventory.AmountAt(IT_SILVER, tsInitial);
-    food := food + u.Inventory.AmountAt(IT_FOOD, tsInitial);
-    men := men + u.Inventory.AmountAt(IT_MAN, tsInitial);
-    mounts :=+ mounts + u.Inventory.AmountAt(IT_MOUNT, tsInitial);
-    weapons := weapons + u.Inventory.AmountAt(IT_WEAPON, tsInitial);
-    armor := armor + u.Inventory.AmountAt(IT_ARMOR, tsInitial);
+    moneyStart := moneyStart + u.Inventory.AmountAt(IT_SILVER, tsInitial);
+    foodStart := foodStart + u.Inventory.AmountAt(IT_FOOD, tsInitial);
+    menStart := menStart + u.Inventory.AmountAt(IT_MAN, tsInitial);
+    mountsStart :=+ mountsStart + u.Inventory.AmountAt(IT_MOUNT, tsInitial);
+    weaponsStart := weaponsStart + u.Inventory.AmountAt(IT_WEAPON, tsInitial);
+    armorStart := armorStart + u.Inventory.AmountAt(IT_ARMOR, tsInitial);
   end;
 
-  AList.Add(Format('- Money: $%d', [ money ]));
-  if food <> 0 then AList.Add(Format('- Food: %d', [ food ]));
-  if men <> 0 then AList.Add(Format('- Men: %d', [ men ]));
-  if mounts <> 0 then AList.Add(Format('- Mounts: %d', [ mounts ]));
-  if weapons <> 0 then AList.Add(Format('- Weapons: %d', [ weapons ]));
-  if armor <> 0 then AList.Add(Format('- Armor: %d', [ armor ]));
-
+  AList.Add(Format('- Money: $%d', [ moneyStart ]));
+  if foodStart <> 0 then AList.Add(Format('- Food: %d', [ foodStart ]));
+  if menStart <> 0 then AList.Add(Format('- Men: %d', [ menStart ]));
+  if mountsStart <> 0 then AList.Add(Format('- Mounts: %d', [ mountsStart ]));
+  if weaponsStart <> 0 then AList.Add(Format('- Weapons: %d', [ weaponsStart ]));
+  if armorStart <> 0 then AList.Add(Format('- Armor: %d', [ armorStart ]));
 
   AList.Add('');
   AList.Add('# Turn Events');
@@ -2147,6 +2148,11 @@ begin
   tax := 0;
   bought := 0;
   sold := 0;
+  food := 0;
+  men := 0;
+  mounts := 0;
+  weapons := 0;
+  armor := 0;
   moveIn := 0;
   moveOut := 0;
   studied := 0;
@@ -2154,36 +2160,79 @@ begin
   work := 0;
   upkeepSilver := 0;
   upkeepFood := 0;
-  for i := 0 to units.Count - 1 do begin
+
+  for i := 0 to units.Count - 1 do
+  begin
     u := units[i];
   
     tax := tax + u.Inventory.AmountAt(IT_SILVER, tsPillageOrTax);
   
     bought := bought + u.Inventory.AmountAt(IT_SILVER, tsBuy);
+    men := men + u.Inventory.AmountAt(IT_MAN, tsBuy);
     sold := sold + u.Inventory.AmountAt(IT_SILVER, tsSell);
-    studied := studied + u.Inventory.AmountAt(IT_SILVER, tsStudy);
-    entertain := entertain + u.Inventory.AmountAt(IT_SILVER, tsEntertain);
-    work := work + u.Inventory.AmountAt(IT_SILVER, tsWork);
-    upkeepSilver := upkeepSilver + u.Inventory.AmountAt(IT_SILVER, tsUpkeep);
-    upkeepFood := upkeepFood + u.Inventory.AmountAt(IT_FOOD, tsUpkeep);
 
     if not EqualCoords(u.FinalCoords, Reg.Coords) then
       moveOut := moveOut + u.Inventory.AmountOn(IT_SILVER, tsMove);
   end;
 
   // Add arriving units
-  for i := 0 to VFaction.Units.Count-1 do
-    if VFaction.Units[i].ArrivingTo(Reg.Coords) then
-      moveIn := moveIn + VFaction.Units[i].Inventory.AmountOn(IT_SILVER, tsMove);
+  if Reg.ArrivingPlayerTroop <> nil then
+  begin
+    units := Reg.ArrivingPlayerTroop.Units;
+
+    for i := 0 to units.Count - 1 do
+      moveIn := moveIn + units[i].Inventory.AmountOn(IT_SILVER, tsMove);
+  end;
+
+  units := nil;
+  if Reg.FinalPlayerTroop <> nil then
+    units := Reg.FinalPlayerTroop.Units;
+
+  moneyEnd := 0;
+  foodEnd := 0;
+  menEnd := 0;
+  mountsEnd := 0;
+  weaponsEnd := 0;
+  armorEnd := 0;
+
+  if units <> nil then
+    for i := 0 to units.Count - 1 do
+    begin
+      u := units[i];
+
+      food := food + u.Inventory.AmountAt(IT_FOOD, tsProduce);
+      mounts :=+ mounts + u.Inventory.AmountAt(IT_MOUNT, tsProduce);
+      weapons := weapons + u.Inventory.AmountAt(IT_WEAPON, tsProduce);
+      armor := armor + u.Inventory.AmountAt(IT_ARMOR, tsProduce);
+      
+      studied := studied + u.Inventory.AmountAt(IT_SILVER, tsStudy);
+      entertain := entertain + u.Inventory.AmountAt(IT_SILVER, tsEntertain);
+      work := work + u.Inventory.AmountAt(IT_SILVER, tsWork);
+      upkeepSilver := upkeepSilver + u.Inventory.AmountAt(IT_SILVER, tsUpkeep);
+      upkeepFood := upkeepFood + u.Inventory.AmountAt(IT_FOOD, tsUpkeep);
+
+      moneyEnd := moneyEnd + u.Inventory.AmountOn(IT_SILVER, tsFinal);
+      foodEnd := foodEnd + u.Inventory.AmountOn(IT_FOOD, tsFinal);
+      menEnd := menEnd + u.Inventory.AmountOn(IT_MAN, tsFinal);
+      mountsEnd := mountsEnd + u.Inventory.AmountOn(IT_MOUNT, tsFinal);
+      weaponsEnd := weaponsEnd + u.Inventory.AmountOn(IT_WEAPON, tsFinal);
+      armorEnd := armorEnd + u.Inventory.AmountOn(IT_ARMOR, tsFinal);
+    end;
 
   if tax <> 0 then AList.Add(Format('- Tax or Pillage: $%d', [ tax ]));
   if bought <> 0 then AList.Add(Format('- Buy: $%d', [ Abs(bought) ]));
   if sold <> 0 then AList.Add(Format('- Sell: $%d', [ sold ]));
+  if men <> 0 then AList.Add(Format('- Men: %d', [ men ]));
   if moveOut <> 0 then AList.Add(Format('- Move Out: $%d', [ moveOut ]));
   if moveIn <> 0 then AList.Add(Format('- Move In: $%d', [ moveIn ]));
+  if food <> 0 then AList.Add(Format('- Produce Food: %d', [ food ]));
+  if mounts <> 0 then AList.Add(Format('- Produce Mounts: %d', [ mounts ]));
+  if weapons <> 0 then AList.Add(Format('- Produce Weapons: %d', [ weapons ]));
+  if armor <> 0 then AList.Add(Format('- Produce Armor: %d', [ armor ]));
   if studied <> 0 then AList.Add(Format('- Study: $%d', [ Abs(studied) ]));
-  if entertain <> 0 then AList.Add(Format('- Entertained: $%d', [ entertain ]));
-  if work <> 0 then AList.Add(Format('- Worked: $%d', [ work ]));
+  if work <> 0 then AList.Add(Format('- Work: $%d', [ work ]));
+  if entertain <> 0 then AList.Add(Format('- Entertain: $%d', [ entertain ]));
+
   AList.Add('');
   AList.Add('# Upkeep');
   if upkeepSilver <> 0 then AList.Add(Format('- Money: $%d', [ Abs(upkeepSilver) ]));
@@ -2192,29 +2241,12 @@ begin
   AList.Add('');
   AList.Add('# End of the Turn');
 
-  moneyEnd := moveIn - moveOut;
-  foodEnd := 0;
-  menEnd := 0;
-  mountsEnd := 0;
-  weaponsEnd := 0;
-  armorEnd := 0;
-  for i := 0 to units.Count - 1 do begin
-    u := units[i];
-  
-    moneyEnd := moneyEnd + u.Inventory.AmountOn(IT_SILVER, tsFinal);
-    foodEnd := foodEnd + u.Inventory.AmountOn(IT_FOOD, tsFinal);
-    menEnd := menEnd + u.Inventory.AmountOn(IT_MAN, tsFinal);
-    mountsEnd := mountsEnd + u.Inventory.AmountOn(IT_MOUNT, tsFinal);
-    weaponsEnd := weaponsEnd + u.Inventory.AmountOn(IT_WEAPON, tsFinal);
-    armorEnd := armorEnd + u.Inventory.AmountOn(IT_ARMOR, tsFinal);
-  end;
-
-  moneyDiff := moneyEnd - money;
-  foodDiff := foodEnd - food;
-  menDiff := menEnd - men;
-  mountsDiff := mountsEnd - mounts;
-  weaponsDiff := weaponsEnd - weapons;
-  armorDiff := armorEnd - armor;
+  moneyDiff := moneyEnd - moneyStart;
+  foodDiff := foodEnd - foodStart;
+  menDiff := menEnd - menStart;
+  mountsDiff := mountsEnd - mountsStart;
+  weaponsDiff := weaponsEnd - weaponsStart;
+  armorDiff := armorEnd - armorStart;
 
   AList.Add(Format('- Money: $%d (%s)', [ moneyEnd, formatDiff(moneyDiff) ]));
   if (foodEnd <> 0) or (foodDiff <> 0) then AList.Add(Format('- Food: %d (%s)', [ foodEnd, formatDiff(foodDiff) ]));
