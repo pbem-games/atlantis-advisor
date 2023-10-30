@@ -362,7 +362,7 @@ type
     function Name: string; overload;
   end;
 
-  TTurnStage = (tsInitial, tsClaim, tsGive, tsPillageOrTax, tsSell, tsBuy, tsMove, tsBuild, tsCast, tsProduce, tsStudy, tsWork, tsEntertain, tsTransport, tsUpkeep, tsFinal);
+  TTurnStage = (tsInitial, tsClaim, tsPromote, tsEvict, tsAttack, tsSteal, tsGive, tsPillageOrTax, tsSell, tsBuy, tsMove, tsBuild, tsCast, tsProduce, tsTeach, tsStudy, tsWork, tsEntertain, tsTransport, tsUpkeep, tsFinal);
 
   TItem = class
     Data: TItemData;
@@ -556,6 +556,19 @@ type
     Battles: TBattleList;
     Notes: TStrings;
 
+    // units that have moved or stayed in the region during the turn
+    FinalTroops: TTroopList;
+
+    // units that are arriving to the region during the turn
+    ArrivingTroops: TTroopList;
+
+    // List of regions that this region depends during the turn state calculation.
+    // It is used to speed up the recaculation of the state of the individual region.
+    DependsOn: TRegionList;
+
+    // List of regions that must be updated after this region is updated.
+    DependedBy: TRegionList;
+
     Report: TStrings;
   private
     function GetCoords: TCoords;
@@ -566,7 +579,9 @@ type
     procedure Assign(Source: TRegion; CopyTurnData: boolean);
     property Coords: TCoords read GetCoords write SetCoords;
     function PlayerTroop: TTroop;
-    function FindUnit(Num: integer): TUnit;
+    function FinalPlayerTroop: TTroop;
+    function FindUnit(Num: integer; Stage: TTurnStage): TUnit;
+    function FindFaction(Num: integer; Stage: TTurnStage): TTroop;
   end;
 
   TMapLevel = class
@@ -600,8 +615,9 @@ type
     Name: string;
     Color: TColor;
     UnitIds: TStrings;
-    AutoDistribute, AutoGiveaway: boolean;
-    Markitants: string;
+    // Not used?
+    // AutoDistribute, AutoGiveaway: boolean;
+    // Markitants: string;
     constructor Create(Name: string);
     destructor Destroy; override;
   end;
@@ -685,6 +701,9 @@ type
     Unclaimed: integer;
     Mana: integer;
 
+    // A dirty flag indicating that region dependencies must be recalculated
+    Dirty: boolean;
+
     Factions: TFactionList;
     Events: TStringList;
     Regions: TRegionList;
@@ -693,6 +712,8 @@ type
     destructor Destroy; override;
     procedure Assign(Source: TTurn);
     function FindUnit(Num: integer): TUnit;
+
+    procedure MakeDependecy(SourceRegion: TRegion; TargetRegion: TRegion);
   end;
 
   TGame = class
@@ -877,6 +898,7 @@ type
     procedure Put(Index: Integer; Item: TRegion);
   public
     property Items[Index: Integer]: TRegion read Get write Put; default;
+    function Find(coords: TCoords): TRegion;
   end;
 
   TBattleUnitList = class(TList)
@@ -1322,6 +1344,7 @@ begin
   if ANum = 0 then Factions[1].Data := Factions[0].Data // history
   else Factions[1].Assign(History.Factions[1], False);
   Factions[1].Player := True;
+  Dirty := True;
 end;
 
 destructor TTurn.Destroy;
@@ -1355,6 +1378,18 @@ begin
     Result := Factions[i].Units.Find(Num);
     Inc(i);
   end;
+end;
+
+procedure TTurn.MakeDependecy(SourceRegion: TRegion; TargetRegion: TRegion);
+begin
+  if SourceRegion = nil then Exit;
+  if TargetRegion = nil then Exit;
+  if SourceRegion = TargetRegion then Exit;
+  if TargetRegion.DependsOn.IndexOf(SourceRegion) > -1 then Exit;
+
+  TargetRegion.DependsOn.Add(SourceRegion);
+  SourceRegion.DependedBy.Add(TargetRegion);
+  Dirty := True;
 end;
 
 { TStructData }
@@ -1649,6 +1684,10 @@ begin
   Structs := TStructList.Create;
   Notes := TStringList.Create;
   Report := TStringList.Create;
+  ArrivingTroops := TTroopList.Create;
+  FinalTroops := TTroopList.Create;
+  DependsOn := TRegionList.Create;
+  DependedBy := TRegionList.Create;
 end;
 
 destructor TRegion.Destroy;
@@ -1662,6 +1701,12 @@ begin
   Peasants.Free;
   Notes.Free;
   Report.Free;
+
+  // no need to free each item because items are owner by different lists
+  ArrivingTroops.Free;
+  FinalTroops.Free;
+  DependsOn.Free;
+  DependedBy.Free;
 end;
 
 // Copy Units only if Source and Destination's turns equal!
@@ -1794,15 +1839,37 @@ begin
   else Result := Troops[0];
 end;
 
-function TRegion.FindUnit(Num: integer): TUnit;
-var i: integer;
+function TRegion.FinalPlayerTroop: TTroop;
 begin
+  if (FinalTroops.Count = 0) or not FinalTroops[0].Faction.Player then Result := nil
+  else Result := FinalTroops[0];
+end;
+
+function TRegion.FindUnit(Num: integer; Stage: TTurnStage): TUnit;
+var
+  i: integer;
+  list: TTroopList;
+
+begin
+  if Stage <= tsMove then
+    list := Troops
+  else
+    list := FinalTroops;
+
   Result := nil;
   i := 0;
-  while (i < Troops.Count) and (Result = nil) do begin
-    Result := Troops[i].Units.Find(Num);
+  while (i < list.Count) and (Result = nil) do begin
+    Result := list[i].Units.Find(Num);
     Inc(i);
   end;
+end;
+
+function TRegion.FindFaction(Num: integer; Stage: TTurnStage): TTroop;
+begin
+  if Stage <= tsMove then
+    Result := Troops.Find(Num)
+  else
+    Result := FinalTroops.Find(Num);
 end;
 
  { TFaction Methods }
@@ -2966,6 +3033,15 @@ end;
 procedure TRegionList.Put(Index: Integer; Item: TRegion);
 begin
   inherited Put(Index, Item);
+end;
+
+function TRegionList.Find(coords: TCoords): TRegion;
+var i: integer;
+begin
+  Result := nil;
+  i := 0;
+  while (i < Count) and not EqualCoords(Items[i].Coords, coords) do Inc(i);
+  if i < Count then Result := Items[i];
 end;
 
 procedure TWeatherDataList.ClearAndFree;

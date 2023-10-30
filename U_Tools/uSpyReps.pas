@@ -146,7 +146,7 @@ begin
           if btnUnit.Down and not ((CurrUnit <> nil)
             and (CurrUnit.Num = PrevR.Troops[j].Units[k].Num)) then
             Continue;
-          if R.FindUnit(PrevR.Troops[j].Units[k].Num) = nil then
+          if R.FindUnit(PrevR.Troops[j].Units[k].Num, tsInitial) = nil then
             AddMsg(PrevR.Troops[j].Units[k], 'disappear', 'Disappeared');
         end;
       end;

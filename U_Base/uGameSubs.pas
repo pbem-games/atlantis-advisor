@@ -630,7 +630,7 @@ begin
   Result := directDistance(a, b);
   if Result = -1 then Exit;
 
-  w := Map.Levels[a.z].Bounds.Right;
+  w := Map.Levels[a.z].Bounds.Right + 1;
   c.y := b.y;
   c.z := b.z;
 

@@ -2303,7 +2303,7 @@ begin
   OldU := nil;
   // Handle units of unknown factions
   if U.Faction.Num = 0 then
-    OldU := Region.FindUnit(U.Num)
+    OldU := Region.FindUnit(U.Num, tsInitial)
   else begin
     Troop := Region.Troops.Find(0);
     if Troop <> nil then OldU := Troop.Units.Find(U.Num);

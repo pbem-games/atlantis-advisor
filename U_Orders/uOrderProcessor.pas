@@ -20,17 +20,17 @@ var
 implementation
 
 type
-  TProcessor = procedure (AUnit: TUnit; s: string; var Line: integer; Order: string);
+  TProcessor = procedure (ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 
   TProcessThread = class(TThread)
   private
     procedure DoManualScript;
-    procedure DoOrder(AUnit: TUnit; Order: string; var Line: integer;
+    procedure DoOrder(ARegion: TRegion; AUnit: TUnit; Order: string; var Line: integer;
       Processor: TProcessor; CurrentOrder: string);
     procedure DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor);
     procedure DoScripts(R: TRegion; Order: string);
     procedure DoGlobalOrders(R: TRegion);
-    procedure ProcessRegion(R: TRegion; RecreateRegion: boolean);
+    procedure ProcessRegion(Regs: TRegionList; RecreateRegion: boolean);
     procedure ProcessAllRegions;
   protected
     Region: TRegion;
@@ -51,7 +51,7 @@ var
   ProcessThread: TProcessThread;
   Terminator: TTerminator;
 
-procedure TProcessThread.DoOrder(AUnit: TUnit; Order: string; var Line:
+procedure TProcessThread.DoOrder(ARegion: TRegion; AUnit: TUnit; Order: string; var Line:
   integer; Processor: TProcessor; CurrentOrder: string);
 var args, msg: string;
 begin
@@ -60,7 +60,7 @@ begin
   else if Pos(' ', Order) = 0 then args := ''
   else args := Copy(Order, Pos(' ', Order) + 1, Length(Order));
   try
-    Processor(AUnit, args, Line, CurrentOrder);
+    Processor(ARegion, AUnit, args, Line, CurrentOrder);
   except
     on E: EParseError do begin
       msg := ';. ' + E.Message;
@@ -113,7 +113,7 @@ var i: integer;
     // TAX order may be fired from unit flag
     if AUnit.Flags[flgTax] and (currentOrder = 'tax') then begin
       k := -1;
-      DoOrder(AUnit, 'tax', k, Processor, 'tax');
+      DoOrder(R, AUnit, 'tax', k, Processor, 'tax');
     end
     else begin
       while k < AUnit.Orders.Count do begin
@@ -134,7 +134,7 @@ var i: integer;
               '): ' + Copy(AUnit.Orders[k], Pos(currentOrder, AUnit.Orders[k]) +
               Length(currentOrder) + 1, Length(AUnit.Orders[k])), AUnit)
           else
-            DoOrder(AUnit, AUnit.Orders[k], k, Processor, currentOrder);
+            DoOrder(R, AUnit, AUnit.Orders[k], k, Processor, currentOrder);
         end;
         Inc(k);
       end;
@@ -201,155 +201,214 @@ begin
 end;
 
 // Process orders for region
-// NOTE: the problem is that orders must be processed by phases in EACH region per phase
-procedure TProcessThread.ProcessRegion(RegToProcess: TRegion; RecreateRegion: boolean);
-var i, k: integer;
+// NOTE: that orders must be processed by phases in EACH region
+procedure TProcessThread.ProcessRegion(Regs: TRegionList; RecreateRegion: boolean);
+var i, k, n: integer;
     U: TUnit;
     tempItems: TItemList;
+    R, freg: TRegion;
+    finalRegions: array of TRegion;
 
-  procedure AddToMaint(C: TCoords);
-  var j: integer;
+  procedure addToFinal(r: TRegion);
+  var m: integer;
   begin
-    j := High(MaintRegions);
-    while (j >= 0) and not EqualCoords(MaintRegions[j], C) do
-      Dec(j);
-    if j < 0 then AddCoords(MaintRegions, C);
+    for m := 0 to High(finalRegions) do
+      if finalRegions[m] = r then Exit;
+
+    SetLength(finalRegions, Length(finalRegions) + 1);
+    finalRegions[High(finalRegions)] := r;
   end;
 
 begin
-  // Ensure that the region has player units
-  if R.PlayerTroop = nil then Exit;
+  SetLength(finalRegions, 0);
 
-  if RecreateRegion then begin
-    SetLength(MaintRegions, 0);
-    // Clear parse errors in region units
-    if R.PlayerTroop <> nil then
-      for i := 0 to R.PlayerTroop.Units.Count-1 do begin
-        U := R.PlayerTroop.Units[i];
-        ClearErrorComments(U.Orders);
-        while ParseErrors.IndexOfObject(U) >= 0 do
-          ParseErrors.Delete(ParseErrors.IndexOfObject(U));
-      end;
-    while ParseErrors.IndexOfObject(R) >= 0 do
-      ParseErrors.Delete(ParseErrors.IndexOfObject(R));
-    while ParseErrors.IndexOfObject(nil) >= 0 do
-      ParseErrors.Delete(ParseErrors.IndexOfObject(nil));
-    // Recreate region (for single-region processing)
-    DoGlobalOrders(R);
-    Game.RecreateVRegion(R.Coords);
+  for n := 0 to Regs.Count - 1 do
+  begin
+    R := Regs[n];
+
+    // Ensure that the region has player units
+    if R.PlayerTroop = nil then Continue;
+
+    if RecreateRegion then begin
+      // Clear parse errors in region units
+      if R.PlayerTroop <> nil then
+        for i := 0 to R.PlayerTroop.Units.Count-1 do
+        begin
+          U := R.PlayerTroop.Units[i];
+          ClearErrorComments(U.Orders);
+
+          while ParseErrors.IndexOfObject(U) >= 0 do
+            ParseErrors.Delete(ParseErrors.IndexOfObject(U));
+        end;
+
+      while ParseErrors.IndexOfObject(R) >= 0 do
+        ParseErrors.Delete(ParseErrors.IndexOfObject(R));
+
+      while ParseErrors.IndexOfObject(nil) >= 0 do
+        ParseErrors.Delete(ParseErrors.IndexOfObject(nil));
+
+      // Recreate region (for single-region processing)
+      DoGlobalOrders(R);
+      Game.RecreateVRegion(R.Coords);
+    end;
   end;
 
-  AddToMaint(R.Coords);
-  TaxUnits := TUnitList.Create;
-  PillageUnits := TUnitList.Create;
-  WorkUnits := TUnitList.Create;
-  EntertainUnits := TUnitList.Create;
-
-  // Instants
-  if Startup then DoScripts(R, 'startup');
-
-  DoScripts(R, '');
-  DoOrders(R, ['form'],       DoForm);
-  DoOrders(R, ['@;;'],        DoLocal);
-  DoOrders(R, ['name'],       DoName);
-  DoOrders(R, ['autotax', 'avoid', 'behind', 'guard', 'hold', 'noaid', 'nocross', 'share'], DoFlag);
-  DoOrders(R, ['consume', 'reveal', 'spoils'], DoExtFlag);
-  DoOrders(R, ['claim'],      DoClaim);
-  DoOrders(R, ['combat'],     DoCombat);
-  DoOrders(R, ['declare'],    DoDeclare);
-  DoOrders(R, ['describe'],   DoDescribe);
-  DoOrders(R, ['faction'],    DoFaction);
-  DoOrders(R, ['leave'],      DoLeave);
-  DoOrders(R, ['enter'],      DoEnter);
-  DoOrders(R, ['promote'],    DoPromote);
-  DoOrders(R, ['evict'],      DoEvict);
-  DoOrders(R, ['attack'],     DoAttack);
-  DoOrders(R, ['steal'],      DoSteal);
-  DoOrders(R, ['destroy'],    DoDestroy);
-  DoOrders(R, ['give'],       DoGive);
-
-  DoOrders(R, ['pillage'],    DoPillage);
-  ResolveTaxes(R, PillageUnits, 2, 4);
-
-  DoOrders(R, ['tax'],        DoTax);
-  ResolveTaxes(R, TaxUnits, 1, 1);
-
-  DoOrders(R, ['cast'],       DoCast);
-  DoOrders(R, ['sell'],       DoSell);
-  DoOrders(R, ['buy'],        DoBuy);
-  DoOrders(R, ['forget'],     DoForget);
-  DoScripts(R, 'monthlong');
-
-  // Move orders
-  DoOrders(R, ['sail', 'move', 'advance'], DoMove);
-
-  // Month-long orders
-  DoOrders(R, ['build'],      DoBuild);
-  
-  DoOrders(R, ['entertain'],  DoEntertain);
-  ResolveEntertainment(R);
-  
-  DoOrders(R, ['produce'],    DoProduce);
-  DoOrders(R, ['study'],      DoStudy);
-  DoOrders(R, ['teach'],      DoTeach);
-  
-  DoOrders(R, ['work'],       DoWork);
-  ResolveWork(R);
-  
-  DoOrders(R, ['transport', 'distribute'],  DoTransport);
-  
-  // Add final regions of moving units to list
-  for i := 0 to R.PlayerTroop.Units.Count - 1 do
+  for n := 0 to Regs.Count - 1 do
   begin
-    U := R.PlayerTroop.Units[i];
-    if not EqualCoords(U.FinalCoords, R.Coords) then
-      AddToMaint(U.FinalCoords);
+    R := Regs[n];
+
+    // Ensure that the region has player units
+    if R.PlayerTroop = nil then Continue;
+
+    TaxUnits := TUnitList.Create;
+
+    // Instants
+    if Startup then DoScripts(R, 'startup');
+
+    DoScripts(R, '');
+
+    DoOrders(R, ['form'],       DoForm);
+    DoOrders(R, ['@;;'],        DoLocal);
+    DoOrders(R, ['name'],       DoName);
+    DoOrders(R, ['autotax', 'avoid', 'behind', 'guard', 'hold', 'noaid', 'nocross', 'share'], DoFlag);
+    DoOrders(R, ['consume', 'reveal', 'spoils'], DoExtFlag);
+    DoOrders(R, ['claim'],      DoClaim);
+    DoOrders(R, ['combat'],     DoCombat);
+    DoOrders(R, ['declare'],    DoDeclare);
+    DoOrders(R, ['describe'],   DoDescribe);
+    DoOrders(R, ['faction'],    DoFaction);
+    DoOrders(R, ['leave'],      DoLeave);
+    DoOrders(R, ['enter'],      DoEnter);
+    DoOrders(R, ['promote'],    DoPromote);
+    DoOrders(R, ['evict'],      DoEvict);
+    DoOrders(R, ['attack'],     DoAttack);
+    DoOrders(R, ['steal'],      DoSteal);
+    DoOrders(R, ['destroy'],    DoDestroy);
+    DoOrders(R, ['give'],       DoGive);
+
+    PillageUnits := TUnitList.Create;
+    DoOrders(R, ['pillage'],    DoPillage);
+    ResolveTaxes(R, PillageUnits, 2, 4);
+
+    DoOrders(R, ['tax'],        DoTax);
+    ResolveTaxes(R, TaxUnits, 1, 1);
+
+    TaxUnits.Free;
+    PillageUnits.Free;
+
+    DoOrders(R, ['cast'],       DoCast);
+    DoOrders(R, ['sell'],       DoSell);
+    DoOrders(R, ['buy'],        DoBuy);
+    DoOrders(R, ['forget'],     DoForget);
+
+    DoScripts(R, 'monthlong');
+
+    // Move orders
+    DoOrders(R, ['sail', 'move', 'advance'], DoMove);
+  end;
+
+  // Add units to the final region
+  for n := 0 to Regs.Count - 1 do
+  begin
+    R := Regs[n];
+
+    // Ensure that the region has player units
+    if R.PlayerTroop = nil then Continue;
+
+    for i := 0 to R.PlayerTroop.Units.Count - 1 do
+    begin
+      U := R.PlayerTroop.Units[i];
+      freg := R;
+
+      if not EqualCoords(U.FinalCoords, freg.Coords) then
+        freg := VTurn.Regions.Find(U.FinalCoords);
+
+      freg.FinalTroops.Seek(U.Faction.Num).Units.Add(U);
+      addToFinal(freg);
+    end;
+  end;
+
+  for n := 0 to High(finalRegions) do
+  begin
+    R := finalRegions[n];
+
+    // Month-long orders
+    DoOrders(R, ['build'],      DoBuild);
+    
+    EntertainUnits := TUnitList.Create;
+    DoOrders(R, ['entertain'],  DoEntertain);
+    ResolveEntertainment(R);
+    EntertainUnits.Free;
+    
+    DoOrders(R, ['produce'],    DoProduce);
+    DoOrders(R, ['study'],      DoStudy);
+    DoOrders(R, ['teach'],      DoTeach);
+    
+    WorkUnits := TUnitList.Create;
+    DoOrders(R, ['work'],       DoWork);
+    ResolveWork(R);
+    WorkUnits.Free;
+  end;
+
+  for n := 0 to High(finalRegions) do
+  begin
+    R := finalRegions[n];
+
+    // Transport orders
+    DoOrders(R, ['transport', 'distribute'],  DoTransport);
   end;
 
   if RecreateRegion then
-    for i := 0 to High(MaintRegions) do
-      ResolveMaintenance(MaintRegions[i], ParseErrors);
+    for n := 0 to High(finalRegions) do
+    begin
+      R := finalRegions[n];
+      ResolveMaintenance(R, ParseErrors);
+    end;
 
-  DoScripts(R, 'final');
-  DoOrders(R, ['@;warning'], nil);
+  for n := 0 to High(finalRegions) do
+  begin
+    R := finalRegions[n];
 
-  TaxUnits.Free;
-  PillageUnits.Free;
-  WorkUnits.Free;
-  EntertainUnits.Free;
+    DoScripts(R, 'final');
+    DoOrders(R, ['@;warning'], nil);
+  end;
 
   if RecreateRegion then CheckFPoints(ParseErrors);
 
-  // Final unit processing
-  for i := 0 to R.PlayerTroop.Units.Count - 1 do
+  for n := 0 to High(finalRegions) do
   begin
-    U := R.PlayerTroop.Units[i];
-    // Check if we have stuff without men
-    if (U.Items.Count > 0) and (U.Items.Amount(IT_MAN) = 0) then
+    R := finalRegions[n];
+    
+    // Final unit processing
+    for i := 0 to R.PlayerTroop.Units.Count - 1 do
     begin
-      if U.Orders.IndexOf(';. No men in unit') < 0 then
-        U.Orders.Insert(0, ';. No men in unit');
-      ParseErrors.AddObject(Format('!E4 %s (%s): No men in unit', [U.Name, U.NumStr]), U);
-    end
-    // Add warnings for units without month order
-    else if (U.Items.Count > 0) and (U.MonthOrder = '') and (Pos('@;!NOP', UpperCase(U.Orders.Text)) = 0) then
-      ParseErrors.AddObject('! 5 ' + U.Name + ' (' + U.NumStr + '): No monthlong order', U);
+      U := R.PlayerTroop.Units[i];
+      // Check if we have stuff without men
+      if (U.Items.Count > 0) and (U.Items.Amount(IT_MAN) = 0) then
+      begin
+        if U.Orders.IndexOf(';. No men in unit') < 0 then
+          U.Orders.Insert(0, ';. No men in unit');
+        ParseErrors.AddObject(Format('!E4 %s (%s): No men in unit', [U.Name, U.NumStr]), U);
+      end
+      // Add warnings for units without month order
+      else if (U.Items.Count > 0) and (U.MonthOrder = '') and (Pos('@;!NOP', UpperCase(U.Orders.Text)) = 0) then
+        ParseErrors.AddObject('! 5 ' + U.Name + ' (' + U.NumStr + '): No monthlong order', U);
 
-    // Set avatars
-    SetExportAvatars(U);
+      // Set avatars
+      SetExportAvatars(U);
 
-    // Clear empty orders
-    k := 0;
-    while k < U.Orders.Count do
-      if Trim(U.Orders[k]) = '' then U.Orders.Delete(k)
-      else Inc(k);
+      // Clear empty orders
+      k := 0;
+      while k < U.Orders.Count do
+        if Trim(U.Orders[k]) = '' then U.Orders.Delete(k)
+        else Inc(k);
 
-    // Calculate final items
-    U.FinalItems.ClearItems();
-
-    tempItems := U.Inventory.BalanceOn(tsTransport);
-    U.FinalItems.AssignItems(tempItems);
-    tempItems.ClearAndFree();
+      // Calculate final items
+      U.FinalItems.ClearItems();
+      tempItems := U.Inventory.BalanceOn(tsTransport);
+      U.FinalItems.AssignItems(tempItems);
+      tempItems.ClearAndFree();
+    end;
   end;
 end;
 
@@ -375,23 +434,151 @@ begin
   
   if Terminated then Exit;
 
-  SetLength(MaintRegions, 0);
-  
-  for i := 0 to VTurn.Regions.Count-1 do
-    ProcessRegion(VTurn.Regions[i], False);
+  // NOTE: ORDERS can influence other regions, so we must process them all.
+  //       To always process all regions will slow down the client.
+  //       To speed up the client, we need to keep track of dependencies.
+  //       And always process all regions that depend on the current one.
+  //
+  //       MOVE orders place units in the new region and all further stages will be influenced with arrived unit.
+  //       TRANSPORT/DISTRIBUTE move items into different regions before maintenance stage.
+  //       Regions must have a list of dependent regions that must be processed after the current one.
+  //       We must collect all dependent regions before processing and process them after the current one.
+  //       If during processing we find a new dependent region, we must add it to the list and reprocess all regions again.
 
-  for i := 0 to High(MaintRegions) do
-    ResolveMaintenance(MaintRegions[i], ParseErrors);
+  // Need to clean up dependencies
+  for i := 0 to VTurn.Regions.Count - 1 do
+  begin
+    VTurn.Regions[i].DependsOn.Clear;
+    VTurn.Regions[i].DependedBy.Clear;
+  end;
+
+  ProcessRegion(VTurn.Regions, False);
+
+  // After all regions were processed, the dirty flag must be cleared
+  VTurn.Dirty := False;
+
+  for i := 0 to VTurn.Regions.Count - 1 do
+  begin
+    if VTurn.Regions[i].FinalPlayerTroop = nil then Continue;
+
+    ResolveMaintenance(VTurn.Regions[i], ParseErrors);
+  end;
   
   CheckFPoints(ParseErrors);
 end;
 
 procedure TProcessThread.Execute;
+type
+  TRegionArray = array of TRegion;
+
+  procedure push(item: TRegion; var list: TRegionArray);
+  begin
+    SetLength(list, Length(list) + 1);
+    list[High(list)] := item;
+  end;
+
+  function pop(var list: TRegionArray): TRegion;
+  begin
+    Result := list[High(list)];
+    SetLength(list, Length(list) - 1);
+  end;
+
+  function empty(var list: TRegionArray): boolean;
+  begin
+    Result := Length(list) = 0;
+  end;
+
+  function contains(item: TRegion; var list: TRegionArray): boolean;
+  var i: integer;
+  begin
+    Result := False;
+    for i := 0 to High(list) do
+      if list[i] = item then
+      begin
+        Result := True;
+        Break;
+      end;
+  end;
+
+var
+  regs: TRegionList;
+
+  function getRegionsToProcess(r: TRegion): TRegionList;
+  var
+    i: integer;
+    p, s: TRegionArray;
+
+  begin
+    Result := TRegionList.Create;
+    SetLength(p, 0);
+    SetLength(s, 0);
+
+    // First we need to travel upwords to the roots
+    push(r, s);
+    while not empty(s) do
+    begin
+      // take the item from the stack
+      r := pop(s);
+
+      if contains(r, p) then
+        Continue;
+
+      // if we have not seen it before, add it to the list of processed regions
+      push(r, p);
+
+      // add its dependencies to the stack
+      for i := 0 to r.DependsOn.Count - 1 do
+        push(r.DependsOn[i], s);
+    end;
+
+    SetLength(s, Length(p));
+    for i := 0 to High(p) do
+      s[i] := p[i];
+    SetLength(p, 0);
+    
+    // Now we need to travel downwords to the leaves
+    while not empty(s) do
+    begin
+      // take the item from the stack
+      r := pop(s);
+
+      if contains(r, p) then
+        Continue;
+
+      // if we have not seen it before, add it to the list of processed regions
+      push(r, p);
+
+      // add its dependents to the stack
+      for i := 0 to r.DependedBy.Count - 1 do
+        push(r.DependedBy[i], s);
+    end;
+
+    // eventually we will have all regions in the list of processed regions
+    // this will include loops too
+
+    // Go through all regions and add them to the result if they are in the list
+    // We do that to preserve the order of regions
+    for i := 0 to VTurn.Regions.Count - 1 do
+      if contains(VTurn.Regions[i], p) then
+        Result.Add(VTurn.Regions[i]);
+  end;
+
 begin
   TerminatedQuery := IsTerminated;
 
-  if Region <> nil then
-    ProcessRegion(Region, True)
+  // Only one region (with its dependencies) can be processed if all dependencies are known
+  if (Region <> nil) and not VTurn.Dirty then
+  begin
+    regs := getRegionsToProcess(Region);
+    try
+      ProcessRegion(regs, True);
+    finally
+      regs.Free;
+    end;
+
+    if VTurn.Dirty then
+      ProcessAllRegions;
+  end
   else
     ProcessAllRegions;
 end;
