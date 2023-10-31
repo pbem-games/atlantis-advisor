@@ -2231,7 +2231,7 @@ begin
     line('Entertain', summAt(units, IT_SILVER, tsEntertain), '$');
     br;
 
-    header('# Upkeep');
+    header('Upkeep');
     line('Money', summAt(units, IT_SILVER, tsUpkeep), '$');
     line('Food', summAt(units, IT_FOOD, tsUpkeep));
     br;
