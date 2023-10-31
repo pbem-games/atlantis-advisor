@@ -56,6 +56,7 @@ type
     lSilver: TLabel;
     btnRepStudy: TSpeedButton;
     Label6: TLabel;
+    cbShare: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure cmSkillDrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
@@ -374,7 +375,8 @@ begin
     3: Result := cbBehind;
     4: Result := cbHold;
     5: Result := cbNoaid;
-    else Result := cbNocross;
+    6: Result := cbNocross;
+    else Result := cbShare;
   end;
 end;
 

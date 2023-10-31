@@ -1,9 +1,9 @@
 object NewUnitForm: TNewUnitForm
-  Left = 202
-  Top = 98
+  Left = 967
+  Top = 303
   BorderStyle = bsDialog
   Caption = 'Form'
-  ClientHeight = 437
+  ClientHeight = 473
   ClientWidth = 361
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@ object NewUnitForm: TNewUnitForm
   OnCreate = FormCreate
   DesignSize = (
     361
-    437)
+    473)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -28,49 +28,49 @@ object NewUnitForm: TNewUnitForm
   end
   object Label8: TLabel
     Left = 268
-    Top = 264
+    Top = 312
     Width = 47
     Height = 13
     Caption = 'Consume:'
   end
   object Label9: TLabel
     Left = 268
-    Top = 304
+    Top = 352
     Width = 37
     Height = 13
     Caption = 'Reveal:'
   end
   object Label10: TLabel
     Left = 268
-    Top = 344
+    Top = 392
     Width = 31
     Height = 13
     Caption = 'Spoils:'
   end
   object Label4: TLabel
     Left = 268
-    Top = 200
+    Top = 224
     Width = 42
     Height = 13
     Caption = 'Delayed:'
   end
   object Label5: TLabel
     Left = 84
-    Top = 408
+    Top = 448
     Width = 31
     Height = 13
     Caption = 'copies'
   end
   object Label7: TLabel
     Left = 12
-    Top = 408
+    Top = 448
     Width = 23
     Height = 13
     Caption = 'Form'
   end
   object Button1: TButton
     Left = 193
-    Top = 409
+    Top = 445
     Width = 75
     Height = 21
     Anchors = [akRight, akBottom]
@@ -81,7 +81,7 @@ object NewUnitForm: TNewUnitForm
   end
   object Button2: TButton
     Left = 277
-    Top = 409
+    Top = 445
     Width = 75
     Height = 21
     Anchors = [akRight, akBottom]
@@ -140,12 +140,12 @@ object NewUnitForm: TNewUnitForm
     Left = 4
     Top = 220
     Width = 253
-    Height = 173
+    Height = 213
     Caption = 'Equipment'
     TabOrder = 3
     object Image2: TImage
       Left = 176
-      Top = 139
+      Top = 187
       Width = 16
       Height = 16
       Picture.Data = {
@@ -188,14 +188,14 @@ object NewUnitForm: TNewUnitForm
     end
     object lSilver: TLabel
       Left = 196
-      Top = 140
+      Top = 188
       Width = 6
       Height = 13
       Caption = '0'
     end
     object eClaim: TIntEdit
       Left = 68
-      Top = 136
+      Top = 184
       Width = 69
       Height = 22
       MaxValue = 0
@@ -206,7 +206,7 @@ object NewUnitForm: TNewUnitForm
     end
     object cbClaim: TCheckBox
       Left = 16
-      Top = 138
+      Top = 186
       Width = 49
       Height = 17
       Caption = 'Claim'
@@ -217,7 +217,7 @@ object NewUnitForm: TNewUnitForm
       Left = 16
       Top = 20
       Width = 221
-      Height = 106
+      Height = 157
       ColCount = 3
       DefaultRowColor = clBlack
       Editing = False
@@ -450,7 +450,7 @@ object NewUnitForm: TNewUnitForm
   end
   object cmConsume: TComboBox
     Left = 272
-    Top = 280
+    Top = 328
     Width = 77
     Height = 21
     Style = csDropDownList
@@ -463,7 +463,7 @@ object NewUnitForm: TNewUnitForm
   end
   object cmReveal: TComboBox
     Left = 272
-    Top = 320
+    Top = 368
     Width = 77
     Height = 21
     Style = csDropDownList
@@ -476,7 +476,7 @@ object NewUnitForm: TNewUnitForm
   end
   object cmSpoils: TComboBox
     Left = 272
-    Top = 360
+    Top = 408
     Width = 77
     Height = 21
     Style = csDropDownList
@@ -499,7 +499,7 @@ object NewUnitForm: TNewUnitForm
   end
   object cbDelayTax: TCheckBox
     Left = 268
-    Top = 236
+    Top = 260
     Width = 73
     Height = 17
     Caption = 'Autotax'
@@ -508,7 +508,7 @@ object NewUnitForm: TNewUnitForm
   end
   object cbDelayGuard: TCheckBox
     Left = 268
-    Top = 216
+    Top = 240
     Width = 73
     Height = 17
     Caption = 'On guard'
@@ -517,7 +517,7 @@ object NewUnitForm: TNewUnitForm
   end
   object eCopy: TIntEdit
     Left = 40
-    Top = 404
+    Top = 444
     Width = 37
     Height = 22
     MaxValue = 999
@@ -545,5 +545,13 @@ object NewUnitForm: TNewUnitForm
       ShowHint = True
       OnClick = btnTemplateClick
     end
+  end
+  object cbShare: TCheckBox
+    Left = 268
+    Top = 192
+    Width = 69
+    Height = 17
+    Caption = 'Share'
+    TabOrder = 20
   end
 end
