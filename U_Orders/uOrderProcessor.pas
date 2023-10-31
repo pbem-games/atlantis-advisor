@@ -223,14 +223,26 @@ var i, k, n: integer;
 begin
   SetLength(finalRegions, 0);
 
-  for n := 0 to Regs.Count - 1 do
+  // for n := 0 to Regs.Count - 1 do
+  // begin
+  //   R := Regs[n];
+
+  //   for k := 0 to R.ArrivingTroop.Count - 1 do
+  //     R.ArrivingTroop[k].Free;
+
+  //   for k := 0 to R.FinalTroops.Count - 1 do
+  //     R.FinalTroops[k].Free;
+
+  //   R.ArrivingTroop.Clear;
+  //   R.FinalTroop.Clear;
+  // end;
+
+  if RecreateRegion then
   begin
-    R := Regs[n];
+    for n := 0 to Regs.Count - 1 do
+    begin
+      R := Regs[n];
 
-    // Ensure that the region has player units
-    if R.PlayerTroop = nil then Continue;
-
-    if RecreateRegion then begin
       // Clear parse errors in region units
       if R.PlayerTroop <> nil then
         for i := 0 to R.PlayerTroop.Units.Count-1 do
@@ -257,6 +269,17 @@ begin
   for n := 0 to Regs.Count - 1 do
   begin
     R := Regs[n];
+
+    for k := 0 to R.FinalTroops.Count - 1 do
+      R.FinalTroops[k].Free;
+    R.FinalTroops.Clear;
+
+    for k := 0 to R.ArrivingTroops.Count - 1 do
+      R.ArrivingTroops[k].Free;
+    R.ArrivingTroops.Clear;
+
+    Assert(R.FinalTroops.Count = 0, 'Final troop list is not empty');
+    Assert(R.ArrivingTroops.Count = 0, 'Arriving troop list is not empty');
 
     // Ensure that the region has player units
     if R.PlayerTroop = nil then Continue;
@@ -465,8 +488,6 @@ begin
     for i := 0 to VTurn.Regions.Count - 1 do
     begin
       reg := VTurn.Regions[i];
-
-      Assert(reg = Map.Region(reg.Coords), 'Region from VTurn is not in Map');
 
       reg.DependsOn.Clear;
       reg.DependedBy.Clear;
