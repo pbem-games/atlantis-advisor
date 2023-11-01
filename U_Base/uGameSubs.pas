@@ -24,12 +24,20 @@ type
     Moves: integer;
   end;
 
+  TQmasterInfo = record
+    Qmaster:  TUnit;
+    Local:    boolean;
+    Send:     boolean;
+    Recieve:  boolean;
+  end;
+
 var
   MapBounds: array of TRect;
   Reached: array of TReached;
   MoveOrder: string;
   MoveArmy: boolean;
   MovePoints: integer;
+  QmasterList: array of TQmasterInfo;
 
   // Coords
   function PointInDir(P: TPoint; Dir: integer): TPoint;
@@ -104,8 +112,7 @@ var
   function BookmarkCoords(s: string): TCoords;
 
   // QM support
-  procedure CalcQMReach(AQmaster: TUnit);
-  function FindReach(const ACoords: TCoords): integer;
+  procedure FindQMfor(AUnit: TUnit);
 
 implementation
 
@@ -733,20 +740,63 @@ begin
     ArmyCanSwim(AUnit), AUnit.Struct)
 end;
 
-// TODO : Find QM reach
-procedure CalcQMReach(AQmaster: TUnit);
+// TODO : Find QMs
+procedure FindQMfor(AUnit: TUnit);
 var
-  iMaxDist: integer;
-  iIdx:     integer;
+  iMaxRange:  integer;
+  iDistRange: integer;
+  iRegion:    integer;
+  rRegion:    TRegion;
+  iRange:     integer;
+  iTroop:     integer;
+  trTroop:    TTroop;
+  iUnit:      integer;
+  uUnit:      TUnit;
+  bLocal:     boolean;
+  bSend:      boolean;
+  bRecieve:   boolean;
+
+  function ValidQM(AUnit: TUnit): boolean;
+  begin
+    Result := (SkillLevel(AUnit, Keys[s_Quartermaster]) > 0) and (AUnit.Struct <> nil) and
+              (AUnit.Struct.Data.Group = Keys[s_Caravanserai]) and (AUnit.Struct.Owner.Num = AUnit.Num);
+  end;
+
+  function QMRange(AQmaster: TUnit): integer;
+  var
+    iSkill: integer;
+  begin
+    iSkill := SkillLevel(AQmaster, Keys[s_Quartermaster]);
+
+    if iSkill = 0 then
+      Result := 0
+    else
+    begin
+      Result := 3 + ((iSkill + 1) div 3);
+      if Map.Levels[AQmaster.Region.z].Name <> Keys[s_Surface] then
+        Result := Result div 2;
+    end;
+  end;
+
+  function CalcMaxRange: integer;
+  const
+    MAX_SKILL = 5;
+    MAX_RANGE = 3 + ((MAX_SKILL + 1) div 3);
+  begin
+    if ValidQM(AUnit) then
+      Result := MAX_RANGE
+    else
+      Result := 2;
+
+    if Map.Levels[AUnit.Region.z].Name <> Keys[s_Surface] then
+      Result := Result div 2;
+  end;
 
   procedure BuildReach(const ACoords: TCoords; AStep, AFromDir: integer);
   var
     iIdx: integer;
     iDir: integer;
   begin
-    if AStep > iMaxDist then
-      Exit;
-
     iIdx := 0;
     while (iIdx < Length(Reached)) and not EqualCoords(ACoords, Reached[iIdx].Coords) do
       Inc(iIdx);
@@ -768,122 +818,67 @@ var
       exit;
 
     Inc(AStep);
-    for iDir := 1 to 6 do
-      if (iDir <> AFromDir) and MovableDir(ACoords, iDir, false, mtWalk, true, nil) then
-        BuildReach(CoordsInDir(ACoords, iDir), AStep, OppositeDir(iDir));
+    if AStep <= iMaxRange then
+      for iDir := 1 to 6 do
+        if (iDir <> AFromDir) and MovableDir(ACoords, iDir, false, mtWalk, true, nil) then
+          BuildReach(CoordsInDir(ACoords, iDir), AStep, OppositeDir(iDir));
   end;
 
-  function HasQmaster(const ACoords: TCoords): boolean;
-  var
-    rRegion:    TRegion;
-    iTroopIdx:  integer;
-    ulUnits:    TUnitList;
-    iUnitIdx:   integer;
-    uUnit:      TUnit;
-    sStruct:    TStruct;
+begin
+  SetLength(Reached, 0);
+  SetLength(QmasterList, 0);
+
+  iMaxRange := CalcMaxRange;
+  BuildReach(AUnit.Region.Coords, 0, 0);
+
+  iDistRange := QMRange(AUnit);
+  for iRegion := 0 to Length(Reached) - 1 do
   begin
-    rRegion := Map.Region(ACoords);
-    Result := false;
+    rRegion := Map.Region(Reached[iRegion].Coords);
+    if rRegion <> nil then
+    begin
+      iRange := Reached[iRegion].Moves;
 
-    if (rRegion <> nil) and (rRegion.Visited = Turn.Num) then
-      for iTroopIdx := 0 to rRegion.Troops.Count - 1 do
+      for iTroop := 0 to rRegion.Troops.Count - 1 do
       begin
-        ulUnits := rRegion.Troops[iTroopIdx].Units;
+        trTroop := rRegion.Troops[iTroop];
 
-        for iUnitIdx := 0 to ulUnits.Count - 1 do
+        for iUnit := 0 to trTroop.Units.Count - 1 do
         begin
-          uUnit := ulUnits[iUnitIdx];
-          sStruct := uUnit.Struct;
+          uUnit := trTroop.Units[iUnit];
 
-          if (SkillLevel(uUnit, Keys[s_Quartermaster]) > 0) and (sStruct <> nil)
-            and (sStruct.Owner = uUnit) and (sStruct.Data.Group = Keys[s_Caravanserai]) then
+          if (uUnit.Num <> AUnit.Num) and ValidQM(uUnit) then
           begin
-            Result := true;
-            exit;
+            if (iRange <= 2) then
+            begin
+              bLocal := true;
+              bSend := true;
+              bRecieve := true;
+            end
+            else
+            begin
+              bLocal := false;
+              bSend := (iDistRange >= iRange);
+              bRecieve := (QMRange(uUnit) >= iRange);
+            end;
+
+            if bLocal or bSend or bRecieve then
+            begin
+              SetLength(QmasterList, Length(QmasterList) + 1);
+
+              with QmasterList[High(QmasterList)] do
+              begin
+                Qmaster := uUnit;
+                Local := bLocal;
+                Send := bSend;
+                Recieve := bRecieve;
+              end;
+            end;
           end;
         end;
       end;
-  end;
-
-  function HasTarget(const ACoords: TCoords): boolean;
-  var
-    rRegion:    TRegion;
-    iTroopIdx:  integer;
-    ulUnits:    TUnitList;
-    iUnitIdx:   integer;
-    uUnit:      TUnit;
-  begin
-    rRegion := Map.Region(ACoords);
-    Result := false;
-
-    if (rRegion <> nil) and (rRegion.Visited = Turn.Num) then
-      for iTroopIdx := 0 to rRegion.Troops.Count - 1 do
-      begin
-        ulUnits := rRegion.Troops[iTroopIdx].Units;
-
-        for iUnitIdx := 0 to ulUnits.Count - 1 do
-        begin
-          uUnit := ulUnits[iUnitIdx];
-
-          if uUnit.Num = AQmaster.Num then
-            continue;
-
-          Result := True;
-          exit;
-        end;
-      end;
-  end;
-
-  procedure DeleteReach(ARemove: integer);
-  var
-    iIdx: integer;
-  begin
-    iIdx := ARemove + 1;
-
-    while iIdx < Length(Reached) do
-    begin
-      Reached[iIdx - 1] := Reached[iIdx];
-      Inc(iIdx);
     end;
-
-    SetLength(Reached, Length(Reached) - 1);
   end;
-begin
-  SetLength(Reached, 0);
-
-  iMaxDist := 3 + ((SkillLevel(AQmaster, Keys[s_Quartermaster]) + 1) div 3);
-  if Map.Levels[AQmaster.Region.z].Name <> Keys[s_Surface] then
-    iMaxDist := iMaxDist div 2;
-
-  BuildReach(AQmaster.Region.Coords, 0, 0);
-
-  iIdx := Length(Reached) - 1;
-  while iIdx >= 0 do
-  begin
-    if (Reached[iIdx].Moves > 2) then
-    begin
-      if not HasQmaster(Reached[iIdx].Coords) then
-        DeleteReach(iIdx);
-    end
-    else if not HasTarget(Reached[iIdx].Coords) then
-      DeleteReach(iIdx);
-
-    Dec(iIdx);
-  end;
-end;
-
-function FindReach(const ACoords: TCoords): integer;
-var
-  iIdx: integer;
-begin
-  Result := -1;
-
-  for iIdx := 0 to Length(Reached) - 1 do
-    if EqualCoords(Reached[iIdx].Coords, ACoords) then
-    begin
-      Result := Reached[iIdx].Moves;
-      break;
-    end;
 end;
 
 // Count total of faction's men in region
