@@ -2181,7 +2181,7 @@ procedure ReadUnit(Region: TRegion; Struct: TStruct);
 var U, OldU: TUnit;
     Trace: TTrace;
     s: string;
-    i, bk: integer;
+    i, bk, facIdx: integer;
     Troop: TTroop;
     full: boolean;
     repStart: integer;
@@ -2212,8 +2212,10 @@ begin
     U.Flags[flgGuard] := True;
     Trace.Before(', ');
   end;
+
   // Faction part
-  if Pos('(', Trace.Text) > 0 then
+  facIdx := Pos('(', Trace.Text);
+  if (facIdx > 0) and (facIdx < Pos('[', Trace.Text)) then
     U.Faction := FormFaction(Trace.Before('), '))
   else if Pos(Keys[s_Faction], Trace.Text) = 1 then begin
     // Hack Conquest starting factions (that was error... but whatever)
