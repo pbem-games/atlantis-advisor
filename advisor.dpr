@@ -57,8 +57,7 @@ uses
   uWantedItems in 'U_Tools\uWantedItems.pas' {WantedItemsForm},
   uAvatarEdit in 'U_Tools\uAvatarEdit.pas' {AvatarForm},
   uPathFind in 'U_Base\uPathFind.pas',
-  uRegistration in 'U_Base\uRegistration.pas' {RegForm},
-  uDistribute in 'U_Orders\uDistribute.pas' {DistributeForm};
+  uRegistration in 'U_Base\uRegistration.pas' {RegForm};
 
 {$R *.res}
 

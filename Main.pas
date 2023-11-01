@@ -40,7 +40,7 @@ const
 type
   TAdvisorState = set of (asFirstActivate, asProcessing, asCloseQuery,
     asReadingGame, asFirstProcessing);
-  TWorkMode = (mNormal, mMove, mLinkShaft, mDistribute);
+  TWorkMode = (mNormal, mMove, mLinkShaft);
 
   TMainForm = class(TForm)
     MapUnitsPanel: TPanel;
@@ -518,6 +518,14 @@ type
     TabSheet3: TTabSheet;
     ItemGridFinal: TPowerGrid;
     InventoryChanges: TPowerGrid;
+    pnlQuartermaster: TPanel;
+    pgQuartermaster: TPowerGrid;
+    Panel1: TPanel;
+    cbQuartermaster: TComboBox;
+    lblQmasterRange: TLabel;
+    lblQmasterAbility: TLabel;
+    iQMAbilityWarning: TImage;
+    iQMFeeWarning: TImage;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -673,6 +681,9 @@ type
     procedure HandleSelectAllKeyPress(Sender: TObject; var Key: Char);
     procedure InventoryChangesDrawCell(Sender: TObject; ACol,
       ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
+    procedure cbQuartermasterChange(Sender: TObject);
+    procedure pgQuartermasterDrawCell(Sender: TObject; ACol, ARow: Integer;
+      var TxtRect: TRect; State: TGridDrawState);
   private
   public
     State: TAdvisorState;
@@ -724,6 +735,7 @@ type
     procedure SelectUnit(U: TUnit);
     procedure FillUnitInfo(AUnit: TUnit);
     procedure FillAllItems(AUnit: TUnit);
+    procedure FillQmasters(AUnit: TUnit);
     procedure ImplyRegistration(Registered: boolean);
     procedure SetCaption;
     procedure StartMoveMode(Army, Route: boolean);
@@ -752,10 +764,6 @@ type
     function SelectedCoords: TCoords;
 
     procedure FillEconomyReport(Reg: TRegion; RealReg: TRegion; AList: TStrings);
-
-    // QM support
-    procedure StartDistribute;
-    procedure EndDistribute(ATrgtRegion: TRegion);
   end;
 
 var
@@ -772,7 +780,7 @@ implementation
 
 uses uOptions, uAbout, uMiniMap, uFactions, uMemo, uStructEdit,
   uItemEdit, uSkillEdit, uAvatarEdit, uRegistration, RegCode, uBattle,
-  uScriptEdit, uMapExport, uTownTrade, uSoldiers, uDistribute;
+  uScriptEdit, uMapExport, uTownTrade, uSoldiers;
 
 {$R *.DFM}
 
@@ -941,6 +949,10 @@ begin
   gAllItems.Cells[0, 0] := 'Amount';
   gAllItems.Cells[1, 0] := 'Item';
   gAllItems.Cells[2, 0] := 'Unit';
+
+  pgQuartermaster.Cols[0].Format := cfNumber;
+  pgQuartermaster.Cells[0, 0] := 'Amount';
+  pgQuartermaster.Cells[1, 0] := 'Item';
 
   InventoryChanges.Cols[1].Format := cfNumber;
 
@@ -1264,6 +1276,7 @@ begin
   pStructure.Visible := Value;
   UnitsPanel.Enabled := Value;
   gAllItems.Enabled := Value;
+  pgQuartermaster.Enabled := Value;
   StructGrid.Enabled := Value;
   ToolBar.Enabled := Value;
   HexMap.Enabled := Value;
@@ -1435,61 +1448,6 @@ begin
   ProcessOrders(CurrUnit.Region);
 end;
 
-// TODO : QM support
-procedure TMainForm.StartDistribute;
-var
-  uQmaster: TUnit;
-begin
-  uQmaster := DistributeForm.Qmaster;
-
-  HexMapGoto(uQmaster.Region.Coords);
-  GlobalEnable(False);
-  HexMap.Enabled := True;
-
-  Mode := mDistribute;
-  CalcQMReach(uQmaster);
-
-  with HexMap do
-  begin
-    Cursor := crDefault;
-    Options := Options - [hmShowSelection, hmDblClickCenter];
-
-    Redraw;
-  end;
-end;
-
-procedure TMainForm.EndDistribute(ATrgtRegion: TRegion);
-var
-  iReach: integer;
-begin
-  Mode := mNormal;
-  GlobalEnable(True);
-
-  HexMapGoto(CurrUnit.Region.Coords);
-  with HexMap do
-  begin
-    Cursor := crDefault;
-    Options := Options + [hmShowSelection, hmDblClickCenter];
-
-    Redraw;
-  end;
-
-  iReach := FindReach(ATrgtRegion.Coords);
-  if iReach <> -1 then
-    DistributeForm.FillForm(ATrgtRegion, iReach);
-
-  case DistributeForm.ShowModal of
-  mrOk:
-    begin
-      AddOrderTo(DistributeForm.Qmaster, DistributeForm.GetOrders, false);
-      DistributeForm.Free;
-    end;
-  mrIgnore: StartDistribute;
-  else
-    DistributeForm.Free;
-  end;
-end;
-
 procedure TMainForm.btnLinkShaftClick(Sender: TObject);
 begin
   StartLinkMode;
@@ -1573,10 +1531,8 @@ begin
   CalcMapCoords(HX, HY, mapX, mapY);
   Region := Map.Region(mapX, mapY);
 
-  case Mode of
-  mMove:        DrawMoveState(Region, ACanvas, mapX, mapY, cx, cy);
-  mDistribute:  DrawDistribute(Region, ACanvas, CX, CY);
-  end;
+  if Mode = mMove then
+    DrawMoveState(Region, ACanvas, mapX, mapY, cx, cy);
 
   if Region <> nil then DrawExtra(ACanvas, CX, CY, Region, (Mode = mMove));
   if CurrUnit <> nil then
@@ -1612,14 +1568,6 @@ begin
       HexMap.ShowHint := True;
     end
     else HexMap.ShowHint := False;
-
-    if Mode = mDistribute then
-    begin
-      if FindReach(Coords(Hex.X, Hex.Y, Map.Level)) <> -1 then
-        HexMap.Cursor := crMove
-      else
-        HexMap.Cursor := crDefault;
-    end;
   end;
 end;
 
@@ -1683,8 +1631,6 @@ begin
   mMove:
     if SelectMoveModeHex(Coords(mapX, mapY, Map.Level)) then
       FillStructGrid(Map.Region(mapX, mapY));
-  mDistribute:
-    EndDistribute(Map.Region(mapX, mapY));
   end;
 end;
 
@@ -3242,6 +3188,7 @@ begin
   end;
 
   FillAllItems(AUnit);
+  FillQmasters(AUnit);
 
   InventoryChanges.NoRepaint := True;
   InventoryChanges.RowCount := AUnit.Inventory.Count;
@@ -3295,6 +3242,82 @@ begin
         end;
   end;
   gAllItems.Fixup;
+end;
+
+// TODO : Fill QM details
+procedure TMainForm.FillQmasters(AUnit: TUnit);
+var
+  iIdx:     integer;
+  sQMTitle: string;
+begin
+  cbQuartermaster.Clear;
+
+  FindQMfor(AUnit);
+
+  for iIdx := 0 to Length(QmasterList) - 1 do
+    with QmasterList[iIdx] do
+    begin
+      sQMTitle := Qmaster.Name + ' (' + Qmaster.NumStr + '); ';
+
+      with Qmaster.Region do
+      begin
+        if Qmaster.Region.SettlementType = 0 then
+          sQMTitle := sQMTitle + Terrain.Name
+        else
+          sQMTitle := sQMTitle + Settlement + ' ' + GetKey(s_Village, SettlementType - 1);
+
+        sQMTitle := sQMTitle + ' (' + IntToStr(x) + ',' + IntToStr(y) + ')';
+      end;
+
+      cbQuartermaster.AddItem(sQMTitle, TObject(iIdx));
+    end;
+
+  if cbQuartermaster.Items.Count > 0 then
+  begin
+    cbQuartermaster.ItemIndex := 0;
+    cbQuartermasterChange(cbQuartermaster);
+  end;
+end;
+
+procedure TMainForm.cbQuartermasterChange(Sender: TObject);
+var
+  iIdx: integer;
+begin
+  if not cbQuartermaster.Enabled then
+    exit;
+
+  iIdx := integer(cbQuartermaster.Items.Objects[cbQuartermaster.ItemIndex]);
+  with QmasterList[iIdx] do
+  begin
+    if Local then
+    begin
+      iQMFeeWarning.Visible := false;
+      lblQmasterRange.Caption := 'Quartermaster is local: transport is free.';
+      iQMAbilityWarning.Visible := false;
+      lblQmasterAbility.Caption := 'Quartermaster can send and recieve.';
+    end
+    else
+    begin
+      iQMFeeWarning.Visible := true;
+      lblQmasterRange.Caption := 'Quartermaster is distant: a fee will be charged.';
+
+      if Send and Recieve then
+      begin
+        iQMAbilityWarning.Visible := false;
+        lblQmasterAbility.Caption := 'Quartermaster can send and recieve.';
+      end
+      else
+      begin
+        iQMAbilityWarning.Visible := true;
+        if Send then
+          lblQmasterAbility.Caption := 'Quartermaster can send but not recieve.'
+        else
+          lblQmasterAbility.Caption := 'Quartermaster can recieve but not send.';
+      end;
+    end;
+
+    FillItemGrid(pgQuartermaster, Qmaster.Items);
+  end;
 end;
 
 procedure TMainForm.btnLocalClick(Sender: TObject);
@@ -4615,6 +4638,11 @@ procedure TMainForm.InventoryChangesDrawCell(Sender: TObject; ACol,
 begin
   if NoDraw then Exit;
   uInterface.ItemGridDrawCell(Sender, ACol, ARow, TxtRect, 2);
+end;
+
+procedure TMainForm.pgQuartermasterDrawCell(Sender: TObject; ACol, ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
+begin
+  uInterface.ItemGridDrawCell(Sender, ACol, ARow, TxtRect, 1);
 end;
 
 end.

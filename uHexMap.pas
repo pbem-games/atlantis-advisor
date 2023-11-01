@@ -59,7 +59,6 @@ const
   procedure DrawHex(ACanvas: TCanvas; CX, CY: integer; Region: TRegion);
   procedure DrawExtra(ACanvas: TCanvas; CX, CY: integer; Region: TRegion;
     Simple: boolean);
-  procedure DrawDistribute(ARegion: TRegion; ACanvas: TCanvas; CX, CY: integer);
   procedure HexMapSetup(HexMap: TCylinderMap);
   procedure DrawArrow(ACanvas: TCanvas; cx, cy, Dir, bmpArrows: integer);
   procedure DrawMoveState(Region: TRegion; ACanvas: TCanvas; mapX, mapY,
@@ -181,40 +180,6 @@ begin
   if (MoveOrder = 'sail') or (ClearOrder(CurrUnit.MonthOrder) = 'sail') then
     DrawPath(CurrUnit.Moves, bmp_arrCyanArrows, False, CurrUnit.FinalPoint)
   else DrawPath(CurrUnit.Moves, bmp_arrGreenArrows, False, CurrUnit.FinalPoint);
-end;
-
-procedure DrawDistribute(ARegion: TRegion; ACanvas: TCanvas; CX, CY: integer);
-var
-  cCoords:  TCoords;
-  iDist:    integer;
-  iDir:     integer;
-  hpEdges:  THexParts;
-begin
-  if ARegion <> nil then
-  begin
-    cCoords := ARegion.Coords;
-    iDist := FindReach(cCoords);
-
-    if iDist >= 0 then
-    begin
-      if iDist <= 2 then
-      begin
-        for iDir := 1 to 6 do
-          hpEdges[iDir] := (FindReach(CoordsInDir(cCoords, iDir)) = -1);
-
-        ACanvas.Pen.Color := clLime;
-      end
-      else
-      begin
-        for iDir := 1 to 6 do
-          hpEdges[iDir] := (FindReach(CoordsInDir(cCoords, iDir)) <= 2);
-
-        ACanvas.Pen.Color := clRed;
-      end;
-
-      MainForm.HexMap.PartialHex(ACanvas, CX, CY, hpEdges);
-    end;
-  end;
 end;
 
 procedure DrawMoveState(Region: TRegion; ACanvas: TCanvas; mapX, mapY,
