@@ -624,7 +624,7 @@ type
   end;
 
   TBaseUnit = class
-    Name, Description: string;
+    Name, Description, LocalName: string;
     Num: integer;
     Mage: boolean;
     Faction: TFaction;

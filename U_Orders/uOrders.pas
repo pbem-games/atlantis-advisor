@@ -73,6 +73,9 @@ var
 
 implementation
 
+uses
+  TypInfo;
+
 procedure InitUnexplored;
 begin
   SetLength(Unexplored, 0);
@@ -252,7 +255,8 @@ end;
 
 procedure DoLocal(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
-  UnitRecs.AddUnitRec(AUnit, s);
+  AUnit.LocalName := s;
+  // UnitRecs.AddUnitRec(AUnit, s);
 end;
 
 procedure DoName(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);

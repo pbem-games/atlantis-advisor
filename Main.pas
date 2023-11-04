@@ -2596,7 +2596,7 @@ var i, j: integer;
       UnitGrid.Cells[8, row] := IntToStr(AUnit.Items.Amount(IT_SILVER));
       SetItemsField(9, row, AUnit, IT_MOUNT);
 
-      UnitGrid.Cells[10, row] := UnitRecs.Local(Num, Region.Coords);
+      UnitGrid.Cells[10, row] := LocalName; // UnitRecs.Local(Num, Region.Coords);
       if (UnitGrid.Cells[10, row] = '')
         and (Config.ReadBool('MainWin', 'NameAsLocal', True)) then
         UnitGrid.Cells[10, row] := Name;
