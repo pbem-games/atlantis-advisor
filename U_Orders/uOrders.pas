@@ -743,6 +743,7 @@ var i, k, amount: integer;
   procedure GiveItem(AUnit, Target: TUnit; i, amount: integer);
   var j: integer;
     itemData: TItemData;
+    note: string;
   begin
     itemData := AUnit.Items[i].Data;
 
@@ -759,7 +760,10 @@ var i, k, amount: integer;
 
     // Remove item
     SetAmountInc(AUnit, itemData, -amount);
-    AUnit.Inventory.Add(NewItem(itemData, -amount, tsGive, 'to ' + Target.FullName));
+
+    note := '';
+    if Target <> nil then note := 'to ' + Target.FullName;
+    AUnit.Inventory.Add(NewItem(itemData, -amount, tsGive, note));
   end;
 
 begin
