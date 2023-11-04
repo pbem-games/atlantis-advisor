@@ -2168,6 +2168,7 @@ begin
   begin
     units := Reg.FinalPlayerTroop.Units;
 
+    line('Cast', summAt(units, IT_SILVER, tsCast), '$');
     line('Produce Food', summAt(units, IT_FOOD, tsProduce));
     line('Produce Mounts', summAt(units, IT_MOUNT, tsProduce));
     line('Produce Weapons', summAt(units, IT_WEAPON, tsProduce));

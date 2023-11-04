@@ -26,6 +26,7 @@ var
   procedure DoBuy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
   procedure DoBuild(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
   procedure DoCast(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoInvenotry(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
   procedure DoClaim(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
   procedure DoClaimRepeat(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
   procedure DoCombat(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
@@ -883,6 +884,32 @@ begin
   i := 0;
   while (i < Line) and (AUnit.Order(i) <> 'cast') do Inc(i);
   if i < Line then raise EParseError.Create('One cast permitted');
+end;
+
+procedure DoInvenotry(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+var
+  amount, ts: integer;
+  t, stage: string;
+  item: TItemData;
+begin
+  stage := LowerCase(GetToken(s));
+
+  try
+    amount := StrToInt(GetToken(s));
+  except
+    exit;
+  end;
+
+  t := GetToken(s);
+  item := Game.ItemData.FindByName(t);
+  if item = nil then
+    exit;
+
+  ts := GetEnumValue(TypeInfo(TTurnStage), 'ts' + stage);
+  if ts = -1 then
+    exit;
+
+  AUnit.Inventory.Add(NewItem(item, amount, TTurnStage(ts), 'manual entry'));
 end;
 
 procedure DoSell(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);

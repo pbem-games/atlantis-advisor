@@ -291,39 +291,40 @@ begin
 
     DoScripts(R, '');
 
-    DoOrders(R, ['form'],       DoForm);
-    DoOrders(R, ['@;;'],        DoLocal);
-    DoOrders(R, ['name'],       DoName);
+    DoOrders(R, ['form'],        DoForm);
+    DoOrders(R, ['@;inventory'], DoInvenotry);
+    DoOrders(R, ['@;;'],         DoLocal);
+    DoOrders(R, ['name'],        DoName);
     DoOrders(R, ['autotax', 'avoid', 'behind', 'guard', 'hold', 'noaid', 'nocross', 'share'], DoFlag);
     DoOrders(R, ['consume', 'reveal', 'spoils'], DoExtFlag);
-    DoOrders(R, ['claim'],      DoClaim);
-    DoOrders(R, ['combat'],     DoCombat);
-    DoOrders(R, ['declare'],    DoDeclare);
-    DoOrders(R, ['describe'],   DoDescribe);
-    DoOrders(R, ['faction'],    DoFaction);
-    DoOrders(R, ['leave'],      DoLeave);
-    DoOrders(R, ['enter'],      DoEnter);
-    DoOrders(R, ['promote'],    DoPromote);
-    DoOrders(R, ['evict'],      DoEvict);
-    DoOrders(R, ['attack'],     DoAttack);
-    DoOrders(R, ['steal'],      DoSteal);
-    DoOrders(R, ['destroy'],    DoDestroy);
-    DoOrders(R, ['give'],       DoGive);
+    DoOrders(R, ['claim'],       DoClaim);
+    DoOrders(R, ['combat'],      DoCombat);
+    DoOrders(R, ['declare'],     DoDeclare);
+    DoOrders(R, ['describe'],    DoDescribe);
+    DoOrders(R, ['faction'],     DoFaction);
+    DoOrders(R, ['leave'],       DoLeave);
+    DoOrders(R, ['enter'],       DoEnter);
+    DoOrders(R, ['promote'],     DoPromote);
+    DoOrders(R, ['evict'],       DoEvict);
+    DoOrders(R, ['attack'],      DoAttack);
+    DoOrders(R, ['steal'],       DoSteal);
+    DoOrders(R, ['destroy'],     DoDestroy);
+    DoOrders(R, ['give'],        DoGive);
 
     PillageUnits := TUnitList.Create;
-    DoOrders(R, ['pillage'],    DoPillage);
+    DoOrders(R, ['pillage'],     DoPillage);
     ResolveTaxes(R, PillageUnits, 2, 4);
 
-    DoOrders(R, ['tax'],        DoTax);
+    DoOrders(R, ['tax'],         DoTax);
     ResolveTaxes(R, TaxUnits, 1, 1);
 
     TaxUnits.Free;
     PillageUnits.Free;
 
-    DoOrders(R, ['cast'],       DoCast);
-    DoOrders(R, ['sell'],       DoSell);
-    DoOrders(R, ['buy'],        DoBuy);
-    DoOrders(R, ['forget'],     DoForget);
+    DoOrders(R, ['cast'],        DoCast);
+    DoOrders(R, ['sell'],        DoSell);
+    DoOrders(R, ['buy'],         DoBuy);
+    DoOrders(R, ['forget'],      DoForget);
 
     DoScripts(R, 'monthlong');
 
@@ -363,19 +364,19 @@ begin
     R := finalRegions[n];
 
     // Month-long orders
-    DoOrders(R, ['build'],      DoBuild);
+    DoOrders(R, ['build'],       DoBuild);
     
     EntertainUnits := TUnitList.Create;
-    DoOrders(R, ['entertain'],  DoEntertain);
+    DoOrders(R, ['entertain'],   DoEntertain);
     ResolveEntertainment(R);
     EntertainUnits.Free;
     
-    DoOrders(R, ['produce'],    DoProduce);
-    DoOrders(R, ['study'],      DoStudy);
-    DoOrders(R, ['teach'],      DoTeach);
+    DoOrders(R, ['produce'],     DoProduce);
+    DoOrders(R, ['study'],       DoStudy);
+    DoOrders(R, ['teach'],       DoTeach);
     
     WorkUnits := TUnitList.Create;
-    DoOrders(R, ['work'],       DoWork);
+    DoOrders(R, ['work'],        DoWork);
     ResolveWork(R);
     WorkUnits.Free;
   end;
