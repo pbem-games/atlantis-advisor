@@ -526,6 +526,8 @@ type
     lblQmasterAbility: TLabel;
     iQMAbilityWarning: TImage;
     iQMFeeWarning: TImage;
+    QuartermasterAction: TAction;
+    Quartermaster1: TMenuItem;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -684,6 +686,9 @@ type
     procedure cbQuartermasterChange(Sender: TObject);
     procedure pgQuartermasterDrawCell(Sender: TObject; ACol, ARow: Integer;
       var TxtRect: TRect; State: TGridDrawState);
+    procedure QuartermasterActionExecute(Sender: TObject);
+    procedure pgQuartermasterMouseDown(Sender: TObject;
+      Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
   private
   public
     State: TAdvisorState;
@@ -711,6 +716,7 @@ type
       Route: TRoute;
     end;
     LastError: integer;
+    QMStock: TItemList;
     // Processor
     procedure ProcessAllOrders;
     procedure StartProcess(ARegion: TRegion; AScript: integer; Args: string;
@@ -736,6 +742,7 @@ type
     procedure FillUnitInfo(AUnit: TUnit);
     procedure FillAllItems(AUnit: TUnit);
     procedure FillQmasters(AUnit: TUnit);
+    procedure ClearQmaster;
     procedure ImplyRegistration(Registered: boolean);
     procedure SetCaption;
     procedure StartMoveMode(Army, Route: boolean);
@@ -915,6 +922,9 @@ begin
   RerunRegions := TRegionList.Create;
   RouteMode.Route := TRoute.Create;
 
+  QMStock := nil;
+  ClearQmaster;
+
   // Registration
   // ProgOpened := CheckCode(Config.ReadString('Prog', 'RegName', ''),
   //   Config.ReadString('Prog', 'RegCode', ''));
@@ -1022,6 +1032,9 @@ begin
   Filter.Items.Free;
   RerunRegions.Free;
   RouteMode.Route.Free;
+
+  if QMStock <> nil then
+    QMStock.ClearAndFree;
 end;
 
 
@@ -1141,6 +1154,7 @@ begin
   btnLocal.Down := Config.ReadBool('MainWin', 'LocalDescriptions', False);
   UnmodItemsAction.Checked := Config.ReadBool('MainWin', 'UnmodItemAmounts', False);
   gAllItems.Visible := Config.ReadBool('MainWin', 'AllItems', False);
+  pnlQuartermaster.Visible := Config.ReadBool('MainWin', 'Quartermaster', false);
   //InfoPanel.Visible := InfoPanel1.Checked;
 
   pnRightSidebar.Width := clamp(50, Config.ReadInteger('MainWin', 'RightSidebarPos', 560), max(MainForm.Width - 100, 50));
@@ -1297,6 +1311,9 @@ begin
   ProductGrid.NoRepaint := not Value;
   WantedGrid.NoRepaint := not Value;
   ForSaleGrid.NoRepaint := not Value;
+
+  cbQuartermaster.Enabled := Value and (cbQuartermaster.Items.Count > 0);
+  pgQuartermaster.Enabled := cbQuartermaster.Enabled;
 end;
 
 procedure TMainForm.UnitEnable(Value: boolean);
@@ -2667,7 +2684,11 @@ begin
     Repaint;
     if UnitGrid.ImgRowCount > 1 then
       UnitGridSelectCell(UnitGrid, UnitGrid.Col, UnitGrid.Row, cansel)
-    else HexMap.Redraw; // to remove arrows
+    else
+    begin
+      HexMap.Redraw; // to remove arrows
+      ClearQmaster;
+    end;
   end;
   // Clear AllItems if no faction units in region
   if (CurrRegion = nil) or (CurrRegion.PlayerTroop = nil) then
@@ -3297,14 +3318,31 @@ begin
 
   if cbQuartermaster.Items.Count > 0 then
   begin
+    cbQuartermaster.Enabled := true;
     cbQuartermaster.ItemIndex := 0;
     cbQuartermasterChange(cbQuartermaster);
-  end;
+    pgQuartermaster.Enabled := true;
+  end
+  else
+    ClearQmaster;
+end;
+
+procedure TMainForm.ClearQmaster;
+begin
+  cbQuartermaster.Enabled := false;
+  cbQuartermaster.Clear;
+  pgQuartermaster.Enabled := false;
+  pgQuartermaster.RowCount := 1;
+  pgQuartermaster.Fixup;
+  iQMFeeWarning.Visible := false;
+  lblQmasterRange.Caption := EmptyStr;
+  iQMAbilityWarning.Visible := false;
+  lblQmasterAbility.Caption := EmptyStr;
 end;
 
 procedure TMainForm.cbQuartermasterChange(Sender: TObject);
 var
-  iIdx: integer;
+  iIdx:       integer;
 begin
   if not cbQuartermaster.Enabled then
     exit;
@@ -3339,7 +3377,11 @@ begin
       end;
     end;
 
-    FillItemGrid(pgQuartermaster, Qmaster.Items);
+    if QMStock <> nil then
+      QMStock.ClearAndFree;
+
+    QMStock := Qmaster.Inventory.BalanceBefore(tsTransport);
+    FillItemGrid(pgQuartermaster, QMStock);
   end;
 end;
 
@@ -4665,7 +4707,29 @@ end;
 
 procedure TMainForm.pgQuartermasterDrawCell(Sender: TObject; ACol, ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
 begin
+  if NoDraw then Exit;
   uInterface.ItemGridDrawCell(Sender, ACol, ARow, TxtRect, 1);
+end;
+
+procedure TMainForm.QuartermasterActionExecute(Sender: TObject);
+begin
+  pnlQuartermaster.Visible := not pnlQuartermaster.Visible;
+  Config.WriteBool('MainWin', 'Quartermaster', pnlQuartermaster.Visible);
+end;
+
+procedure TMainForm.pgQuartermasterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  with TPowerGrid(Sender) do
+  begin
+    if (MouseCell.Y < FixedRows) or (RowCount <= 1) or (ssDouble in Shift) then
+      exit;
+
+    case Button of
+    mbLeft:
+      if (CurrUnit <> nil) and (ImgRows[Row].Data <> nil) then
+        BeginDrag(False);
+    end;
+  end;
 end;
 
 end.

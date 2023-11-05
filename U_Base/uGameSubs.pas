@@ -860,8 +860,8 @@ begin
             else
             begin
               bLocal := false;
-              bSend := (iDistRange >= iRange);
-              bRecieve := (QMRange(uUnit) >= iRange);
+              bSend := (QMRange(uUnit) >= iRange);
+              bRecieve := (iDistRange >= iRange);
             end;
 
             if bLocal or bSend or bRecieve then

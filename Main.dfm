@@ -1053,6 +1053,7 @@ object MainForm: TMainForm
           StickySelect = False
           TopRow = 1
           OnDrawCell = pgQuartermasterDrawCell
+          OnMouseDown = pgQuartermasterMouseDown
           ColWidths = (
             48
             237)
@@ -3416,6 +3417,9 @@ object MainForm: TMainForm
       object ItemsinRegion1: TMenuItem
         Action = AllItemsAction
       end
+      object Quartermaster1: TMenuItem
+        Action = QuartermasterAction
+      end
       object RegionReport1: TMenuItem
         Action = RegionRepAction
       end
@@ -4064,6 +4068,11 @@ object MainForm: TMainForm
       ImageIndex = 43
       ShortCut = 116
       OnExecute = AllItemsActionExecute
+    end
+    object QuartermasterAction: TAction
+      Caption = 'Quartermaster'
+      ShortCut = 117
+      OnExecute = QuartermasterActionExecute
     end
     object TradeStructAction: TAction
       Caption = 'Production Chart'
