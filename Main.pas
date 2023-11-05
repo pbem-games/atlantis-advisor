@@ -687,6 +687,8 @@ type
     procedure pgQuartermasterDrawCell(Sender: TObject; ACol, ARow: Integer;
       var TxtRect: TRect; State: TGridDrawState);
     procedure QuartermasterActionExecute(Sender: TObject);
+    procedure pgQuartermasterMouseDown(Sender: TObject;
+      Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
   private
   public
     State: TAdvisorState;
@@ -4712,6 +4714,21 @@ procedure TMainForm.QuartermasterActionExecute(Sender: TObject);
 begin
   pnlQuartermaster.Visible := not pnlQuartermaster.Visible;
   Config.WriteBool('MainWin', 'Quartermaster', pnlQuartermaster.Visible);
+end;
+
+procedure TMainForm.pgQuartermasterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  with TPowerGrid(Sender) do
+  begin
+    if (MouseCell.Y < FixedRows) or (RowCount <= 1) or (ssDouble in Shift) then
+      exit;
+
+    case Button of
+    mbLeft:
+      if (CurrUnit <> nil) and (ImgRows[Row].Data <> nil) then
+        BeginDrag(False);
+    end;
+  end;
 end;
 
 end.

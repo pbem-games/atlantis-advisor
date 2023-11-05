@@ -1053,6 +1053,7 @@ object MainForm: TMainForm
           StickySelect = False
           TopRow = 1
           OnDrawCell = pgQuartermasterDrawCell
+          OnMouseDown = pgQuartermasterMouseDown
           ColWidths = (
             48
             237)
