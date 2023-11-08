@@ -89,7 +89,7 @@ var
   procedure CustomizeItemPopup(Item: TItem);
   procedure AddOrder(s: string; CanRepeat: boolean);
   procedure AddOrderTo(AUnit: TUnit; s: string; CanRepeat: boolean);
-  procedure ExecOrder(s: string; CanRepeat: boolean); overload
+  procedure ExecOrder(s: string; CanRepeat: boolean); overload;
   procedure ExecOrder(AUnit: TUnit; s: string; CanRepeat: boolean); overload;
   function NextAttemptedNew(R: TRegion): integer;
   procedure ClearMoves;
