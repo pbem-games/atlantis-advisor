@@ -744,9 +744,9 @@ begin
     ArmyCanSwim(AUnit), AUnit.Struct)
 end;
 
-// TODO : Find QMs
 procedure FindQMfor(AUnit: TUnit);
 var
+  iLocalRng:  integer;
   iMaxRange:  integer;
   iUnitRange: integer;
   iRegion:    integer;
@@ -783,18 +783,22 @@ var
     end;
   end;
 
-  function CalcMaxRange: integer;
+  procedure CalcRanges;
   const
     MAX_SKILL = 5;
     MAX_RANGE = 3 + ((MAX_SKILL + 1) div 3);
   begin
+    iLocalRng := 2;
     if ValidQM(AUnit) then
-      Result := MAX_RANGE
+      iMaxRange := MAX_RANGE
     else
-      Result := 2;
+      iMaxRange := 2;
 
     if Map.Levels[AUnit.Region.z].Name <> Keys[s_Surface] then
-      Result := Result div 2;
+    begin
+      iLocalRng := iLocalRng div 2;
+      iMaxRange := iMaxRange div 2;
+    end;
   end;
 
   procedure BuildReach(const ACoords: TCoords; AStep, AFromDir: integer);
@@ -833,7 +837,7 @@ begin
   SetLength(Reached, 0);
   SetLength(QmasterList, 0);
 
-  iMaxRange := CalcMaxRange;
+  CalcRanges;
   BuildReach(AUnit.Region.Coords, 0, 0);
 
   iUnitRange := QMRange(AUnit);
@@ -854,7 +858,7 @@ begin
 
           if (uUnit.Num <> AUnit.Num) and ValidQM(uUnit) then
           begin
-            if (iRange <= 2) then
+            if (iRange <= iLocalRng) then
             begin
               bLocal := true;
               bSend := true;
