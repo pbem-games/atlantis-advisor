@@ -2871,7 +2871,6 @@ begin
   HexMapGoto(CurrUnit.Region.Coords);
 end;
 
-// TODO : accept qm drag
 procedure TMainForm.UnitGridDragOver(Sender, Source: TObject; X,
   Y: Integer; State: TDragState; var Accept: Boolean);
 begin
@@ -3301,7 +3300,6 @@ begin
   gAllItems.Fixup;
 end;
 
-// TODO : Fill QM details
 procedure TMainForm.FillQmasters(AUnit: TUnit);
 var
   uSelQM:   TUnit;
@@ -3371,6 +3369,29 @@ end;
 procedure TMainForm.cbQuartermasterChange(Sender: TObject);
 var
   qiQMInfo: PQmasterInfo;
+
+  procedure FillItemGrid(AGrid: TPowerGrid; AItemList: TItemList);
+  var
+    iIdx:     integer;
+    iItem:    TItem;
+    cColour:  TColor;
+  begin
+    AGrid.RowCount := 1;
+
+    for iIdx := 0 to AItemList.Count - 1 do
+    begin
+      iItem := AItemList[iIdx];
+      if InvalidTransport(iItem) then
+        cColour := clGrayText
+      else
+        cColour := clWindowText;
+
+      AddItemGridItem(AGrid, iItem, cColour);
+    end;
+
+    AGrid.Fixup;
+  end;
+
 begin
   if not cbQuartermaster.Enabled then
     exit;
@@ -3585,7 +3606,6 @@ begin
   end;
 end;
 
-// TODO : do QM send
 procedure TMainForm.ItemGridEndDrag(Sender, Target: TObject; X,
   Y: Integer);
 var i: integer;
