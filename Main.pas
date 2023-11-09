@@ -3350,7 +3350,16 @@ begin
     pgQuartermaster.Enabled := true;
   end
   else
+  begin
+    QMInfo := nil;
+    if QMStock <> nil then
+    begin
+      QMStock.ClearAndFree;
+      QMStock := nil;
+    end;
+    
     ClearQmaster;
+  end;
 end;
 
 procedure TMainForm.ClearQmaster;
