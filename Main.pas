@@ -689,6 +689,13 @@ type
     procedure QuartermasterActionExecute(Sender: TObject);
     procedure pgQuartermasterMouseDown(Sender: TObject;
       Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure pgQuartermasterEndDrag(Sender, Target: TObject; X,
+      Y: Integer);
+    procedure pgQuartermasterDragOver(Sender, Source: TObject; X,
+      Y: Integer; State: TDragState; var Accept: Boolean);
+    procedure pgQuartermasterSelectCell(Sender: TObject; ACol,
+      ARow: Integer; var CanSelect: Boolean);
+    procedure pgQuartermasterEnter(Sender: TObject);
   private
   public
     State: TAdvisorState;
@@ -716,7 +723,10 @@ type
       Route: TRoute;
     end;
     LastError: integer;
+
+    QMInfo:  PQmasterInfo;
     QMStock: TItemList;
+
     // Processor
     procedure ProcessAllOrders;
     procedure StartProcess(ARegion: TRegion; AScript: integer; Args: string;
@@ -2864,7 +2874,9 @@ end;
 procedure TMainForm.UnitGridDragOver(Sender, Source: TObject; X,
   Y: Integer; State: TDragState; var Accept: Boolean);
 begin
-  if not ((Source = ItemGrid) or (Source is TToolButton)
+  if Source = pgQuartermaster then
+    Accept := QMInfo.Local
+  else if not ((Source = ItemGrid) or (Source is TToolButton)
     or (Source = OrderMemo)) then
     Accept := False;
 end;
@@ -3288,12 +3300,17 @@ begin
   gAllItems.Fixup;
 end;
 
-// TODO : Fill QM details
 procedure TMainForm.FillQmasters(AUnit: TUnit);
 var
+  uSelQM:   TUnit;
   iIdx:     integer;
   sQMTitle: string;
 begin
+  if QMInfo = nil then
+    uSelQM := nil
+  else
+    uSelQM := QMInfo.Qmaster;
+
   cbQuartermaster.Clear;
 
   FindQMfor(AUnit);
@@ -3305,7 +3322,7 @@ begin
 
       with Qmaster.Region do
       begin
-        if Qmaster.Region.SettlementType = 0 then
+        if SettlementType = 0 then
           sQMTitle := sQMTitle + Terrain.Name
         else
           sQMTitle := sQMTitle + Settlement + ' ' + GetKey(s_Village, SettlementType - 1);
@@ -3313,18 +3330,36 @@ begin
         sQMTitle := sQMTitle + ' (' + IntToStr(x) + ',' + IntToStr(y) + ')';
       end;
 
-      cbQuartermaster.AddItem(sQMTitle, TObject(iIdx));
+      cbQuartermaster.AddItem(sQMTitle, TObject(@(QmasterList[iIdx])));
     end;
 
   if cbQuartermaster.Items.Count > 0 then
   begin
     cbQuartermaster.Enabled := true;
     cbQuartermaster.ItemIndex := 0;
+
+    if uSelQM <> nil then
+      for iIdx := 0 to cbQuartermaster.Items.Count - 1 do
+        if PQmasterInfo(cbQuartermaster.Items.Objects[iIdx]).Qmaster.Num = uSelQM.Num then
+        begin
+          cbQuartermaster.ItemIndex := iIdx;
+          break;
+        end;
+
     cbQuartermasterChange(cbQuartermaster);
     pgQuartermaster.Enabled := true;
   end
   else
+  begin
+    QMInfo := nil;
+    if QMStock <> nil then
+    begin
+      QMStock.ClearAndFree;
+      QMStock := nil;
+    end;
+    
     ClearQmaster;
+  end;
 end;
 
 procedure TMainForm.ClearQmaster;
@@ -3342,13 +3377,36 @@ end;
 
 procedure TMainForm.cbQuartermasterChange(Sender: TObject);
 var
-  iIdx:       integer;
+  qiQMInfo: PQmasterInfo;
+
+  procedure FillItemGrid(AGrid: TPowerGrid; AItemList: TItemList);
+  var
+    iIdx:     integer;
+    iItem:    TItem;
+    cColour:  TColor;
+  begin
+    AGrid.RowCount := 1;
+
+    for iIdx := 0 to AItemList.Count - 1 do
+    begin
+      iItem := AItemList[iIdx];
+      if InvalidTransport(iItem) then
+        cColour := clGrayText
+      else
+        cColour := clWindowText;
+
+      AddItemGridItem(AGrid, iItem, cColour);
+    end;
+
+    AGrid.Fixup;
+  end;
+
 begin
   if not cbQuartermaster.Enabled then
     exit;
 
-  iIdx := integer(cbQuartermaster.Items.Objects[cbQuartermaster.ItemIndex]);
-  with QmasterList[iIdx] do
+  qiQMInfo := PQmasterInfo(cbQuartermaster.Items.Objects[cbQuartermaster.ItemIndex]);
+  with qiQMInfo^ do
   begin
     if Local then
     begin
@@ -3380,7 +3438,9 @@ begin
     if QMStock <> nil then
       QMStock.ClearAndFree;
 
+    QMInfo := qiQMInfo;
     QMStock := Qmaster.Inventory.BalanceBefore(tsTransport);
+
     FillItemGrid(pgQuartermaster, QMStock);
   end;
 end;
@@ -3540,7 +3600,8 @@ begin
 //    if InfoPControl.ActivePage = tsUnit then eGiveAmt.SetFocus;
     eGiveAmt.SetFocus;
   end
-  else if Source <> gAllItems then Accept := False;
+  else
+    Accept := (Source = gAllItems) or (Source = pgQuartermaster);
 end;
 
 procedure TMainForm.ItemGridSelectCell(Sender: TObject; ACol,
@@ -3558,6 +3619,38 @@ procedure TMainForm.ItemGridEndDrag(Sender, Target: TObject; X,
   Y: Integer);
 var i: integer;
     Item: TItem;
+
+  function InvalidItems: boolean;
+  var
+    iRow: integer;
+  begin
+    with Sender as TPowerGrid do
+      if SelectedRows = 1 then
+        Result := InvalidTransport(TItem(ImgRows[Row].Data))
+      else
+      begin
+        Result := false;
+
+        for iRow := 1 to RowCount - 1 do
+          if Rows[iRow].Selected and InvalidTransport(TItem(Rows[iRow].Data)) then
+          begin
+            Result := true;
+            break;
+          end;
+      end;
+  end;
+
+  procedure DoTransport(Item: TItem; amt: integer);
+  var
+    sAmount:  string;
+  begin
+    if AltPressed then
+      sAmount := 'all'
+    else
+      sAmount := IntToStr(amt);
+
+    ExecOrder('transport ' + QMInfo.Qmaster.NumStr + ' ' + sAmount + ' "' + Item.Data.Name + '"; ' + QMInfo.Qmaster.Name, True);
+  end;
 
   procedure DoGive(Item: TItem; amt: integer);
   var P: TGridCoord;
@@ -3582,24 +3675,54 @@ var i: integer;
     else if Target = HexMap then begin
       if AltPressed then give_amt := 'all'
       else give_amt := IntToStr(amt);
-      ExecOrder('give 0 ' + give_amt +
-        ' "' + Item.Data.Name + '"; Nobody', True);
+
+      ExecOrder('give 0 ' + give_amt + ' "' + Item.Data.Name + '"; Nobody', True)
     end;
   end;
 
 begin
-  with Sender as TPowerGrid do begin
-    if SelectedRows = 1 then
-      DoGive(TItem(ImgRows[Row].Data), eGiveAmt.Value)
-    else begin
-      for i := 0 to RowCount-1 do
-        if Rows[i].Selected then begin
-          Item := TItem(Rows[i].Data);
-          if (Item = nil) or Item.Bought then Continue;
-          DoGive(Item, Item.Amount);
-        end;
+  if Target = pgQuartermaster then
+  begin
+    if not QMInfo.Recieve then
+    begin
+      MessageDlg('Quartermaster is out of range', mtError, [mbOK], 0);
+      exit;
+    end
+    else if InvalidItems then
+    begin
+      MessageDlg('Cannot transport magical or living items', mtError, [mbOK], 0);
+      exit;
     end;
-  end;
+
+    with Sender as TPowerGrid do
+    begin
+      if SelectedRows = 1 then
+        DoTransport(TItem(ImgRows[Row].Data), eGiveAmt.Value)
+      else
+      begin
+        for i := 0 to RowCount-1 do
+          if Rows[i].Selected then
+          begin
+            Item := TItem(Rows[i].Data);
+            if Item <> nil then
+              DoTransport(Item, Item.Amount);
+          end;
+      end;
+    end;
+  end
+  else
+    with Sender as TPowerGrid do begin
+      if SelectedRows = 1 then
+        DoGive(TItem(ImgRows[Row].Data), eGiveAmt.Value)
+      else begin
+        for i := 0 to RowCount-1 do
+          if Rows[i].Selected then begin
+            Item := TItem(Rows[i].Data);
+            if (Item = nil) or Item.Bought then Continue;
+            DoGive(Item, Item.Amount);
+          end;
+      end;
+    end;
 end;
 
 procedure TMainForm.tbMaskGiveEndDrag(Sender, Target: TObject; X,
@@ -4730,6 +4853,146 @@ begin
         BeginDrag(False);
     end;
   end;
+end;
+
+procedure TMainForm.pgQuartermasterEndDrag(Sender, Target: TObject; X, Y: Integer);
+var
+  iRow:     integer;
+  uTarget:  TUnit;
+  iItem:    TItem;
+  iAmount:  integer;
+  sCommand: string;
+
+  function InvalidItems: boolean;
+  var
+    iRow: integer;
+  begin
+    with Sender as TPowerGrid do
+      if SelectedRows = 1 then
+        Result := InvalidTransport(TItem(ImgRows[Row].Data))
+      else
+      begin
+        Result := false;
+
+        for iRow := 1 to RowCount - 1 do
+          if Rows[iRow].Selected and InvalidTransport(TItem(Rows[iRow].Data)) then
+          begin
+            Result := true;
+            break;
+          end;
+      end;
+  end;
+
+  function GetTarget: TUnit;
+  var
+    gcCell: TGridCoord;
+  begin
+    Result := nil;
+
+    with Target as TPowerGrid do
+    begin
+      gcCell := MouseCell;
+
+      if gcCell.Y >= 1 then
+      begin
+        Result := TUnit(ImgRows[gcCell.Y].Data);
+        if (Result <> nil) and (Result.Num = QMInfo.Qmaster.Num) then
+          Result := nil;
+      end;
+    end;
+  end;
+
+  procedure DoTransport;
+  var
+    sAmount:  string;
+  begin
+    if AltPressed then
+      sAmount := 'all'
+    else
+      sAmount := IntToStr(iAmount);
+
+    ExecOrder(QMInfo.Qmaster, sCommand + ' ' + uTarget.NumStr + ' ' + sAmount + ' "' + iItem.Data.Name + '"; ' + uTarget.Name, True);
+  end;
+begin
+  if (Sender = Target) or (Target = nil) then
+    exit;
+
+  if not QMInfo.Send then
+  begin
+    MessageDlg('Quartermaster is out of range', mtError, [mbOK], 0);
+    exit;
+  end
+  else if InvalidItems then
+  begin
+    MessageDlg('Cannot transport magical or living items', mtError, [mbOK], 0);
+    exit;
+  end;
+
+  if Target = ItemGrid then
+    uTarget := CurrUnit
+  else if Target = UnitGrid then
+  begin
+    uTarget := GetTarget;
+    if uTarget = nil then
+      exit;
+  end
+  else
+    exit;
+
+  if QMInfo.Local then
+    sCommand := 'distribute'
+  else
+    sCommand := 'transport';
+
+  with Sender as TPowerGrid do
+    if SelectedRows = 1 then
+    begin
+      iItem := TItem(ImgRows[Row].Data);
+      iAmount := eGiveAmt.Value;
+
+      DoTransport;
+    end
+    else
+      for iRow := 1 to RowCount - 1 do
+        if Rows[iRow].Selected then
+        begin
+          iItem := TItem(Rows[iRow].Data);
+          iAmount := iItem.Amount;
+
+          DoTransport;
+        end;
+end;
+
+procedure TMainForm.pgQuartermasterDragOver(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean);
+begin
+  if Source = Sender then
+    eGiveAmt.SetFocus
+  else
+    Accept := (Source = ItemGrid);
+end;
+
+procedure TMainForm.pgQuartermasterSelectCell(Sender: TObject; ACol, ARow: Integer; var CanSelect: Boolean);
+var
+  iItem:  TItem;
+begin
+  if (ARow <> TPowerGrid(Sender).Row) or (eGiveAmt.Value = 0) then
+  begin
+    iItem := TItem(TPowerGrid(Sender).ImgRows[ARow].Data);
+
+    if iItem <> nil then
+      eGiveAmt.Value := iItem.Amount
+    else
+      eGiveAmt.Value := 0;
+  end;
+end;
+
+procedure TMainForm.pgQuartermasterEnter(Sender: TObject);
+begin
+  with TPowerGrid(Sender) do
+    if (RowCount > FixedRows) and (ImgRows[Row].Data <> nil) then
+      eGiveAmt.Value := TItem(ImgRows[Row].Data).Amount
+    else
+      eGiveAmt.Value := 0;
 end;
 
 end.

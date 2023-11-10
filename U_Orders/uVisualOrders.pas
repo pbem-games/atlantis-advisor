@@ -89,7 +89,8 @@ var
   procedure CustomizeItemPopup(Item: TItem);
   procedure AddOrder(s: string; CanRepeat: boolean);
   procedure AddOrderTo(AUnit: TUnit; s: string; CanRepeat: boolean);
-  procedure ExecOrder(s: string; CanRepeat: boolean);
+  procedure ExecOrder(s: string; CanRepeat: boolean); overload;
+  procedure ExecOrder(AUnit: TUnit; s: string; CanRepeat: boolean); overload;
   function NextAttemptedNew(R: TRegion): integer;
   procedure ClearMoves;
   procedure ClearUnitMoves(AUnit: TUnit);
@@ -524,6 +525,17 @@ begin
   for i := 0 to Lines.Count-1 do AddOrder(Lines[i], CanRepeat);
   Lines.Free;
   MainForm.ProcessOrders(CurrUnit.Region);
+end;
+
+procedure ExecOrder(AUnit: TUnit; s: string; CanRepeat: boolean);
+var i: integer;
+    Lines: TStrings;
+begin
+  Lines := TStringList.Create;
+  Lines.Text := s;
+  for i := 0 to Lines.Count-1 do AddOrderTo(AUnit, Lines[i], CanRepeat);
+  Lines.Free;
+  MainForm.ProcessOrders(AUnit.Region);
 end;
 
   { Order handlers }

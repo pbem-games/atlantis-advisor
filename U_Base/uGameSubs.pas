@@ -32,6 +32,7 @@ type
     Send:     boolean;
     Recieve:  boolean;
   end;
+  PQmasterInfo = ^TQmasterInfo;
 
 var
   MapBounds: array of TRect;
@@ -115,6 +116,7 @@ var
 
   // QM support
   procedure FindQMfor(AUnit: TUnit);
+  function InvalidTransport(AItem: TItem): boolean;
 
 implementation
 
@@ -742,11 +744,11 @@ begin
     ArmyCanSwim(AUnit), AUnit.Struct)
 end;
 
-// TODO : Find QMs
 procedure FindQMfor(AUnit: TUnit);
 var
+  iLocalRng:  integer;
   iMaxRange:  integer;
-  iDistRange: integer;
+  iUnitRange: integer;
   iRegion:    integer;
   rRegion:    TRegion;
   iRange:     integer;
@@ -761,7 +763,8 @@ var
   function ValidQM(AUnit: TUnit): boolean;
   begin
     Result := (SkillLevel(AUnit, Keys[s_Quartermaster]) > 0) and (AUnit.Struct <> nil) and
-              (AUnit.Struct.Data.Group = Keys[s_Caravanserai]) and (AUnit.Struct.Owner.Num = AUnit.Num);
+              (AUnit.Struct.Data.Group = Keys[s_Caravanserai]) and (AUnit.Struct.Needs = 0) and
+              (AUnit.Struct.Owner.Num = AUnit.Num);
   end;
 
   function QMRange(AQmaster: TUnit): integer;
@@ -780,18 +783,22 @@ var
     end;
   end;
 
-  function CalcMaxRange: integer;
+  procedure CalcRanges;
   const
     MAX_SKILL = 5;
     MAX_RANGE = 3 + ((MAX_SKILL + 1) div 3);
   begin
+    iLocalRng := 2;
     if ValidQM(AUnit) then
-      Result := MAX_RANGE
+      iMaxRange := MAX_RANGE
     else
-      Result := 2;
+      iMaxRange := 2;
 
     if Map.Levels[AUnit.Region.z].Name <> Keys[s_Surface] then
-      Result := Result div 2;
+    begin
+      iLocalRng := iLocalRng div 2;
+      iMaxRange := iMaxRange div 2;
+    end;
   end;
 
   procedure BuildReach(const ACoords: TCoords; AStep, AFromDir: integer);
@@ -830,10 +837,10 @@ begin
   SetLength(Reached, 0);
   SetLength(QmasterList, 0);
 
-  iMaxRange := CalcMaxRange;
+  CalcRanges;
   BuildReach(AUnit.Region.Coords, 0, 0);
 
-  iDistRange := QMRange(AUnit);
+  iUnitRange := QMRange(AUnit);
   for iRegion := 0 to Length(Reached) - 1 do
   begin
     rRegion := Map.Region(Reached[iRegion].Coords);
@@ -851,7 +858,7 @@ begin
 
           if (uUnit.Num <> AUnit.Num) and ValidQM(uUnit) then
           begin
-            if (iRange <= 2) then
+            if (iRange <= iLocalRng) then
             begin
               bLocal := true;
               bSend := true;
@@ -861,10 +868,10 @@ begin
             begin
               bLocal := false;
               bSend := (QMRange(uUnit) >= iRange);
-              bRecieve := (iDistRange >= iRange);
+              bRecieve := (iUnitRange >= iRange);
             end;
 
-            if bLocal or bSend or bRecieve then
+            if bSend or bRecieve then
             begin
               SetLength(QmasterList, Length(QmasterList) + 1);
 
@@ -880,6 +887,30 @@ begin
         end;
       end;
     end;
+  end;
+end;
+
+function InvalidTransport(AItem: TItem): boolean;
+const
+  FLAGS = IT_MAGIC or IT_MAN or IT_MOUNT;
+var
+  idDetail: TItemData;
+
+  function CanMove(AMoveType: integer): boolean;
+  var
+    iCanCarry:  integer;
+  begin
+    iCanCarry := idDetail.Moves[AMoveType];
+    Result := (iCanCarry > 0) and (iCanCarry >= idDetail.Weight);
+  end;
+begin
+  if (AItem = nil) or (AItem.Data = nil) then
+    Result := true
+  else
+  begin
+    idDetail := AItem.Data;
+    Result := ((idDetail.Flags and FLAGS) <> 0) or idDetail.Magic.MageOnly or
+              CanMove(mtWalk) or CanMove(mtRide) or CanMove(mtFly) or CanMove(mtSwim);
   end;
 end;
 

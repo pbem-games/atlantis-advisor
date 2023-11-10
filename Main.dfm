@@ -1053,7 +1053,11 @@ object MainForm: TMainForm
           StickySelect = False
           TopRow = 1
           OnDrawCell = pgQuartermasterDrawCell
+          OnDragOver = pgQuartermasterDragOver
+          OnEndDrag = pgQuartermasterEndDrag
+          OnEnter = pgQuartermasterEnter
           OnMouseDown = pgQuartermasterMouseDown
+          OnSelectCell = pgQuartermasterSelectCell
           ColWidths = (
             48
             237)
@@ -1157,6 +1161,7 @@ object MainForm: TMainForm
             Height = 21
             Style = csDropDownList
             ItemHeight = 13
+            Sorted = True
             TabOrder = 0
             OnChange = cbQuartermasterChange
           end
