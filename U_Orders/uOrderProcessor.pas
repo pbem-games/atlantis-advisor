@@ -27,8 +27,8 @@ type
     procedure DoManualScript;
     procedure DoOrder(ARegion: TRegion; AUnit: TUnit; Order: string; var Line: integer;
       Processor: TProcessor; CurrentOrder: string);
-    procedure DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor);
-    procedure DoScripts(R: TRegion; Order: string);
+    procedure DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor; UseFinal: boolean = false);
+    procedure DoScripts(R: TRegion; Order: string; UseFinal: boolean = false);
     procedure DoGlobalOrders(R: TRegion);
     procedure ProcessRegion(Regs: TRegionList; RecreateRegion: boolean);
     procedure ProcessAllRegions;
@@ -80,11 +80,12 @@ begin
 end;
 
 // Process one type of orders for all units in region
-procedure TProcessThread.DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor);
+procedure TProcessThread.DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor; UseFinal: boolean = false);
 var i: integer;
     u: TUnit;
     inRegion: array of TUnit;
     inStructs: array of TUnit;
+    units: TUnitList;
 
   function isOrder(const order: string; out foundOrder: string): boolean;
   var p: integer;
@@ -144,18 +145,26 @@ begin
   SetLength(inRegion, 0);
   SetLength(inStructs, 0);
 
-  for i := 0 to R.PlayerTroop.Units.Count-1 do begin
-    u := R.PlayerTroop.Units[i];
+  units := nil;
+  if UseFinal and (R.FinalPlayerTroop <> nil) then
+      units := R.FinalPlayerTroop.Units
+  else if not UseFinal and (R.PlayerTroop <> nil) then
+      units := R.PlayerTroop.Units;
 
-    if u.Struct <> nil then
-    begin
-      SetLength(inStructs, Length(inStructs) + 1);
-      inStructs[High(inStructs)] := u;
-    end
-    else
-    begin
-      SetLength(inRegion, Length(inRegion) + 1);
-      inRegion[High(inRegion)] := u;
+  if units <> nil then begin
+    for i := 0 to units.Count - 1 do begin
+      u := units[i];
+
+      if u.Struct <> nil then
+      begin
+        SetLength(inStructs, Length(inStructs) + 1);
+        inStructs[High(inStructs)] := u;
+      end
+      else
+      begin
+        SetLength(inRegion, Length(inRegion) + 1);
+        inRegion[High(inRegion)] := u;
+      end;
     end;
   end;
 
@@ -172,11 +181,22 @@ begin
   end;
 end;
 
-procedure TProcessThread.DoScripts(R: TRegion; Order: string);
-var i: integer;
+procedure TProcessThread.DoScripts(R: TRegion; Order: string; UseFinal: boolean = false);
+var
+  i: integer;
+  units: TUnitList;
+
 begin
-  for i := 0 to R.PlayerTroop.Units.Count-1 do
-    RunScripts(R.PlayerTroop.Units[i], Order, ParseErrors);
+  units := nil;
+  if UseFinal and (R.FinalPlayerTroop <> nil) then
+      units := R.FinalPlayerTroop.Units
+  else if not UseFinal and (R.PlayerTroop <> nil) then
+      units := R.PlayerTroop.Units;
+
+  if units <> nil then begin
+    for i := 0 to units.Count - 1 do
+      RunScripts(units[i], Order, ParseErrors);
+  end;
 end;
 
 
@@ -203,12 +223,27 @@ end;
 // Process orders for region
 // NOTE: that orders must be processed by phases in EACH region
 procedure TProcessThread.ProcessRegion(Regs: TRegionList; RecreateRegion: boolean);
+type
+  TUnitSet = array of TUnit;
+
 var i, k, n: integer;
     U: TUnit;
     tempItems: TItemList;
     R, freg: TRegion;
     finalRegions: array of TRegion;
     troop: TTroop;
+    unitSet: TUnitSet;
+
+    procedure unionUnit(var list: TUnitSet; u: TUnit);
+    var
+      i: integer;
+    begin
+      for i := 0 to High(list) do
+        if list[i] = u then Exit;
+
+      SetLength(list, Length(list) + 1);
+      list[High(list)] := u;
+    end;
 
   procedure addToFinal(r: TRegion);
   var m: integer;
@@ -364,19 +399,19 @@ begin
     R := finalRegions[n];
 
     // Month-long orders
-    DoOrders(R, ['build'],       DoBuild);
+    DoOrders(R, ['build'],       DoBuild, true);
     
     EntertainUnits := TUnitList.Create;
-    DoOrders(R, ['entertain'],   DoEntertain);
+    DoOrders(R, ['entertain'],   DoEntertain, true);
     ResolveEntertainment(R);
     EntertainUnits.Free;
     
-    DoOrders(R, ['produce'],     DoProduce);
-    DoOrders(R, ['study'],       DoStudy);
-    DoOrders(R, ['teach'],       DoTeach);
+    DoOrders(R, ['produce'],     DoProduce, true);
+    DoOrders(R, ['study'],       DoStudy, true);
+    DoOrders(R, ['teach'],       DoTeach, true);
     
     WorkUnits := TUnitList.Create;
-    DoOrders(R, ['work'],        DoWork);
+    DoOrders(R, ['work'],        DoWork, true);
     ResolveWork(R);
     WorkUnits.Free;
   end;
@@ -386,7 +421,7 @@ begin
     R := finalRegions[n];
 
     // Transport orders
-    DoOrders(R, ['transport', 'distribute'],  DoTransport);
+    DoOrders(R, ['transport', 'distribute'],  DoTransport, true);
   end;
 
   if RecreateRegion then
@@ -405,8 +440,8 @@ begin
   begin
     R := finalRegions[n];
 
-    DoScripts(R, 'final');
-    DoOrders(R, ['@;warning'], nil);
+    DoScripts(R, 'final', true);
+    DoOrders(R, ['@;warning'], nil, true);
   end;
 
   if RecreateRegion then CheckFPoints(ParseErrors);
@@ -414,11 +449,22 @@ begin
   for n := 0 to High(finalRegions) do
   begin
     R := finalRegions[n];
+
+    SetLength(unitSet, 0);
+
+    if R.FinalPlayerTroop <> nil then
+      for i := 0 to R.FinalPlayerTroop.Units.Count - 1 do
+        unionUnit(unitSet, R.FinalPlayerTroop.Units[i]);
+
+    if R.PlayerTroop <> nil then
+      for i := 0 to R.PlayerTroop.Units.Count - 1 do
+        unionUnit(unitSet, R.PlayerTroop.Units[i]);
     
     // Final unit processing
-    for i := 0 to R.PlayerTroop.Units.Count - 1 do
+    for i := Low(unitSet) to High(unitSet) do
     begin
-      U := R.PlayerTroop.Units[i];
+      U := unitSet[i];
+
       // Check if we have stuff without men
       if (U.Items.Count > 0) and (U.Items.Amount(IT_MAN) = 0) then
       begin
@@ -426,6 +472,7 @@ begin
           U.Orders.Insert(0, ';. No men in unit');
         ParseErrors.AddObject(Format('!E4 %s (%s): No men in unit', [U.Name, U.NumStr]), U);
       end
+
       // Add warnings for units without month order
       else if (U.Items.Count > 0) and (U.MonthOrder = '') and (Pos('@;!NOP', UpperCase(U.Orders.Text)) = 0) then
         ParseErrors.AddObject('! 5 ' + U.Name + ' (' + U.NumStr + '): No monthlong order', U);
@@ -434,10 +481,11 @@ begin
       SetExportAvatars(U);
 
       // Clear empty orders
-      k := 0;
-      while k < U.Orders.Count do
-        if Trim(U.Orders[k]) = '' then U.Orders.Delete(k)
-        else Inc(k);
+      k := U.Orders.Count - 1;
+      while k >= 0 do begin
+        if Trim(U.Orders[k]) = '' then U.Orders.Delete(k);
+        Dec(k);
+      end;
 
       // Calculate final items
       U.FinalItems.ClearItems();
