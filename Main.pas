@@ -932,6 +932,7 @@ begin
   RerunRegions := TRegionList.Create;
   RouteMode.Route := TRoute.Create;
 
+  QMInfo := nil;
   QMStock := nil;
   ClearQmaster;
 
