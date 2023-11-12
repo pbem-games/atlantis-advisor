@@ -1052,6 +1052,7 @@ object MainForm: TMainForm
           SortBy = 1
           StickySelect = False
           TopRow = 1
+          OnDblClick = ItemGridDblClick
           OnDrawCell = pgQuartermasterDrawCell
           OnDragOver = pgQuartermasterDragOver
           OnEndDrag = pgQuartermasterEndDrag
