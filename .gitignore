@@ -8,3 +8,4 @@ test/
 *.local
 *.identcache
 test*/
+advisor.exe
