@@ -351,6 +351,21 @@ var i, idx, hi, lo: integer;
     end;
   end;
 
+  function CanLearn(U: TUnit; Skill: string): string;
+  var
+    sd: TSkillData;
+    sk: TSkill;
+  begin
+    Result := BoolToStr(false);
+
+    sd := Game.SkillData.FindByName(Skill);
+    if sd = nil then
+      Exit;
+
+    sk := U.Skills.Find(sd.Short);
+    Result := BoolToStr((sk = nil) or (sk.Level < MaxSkillLevel(U, sd)));
+  end;
+
   function StructDataResult(Data: TStructData; var found: boolean): string;
   begin
     Result := '';
@@ -688,6 +703,8 @@ begin
       Result := GetListValue(U.Skills, SkillFinder, SkillValue)
     else if id = 'canstudy' then
       Result := GetListValue(U.CanStudy, SkillDataFinder, SkillDataValue)
+    else if id = 'canlearn' then
+      Result := CanLearn(U, args[0])
     else if ArgToken(id, 'amountof') then begin
       idx := ItemFlag(args[0]);
       if idx > 0 then Result := IntToStr(U.Items.Amount(idx))
