@@ -525,7 +525,7 @@ var fright: integer;
   end;
 
   procedure DrawStructs;
-  var i, j, x, xtra: integer;
+  var i, j, x: integer;
       StrList: TStructList;
   begin
     StrList := TStructList.Create;
