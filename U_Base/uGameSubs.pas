@@ -1369,14 +1369,7 @@ begin
 end;
 
 function StructExtra(AStruct: TStruct): integer;
-var
-  AStructData: TStructData;
 begin
-  if AStruct.Num = 112 then
-  begin
-    AStructData := AStruct.Data;
-  end;
-
   if IsFleet(AStruct) then begin
     if IsFlying(AStruct) then
         Result := extBalloon

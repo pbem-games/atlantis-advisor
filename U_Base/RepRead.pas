@@ -2487,8 +2487,7 @@ begin
         s := Trace.Before(',')
       else begin
         // no more items
-        s := Trace.Text;
-        Trace.Before(s);
+        s := Trace.Before('.');
       end;
 
       fleetShip.ItemData := Game.ItemData.FindByName(s);
