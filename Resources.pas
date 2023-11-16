@@ -173,15 +173,9 @@ var
   ScanKey: DWord;
 
   function ItemIconIndex(AItemData: TItemData): integer;
-  procedure DrawOwnedStruct(ACanvas: TCanvas; x,y: integer; Struct: TStruct);
-  procedure DrawCExtra(Index: integer; AFaction: TFaction; ACanvas: TCanvas;
-    x, y: integer);
-  function StructExtra(AStructData: TStructData): integer;
+  procedure DrawCExtra(Index: integer; AFaction: TFaction; ACanvas: TCanvas; x, y: integer);
   procedure LoadIcons;
   procedure DrawItemIcon(Canvas: TCanvas; X, Y: integer; AItemData: TItemData);
-  procedure DrawStructIcon(Canvas: TCanvas; X, Y: integer; AStructData:
-    TStructData; Linked: boolean);
-  procedure MakeStructBmp(Bitmap: TBitmap; AStructData: TStructData; Linked: boolean);
   procedure MakeItemBmp(Bitmap: TBitmap; AItemData: TItemData);
   function FindIcon(Short: string): boolean;
   function SeekColorExtra(AColor: TColor): integer;
@@ -203,6 +197,7 @@ var
   function CtrlPressed: boolean;
   function RealKey(Key: Word): Word;
   function GameMod: integer;
+  procedure DrawExternalImage(Filename: string; ACanvas: TCanvas; X, Y: integer; clTransp: TColor);
 
 implementation
 
@@ -461,18 +456,6 @@ begin
   else Result := 0;
 end;
 
-function StructExtra(AStructData: TStructData): integer;
-begin
-  Result := extBuilding;
-  if (AStructData.Flags and ST_TRANSPORT) <> 0 then begin
-    if (AStructData.Flags and ST_FLYING) <> 0 then Result := extBalloon
-    else Result := extShip;
-  end
-  else if (AStructData.Flags and ST_DEFENCE) <> 0 then Result := extFort
-  else if (AStructData.Flags and ST_CLOSED) <> 0 then Result := extLair
-  else if (AStructData.Flags and ST_SHAFT) <> 0 then Result := extShaft;
-end;
-
 procedure DrawItemIcon(Canvas: TCanvas; X, Y: integer; AItemData: TItemData);
 begin
   if FindIcon(AItemData.Short) then
@@ -490,40 +473,7 @@ begin
   DrawItemIcon(Bitmap.Canvas, 0, 0, AItemData);
 end;
 
-procedure DrawStructIcon(Canvas: TCanvas; X, Y: integer; AStructData:
-  TStructData; Linked: boolean);
-var ext: integer;
-begin
-  if Linked and FindIcon('Linked ' + AStructData.Group) then
-    DrawExternalImage(IconsFolder + 'Linked ' + AStructData.Group + '.bmp', Canvas, X, Y, -1)
-  else if FindIcon(AStructData.Group) then
-    DrawExternalImage(IconsFolder + AStructData.Group + '.bmp', Canvas, X, Y, -1)
-  else begin
-    if (AStructData.Flags and ST_ROAD) <> 0 then
-      ext := extShaft + 1
-    else ext := StructExtra(AStructData);
-    ResForm.IconList.Draw(Canvas, X, Y, ext - extBuilding + bmpStructs);
-  end;
-end;
-
-procedure MakeStructBmp(Bitmap: TBitmap; AStructData: TStructData; Linked: boolean);
-begin
-  Bitmap.Width := 16;
-  Bitmap.Height := 16;
-  Bitmap.Canvas.Brush.Color := clNether;
-  Bitmap.Canvas.FillRect(Bitmap.Canvas.ClipRect);
-  DrawStructIcon(Bitmap.Canvas, 0, 0, AStructData, Linked);
-end;
-
-procedure DrawOwnedStruct(ACanvas: TCanvas; x, y: integer; Struct: TStruct);
-begin
-  DrawStructIcon(ACanvas, x, y, Struct.Data, Struct.HasExit);
-  if Struct.Owner <> nil then
-    DrawCExtra(extFlag, Struct.Owner.Faction, ACanvas, x-2, y-1);
-end;
-
-procedure DrawCExtra(Index: integer; AFaction: TFaction; ACanvas: TCanvas;
-  x, y: integer);
+procedure DrawCExtra(Index: integer; AFaction: TFaction; ACanvas: TCanvas; x, y: integer);
 begin
   ACanvas.Draw(x, y, TColorExtra(ColorExtras[FactionCIndex(AFaction)]).Images[Index]);
 end;

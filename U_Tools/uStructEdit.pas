@@ -53,6 +53,8 @@ type
     ToolButton2: TToolButton;
     btnRequest: TToolButton;
     btnRequestAll: TToolButton;
+    Label8: TLabel;
+    SpeedEdit: TIntEdit;
     procedure FormCreate(Sender: TObject);
     procedure ToolButtonClick(Sender: TObject);
     procedure GridSelectCell(Sender: TObject; ACol, ARow: Integer;
@@ -143,7 +145,7 @@ begin
     Grid.Cells[3, row] := IntToStr(StData.Size);
     Grid.Rows[row].Data := StData;
     if Test(StData.Flags, ST_ROAD) then ext := extShaft + 1
-    else ext := StructExtra(StData);
+    else ext := StructExtraByFlags(StData);
     Grid.Rows[row].ImageIndex := ext - extBuilding + bmpStructs;
     Inc(row);
   end;
@@ -173,20 +175,24 @@ begin
       mDescription.Lines.Text := 'Awaiting info from server'
     else mDescription.Text := Description;
     btnRequest.Enabled := not Requested;
+    
     // Numbers
     SizeEdit.Value := Size;
     CapacityEdit.Value := Capacity;
     SailorEdit.Value := Sailors;
+    SpeedEdit.Value := Speed;
     ProtectionEdit.Value := Protection;
+
     // Flags
     if Test(Flags, ST_DEFENCE) then cmType.ItemIndex := 1
-    else if Test(Flags, ST_FLYING) and Test(Flags, ST_TRANSPORT) then
-      cmType.ItemIndex := 3
+    else if Test(Flags, ST_FLYING) and Test(Flags, ST_TRANSPORT) then cmType.ItemIndex := 3
+    else if Test(Flags, ST_FLEET) and Test(Flags, ST_TRANSPORT) then cmType.ItemIndex := 7
     else if Test(Flags, ST_TRANSPORT) then cmType.ItemIndex := 2
     else if Test(Flags, ST_CLOSED) then cmType.ItemIndex := 4
     else if Test(Flags, ST_SHAFT) then cmType.ItemIndex := 5
     else if Test(Flags, ST_ROAD) then cmType.ItemIndex := 6
     else cmType.ItemIndex := 0;
+    
     // Combos
     cmMaterial1.ItemIndex := cmMaterial1.Items.IndexOfObject(Material1);
     cmMaterial2.ItemIndex := cmMaterial2.Items.IndexOfObject(Material2);
@@ -225,31 +231,40 @@ begin
     Size := SizeEdit.Value;
     Capacity := CapacityEdit.Value;
     Sailors := SailorEdit.Value;
+    Speed := SpeedEdit.Value;
     Protection := ProtectionEdit.Value;
+
     // Flags
     Flags := 0;
     SetFlag(Flags, ST_DEFENCE, cmType.ItemIndex = 1);
-    SetFlag(Flags, ST_TRANSPORT, cmType.ItemIndex in [2, 3]);
+    SetFlag(Flags, ST_TRANSPORT, cmType.ItemIndex in [2, 3, 7]);
     SetFlag(Flags, ST_FLYING, cmType.ItemIndex = 3);
     SetFlag(Flags, ST_CLOSED, cmType.ItemIndex = 4);
     SetFlag(Flags, ST_SHAFT, cmType.ItemIndex = 5);
     SetFlag(Flags, ST_ROAD, cmType.ItemIndex = 6);
+    SetFlag(Flags, ST_FLEET, cmType.ItemIndex = 7);
+    
     // Combos
     if cmMaterial1.ItemIndex > 0 then
       Material1 := TItemData(cmMaterial1.Items.Objects[cmMaterial1.ItemIndex])
     else Material1 := nil;
+
     if cmMaterial2.ItemIndex > 0 then
       Material2 := TItemData(cmMaterial2.Items.Objects[cmMaterial2.ItemIndex])
     else Material2 := nil;
+
     if cmProduction.ItemIndex > 0 then
       Resource := TItemData(cmProduction.Items.Objects[cmProduction.ItemIndex])
     else Resource := nil;
+
     FreeAndNil(BuildSkill);
+
     if cmSkill.ItemIndex > 0 then begin
       BuildSkill := TSkill.Create;
       BuildSkill.Level := SkillLvEdit.Value;
       BuildSkill.Data := TSkillData(cmSkill.Items.Objects[cmSkill.ItemIndex]);
     end;
+
     Tool := TItemData(cmTool.Items.Objects[cmTool.ItemIndex]);
     ToolBonus := eToolBonus.Value;
 
@@ -264,17 +279,21 @@ begin
       btnFilter.Down := False;
       btnNoFilter.Click;
       i := 1;
+
       while (i < Grid.ImgRowCount) and (TStructData(Grid.ImgRows[i].Data).Group <>
         Group) do Inc(i);
+      
       if i < Grid.ImgRowCount then Grid.Row := i;
     end;
 
     if Test(AStructData.Flags, ST_ROAD) then ext := extShaft + 1
-    else ext := StructExtra(AStructData);
+    else ext := StructExtraByFlags(AStructData);
+
     Grid.Rows[Grid.Row].ImageIndex := ext - extBuilding + bmpStructs;
     Grid.ImgCells[3, Grid.Row] := IntToStr(Size);
     Grid.Fixup;
   end;
+
   Modified := True;
 end;
 
@@ -292,12 +311,19 @@ end;
 
 procedure TStructEditForm.cmTypeDrawItem(Control: TWinControl;
   Index: Integer; Rect: TRect; State: TOwnerDrawState);
+var
+  iconIndex: integer;
+  s: string;
 begin
+  // Fleet must have the same icon as transport
+  if Index = 7 then iconIndex := 2 else iconIndex := Index;
+  s := TComboBox(Control).Items[Index];
+
   with TComboBox(Control) do begin
     Canvas.FillRect(Rect);
-    ResForm.IconList.Draw(Canvas, Rect.Left+1, Rect.Top, bmpStructs + Index);
+    ResForm.IconList.Draw(Canvas, Rect.Left+1, Rect.Top, bmpStructs + iconIndex);
     Rect.Left := Rect.Left + 18;
-    Canvas.TextRect(Rect, Rect.Left+1, Rect.Top+1, Items[Index]);
+    Canvas.TextRect(Rect, Rect.Left+1, Rect.Top+1, s);
   end;
 end;
 
@@ -364,7 +390,7 @@ begin
 end;
 
 procedure TStructEditForm.btnArrangeClick(Sender: TObject);
-const Masks: array[0..6] of DWord = (ST_SHAFT, ST_FLYING, ST_TRANSPORT,
+const Masks: array[0..7] of DWord = (ST_SHAFT, ST_FLEET, ST_FLYING, ST_TRANSPORT,
   ST_DEFENCE, ST_UNKNOWN, ST_ROAD, ST_CLOSED);
       UnknownPr = 6;
 var i, j, pr1, pr2: integer;

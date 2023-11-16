@@ -245,7 +245,7 @@ begin
           DrawItemIcon(Canvas, x, y, Rows[ARow].Data);
         // StructData
         if TObject(Rows[ARow].Data).ClassType = TStructData then
-          DrawStructIcon(Canvas, x, y, Rows[ARow].Data, False);
+          DrawStructIcon(Canvas, x, y, TStructData(Rows[ARow].Data), False);
       end
       // Default info icon, if not header
       else if ImgCells[ACol, ARow] = 'U' then

@@ -1,6 +1,6 @@
 object StructEditForm: TStructEditForm
-  Left = 207
-  Top = 100
+  Left = 745
+  Top = 284
   HelpContext = 12
   BorderStyle = bsDialog
   Caption = 'Object Editor'
@@ -262,7 +262,8 @@ object StructEditForm: TStructEditForm
         'Flying transport'
         'Closed lair'
         'Shaft'
-        'Road')
+        'Road'
+        'Fleet')
     end
     object cmTool: TComboBox
       Left = 16
@@ -308,6 +309,13 @@ object StructEditForm: TStructEditForm
       Height = 13
       Caption = 'Sailors:'
     end
+    object Label8: TLabel
+      Left = 12
+      Top = 80
+      Width = 34
+      Height = 13
+      Caption = 'Speed:'
+    end
     object CapacityEdit: TIntEdit
       Left = 68
       Top = 24
@@ -327,6 +335,17 @@ object StructEditForm: TStructEditForm
       MaxValue = 0
       MinValue = 0
       TabOrder = 1
+      Value = 0
+      OnChange = DataChange
+    end
+    object SpeedEdit: TIntEdit
+      Left = 68
+      Top = 76
+      Width = 65
+      Height = 22
+      MaxValue = 0
+      MinValue = 0
+      TabOrder = 2
       Value = 0
       OnChange = DataChange
     end

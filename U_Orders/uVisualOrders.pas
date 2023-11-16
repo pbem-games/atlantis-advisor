@@ -1216,8 +1216,7 @@ end;
 
 procedure TOrderHandlers.Sail(Sender: TObject);
 begin
-  if (CurrUnit.Struct <> nil) and (CurrUnit.Struct.Data.Flags
-    and ST_TRANSPORT <> 0) and (SkillLevel(CurrUnit, Keys[s_Sailing]) > 0) then begin
+  if (CurrUnit.Struct <> nil) and IsFleet(CurrUnit.Struct) and (SkillLevel(CurrUnit, Keys[s_Sailing]) > 0) then begin
     MoveOrder := 'sail';
     MainForm.StartMoveMode(False, False);
   end;
@@ -1403,7 +1402,7 @@ begin
         U.Region.Structs[i].Name + ' [' + IntToStr(U.Region.Structs[i].Num) + '] : ' +
         U.Region.Structs[i].Data.Group, -1, Handlers.Enter) do begin
         if Test(U.Region.Structs[i].Data.Flags, ST_CLOSED) then Tag := 1;
-        MakeStructBmp(Bitmap, U.Region.Structs[i].Data, U.Region.Structs[i].HasExit);
+        MakeStructBmp(Bitmap, U.Region.Structs[i], U.Region.Structs[i].HasExit);
       end;
   for i := 0 to Item.Count-1 do
     if Item.Items[i].Tag = 1 then Item.Items[i].Enabled := False;
@@ -1491,7 +1490,7 @@ begin
     and (BuildSkillLv(AUnit, AUnit.Struct.Data) > 0) then begin
     with AddMenuItem(Item, 'Continue ' + AUnit.Struct.Data.Group,
       -1, Handlers.Build) do begin
-      MakeStructBmp(Bitmap, AUnit.Struct.Data, AUnit.Struct.HasExit);
+      MakeStructBmp(Bitmap, AUnit.Struct, AUnit.Struct.HasExit);
       if (BuildMaterials(AUnit, AUnit.Struct.Data) = 0) then
         Item.Items[Item.Count-1].Enabled := False;
     end;
@@ -1502,7 +1501,7 @@ begin
   for j := 0 to Game.StructData.Count-1 do begin
     if (BuildSkillLv(AUnit, Game.StructData[j]) > 0) then begin
       AddMenuItem(Item, Game.StructData[j].Group, -1, Handlers.BuildNew);
-      MakeStructBmp(Item.Items[Item.Count-1].Bitmap, Game.StructData[j], False);
+      MakeStructBmp2(Item.Items[Item.Count-1].Bitmap, Game.StructData[j], False);
       // If needs rawmaterial, look for it
       if (BuildMaterials(AUnit, Game.StructData[j]) = 0) then
         Item.Items[Item.Count-1].Enabled := False;
@@ -1733,7 +1732,7 @@ begin
         and (Struct.Owner = AUnit) then begin
           Child := TMenuItem.Create(MainForm);
           Child.ImageIndex := -1;
-          MakeStructBmp(Child.Bitmap, Struct.Data, Struct.HasExit);
+          MakeStructBmp(Child.Bitmap, Struct, Struct.HasExit);
           Child.Caption := Struct.Data.Group;
           Child.OnClick := Handlers.NameObject;
           Item.Add(Child);
@@ -1748,7 +1747,7 @@ begin
         and (Struct.Owner = AUnit) then begin
           Child := TMenuItem.Create(MainForm);
           Child.ImageIndex := -1;
-          MakeStructBmp(Child.Bitmap, Struct.Data, Struct.HasExit);
+          MakeStructBmp(Child.Bitmap, Struct, Struct.HasExit);
           Child.Caption := Struct.Data.Group;
           Child.OnClick := Handlers.DescribeObject;
           Item.Add(Child);
@@ -1896,7 +1895,7 @@ begin
       else Popup.Items.Add(Item);
 
       // Move
-      if (Struct <> nil) and (Struct.Data.Flags and ST_TRANSPORT <> 0) then begin
+      if (Struct <> nil) and IsFleet(Struct) then begin
         if SkillLevel(AUnit, Keys[s_Sailing]) > 0 then
           AddMenuItem(Popup.Items, 'Sail', bmpStructs + 2, Handlers.Sail);
         // simple handling - only sailing skill, no levels
