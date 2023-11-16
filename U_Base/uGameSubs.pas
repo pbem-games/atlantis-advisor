@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, Windows, Forms, IniFiles, DataStructs, MyStrings,
-  Math, AtlaDate, uKeys, Resources, uUnitRecs;
+  Math, AtlaDate, uKeys, Resources, uUnitRecs, Graphics;
 
 const
   sortAscending = TRUE;
@@ -33,6 +33,14 @@ type
     Recieve:  boolean;
   end;
   PQmasterInfo = ^TQmasterInfo;
+
+  TFLeetInfo = record
+    Speed:    integer;
+    Capacity: integer;
+    Sailors:  integer;
+    CanFly:   boolean;
+  end;
+  PFleetInfo = ^TFleetInfo;
 
 var
   MapBounds: array of TRect;
@@ -81,8 +89,7 @@ var
   function StudyCost(U: TUnit; SData: TSkillData): integer;
   // Unit movement
   procedure DoCalcReachedRegions(C: TCoords; AUnit: TUnit);
-  function MovableDir(From: TCoords; Dir: integer; Sail: boolean;
-    MT: integer; CanSwim: boolean; Ship: TStruct): boolean;
+  function MovableDir(From: TCoords; Dir: integer; Sail: boolean; MT: integer; CanSwim: boolean; Ship: TStruct): boolean;
   function EnterCost(MT: integer; C, From: TCoords; Sailing: boolean): integer;
   function MovesLeft(AUnit: TUnit): integer;
   function ArmyMovesLeft(AUnit: TUnit): integer;
@@ -117,6 +124,22 @@ var
   // QM support
   procedure FindQMfor(AUnit: TUnit);
   function InvalidTransport(AItem: TItem): boolean;
+
+  // Fleets
+  function IsFleet(Data: TStructData): boolean; overload;
+  function IsFleet(AStruct: TStruct): boolean; overload;
+  function GetFleetInfo(AStruct: TStruct): TFLeetInfo;
+  function IsFlying(AStruct: TStruct): boolean;
+  function FormatFleetShips(AStruct: TStruct): string;
+
+  // Structures
+  function StructExtra(AStruct: TStruct): integer;
+  procedure DrawStructIcon(Canvas: TCanvas; X, Y: integer; Data: TStructData; Linked: boolean); overload;
+  procedure DrawStructIcon(Canvas: TCanvas; X, Y: integer; AStruct: TStruct; Linked: boolean); overload;
+  procedure DrawOwnedStruct(ACanvas: TCanvas; x,y: integer; Struct: TStruct);
+  procedure MakeStructBmp(Bitmap: TBitmap; AStruct: TStruct; Linked: boolean);
+  procedure MakeStructBmp2(Bitmap: TBitmap; Data: TStructData; Linked: boolean);
+  function StructExtraByFlags(AStructData: TStructData): integer;
 
 implementation
 
@@ -537,15 +560,24 @@ begin
 end;
 
 function MovesLeft(AUnit: TUnit): integer;
-var mt, i: integer;
+var
+  mt, i: integer;
+  fleet: TFLeetInfo;
 begin
   mt := MovementType(AUnit);
+
   if (mt = 0) and CanSwim(AUnit) then mt := mtWalk;
-  if MoveOrder = 'sail' then Result := 4
-  else Result := mt * 2;
+
+  if MoveOrder = 'sail' then begin
+    fleet := GetFleetInfo(AUnit.Struct);
+    Result := fleet.Speed;
+  end
+  else
+    // TODO: movement speed must be configurable
+    Result := mt * 2;
+
   for i := 1 to Length(AUnit.Moves)-1 do
-    Result := Max(0, Result - EnterCost(mt, AUnit.Moves[i],
-      AUnit.Moves[i-1], (MoveOrder = 'sail')));
+    Result := Max(0, Result - EnterCost(mt, AUnit.Moves[i], AUnit.Moves[i-1], (MoveOrder = 'sail')));
 end;
 
 function ArmyMovesLeft(AUnit: TUnit): integer;
@@ -664,44 +696,46 @@ begin
     (Map.Levels[Level].Name = Keys[s_Nexus]);
 end;
 
-function MovableDir(From: TCoords; Dir: integer; Sail: boolean;
-  MT: integer; CanSwim: boolean; Ship: TStruct): boolean;
+function MovableDir(From: TCoords; Dir: integer; Sail: boolean; MT: integer; CanSwim: boolean; Ship: TStruct): boolean;
 var Region, RegInDir: TRegion;
     C: TCoords;
 begin
+  Result := False;
+
   C := CoordsInDir(From, Dir);
   if (C.Y < MapBounds[C.z].Top) or (C.Y > MapBounds[C.z].Bottom) then
-    Result := False
-  else begin
-    RegInDir := Map.Region(C);
-    Region := Map.Region(From);
-    if RegInDir = nil then
-      // Always move into unexplored region
-      Result := TRUE
-    else begin
-      if not Sail and not ((MT = 0) and CanSwim) then begin
-        if CanSwim then Result := True
-        // Move to all land hexes; do not move from ocean
-        else Result := not Test(RegInDir.Terrain.Flags, TER_WATER)
-          and ((Region = nil) or not Test(Region.Terrain.Flags, TER_WATER));
-      end
-      else begin
-        if Test(RegInDir.Terrain.Flags, TER_WATER) or
-          ((Ship <> nil) and
-          Test(Ship.Data.Flags, ST_FLYING)) then
-          // Ships move in water, balloons everywhere
-          Result := TRUE
-        else
-          // Ships also move everywhere from water
-          Result := (Region <> nil) and Test(Region.Terrain.Flags, TER_WATER);
-      end;
-    end;
-    // Check for walls
-    if (Region <> nil) and Region.FullData and not Region.HasExit[Dir] then
-      Result := False
-    else if (RegInDir <> nil) and RegInDir.FullData and
-      not RegInDir.HasExit[OppositeDir(Dir)] then Result := False;
+    Exit;
+
+  RegInDir := Map.Region(C);
+  Region := Map.Region(From);
+
+  if RegInDir = nil then begin
+    // Always move into unexplored region
+    Result := TRUE;
+    Exit;
   end;
+
+  if not Sail and not ((MT = 0) and CanSwim) then begin
+    if CanSwim then
+      Result := True
+    // Move to all land hexes; do not move from ocean
+    else
+      Result := not Test(RegInDir.Terrain.Flags, TER_WATER) and ((Region = nil) or not Test(Region.Terrain.Flags, TER_WATER));
+  end
+  else begin
+    if Test(RegInDir.Terrain.Flags, TER_WATER) or ((Ship <> nil) and IsFlying(Ship)) then
+      // Ships move in water, balloons everywhere
+      Result := TRUE
+    else
+      // Ships also move everywhere from water
+      Result := (Region <> nil) and Test(Region.Terrain.Flags, TER_WATER);
+  end;
+
+  // Check for walls
+  if (Region <> nil) and Region.FullData and not Region.HasExit[Dir] then
+    Result := False
+  else if (RegInDir <> nil) and RegInDir.FullData and not RegInDir.HasExit[OppositeDir(Dir)] then
+    Result := False;
 end;
 
 // Make list of regions unit can reach (for current map world)
@@ -1239,6 +1273,201 @@ begin
   Result.y := StrToInt(Trace.Before(' '));
   Result.z := Map.Levels.NumOf(Trace.Text);
   Trace.Free;
+end;
+
+function IsFleet(Data: TStructData): boolean;
+begin
+  Result := Test(Data.Flags, ST_FLEET) or Test(Data.Flags, ST_TRANSPORT);
+
+end;
+
+function IsFleet(AStruct: TStruct): boolean; 
+begin
+  Result := (AStruct <> nil) and IsFleet(AStruct.Data);
+end;
+
+function GetFleetInfo(AStruct: TStruct): TFLeetInfo;
+var
+  i: integer;
+  ship: TFleetShip;
+  data: TStructData;
+begin
+  data := AStruct.Data;
+
+  if not Test(data.Flags, ST_FLEET) then begin
+    Result.Speed := data.Speed;
+    Result.Capacity := data.Capacity;
+    Result.Sailors := data.Sailors;
+    Result.CanFly := Test(data.Flags, ST_FLYING);
+
+    Exit;
+  end;
+
+  Result.Speed := -1;
+  Result.Capacity := 0;
+  Result.Sailors := 0;
+  Result.CanFly := true;
+
+  for i := 0 to AStruct.FleetShips.Count - 1 do begin
+    ship := AStruct.FleetShips[i];
+    data := ship.StructData;
+
+    if Result.Speed = -1 then
+      Result.Speed := data.Speed
+    else
+      Result.Speed := Min(Result.Speed, data.Speed);
+
+    Inc(Result.Capacity, data.Capacity * ship.Count);
+    Inc(Result.Sailors, data.Sailors * ship.Count);
+    
+    Result.CanFly := Result.CanFly and Test(data.Flags, ST_FLYING);
+  end;
+end;
+
+function IsFlying(AStruct: TStruct): boolean;
+var
+  i: integer;
+  data: TStructData;
+begin
+  Result := true;
+  if Test(AStruct.Data.Flags, ST_FLYING) then
+    Exit
+  else if not Test(AStruct.Data.Flags, ST_FLEET) then begin
+    Result := false;
+    Exit;
+  end;
+
+  for i := 0 to AStruct.FleetShips.Count - 1 do begin
+    data := AStruct.FleetShips[i].StructData;
+    Result := Result and Test(data.Flags, ST_FLYING);
+  end;
+end;
+
+function FormatFleetShips(AStruct: TStruct): string;
+var
+  i: integer;
+  ship: TFleetShip;
+begin
+  Result := '';
+
+  if not Test(AStruct.Data.Flags, ST_FLEET) then begin
+    Result := AStruct.Data.Group;
+    Exit;
+  end;
+
+  for i := 0 to AStruct.FleetShips.Count - 1 do begin
+    ship := AStruct.FleetShips[i];
+
+    if i > 0 then
+      Result := Result + ', ';
+    
+    if ship.Count = 1 then
+      Result := Result + '1 ' + ship.ItemData.SingleName
+    else
+      Result := Result + IntToStr(ship.Count) + ' ' + ship.ItemData.MultiName;
+  end;
+end;
+
+function StructExtra(AStruct: TStruct): integer;
+var
+  AStructData: TStructData;
+begin
+  if AStruct.Num = 112 then
+  begin
+    AStructData := AStruct.Data;
+  end;
+
+  if IsFleet(AStruct) then begin
+    if IsFlying(AStruct) then
+        Result := extBalloon
+    else
+        Result := extShip;
+  end
+  else
+    Result := StructExtraByFlags(AStruct.Data);
+end;
+
+procedure DrawStructIcon(Canvas: TCanvas; X, Y: integer; Data: TStructData; Linked: boolean); overload;
+var
+  ext: integer;
+begin
+  if Linked and FindIcon('Linked ' + data.Group) then
+    DrawExternalImage(IconsFolder + 'Linked ' + data.Group + '.bmp', Canvas, X, Y, -1)
+  else if FindIcon(data.Group) then
+    DrawExternalImage(IconsFolder + data.Group + '.bmp', Canvas, X, Y, -1)
+  else begin
+    if (Data.Flags and ST_ROAD) <> 0 then
+      ext := extShaft + 1
+    else
+      ext := StructExtraByFlags(Data);
+
+    ResForm.IconList.Draw(Canvas, X, Y, ext - extBuilding + bmpStructs);
+  end;
+end;
+
+procedure DrawStructIcon(Canvas: TCanvas; X, Y: integer; AStruct: TStruct; Linked: boolean); overload;
+var
+  ext: integer;
+  data: TStructData;
+begin
+  data := AStruct.Data;
+
+  if Linked and FindIcon('Linked ' + data.Group) then
+    DrawExternalImage(IconsFolder + 'Linked ' + data.Group + '.bmp', Canvas, X, Y, -1)
+  else if FindIcon(data.Group) then
+    DrawExternalImage(IconsFolder + data.Group + '.bmp', Canvas, X, Y, -1)
+  else begin
+    if (data.Flags and ST_ROAD) <> 0 then
+      ext := extShaft + 1
+    else
+      ext := StructExtra(AStruct);
+
+    ResForm.IconList.Draw(Canvas, X, Y, ext - extBuilding + bmpStructs);
+  end;
+end;
+
+procedure MakeStructBmp(Bitmap: TBitmap; AStruct: TStruct; Linked: boolean);
+begin
+  Bitmap.Width := 16;
+  Bitmap.Height := 16;
+  Bitmap.Canvas.Brush.Color := clNether;
+  Bitmap.Canvas.FillRect(Bitmap.Canvas.ClipRect);
+  DrawStructIcon(Bitmap.Canvas, 0, 0, AStruct, Linked);
+end;
+
+procedure MakeStructBmp2(Bitmap: TBitmap; Data: TStructData; Linked: boolean);
+begin
+  Bitmap.Width := 16;
+  Bitmap.Height := 16;
+  Bitmap.Canvas.Brush.Color := clNether;
+  Bitmap.Canvas.FillRect(Bitmap.Canvas.ClipRect);
+  DrawStructIcon(Bitmap.Canvas, 0, 0, Data, Linked);
+end;
+
+procedure DrawOwnedStruct(ACanvas: TCanvas; x, y: integer; Struct: TStruct);
+begin
+  DrawStructIcon(ACanvas, x, y, Struct, Struct.HasExit);
+  if Struct.Owner <> nil then
+    DrawCExtra(extFlag, Struct.Owner.Faction, ACanvas, x-2, y-1);
+end;
+
+function StructExtraByFlags(AStructData: TStructData): integer;
+var
+  flags: DWord;
+begin
+  flags := AStructData.Flags;
+  Result := extBuilding;
+
+  if IsFleet(AStructData) then begin
+    if (flags and ST_FLYING) <> 0 then
+        Result := extBalloon
+    else
+        Result := extShip;
+  end
+  else if (flags and ST_FLEET) <> 0 then Result := extShip
+  else if (flags and ST_DEFENCE) <> 0 then Result := extFort
+  else if (flags and ST_CLOSED) <> 0 then Result := extLair
+  else if (flags and ST_SHAFT) <> 0 then Result := extShaft;
 end;
 
 end.

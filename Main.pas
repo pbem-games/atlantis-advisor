@@ -696,6 +696,7 @@ type
     procedure pgQuartermasterSelectCell(Sender: TObject; ACol,
       ARow: Integer; var CanSelect: Boolean);
     procedure pgQuartermasterEnter(Sender: TObject);
+    procedure CopyLabelToClipboard(Sender: TObject);
   private
   public
     State: TAdvisorState;
@@ -1273,8 +1274,7 @@ begin
   end;
 
   StructBtn.Down := Config.ReadBool('Map', 'StructsEnabled', True);
-  Flags := Config.ReadInteger('Map', 'Structs', ST_DEFENCE +
-    ST_TRANSPORT + ST_CLOSED + ST_SHAFT + ST_ROAD + ST_UNKNOWN);
+  Flags := Config.ReadInteger('Map', 'Structs', ST_DEFENCE + ST_TRANSPORT + ST_CLOSED + ST_SHAFT + ST_ROAD + ST_UNKNOWN);
   StructTradeItm.Checked := Test(Flags, ST_UNKNOWN);
   StructDefItm.Checked := Test(Flags, ST_DEFENCE);
   StructTranspItm.Checked := Test(Flags, ST_TRANSPORT);
@@ -2260,14 +2260,11 @@ begin
   StructGrid.Cols[0].Format := cfNumber;
   if ARegion <> nil then begin
     for i := 0 to ARegion.Structs.Count-1 do
-      if (ARegion.Visited = Turn.Num) or
-        not Test(ARegion.Structs[i].Data.Flags, ST_TRANSPORT) then begin
+      if (ARegion.Visited = Turn.Num) or not Test(ARegion.Structs[i].Data.Flags, ST_TRANSPORT) then begin
       SData := ARegion.Structs[i].Data;
       idx := Game.StructData.IndexOf(SData) * 100000 + ARegion.Structs[i].Num;
       StructGrid.Cells[0, i] := IntToStr(idx);
-      StructGrid.Cells[1, i] := ARegion.Structs[i].Name +
-        ' [' + IntToStr(ARegion.Structs[i].Num) + '] : ' +
-        ARegion.Structs[i].Data.Group;
+      StructGrid.Cells[1, i] := ARegion.Structs[i].Name + ' [' + IntToStr(ARegion.Structs[i].Num) + '] : ' + FormatFleetShips(ARegion.Structs[i]);
       StructGrid.Rows[i].Data := ARegion.Structs[i];
     end;
   end;
@@ -2293,8 +2290,7 @@ begin
       if not Test(Struct.Data.Flags, ST_SHAFT) or ((CurrRegion <> nil)
         and (CurrRegion.Visited = Turn.Num)) then
         DrawOwnedStruct(StructGrid.Canvas, TxtRect.Left+3, TxtRect.Top+1, Struct)
-      else DrawStructIcon(StructGrid.Canvas, TxtRect.Left+3, TxtRect.Top+1,
-        Struct.Data, Struct.HasExit);
+      else DrawStructIcon(StructGrid.Canvas, TxtRect.Left+3, TxtRect.Top+1, Struct, Struct.HasExit);
       if Struct.Needs > 0 then begin
         fontname := Font.Name;
         fontsize := Font.Size;
@@ -2438,6 +2434,7 @@ procedure TMainForm.FillStructInfo(AStruct: TStruct);
 var i, j, k, men, control: integer;
     AUnit: TUnit;
     R: TRegion;
+    fleet: TFLeetInfo;
 begin
   CurrStruct := AStruct;
   with AStruct do begin
@@ -2455,7 +2452,7 @@ begin
     StructDescrEdit.Text := Description;
     StructDescrEdit.Modified := FALSE;
     StructDescrEdit.ReadOnly := TRUE;
-    StructGroupLabel.Caption := Data.Group;
+    StructGroupLabel.Caption := FormatFleetShips(CurrStruct);
     btnLinkShaft.Enabled := Test(Data.Flags, ST_SHAFT);
     if Test(Data.Flags, ST_SHAFT) and HasExit then
       lWayTo.Caption := MakeRegionName(Passage, True)
@@ -2495,11 +2492,10 @@ begin
       StructSizeLabel.Caption := IntToStr(Data.Size);
       IncomplStructImage.Visible := FALSE;
     end;
-    if Data.Flags and ST_TRANSPORT <> 0 then begin
-      StructLoadLabel.Caption := IntToStr(StructCarriedWeight(AStruct)) + ' / ' +
-        IntToStr(Data.Capacity);
-      StructControlLabel.Caption := IntToStr(control) + ' / ' +
-        IntToStr(Data.Sailors);
+    if IsFleet(AStruct) then begin
+      fleet := GetFleetInfo(AStruct);
+      StructLoadLabel.Caption := IntToStr(StructCarriedWeight(AStruct)) + ' / ' + IntToStr(fleet.Capacity);
+      StructControlLabel.Caption := IntToStr(control) + ' / ' + IntToStr(fleet.Sailors);
     end
     else begin
       StructLoadLabel.Caption := '';
@@ -2775,8 +2771,7 @@ begin
           if Owner = AUnit then
             DrawOwnedStruct(Canvas, TxtRect.Left+1, TxtRect.Top, AUnit.Struct)
           // Simple struct
-          else DrawStructIcon(Canvas, TxtRect.Left+1, TxtRect.Top,
-            AUnit.Struct.Data, AUnit.Struct.HasExit);
+          else DrawStructIcon(Canvas, TxtRect.Left+1, TxtRect.Top, AUnit.Struct, AUnit.Struct.HasExit);
           TxtRect.Left := TxtRect.Left + 17;
         end;
       // Unknown faction mark
@@ -2958,6 +2953,7 @@ var i, j, capacity, load, row: integer;
     Route: TRoute;
     RealU: TUnit;
     item: TItem;
+    fleet: TFLeetInfo;
 
 begin
   UnitEnable(True);
@@ -3020,7 +3016,7 @@ begin
         '] : ' + Struct.Data.Group;
       if (Struct.Owner <> nil) and (Struct.Owner.Num = Num) then
         DrawOwnedStruct(StructImage.Canvas, 0, 0, Struct)
-      else DrawStructIcon(StructImage.Canvas, 0, 0, Struct.Data, Struct.HasExit);
+      else DrawStructIcon(StructImage.Canvas, 0, 0, Struct, Struct.HasExit);
     end
     else StructLabel.Caption := '';
     // Flags
@@ -3187,10 +3183,11 @@ begin
 
     // Struct
     TransportWeightLabel.Caption := IntToStr(UnitLoad(AUnit, mtNone));
-    if (Struct <> nil) and (Struct.Data.Flags and ST_TRANSPORT <> 0) then begin
-      capacity := Struct.Data.Capacity;
-      TransportWeightLabel.Caption := TransportWeightLabel.Caption + '/' +
-        IntToStr(StructCarriedWeight(Struct)) + ' (max ' + IntToStr(capacity) + ')';
+    if (Struct <> nil) and IsFleet(Struct) then begin
+      fleet := GetFleetInfo(Struct);
+
+      capacity := fleet.Capacity;
+      TransportWeightLabel.Caption := TransportWeightLabel.Caption + '/' + IntToStr(StructCarriedWeight(Struct)) + ' (max ' + IntToStr(capacity) + ')';
       TransportWeightWarning.Visible := (StructCarriedWeight(Struct) > capacity);
       TransportWeightLabel.Font.Color := clWindowText;
     end
@@ -3214,8 +3211,7 @@ begin
       else if ClearOrder(MonthOrder) = 'build' then begin
         if MonthInfo.Data <> nil then begin
           s := s + TStructData(MonthInfo.Data).Group;
-          DrawStructIcon(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0,
-            MonthInfo.Data, False);
+          DrawStructIcon(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, TStructData(MonthInfo.Data), False);
         end;
       end
       else if ClearOrder(MonthOrder) = 'study' then begin
@@ -4994,6 +4990,11 @@ begin
       eGiveAmt.Value := TItem(ImgRows[Row].Data).Amount
     else
       eGiveAmt.Value := 0;
+end;
+
+procedure TMainForm.CopyLabelToClipboard(Sender: TObject);
+begin
+  Clipboard.AsText := TLabel(Sender).Caption;
 end;
 
 end.

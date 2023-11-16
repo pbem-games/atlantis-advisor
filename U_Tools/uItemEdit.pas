@@ -407,6 +407,7 @@ begin
       mDescription.Lines.Text := s;
     end;
     WeightEdit.Value := Weight;
+    
     // Type
     cmType.ItemIndex := 0;
     for i := 0 to tabcount-1 do tabs[i] := false;

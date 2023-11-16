@@ -295,8 +295,7 @@ end;
 
 function StructFaction(R: TRegion; AStruct: TStruct): TFaction;
 begin
-  if (not Test(AStruct.Data.Flags, ST_SHAFT) or (R.Visited = Turn.Num))
-    and (AStruct.Owner <> nil) then
+  if (not Test(AStruct.Data.Flags, ST_SHAFT) or (R.Visited = Turn.Num)) and (AStruct.Owner <> nil) then
     Result := AStruct.Owner.Faction
   else Result := VTurn.Factions[0];
 end;
@@ -309,13 +308,15 @@ begin
 end;
 
 procedure DrawSimpleExtras(Region: TRegion; ACanvas: TCanvas; cx, cy: integer);
-var i, x: integer;
+var i, x, xtra: integer;
+ astr: TStruct;
 begin
   x := cx + hs50 div 2 - 7;
   for i := 0 to Region.Structs.Count-1 do
     if Test(Region.Structs[i].Data.Flags, ST_SHAFT) then begin
-      DrawCExtra(StructExtra(Region.Structs[i].Data),
-        StructFaction(Region, Region.Structs[i]), ACanvas, x, cy + hs43 - 12);
+      astr := Region.Structs[i];
+      xtra := StructExtra(astr);
+      DrawCExtra(xtra, StructFaction(Region, astr), ACanvas, x, cy + hs43 - 12);
       x := x - 10;
     end;
   DrawSettlement(Region, ACanvas, cx, cy);
@@ -524,19 +525,20 @@ var fright: integer;
   end;
 
   procedure DrawStructs;
-  var i, j, x: integer;
+  var i, j, x, xtra: integer;
       StrList: TStructList;
   begin
     StrList := TStructList.Create;
    // Form list of structs
     with Region do begin
-      for i := 0 to Structs.Count-1 do
-        if (((Visited = Turn.Num) or ((Structs[i].Data.Flags and
-          ST_TRANSPORT) = 0)) and (Structs[i].Data.Flags and ST_ROAD = 0)) then begin
-          if ((Structs[i].Data.Flags = 0) and Test(SExtras, ST_UNKNOWN))
-            or Test(Structs[i].Data.Flags, SExtras) then
+      for i := 0 to Structs.Count-1 do begin
+        if (((Visited = Turn.Num) or ((Structs[i].Data.Flags and ST_TRANSPORT) = 0)) and (Structs[i].Data.Flags and ST_ROAD = 0)) then begin
+          if ((Structs[i].Data.Flags = 0) and Test(SExtras, ST_UNKNOWN)) or Test(Structs[i].Data.Flags, SExtras) then begin
             StrList.Add(Structs[i]);
+          end;
         end;
+
+      end;
     end;
    // Throw out repeating objects of same faction
     i := 0;
@@ -544,7 +546,7 @@ var fright: integer;
       j := i + 1;
       while j < StrList.Count do
         if (StructFaction(Region, StrList[i]) <> StructFaction(Region, StrList[j])) or
-          (StructExtra(StrList[i].Data) <> StructExtra(StrList[j].Data)) then Inc(j)
+          (StructExtra(StrList[i]) <> StructExtra(StrList[j])) then Inc(j)
         else StrList.Delete(j);
       Inc(i);
     end;
@@ -552,7 +554,7 @@ var fright: integer;
     x := cx + hs50 div 2 - 7;
     i := 0;
     while (i < StrList.Count) and (i < StructsOnHex) do begin
-      DrawCExtra(StructExtra(StrList[i].Data), StructFaction(Region, StrList[i]), ACanvas,
+      DrawCExtra(StructExtra(StrList[i]), StructFaction(Region, StrList[i]), ACanvas,
         x, cy + hs43 - 12);
       x := x - 10;
       Inc(i);
@@ -563,18 +565,22 @@ var fright: integer;
 begin
   if Config.ReadBool('Map', 'FlagsEnabled', True) then
     Flag := Config.ReadInteger('Map', 'Flags', FLG_SELF + FLG_OTHER)
-  else Flag := 0;
+  else
+    Flag := 0;
+
   if Config.ReadBool('Map', 'MIcEnabled', True) then
-    Mic := Config.ReadInteger('Map', 'MIc', MIC_MONSTER + MIC_GATE +
-      MIC_BATTLE + MIC_WARNING + MIC_NOTES)
-  else Mic := 0;
+    Mic := Config.ReadInteger('Map', 'MIc', MIC_MONSTER + MIC_GATE + MIC_BATTLE + MIC_WARNING + MIC_NOTES)
+  else
+    Mic := 0;
+
   if Config.ReadBool('Map', 'StructsEnabled', True) then
-    SExtras := Config.ReadInteger('Map', 'Structs', ST_DEFENCE +
-      ST_TRANSPORT + ST_CLOSED + ST_SHAFT + ST_ROAD + ST_UNKNOWN)
-  else SExtras := 0;
+    SExtras := Config.ReadInteger('Map', 'Structs', ST_DEFENCE + ST_TRANSPORT + ST_CLOSED + ST_SHAFT + ST_ROAD + ST_UNKNOWN)
+  else
+    SExtras := 0;
 
   if Config.ReadBool('Map', 'SettlIconEnabled', True) then
     DrawSettlementIcon;
+
   if Config.ReadBool('Map', 'SettlTextEnabled', True) then
     DrawSettlementText;
 
@@ -583,10 +589,12 @@ begin
   if (Flag <> 0) and ((Region.Visited = Turn.Num) or Test(Flag, FLG_OLD)) then begin
     if (Flag and FLG_UNIT_DIAGRAM <> 0) or (Flag and FLG_MEN_DIAGRAM <> 0) then
       DrawFactionDiagram
-    else DrawFlags;
+    else
+      DrawFlags;
   end;
 
-  if SExtras <> 0 then DrawStructs;
+  if SExtras <> 0 then
+    DrawStructs;
 end;
 
 procedure DrawHexList(Region: TRegion; List: TItemList;

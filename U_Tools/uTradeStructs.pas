@@ -173,8 +173,7 @@ procedure TTradeStructForm.gStructsDrawCell(Sender: TObject; ACol,
 begin
   with gStructs do begin
     if (ACol = 1) and (ImgRows[ARow].Data <> nil) then begin
-      DrawStructIcon(Canvas, TxtRect.Left, TxtRect.Top,
-        TStructData(ImgRows[ARow].Data), False);
+      DrawStructIcon(Canvas, TxtRect.Left, TxtRect.Top, TStructData(ImgRows[ARow].Data), False);
       TxtRect.Left := TxtRect.Left + 18;
     end;
   end;

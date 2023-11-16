@@ -167,7 +167,7 @@ var Trace: TTrace;
 begin
   // leader [LEAD]
   Trace := TTrace.Create(itm_data);
-  name := Trace.Before(' [');
+  name := AnsiLowerCase(Trace.Before(' ['));
   Result := Game.ItemData.Seek(Trace.Before(']'));
   if Amount = 1 then Result.SingleName := name
   else Result.MultiName := name;
@@ -2038,8 +2038,13 @@ begin
     Trace := TTrace.Create(FullTrace.Before('. '));
 
     try
+      if Pos('This is a group of ships', Trace.Text) = 1 then begin
+        Trace.Before('This is a group of ships');
+        SetFlag(D.Flags, ST_TRANSPORT, True);
+        SetFlag(D.Flags, ST_FLEET, True);
+      end
       // This ship requires 10 men
-      if Pos(Keys[s_ShipRequire], Trace.Text) = 1 then begin
+      else if Pos(Keys[s_ShipRequire], Trace.Text) = 1 then begin
         Trace.Before(Keys[s_ShipRequire]);
         SetFlag(D.Flags, ST_TRANSPORT, True);
         D.Sailors := Trace.Num;
@@ -2359,6 +2364,7 @@ var OldR: TRegion;
     Trace: TTrace;
     s, shaft_link: string;
     i, repStart: integer;
+    fleetShip: TFleetShip;
 
 begin
   repStart := RepPos;
@@ -2455,6 +2461,47 @@ begin
 
   // Now read units in this Structure
   while not EmptyLine(GetLine) do ReadUnit(Region, Struct);
+
+  // if we have description, then it ca be a fleet
+  if Test(Struct.Data.Flags, ST_FLEET) and (Length(Struct.Description) > 0) then begin
+    // + Drakkars [112] : Fleet, 2 Longships, 1 Cog; Load: 6904/1050;
+    //   Sailors: 20/14; MaxSpeed: 0; The twin drakkars loom on the horizon,
+    //   their dragon-headed prows promising doom to all who dare oppose
+    //   them..
+
+    Trace := TTrace.Create(Struct.Description);
+    // this is fleet content
+    s := Trace.Before(';');
+    Struct.Description := Trim(Trace.Backwards(';'));
+    Trace.Free;
+
+    Trace := TTrace.Create(s);
+    while not Trace.Ends do begin
+      Trace.SkipSpaces;
+      
+      fleetShip := TFleetShip.Create;
+      fleetShip.Count := Trace.NumSpace;
+
+      if Pos(',', Trace.Text) > 0 then
+        // it is not last item in the list
+        s := Trace.Before(',')
+      else begin
+        // no more items
+        s := Trace.Text;
+        Trace.Before(s);
+      end;
+
+      fleetShip.ItemData := Game.ItemData.FindByName(s);
+      if fleetShip.ItemData <> nil then
+        fleetShip.StructData := Game.StructData.Find(fleetShip.ItemData.SingleName);
+
+      if (fleetShip.StructData <> nil) and (fleetShip.Count > 0) then
+        Struct.FleetShips.Add(fleetShip);
+    end;
+
+    Trace.Free();
+  end;
+    
 
   for i := repStart to RepPos do
     Struct.Report.Add(RepLines[i]);

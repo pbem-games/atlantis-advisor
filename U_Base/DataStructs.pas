@@ -64,6 +64,7 @@ const
   ST_CLOSED    =  $8;
   ST_SHAFT     = $10;
   ST_ROAD      = $20;
+  ST_FLEET     = $40;
   ST_UNKNOWN   = $80;
 
   // Terrain flags
@@ -418,6 +419,7 @@ type
     Description: string;
     Size, Protection: integer;
     Capacity, Sailors: integer;
+    Speed: integer;
     Material1, Material2: TItemData;
     BuildSkill: TSkill;
     Resource: TItemData;
@@ -431,6 +433,27 @@ type
   TRegion = class;
   TUnit = class;
 
+  TFleetShip = class
+  public
+    StructData: TStructData;
+    ItemData: TItemData;
+    Count: integer;
+
+    procedure Assign(Other: TFleetShip);
+  end;
+  
+  TFleetShipArray = array of TFleetShip;
+
+  TFleetShipList = class(TList)
+  protected
+    function Get(Index: Integer): TFleetShip;
+    procedure Put(Index: Integer; Item: TFleetShip);
+  public
+    property Items[Index: Integer]: TFleetShip read Get write Put; default;
+    procedure ClearAndFree;
+    procedure AssignItems(Source: TFleetShipList);
+  end;
+
   TStruct = class
     Data: TStructData;
     Name, Description: string;
@@ -441,6 +464,7 @@ type
     Owner: TUnit;
     Protection: integer; // for battle calculations
     Report: TStrings;
+    FleetShips: TFleetShipList;
     constructor Create;
     destructor Destroy; override;
     procedure Assign(Source: TStruct);
@@ -1478,6 +1502,7 @@ begin
   Passage := Source.Passage;
   Runes := Source.Runes;
   Report.Assign(Source.Report);
+  FleetShips.AssignItems(Source.FleetShips);
   // Assign owner outside
 end;
 
@@ -1485,11 +1510,13 @@ constructor TStruct.Create;
 begin
   Passage.z := -1;
   Report := TStringList.Create;
+  FleetShips := TFleetShipList.Create;
 end;
 
 destructor TStruct.Destroy;
 begin
   Report.Free;
+  FleetShips.ClearAndFree;
 end;
 
 function TStruct.HasExit: boolean;
@@ -2806,10 +2833,16 @@ end;
 function TStructDataList.Find(Group: string): TStructData;
 var i: integer;
 begin
+  Group := AnsiLowerCase(Group);
+
   i := 0;
-  while (i < Count) and (Items[i].Group <> Group) do Inc(i);
-  if i < Count then Result := Items[i]
-  else Result := nil;
+  while (i < Count) and (AnsiLowerCase(Items[i].Group) <> Group)
+    do Inc(i);
+
+  if i < Count then
+    Result := Items[i]
+  else
+    Result := nil;
 end;
 
 function TStructDataList.Seek(Group: string): TStructData;
@@ -3253,6 +3286,49 @@ begin
   inherited Put(Index, Item);
 end;
 
+{ TFleetShip }
+
+procedure TFleetShip.Assign(Other: TFleetShip);
+begin
+  StructData := Other.StructData;
+  ItemData := Other.ItemData;
+  Count := Other.Count;
+end;
+
+{ TFleetShipList }
+
+procedure TFleetShipList.ClearAndFree;
+var i: integer;
+begin
+  for i := 0 to Count-1 do Items[i].Free;
+  Free;
+end;
+
+procedure TFleetShipList.AssignItems(Source: TFleetShipList);
+var
+  i: integer;
+  fleetShip: TFleetShip;
+begin
+  for i := 0 to Count - 1 do
+    Items[i].Free;
+  Clear;
+
+  for i := 0 to Source.Count - 1 do begin
+    fleetShip := TFleetShip.Create();
+    fleetShip.Assign(Source[i]);
+    Add(fleetShip);
+  end;
+end;
+
+function TFleetShipList.Get(Index: integer): TFleetShip;
+begin
+  Result := TFleetShip(inherited Get(Index));
+end;
+
+procedure TFleetShipList.Put(Index: integer; Item: TFleetShip);
+begin
+  inherited Put(Index, Item);
+end;
 
 
 
