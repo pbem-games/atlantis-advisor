@@ -390,6 +390,7 @@ begin
 
     // Structs
     for i := 0 to Structs.Count - 1 do begin
+      // TODO: Add Fleet processing here
       transport := Test(Structs[i].Data.Flags, ST_TRANSPORT);
       if (Test(Parts, MAP_TRANSPORTS) or not transport)
         and (Test(Parts, MAP_BUILDINGS) or transport) then begin
