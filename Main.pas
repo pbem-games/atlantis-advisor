@@ -528,6 +528,8 @@ type
     iQMFeeWarning: TImage;
     QuartermasterAction: TAction;
     Quartermaster1: TMenuItem;
+    ToolButton53: TToolButton;
+    ToolButton54: TToolButton;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -697,6 +699,7 @@ type
       ARow: Integer; var CanSelect: Boolean);
     procedure pgQuartermasterEnter(Sender: TObject);
     procedure CopyLabelToClipboard(Sender: TObject);
+    procedure RunLuaScript(Sender: TObject);
   private
   public
     State: TAdvisorState;
@@ -798,7 +801,8 @@ implementation
 
 uses uOptions, uAbout, uMiniMap, uFactions, uMemo, uStructEdit,
   uItemEdit, uSkillEdit, uAvatarEdit, uRegistration, RegCode, uBattle,
-  uScriptEdit, uMapExport, uTownTrade, uSoldiers;
+  uScriptEdit, uMapExport, uTownTrade, uSoldiers,
+  lua, plua, LuaWrapper;
 
 {$R *.DFM}
 
@@ -4995,6 +4999,37 @@ end;
 procedure TMainForm.CopyLabelToClipboard(Sender: TObject);
 begin
   Clipboard.AsText := TLabel(Sender).Caption;
+end;
+
+function lua_ShowMessage(l : PLua_State) : integer; cdecl;
+var
+  n, i : Integer;
+  msg : String;
+begin
+  result := 0;
+  // get number of args
+  n := lua_gettop(l);
+  if n > 0 then
+    begin
+      msg := '';
+      for i := 1 to n do
+      // get each argument
+        msg := msg + lua_tostring(L, i);
+      ShowMessage(msg);
+    end;
+end;
+
+procedure TMainForm.RunLuaScript(Sender: TObject);
+var
+  lua: TLua;
+begin
+  lua := TLua.Create();
+  lua.LuaPath := BaseDir + '\Packages\?.lua;' + BaseDir + Game.Name + '\Packages\?.lua';
+  lua.RegisterLuaMethod('ShowMessage', @lua_ShowMessage);
+  lua.LoadFile('script.lua');
+  lua.Execute();
+  lua.CallFunction('f', []);
+  lua.Free();
 end;
 
 end.
