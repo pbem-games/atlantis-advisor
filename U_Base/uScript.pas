@@ -375,6 +375,7 @@ var i, idx, hi, lo: integer;
     end
     else if id = 'type' then Result := Data.Group
     else if id = 'defence' then Result := BoolToStr(Test(Data.Flags, ST_DEFENCE))
+    // TODO: Add Fleet processing here
     else if id = 'transport' then Result := BoolToStr(Test(Data.Flags, ST_TRANSPORT))
     else if id = 'flying' then Result := BoolToStr(Test(Data.Flags, ST_FLYING))
     else if id = 'closed' then Result := BoolToStr(Test(Data.Flags, ST_CLOSED))

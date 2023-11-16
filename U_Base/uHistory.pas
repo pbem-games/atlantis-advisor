@@ -272,6 +272,7 @@ begin
   else Result := IntToStr(Game.StructData.IndexOf(StData))
 end;
 
+// TODO: Add Fleet processing here
 function StructToStr(Struct: TStruct): string;
 begin
   FmtStr(Result, '%d %d "%s"', [Game.StructData.IndexOf(Struct.Data),
@@ -548,6 +549,9 @@ begin
         for j := 0 to atCount-1 do A[j] := IntToStr(Defence[j]);
         s := s + ' Defence: ' + MakeList(A);
       end;
+
+      if (Speed > 0) then
+        s := s + ' Speed: ' + IntToStr(Speed) + '.';
 
       Lines.Add(s);
     end;
@@ -1025,6 +1029,12 @@ begin
     if Pos('Defence: ', Trace.Text) > 0 then begin
       Trace.Before('Defence: ');
       for i := 0 to atCount-1 do Defence[i] := StrToInt(Trace.Block);
+    end;
+
+    Speed := 0;
+    if Pos('Speed: ', Trace.Text) > 0 then begin
+      Trace.Before('Speed: ');
+      Speed := Trace.Num;
     end;
   end;
 end;
