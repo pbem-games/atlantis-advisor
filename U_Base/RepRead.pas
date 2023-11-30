@@ -174,12 +174,24 @@ begin
   Trace.Free;
 end;
 
+// Form item data or create new record (by short)
+function FormItemData2(short: string; long: string; Amount: integer): TItemData;
+var Trace: TTrace;
+    name: string;
+begin
+  name := AnsiLowerCase(long);
+  Result := Game.ItemData.Seek(short);
+  if Amount = 1 then Result.SingleName := name
+  else Result.MultiName := name;
+end;
+
 // Make new item
 function FormItem(itm_string: string): TItem;
 var
   Trace: TTrace;
   tmp: string;
   sPos, ePos: integer;
+  long, short: string;
 
 begin
   Result := TItem.Create;
@@ -221,9 +233,19 @@ begin
     Result.Cost := 0;
   end;
 
-  Result.Data := FormItemData(tmp, Result.Amount);
+  Trace.Free;    
 
-  Trace.Free;
+  if Pos('(illusion)', itm_string) > 0 then begin
+    Trace := TTrace.Create(tmp);
+    long := 'illusory ' + AnsiLowerCase(Trace.Before(' ['));
+    short := 'I' + Trace.Before(']');
+
+    Result.Data := FormItemData2(short, long, Result.Amount);
+    Result.Data.Monster.Illusion := true;
+  end
+  else begin
+    Result.Data := FormItemData(tmp, Result.Amount);
+  end; 
 end;
 
 
