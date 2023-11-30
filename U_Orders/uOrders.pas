@@ -1499,13 +1499,13 @@ begin
   if isRemote then
   begin
     costPerUnit := 4 - ((skillLevel + 1) div 2);
-    cost := item.Weight * costPerUnit;
+    cost := toTransport * item.Weight * costPerUnit;
 
     silver := AUnit.Inventory.AmountOn(IT_SILVER, tsTransport);
     if cost > silver then
       raise EParseError.Create('Not enough silver to pay for distribution (needs $' + IntToStr(cost) + ')');
 
-    AUnit.Inventory.Add(NewMoneyItem(-cost, tsTransport, 'to ' + target.FullName));
+    AUnit.Inventory.Add(NewMoneyItem(-cost, tsTransport, 'transport cost'));
   end;
 
   AUnit.Inventory.Add(NewItem(item, -toTransport, tsTransport, 'to ' + target.FullName));
