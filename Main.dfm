@@ -682,6 +682,7 @@ object MainForm: TMainForm
               Font.Style = []
               ParentFont = False
               Layout = tlCenter
+              OnClick = CopyLabelToClipboard
             end
             object spPanel1: TPanel
               Left = 267
@@ -1607,7 +1608,7 @@ object MainForm: TMainForm
         object LandLabel: TLabel
           Left = 72
           Top = 0
-          Width = 81
+          Width = 92
           Height = 24
           Caption = 'Skottskog'
           Font.Charset = ANSI_CHARSET
@@ -1616,6 +1617,7 @@ object MainForm: TMainForm
           Font.Name = 'Black Chancery'
           Font.Style = []
           ParentFont = False
+          OnClick = CopyLabelToClipboard
         end
         object HexLabel: TLabel
           Left = 72
@@ -1624,6 +1626,7 @@ object MainForm: TMainForm
           Height = 13
           AutoSize = False
           Caption = 'plain (12,41), jun 12'
+          OnClick = CopyLabelToClipboard
         end
         object SettlLabel: TLabel
           Left = 72
@@ -1648,6 +1651,7 @@ object MainForm: TMainForm
           Height = 13
           AutoSize = False
           Caption = '342'
+          OnClick = CopyLabelToClipboard
         end
         object WagesLabel: TLabel
           Left = 304
@@ -1656,6 +1660,7 @@ object MainForm: TMainForm
           Height = 13
           AutoSize = False
           Caption = '12'
+          OnClick = CopyLabelToClipboard
         end
         object EnterLabel: TLabel
           Left = 304
@@ -1664,6 +1669,7 @@ object MainForm: TMainForm
           Height = 13
           AutoSize = False
           Caption = '13'
+          OnClick = CopyLabelToClipboard
         end
         object Label1: TLabel
           Left = 0
@@ -1787,6 +1793,7 @@ object MainForm: TMainForm
           Height = 13
           AutoSize = False
           Caption = '108923'
+          OnClick = CopyLabelToClipboard
         end
       end
       object TradePanel: TPanel
@@ -2382,6 +2389,7 @@ object MainForm: TMainForm
           Font.Style = []
           ParentFont = False
           Layout = tlCenter
+          OnClick = CopyLabelToClipboard
         end
         object Bevel4: TBevel
           Left = 516
