@@ -363,7 +363,7 @@ type
     function Name: string; overload;
   end;
 
-  TTurnStage = (tsInitial, tsClaim, tsPromote, tsEvict, tsAttack, tsSteal, tsGive, tsPillageOrTax, tsSell, tsBuy, tsMove, tsBuild, tsCast, tsProduce, tsTeach, tsStudy, tsWork, tsEntertain, tsTransport, tsUpkeep, tsFinal);
+  TTurnStage = (tsInitial, tsClaim, tsPromote, tsEvict, tsAttack, tsSteal, tsGive, tsExchange, tsPillageOrTax, tsSell, tsBuy, tsMove, tsBuild, tsCast, tsProduce, tsTeach, tsStudy, tsWork, tsEntertain, tsTransport, tsUpkeep, tsFinal);
 
   TItem = class
     Data: TItemData;
