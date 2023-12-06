@@ -528,6 +528,8 @@ type
     iQMFeeWarning: TImage;
     QuartermasterAction: TAction;
     Quartermaster1: TMenuItem;
+    ToolButton53: TToolButton;
+    DistributeNeedsToolbarBtn: TToolButton;
     procedure HexMapDrawHex(Sender: TObject; HX, HY: Integer;
       ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
     procedure HexMapMouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -697,6 +699,7 @@ type
       ARow: Integer; var CanSelect: Boolean);
     procedure pgQuartermasterEnter(Sender: TObject);
     procedure CopyLabelToClipboard(Sender: TObject);
+    procedure DistributeNeedsToolbarBtnClick(Sender: TObject);
   private
   public
     State: TAdvisorState;
@@ -5034,6 +5037,13 @@ end;
 procedure TMainForm.CopyLabelToClipboard(Sender: TObject);
 begin
   Clipboard.AsText := TLabel(Sender).Caption;
+end;
+
+procedure TMainForm.DistributeNeedsToolbarBtnClick(Sender: TObject);
+begin
+  if CurrRegion <> nil then begin
+    Handlers.DistribNeeds(Sender);
+  end;
 end;
 
 end.

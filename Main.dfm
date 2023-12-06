@@ -545,6 +545,22 @@ object MainForm: TMainForm
           Top = 2
           Action = NextErrorAction
         end
+        object ToolButton53: TToolButton
+          Left = 329
+          Top = 2
+          Width = 8
+          Caption = 'ToolButton53'
+          ImageIndex = 38
+          Style = tbsSeparator
+        end
+        object DistributeNeedsToolbarBtn: TToolButton
+          Left = 337
+          Top = 2
+          Hint = 'Distribute needs in this region'
+          Caption = 'DistributeNeedsToolbarBtn'
+          ImageIndex = 43
+          OnClick = DistributeNeedsToolbarBtnClick
+        end
       end
     end
     object MapPanel: TPanel
