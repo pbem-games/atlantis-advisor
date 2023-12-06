@@ -37,7 +37,7 @@ var
   end;
 
   function DistributeNeeds(R: TRegion): boolean;
-  procedure ReadNeeds(AUnit: TUnit; Needs: TNeedsList);
+  procedure ReadNeeds(AUnit: TUnit; Needs: TNeedsList; var noGiveUnits: TIntArray);
   procedure SetNeeds(U: TUnit; Needs: TNeedsList);
   procedure AddNeedItem(U: TUnit; IData: TItemData; Amount, Priority: integer);
 
@@ -115,7 +115,7 @@ end;
 
 { Unit procedures }
 
-procedure ReadNeeds(AUnit: TUnit; Needs: TNeedsList);
+procedure ReadNeeds(AUnit: TUnit; Needs: TNeedsList; var noGiveUnits: TIntArray);
 var i, j, start, pr, men: integer;
     Trace: TTrace;
     Rec: TNeedItem;
@@ -182,6 +182,11 @@ begin
             Rec.NoGive := True;
             Needs.Add(Rec);
             Trace.Block;
+
+            // Add unit to list of nogive units
+            SetLength(noGiveUnits, Length(noGiveUnits) + 1);
+            noGiveUnits[Length(noGiveUnits) - 1] := AUnit.Num;
+
             Continue;
           end;
 
@@ -332,9 +337,14 @@ end;
 procedure AddNeedItem(U: TUnit; IData: TItemData; Amount, Priority: integer);
 var Needs: TNeedsList;
     Rec: TNeedItem;
+    temp: TIntArray;
 begin
   Needs := TNeedsList.Create;
-  ReadNeeds(U, Needs);
+
+  SetLength(temp, 0);
+  ReadNeeds(U, Needs, temp);
+  SetLength(temp, 0);
+
   Rec := Needs.Seek(IData, '');
   if Amount = -2 then Rec.EnoughAmt := True
   else Rec.Amount := Amount;
@@ -479,12 +489,12 @@ begin
     Result := CompareValue(UnitTraining(U1), UnitTraining(U2));
 end;
 
-// Add all units' items to heap
+// Add all units' items to heap of distributable items
 procedure AddItems(U: TUnit; Needs, Heap: TNeedsList);
 var i: integer;
     Rec: TNeedItem;
 begin
-  // Look for NoGive record
+  // Look for NoGive record if it exists then unit will not contribute to the heap
   i := Needs.Count-1;
   while (i >= 0) and not ((Needs[i].AUnit = U) and Needs[i].NoGive) do
     Dec(i);
@@ -523,18 +533,36 @@ begin
     end;
 end;
 
-procedure GetItem(Rec: TNeedItem; Heap: TNeedsList);
+procedure GetItem(Rec: TNeedItem; Heap: TNeedsList; useOwnItems: boolean);
 var i, j, amt, cmp: integer;
     Avai: TNeedsList;
+    OwnItems: TNeedsList;
+    ownItem: TNeedItem;
+    itemData: TItemData;
 begin
   Avai := TNeedsList.Create;
+  OwnItems := TNeedsList.Create;
 
   // Form list of items for this request
   for i := 0 to Heap.Count-1 do
-    if ((Heap[i].Data = Rec.Data) or MaskMatch(Rec, Heap[i].Data))
-      and (Heap[i].Amount > 0)
-      and (not Rec.Usable or UnitCanUse(Rec.AUnit, Heap[i].Data))
-      then Avai.Add(Heap[i]);
+    if ((Heap[i].Data = Rec.Data) or MaskMatch(Rec, Heap[i].Data)) and (Heap[i].Amount > 0) and (not Rec.Usable or UnitCanUse(Rec.AUnit, Heap[i].Data)) then
+      Avai.Add(Heap[i]);
+
+  if useOwnItems then begin
+    for i := 0 to Rec.AUnit.Items.Count - 1 do begin
+      itemData := Rec.AUnit.Items[i].Data;
+
+      if ((itemData = Rec.Data) or (MaskMatch(Rec, itemData))) and (not Rec.Usable or UnitCanUse(Rec.AUnit, itemData)) then begin
+        ownItem := TNeedItem.Create;
+        ownItem.AUnit := Rec.AUnit;
+        ownItem.Data := Rec.Data;
+        ownItem.Amount := Rec.AUnit.Items[i].Amount;
+        
+        Avai.Add(ownItem);
+        OwnItems.Add(ownItem);
+      end;
+    end;
+  end;
 
   // Sort items
   for i := 0 to Avai.Count-1 do
@@ -551,14 +579,17 @@ begin
 
   // Get items
   i := 0;
+  // Loop through all items in heap while the need is not satisfied
   while (i < Avai.Count) and ((Rec.Amount > 0) or (Rec.Amount = -1)) do begin
-    if Rec.Amount = -1 then amt := Avai[i].Amount
-    else amt := Min(Rec.Amount, Avai[i].Amount);
+    if Rec.Amount = -1 then
+      // we need ALL items, so take all of them
+      amt := Avai[i].Amount
+    else
+      amt := Min(Rec.Amount, Avai[i].Amount);
 
     if Avai[i].AUnit <> Rec.AUnit then begin
       // Add to completion record
-      if (Rec.AUnit = CompleteNeeds.AUnit)
-        and (Avai[i].Data = CompleteNeeds.IData) then
+      if (Rec.AUnit = CompleteNeeds.AUnit) and (Avai[i].Data = CompleteNeeds.IData) then
         Inc(CompleteNeeds.Amount, amt);
 
       // Ugly hack to avoid modifying orders when we just want to calc smth
@@ -569,18 +600,24 @@ begin
       end;
     end;
 
-    if Rec.Amount > 0 then Dec(Rec.Amount, amt);
+    if Rec.Amount > 0 then
+      Dec(Rec.Amount, amt);
+
     Dec(Avai[i].Amount, amt);
     Inc(i);
   end;
 
+  OwnItems.ClearAndFree;
   Avai.Free;
 end;
 
-procedure DoDistribute(R: TRegion; Needs: TNeedsList);
+procedure DoDistribute(R: TRegion; Needs: TNeedsList; noGiveUnits: TIntArray);
 var i, j: integer;
     Heap: TNeedsList;
     Units: TUnitList;
+    aUnit: TUnit;
+    need: TNeedItem;
+    noGive: boolean;
 begin
   Units := R.PlayerTroop.Units;
 
@@ -592,8 +629,8 @@ begin
   end;
 
   // Sort needs
-  for i := 0 to Needs.Count-1 do
-    for j := i+1 to Needs.Count-1 do
+  for i := 0 to Needs.Count-1 do 
+    for j := i+1 to Needs.Count-1 do 
       // unneeded comes last (so all needs will be already distributed)
       if Needs[i].Unneeded and not Needs[j].Unneeded then Needs.Exchange(i, j)
       else if Needs[i].Unneeded = Needs[j].Unneeded then begin
@@ -608,7 +645,20 @@ begin
       end;
 
   // Get needed items
-  for i := 0 to Needs.Count-1 do GetItem(Needs[i], Heap);
+  for i := 0 to Needs.Count-1 do begin
+    need := Needs[i];
+    aUnit := need.AUnit;
+
+    noGive := false;
+    for j := 0 to Length(noGiveUnits) - 1 do begin
+      if noGiveUnits[j] = aUnit.Num then begin
+        noGive := true;
+        break;
+      end;
+    end;
+      
+    GetItem(need, Heap, noGive);
+  end;
 
   Heap.ClearAndFree;
 end;
@@ -617,6 +667,7 @@ function DistributeNeeds(R: TRegion): boolean;
 var j: integer;
     Troop: TTroop;
     NeedsList: TNeedsList;
+    noGiveUnits: TIntArray;
 begin
   Modified := False;
   Result := False;
@@ -627,11 +678,15 @@ begin
 
   // Get needs of region units
   NeedsList := TNeedsList.Create;
-  for j := 0 to Troop.Units.Count-1 do ReadNeeds(Troop.Units[j], NeedsList);
+  SetLength(noGiveUnits, 0);
+
+  for j := 0 to Troop.Units.Count-1 do
+    ReadNeeds(Troop.Units[j], NeedsList, noGiveUnits);
 
   // Distribute needed items
-  if NeedsList.Count > 0 then DoDistribute(R, NeedsList);
+  if NeedsList.Count > 0 then DoDistribute(R, NeedsList, noGiveUnits);
 
+  SetLength(noGiveUnits, 0);
   NeedsList.ClearAndFree;
   Result := Modified;
 end;

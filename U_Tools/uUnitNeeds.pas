@@ -62,6 +62,7 @@ const Masks: array[0..7] of string = ('items', 'weapons', 'usable weapons',
 
 procedure TUnitNeedsForm.FormCreate(Sender: TObject);
 var men: integer;
+ temp: TIntArray;
 begin
   gAvai.Cols[0].Format := cfNumber;
   Needs := TNeedsList.Create;
@@ -81,7 +82,10 @@ begin
     else if men > 1 then lMen.Caption := lMen.Caption + ' men'
     else lMen.Caption := lMen.Caption + ' man';
 
-    ReadNeeds(CurrUnit, Needs);
+    SetLength(temp, 0);
+    ReadNeeds(CurrUnit, Needs, temp);
+    SetLength(temp, 0);
+
     FillGrid;
     FillAvailable;
   end;
