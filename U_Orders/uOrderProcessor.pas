@@ -328,6 +328,7 @@ begin
 
     DoOrders(R, ['form'],        DoForm);
     DoOrders(R, ['@;inventory'], DoInvenotry);
+    DoOrders(R, ['@;tag'],       DoTag);
     DoOrders(R, ['@;;'],         DoLocal);
     DoOrders(R, ['name'],        DoName);
     DoOrders(R, ['autotax', 'avoid', 'behind', 'guard', 'hold', 'noaid', 'nocross', 'share'], DoFlag);

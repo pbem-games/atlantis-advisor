@@ -717,6 +717,10 @@ type
     UArmy: TUArmy;
     Report: TStrings;
 
+    Tag: string;
+    TagColor: integer;
+    TagTextColor: integer;
+
     constructor Create;
     destructor Destroy; override;
     procedure Assign(Source: TUnit);
@@ -1597,6 +1601,9 @@ begin
   ReadyArmor := TItemDataList.Create;
   FinalPoint := -1;
   Report := TStringList.Create;
+  Tag := '';
+  TagColor := -1;
+  TagTextColor := -1;
 end;
 
 destructor TUnit.Destroy;
@@ -1687,6 +1694,9 @@ begin
   MonthInfo := Source.MonthInfo;
   MonthOrder := Source.MonthOrder;
   Report.Assign(Source.Report);
+  Tag := Source.Tag;
+  TagColor := Source.TagColor;
+  TagTextColor := Source.TagTextColor;
   // Faction, Region, Struct must be redeclared outside
 end;
 

@@ -2748,6 +2748,9 @@ procedure TMainForm.UnitGridDrawCell(Sender: TObject; ACol, ARow: Integer;
   var TxtRect: TRect; State: TGridDrawState);
 var intcol, namecol: integer;
     AUnit: TUnit;
+    textWidth, textHeight, borderRadius, tagLeft, tagOffset: integer;
+    brushColor, textColor: TColor;
+    brushStyle: TBrushStyle;
 begin
   if NoDraw then Exit;
   with UnitGrid do begin
@@ -2786,6 +2789,42 @@ begin
         namecol := ugcLocal
       else namecol := ugcUnitName;
       if (intcol = namecol) then begin
+        if Length(AUnit.Tag) > 0 then begin
+          brushColor := Canvas.Brush.Color;
+          brushStyle := Canvas.Brush.Style;
+          textColor := Canvas.Font.Color;
+          textHeight := Canvas.Font.Size;
+
+          Canvas.Font.Size := 3;
+          textWidth := Canvas.TextWidth(AUnit.Tag);
+
+          borderRadius := (TxtRect.Bottom - TxtRect.Top - 2) div 4;
+          tagOffset := 4;
+          tagLeft := TxtRect.Right - textWidth - (borderRadius * 2) - tagOffset;
+
+          if AUnit.TagColor > -1 then
+            Canvas.Brush.Color := AUnit.TagColor
+          else 
+            Canvas.Brush.Color := clWhite;
+
+          Canvas.RoundRect(tagLeft, TxtRect.Top + 2, TxtRect.Right - tagOffset, TxtRect.Bottom - 2, borderRadius, borderRadius);
+
+
+          if AUnit.TagTextColor > -1 then
+            Canvas.Font.Color := AUnit.TagTextColor
+          else 
+            Canvas.Font.Color := clBlack;
+
+          Canvas.Brush.Style := bsClear;
+          Canvas.TextOut(tagLeft + borderRadius, TxtRect.Top + 1, AUnit.Tag);
+
+          Canvas.Brush.Color := brushColor;
+          Canvas.Brush.Style := brushStyle;
+          Canvas.Font.Color := textColor;
+          Canvas.Font.Size := textHeight;
+
+          TxtRect.Right := tagLeft - tagOffset;
+        end;
 
         if (AUnit.UArmy <> nil) and (AUnit.UArmy.Color >= 0) and
           Config.ReadBool('MainWin', 'ArmyColors', True) then

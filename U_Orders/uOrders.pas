@@ -57,6 +57,7 @@ var
   procedure DoTeach(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
   procedure DoWork(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
   procedure DoTransport(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 
   procedure ResolveTaxes(ARegion: TRegion; TaxUnits: TUnitList; RateMul, IncomeMul: integer);
   procedure ResolveEntertainment(ARegion: TRegion);
@@ -1955,6 +1956,19 @@ begin
     if Pos(';.', Lines[i]) > 0 then
       Lines[i] := Copy(Lines[i], 1, Pos(';.', Lines[i]) - 1);
     Inc(i);
+  end;
+end;
+
+procedure DoTag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+begin
+  AUnit.Tag := GetToken(s);
+
+  if Length(s) > 0 then begin
+    AUnit.TagColor := StrToInt(GetToken(s));
+  end;
+
+  if Length(s) > 0 then begin
+    AUnit.TagTextColor := StrToInt(GetToken(s));
   end;
 end;
 
