@@ -1266,17 +1266,49 @@ var i, mt, mp, d, struct, cap: integer;
   procedure Finish;
   var i: integer;
       Troop: TTroop;
+      vreg: TRegion;
+      finalCoords: TCoords;
+      moved: boolean;
   begin
+    moved := false;
     AUnit.FinalPoint := High(AUnit.Moves);
+
+    finalCoords := AUnit.FinalCoords;
+
+    if not EqualCoords(ARegion.Coords, finalCoords) then begin
+      moved := true;
+      vreg := VTurn.Regions.Find(finalCoords);
+
+      if vreg = nil then
+        // if region was not found then unit moves into an unexplored region
+        // no dependency is needed
+        AddToUnexplored(finalCoords, AUnit)
+      else
+      begin
+        vreg.ArrivingTroops.Seek(AUnit.Faction.Num).Units.Add(AUnit);
+        VTurn.MakeDependecy(ARegion, vreg);
+      end;
+    end;
 
     if (order = 'sail') and (AUnit.Struct <> nil) and (AUnit.Struct.Owner = AUnit) then begin
       Troop := ARegion.PlayerTroop;
 
       for i := 0 to Troop.Units.Count-1 do
-        if Troop.Units[i].Struct = AUnit.Struct then
-        begin
-          if Troop.Units[i].FinalPoint = -1 then
+        if Troop.Units[i].Struct = AUnit.Struct then begin
+          if Troop.Units[i].FinalPoint = -1 then begin
             Troop.Units[i].FinalPoint := 0;
+          end;
+
+          // add units to moved list
+          if moved then begin
+            if vreg = nil then
+              AddToUnexplored(finalCoords, Troop.Units[i])
+            else
+            begin
+              vreg.ArrivingTroops.Seek(AUnit.Faction.Num).Units.Add(Troop.Units[i]);
+            end;
+          end;
+
         end;
     end;
   end;
@@ -1359,20 +1391,6 @@ begin
       cap := UnitCapacity(AUnit, mtSwim);
       if not ((cap > 0) and (UnitLoad(AUnit, mtSwim) <= cap)) then
         raise EParseError.Create('Unit may drown');
-    end;
-  end;
-
-  if not EqualCoords(ARegion.Coords, AUnit.FinalCoords) then
-  begin
-    R := VTurn.Regions.Find(AUnit.FinalCoords);
-    if R = nil then
-      // if region was not found then unit moves into an unexplored region
-      // no dependency is needed
-      AddToUnexplored(AUnit.FinalCoords, AUnit)
-    else
-    begin
-      R.ArrivingTroops.Seek(AUnit.Faction.Num).Units.Add(AUnit);
-      VTurn.MakeDependecy(ARegion, R);
     end;
   end;
 
