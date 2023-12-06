@@ -1635,6 +1635,7 @@ object MainForm: TMainForm
           Height = 13
           AutoSize = False
           Caption = 'Drumcollogher city'
+          OnClick = CopyLabelToClipboard
         end
         object PeasantsLabel: TLabel
           Left = 72
