@@ -3436,7 +3436,7 @@ begin
       QMStock.ClearAndFree;
 
     QMInfo := qiQMInfo;
-    QMStock := Qmaster.Inventory.BalanceBefore(tsTransport);
+    QMStock := Qmaster.Inventory.BalanceOn(tsTransport);
 
     FillItemGrid(pgQuartermaster, QMStock);
   end;
