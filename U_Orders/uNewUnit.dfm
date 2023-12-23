@@ -1,10 +1,10 @@
 object NewUnitForm: TNewUnitForm
-  Left = 967
-  Top = 303
+  Left = 1069
+  Top = 289
   BorderStyle = bsDialog
   Caption = 'Form'
-  ClientHeight = 473
-  ClientWidth = 361
+  ClientHeight = 601
+  ClientWidth = 360
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,8 +15,8 @@ object NewUnitForm: TNewUnitForm
   Position = poMainFormCenter
   OnCreate = FormCreate
   DesignSize = (
-    361
-    473)
+    360
+    601)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -56,21 +56,23 @@ object NewUnitForm: TNewUnitForm
   end
   object Label5: TLabel
     Left = 84
-    Top = 448
+    Top = 576
     Width = 31
     Height = 13
+    Anchors = [akLeft, akBottom]
     Caption = 'copies'
   end
   object Label7: TLabel
     Left = 12
-    Top = 448
+    Top = 576
     Width = 23
     Height = 13
+    Anchors = [akLeft, akBottom]
     Caption = 'Form'
   end
   object Button1: TButton
-    Left = 193
-    Top = 445
+    Left = 192
+    Top = 573
     Width = 75
     Height = 21
     Anchors = [akRight, akBottom]
@@ -80,8 +82,8 @@ object NewUnitForm: TNewUnitForm
     TabOrder = 14
   end
   object Button2: TButton
-    Left = 277
-    Top = 445
+    Left = 276
+    Top = 573
     Width = 75
     Height = 21
     Anchors = [akRight, akBottom]
@@ -517,9 +519,10 @@ object NewUnitForm: TNewUnitForm
   end
   object eCopy: TIntEdit
     Left = 40
-    Top = 444
+    Top = 572
     Width = 37
     Height = 22
+    Anchors = [akLeft, akBottom]
     MaxValue = 999
     MinValue = 1
     TabOrder = 18
@@ -553,5 +556,28 @@ object NewUnitForm: TNewUnitForm
     Height = 17
     Caption = 'Share'
     TabOrder = 20
+  end
+  object pnAdditionalOrders: TGroupBox
+    Left = 4
+    Top = 440
+    Width = 352
+    Height = 121
+    Caption = 'Additional Orders'
+    TabOrder = 21
+    object AdditionalOrders: TMemo
+      Left = 8
+      Top = 16
+      Width = 337
+      Height = 97
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Pitch = fpFixed
+      Font.Style = []
+      ParentFont = False
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
   end
 end

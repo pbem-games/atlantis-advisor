@@ -57,6 +57,8 @@ type
     btnRepStudy: TSpeedButton;
     Label6: TLabel;
     cbShare: TCheckBox;
+    pnAdditionalOrders: TGroupBox;
+    AdditionalOrders: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure cmSkillDrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
@@ -273,6 +275,10 @@ begin
           Config.ReadString('MainWin', 'NeedsPriority', '0');
       new_order := new_order + #13#10;
     end;
+
+    // Additional orders
+    if AdditionalOrders.Text <> '' then
+      new_order := new_order + AdditionalOrders.Text + #13#10;
 
     Result := Result + new_order + 'end' + #13#10 + order;
     Inc(num);
