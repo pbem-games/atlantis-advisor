@@ -13,3 +13,4 @@ __*/
 dcu/
 lib/
 backup/
+*.lps
