@@ -253,7 +253,7 @@ end;
 
 // Update existing Region (by coords) or form new one.
 // Full means we reading regions info.
-function FormRegion(desc_string: string; Full: boolean): TRegion;
+function FormRegion(desc_string: string; Full: boolean): TARegion;
 var Trace: TTrace;
     i,x,y,z: integer;
     s, terrain: string;
@@ -939,7 +939,7 @@ end;
  { Battles during turn: }
 procedure ReadBattle;
 var Trace: TTrace;
-    NewRegion, Region: TRegion;
+    NewRegion, Region: TARegion;
     s, desc: string;
     Battle: TBattle;
     i: integer;
@@ -1050,7 +1050,7 @@ var Trace: TTrace;
     header: boolean;
     AUnit: TUnit;
 
-  function Shafts(R: TRegion; Unlinked: boolean): integer;
+  function Shafts(R: TARegion; Unlinked: boolean): integer;
   var i: integer;
   begin
     Result := 0;
@@ -1061,7 +1061,7 @@ var Trace: TTrace;
   end;
 
   // Num = -1: link unlinked; Num = 0: link any; Num >= 1: link given struct
-  procedure LinkShaft(Region: TRegion; Target: TCoords; Num: integer);
+  procedure LinkShaft(Region: TARegion; Target: TCoords; Num: integer);
   var i: integer;
   begin
     i := Region.Structs.Count-1;
@@ -1083,7 +1083,7 @@ var Trace: TTrace;
   //  (36,46) in Atlantis Ocean.
   procedure MakeVisitedRegions(U: TUnit; s: string);
   var Trace, Trace1: TTrace;
-      RFrom, RTo: TRegion;
+      RFrom, RTo: TARegion;
       i: integer;
   begin
     Trace := TTrace.Create(s);
@@ -2206,7 +2206,7 @@ begin
   end;
 end;
 
-procedure ReadUnit(Region: TRegion; Struct: TStruct);
+procedure ReadUnit(Region: TARegion; Struct: TStruct);
 var U, OldU: TUnit;
     Trace: TTrace;
     s: string;
@@ -2382,8 +2382,8 @@ begin
 end;
 
  { Add Structure to Region. Assuming they cannot duplicate. }
-procedure ReadStruct(Region: TRegion);
-var OldR: TRegion;
+procedure ReadStruct(Region: TARegion);
+var OldR: TARegion;
     Struct, OldStruct: TStruct;
     Trace: TTrace;
     s, shaft_link: string;
@@ -2530,9 +2530,9 @@ begin
     Struct.Report.Add(RepLines[i]);
 end;
 
-function ReadRegion: TRegion;
+function ReadRegion: TARegion;
 var Trace: TTrace;
-    Region, PrevRegion, ExitR, NewR: TRegion;
+    Region, PrevRegion, ExitR, NewR: TARegion;
     Item: TItem;
     s, peasants_name: string;
     i, j, regRepStart, regRepEnd: integer;
@@ -2950,7 +2950,7 @@ begin
 end;
 
 procedure ImportMap;
-var R, CurrR: TRegion;
+var R, CurrR: TARegion;
     Item: TItem;
     i: integer;
 begin

@@ -38,7 +38,7 @@ var
     Amount: integer;
   end;
 
-  function DistributeNeeds(R: TRegion): boolean;
+  function DistributeNeeds(R: TARegion): boolean;
   procedure ReadNeeds(AUnit: TUnit; Needs: TNeedsList; var noGiveUnits: TIntArray);
   procedure SetNeeds(U: TUnit; Needs: TNeedsList);
   procedure AddNeedItem(U: TUnit; IData: TItemData; Amount, Priority: integer);
@@ -613,7 +613,7 @@ begin
   Avai.Free;
 end;
 
-procedure DoDistribute(R: TRegion; Needs: TNeedsList; noGiveUnits: TIntArray);
+procedure DoDistribute(R: TARegion; Needs: TNeedsList; noGiveUnits: TIntArray);
 var i, j: integer;
     Heap: TNeedsList;
     Units: TUnitList;
@@ -665,7 +665,7 @@ begin
   Heap.ClearAndFree;
 end;
 
-function DistributeNeeds(R: TRegion): boolean;
+function DistributeNeeds(R: TARegion): boolean;
 var j: integer;
     Troop: TTroop;
     NeedsList: TNeedsList;

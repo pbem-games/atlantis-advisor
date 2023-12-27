@@ -18,15 +18,15 @@ type
     FUnit: TBaseUnit;
     Soldiers: TSoldierList;
   public
-    procedure Setup(AUnit: TBaseUnit; R: TRegion);
+    procedure Setup(AUnit: TBaseUnit; R: TARegion);
   end;
 
 var
   SoldiersForm: TSoldiersForm;
   BattleIni: TMemIniFile;
 
-  function UnitImg(AUnit: TBaseUnit; R: TRegion): string;
-  function UnitMultiImg(AUnit: TBaseUnit; R: TRegion): string;
+  function UnitImg(AUnit: TBaseUnit; R: TARegion): string;
+  function UnitMultiImg(AUnit: TBaseUnit; R: TARegion): string;
   function SoldierImg(Soldier: TSoldier): string;
 
 
@@ -119,7 +119,7 @@ begin
   Result := GetBattleImage(Soldier, 'Images');
 end;
 
-function UnitImg(AUnit: TBaseUnit; R: TRegion): string;
+function UnitImg(AUnit: TBaseUnit; R: TARegion): string;
 var Sl: TSoldier;
 begin
   Sl := TypicalSoldier(AUnit, R);
@@ -130,7 +130,7 @@ begin
   else Result := '';
 end;
 
-function UnitMultiImg(AUnit: TBaseUnit; R: TRegion): string;
+function UnitMultiImg(AUnit: TBaseUnit; R: TARegion): string;
 var i: integer;
     Items: TItemList;
     Sl: TSoldier;
@@ -169,7 +169,7 @@ begin
   Soldiers.ClearAndFree;
 end;
 
-procedure TSoldiersForm.Setup(AUnit: TBaseUnit; R: TRegion);
+procedure TSoldiersForm.Setup(AUnit: TBaseUnit; R: TARegion);
 var i, j, row: integer;
 begin
   FUnit := AUnit;

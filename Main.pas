@@ -709,7 +709,7 @@ type
     ShiftState: TShiftState;
     OrdersChanged: boolean;
     ActingStruct: TStruct;
-    ActingRegion: TRegion;
+    ActingRegion: TARegion;
     ItemGridTop: integer;
     Filter: record
       Enabled, StructFilter: boolean;
@@ -733,9 +733,9 @@ type
 
     // Processor
     procedure ProcessAllOrders;
-    procedure StartProcess(ARegion: TRegion; AScript: integer; Args: string;
+    procedure StartProcess(ARegion: TARegion; AScript: integer; Args: string;
       Startup: boolean);
-    procedure ProcessOrders(ARegion: TRegion);
+    procedure ProcessOrders(ARegion: TARegion);
     procedure ProcessScript(AScript: integer; Args: string);
     procedure ProcessorThreadTerminate(Sender: TObject);
     // Global interface
@@ -750,7 +750,7 @@ type
     procedure ClearRegionInfo;
     procedure ClearUnitInfo;
     procedure EndMoveMode;
-    procedure FillRegionInfo(ARegion: TRegion);
+    procedure FillRegionInfo(ARegion: TARegion);
     procedure FillUnitGrid;
     procedure SelectUnit(U: TUnit);
     procedure FillUnitInfo(AUnit: TUnit);
@@ -768,7 +768,7 @@ type
     procedure ChangeLevel(Sender: TObject);
     function GetMapToolItm(Index: integer): TMenuItem;
     function GetMapToolBtn(Index: integer): TToolButton;
-    procedure FillStructGrid(ARegion: TRegion);
+    procedure FillStructGrid(ARegion: TARegion);
     procedure FillStructInfo(AStruct: TStruct);
     procedure ClearStructInfo;
     procedure SetTurns;
@@ -784,7 +784,7 @@ type
     procedure ChangeTerrain(Sender: TObject);
     function SelectedCoords: TCoords;
 
-    procedure FillEconomyReport(Reg: TRegion; RealReg: TRegion; AList: TStrings);
+    procedure FillEconomyReport(Reg: TARegion; RealReg: TARegion; AList: TStrings);
   end;
 
 var
@@ -1056,7 +1056,7 @@ end;
   { ---------------- Order processor ---------------------- }
 
 
-procedure TMainForm.ProcessOrders(ARegion: TRegion);
+procedure TMainForm.ProcessOrders(ARegion: TARegion);
 begin
   StartProcess(ARegion, -1, '', (asFirstProcessing in State) and
     not OrdersLoaded);
@@ -1074,7 +1074,7 @@ begin
 end;
 
 // Start processor
-procedure TMainForm.StartProcess(ARegion: TRegion; AScript: integer; Args: string;
+procedure TMainForm.StartProcess(ARegion: TARegion; AScript: integer; Args: string;
   Startup: boolean);
 begin
   State := State + [asProcessing];
@@ -1090,7 +1090,7 @@ end;
 
 // End processor
 procedure TMainForm.ProcessorThreadTerminate(Sender: TObject);
-var R: TRegion;
+var R: TARegion;
 begin
   if (asFirstProcessing in State) and not OrdersLoaded then
     PostProcess(RerunRegions);
@@ -1501,7 +1501,7 @@ end;
 procedure TMainForm.EndLinkMode(HX, HY: integer);
 var mapX, mapY, i: integer;
     Struct: TStruct;
-    Region: TRegion;
+    Region: TARegion;
 begin
   GlobalEnable(True);
   Mode := mNormal;
@@ -1556,7 +1556,7 @@ end;
 procedure TMainForm.HexMapDrawExtra(Sender: TObject; HX, HY: Integer;
   ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
 var mapX, mapY: integer;
-    Region: TRegion;
+    Region: TARegion;
 begin
   if NoDraw then Exit;
   CalcMapCoords(HX, HY, mapX, mapY);
@@ -1573,7 +1573,7 @@ end;
 procedure TMainForm.HexMapDrawHex(Sender: TObject; HX, HY: Integer;
   ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
 var mapX, mapY: integer;
-    Region: TRegion;
+    Region: TARegion;
 begin
   if NoDraw then Exit;
   CalcMapCoords(HX, HY, mapX, mapY);
@@ -1936,9 +1936,9 @@ begin
   ProductGrid.Fixup;
 end;
 
-procedure TMainForm.FillRegionInfo(ARegion: TRegion);
+procedure TMainForm.FillRegionInfo(ARegion: TARegion);
 var Weather: TWeatherData;
-    RealRegion: TRegion;
+    RealRegion: TARegion;
     amt, tax_income, ent_income: integer;
 
   procedure FillDiffItemGrid(Grid: TPowerGrid; List, RealList: TItemList);
@@ -2068,7 +2068,7 @@ begin
   memEconomy.Perform(EM_SCROLLCARET, 0, 0);
 end;
 
-procedure TMainForm.FillEconomyReport(Reg: TRegion; RealReg: TRegion; AList: TStrings);
+procedure TMainForm.FillEconomyReport(Reg: TARegion; RealReg: TARegion; AList: TStrings);
 var
   i: integer;
   moneyStart, foodStart, menStart, mountsStart, weaponsStart, armorStart: integer;
@@ -2238,7 +2238,7 @@ end;
 
 procedure TMainForm.NotesMemoExit(Sender: TObject);
 var i: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   if NotesMemo.Modified then begin
     // Spread notes between all region copies
@@ -2254,7 +2254,7 @@ end;
 
   { -------------- Structs and Struct Info ------------- }
 
-procedure TMainForm.FillStructGrid(ARegion: TRegion);
+procedure TMainForm.FillStructGrid(ARegion: TARegion);
 var i, idx: integer;
     SData: TStructData;
 begin
@@ -2312,7 +2312,7 @@ procedure TMainForm.StructGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var Struct: TStruct;
     i, mapX, mapY: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   if StructGrid.MouseCell.Y < 0 then Exit;
   Struct := TStruct(StructGrid.ImgRows[StructGrid.MouseCell.Y].Data);
@@ -2436,7 +2436,7 @@ end;
 procedure TMainForm.FillStructInfo(AStruct: TStruct);
 var i, j, k, men, control: integer;
     AUnit: TUnit;
-    R: TRegion;
+    R: TARegion;
     fleet: TFLeetInfo;
 begin
   CurrStruct := AStruct;
@@ -4648,7 +4648,7 @@ end;
 procedure TMainForm.ChangeTerrain(Sender: TObject);
 var Ter: TTerrainData;
     mapX, mapY: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   Ter := Game.TerrainData.Find(StringReplace(TMenuItem(Sender).Caption, '&', '', []));
   if Ter = nil then Exit;

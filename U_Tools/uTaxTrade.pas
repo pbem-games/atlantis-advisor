@@ -44,7 +44,7 @@ uses Main;
 
 procedure TTaxTradeForm.FormCreate(Sender: TObject);
 var i, tax, trade, fish, road, tax_income: integer;
-    R, RealR: TRegion;
+    R, RealR: TARegion;
     md:       boolean;
     modid:    integer;
 begin
@@ -131,7 +131,7 @@ procedure TTaxTradeForm.GridDblClick(Sender: TObject);
 begin
   with TPowerGrid(Sender) do
     if Row >= FixedRows then
-      MainForm.HexMapGoto(TRegion(ImgRows[Row].Data).Coords);
+      MainForm.HexMapGoto(TARegion(ImgRows[Row].Data).Coords);
 end;
 
 procedure TTaxTradeForm.gTaxDrawCell(Sender: TObject; ACol, ARow: Integer;

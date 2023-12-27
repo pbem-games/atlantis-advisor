@@ -24,46 +24,46 @@ var
   TaxUnits, PillageUnits, EntertainUnits, WorkUnits: TUnitList;
   Unexplored: TUnexploredArray;
 
-  procedure DoAttack(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoBuy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoBuild(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
-  procedure DoCast(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoInvenotry(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoClaim(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoClaimRepeat(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoCombat(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoDeclare(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoDescribe(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoDestroy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoEnter(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoEntertain(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoEvict(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoExtFlag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoFlag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoFaction(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoForm(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoForget(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoGive(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoLeave(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoLocal(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoMonth(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoMove(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
-  procedure DoName(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoPillage(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoProduce(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoPromote(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoSell(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoSteal(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoStudy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoTax(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoTeach(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
-  procedure DoWork(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoTransport(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-  procedure DoTag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoAttack(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoBuy(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoBuild(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+  procedure DoCast(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoInvenotry(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoClaim(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoClaimRepeat(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoCombat(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoDeclare(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoDescribe(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoDestroy(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoEnter(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoEntertain(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoEvict(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoExtFlag(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoFlag(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoFaction(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoForm(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoForget(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoGive(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoLeave(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoLocal(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoMonth(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoMove(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+  procedure DoName(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoPillage(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoProduce(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoPromote(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoSell(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoSteal(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoStudy(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTax(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTeach(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+  procedure DoWork(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTransport(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  procedure DoTag(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 
-  procedure ResolveTaxes(ARegion: TRegion; TaxUnits: TUnitList; RateMul, IncomeMul: integer);
-  procedure ResolveEntertainment(ARegion: TRegion);
-  procedure ResolveWork(ARegion: TRegion);
+  procedure ResolveTaxes(ARegion: TARegion; TaxUnits: TUnitList; RateMul, IncomeMul: integer);
+  procedure ResolveEntertainment(ARegion: TARegion);
+  procedure ResolveWork(ARegion: TARegion);
   procedure CheckFPoints(Errors: TStrings);
   procedure ResolveMaintenance(Coords: TCoords; Units: TUnitList; ParseErrors: TStrings);
 
@@ -198,7 +198,7 @@ begin
   else Result := -1;
 end;
 
-function GetUnit(R: TRegion; var s: string; AllowZero: boolean; Stage: TTurnStage): TUnit;
+function GetUnit(R: TARegion; var s: string; AllowZero: boolean; Stage: TTurnStage): TUnit;
 var t: string;
     fac, num: integer;
     Troop: TTroop;
@@ -234,7 +234,7 @@ begin
     raise EParseError.Create('Bad target');
 end;
 
-procedure DoDescribe(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoDescribe(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2, t3: string;
 begin
   // Instant
@@ -256,13 +256,13 @@ begin
   else raise EParseError.Create('Can''t describe that');
 end;
 
-procedure DoLocal(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoLocal(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
   AUnit.LocalName := s;
   // UnitRecs.AddUnitRec(AUnit, s);
 end;
 
-procedure DoName(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoName(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2, t3: string;
 begin
   // Instant
@@ -294,7 +294,7 @@ begin
   else raise EParseError.Create('Can''t name that');
 end;
 
-procedure DoExtFlag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoExtFlag(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t1, t2: string;
     ExtFlag: integer;
 begin
@@ -327,7 +327,7 @@ begin
 end;
 
 // ** TODO: check if unit can set this flag
-procedure DoFlag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoFlag(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t1, t2: string;
     flag, val: integer;
 begin
@@ -354,7 +354,7 @@ begin
   end;
 end;
 
-procedure DoClaim(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoClaim(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     val: integer;
 begin
@@ -371,7 +371,7 @@ begin
 end;
 
 // Take money from unclaimed, but do not modify unit (for global orders)
-procedure DoClaimRepeat(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoClaimRepeat(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     val: integer;
 begin
@@ -385,7 +385,7 @@ begin
   end;
 end;
 
-procedure DoCombat(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoCombat(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     data: TSkillData;
     i: integer;
@@ -408,7 +408,7 @@ begin
   end;
 end;
 
-procedure DoDeclare(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoDeclare(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2, t3: string;
     AFaction: TFaction;
     att: integer;
@@ -438,7 +438,7 @@ begin
   end;
 end;
 
-procedure DoFaction(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoFaction(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var
   t2:       string;
   modid:    integer;
@@ -519,7 +519,7 @@ begin
   // Will not check for mages here, better do it when issuing order
 end;
 
-procedure DoForm(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoForm(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, j, k, a, num: integer;
     NewUnit: TUnit;
     cturn: integer;
@@ -573,7 +573,7 @@ begin
     end;
 end;
 
-procedure DoLeave(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoLeave(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Troop: TTroop;
     i: integer;
 begin
@@ -591,7 +591,7 @@ begin
   AUnit.Struct := nil;
 end;
 
-procedure DoEnter(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoEnter(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var num, i: integer;
 begin
   try
@@ -611,7 +611,7 @@ begin
   else raise EParseError.Create('Wrong object');
 end;
 
-procedure DoProduce(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoProduce(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var IData: TItemData;
     Res: TItem;
     i, maxout, turnout, limitOut: integer;
@@ -666,7 +666,7 @@ begin
   DoMonth(ARegion, AUnit, s, Line, Order);
 end;
 
-procedure DoPromote(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoPromote(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Target: TUnit;
 begin
   Target := GetUnit(ARegion, s, False, tsPromote);
@@ -681,7 +681,7 @@ begin
   SetFlag(Target.Marks, UM_PROMOTED);
 end;
 
-procedure DoSteal(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoSteal(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var num, i, amt: integer;
     t3: string;
     Target: TUnit;
@@ -718,10 +718,10 @@ begin
   end;
 end;
 
-procedure DoDestroy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoDestroy(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, j: integer;
     AStruct: TStruct;
-    R: TRegion;
+    R: TARegion;
 begin
   if ARegion.Terrain.Flags and TER_WATER <> 0 then
     raise EParseError.Create('Can''t destroy in sea');
@@ -737,7 +737,7 @@ begin
   end;
 end;
 
-procedure DoGive(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoGive(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, k, amount: integer;
     t3, t4: string;
     Target: TUnit;
@@ -813,8 +813,8 @@ begin
   if not_enough then raise EParseError.Create('Not enough');
 end;
 
-procedure DoPillage(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
-var R: TRegion;
+procedure DoPillage(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+var R: TARegion;
 begin
   if (ARegion.Guard <> nil) and (ARegion.Guard.Num <> Faction.Num) then
       raise EParseError.Create('Unit on guard');
@@ -826,7 +826,7 @@ begin
   PillageUnits.Add(AUnit);
 end;
 
-procedure DoTax(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoTax(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
   if (ARegion.Guard <> nil) and (ARegion.Guard.Num <> Faction.Num)
     and (ARegion.Guard.Attitude < attFriendly) then
@@ -837,7 +837,7 @@ begin
     DoMonth(ARegion, AUnit, s, Line, Order);
 end;
 
-procedure DoTeach(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+procedure DoTeach(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
 var Students: TUnitList;
     i, men, st_count, help, max_students: integer;
     U: TUnit;
@@ -889,7 +889,7 @@ begin
   DoMonth(ARegion, AUnit, s, Line, Order);
 end;
 
-procedure DoCast(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoCast(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i: integer;
 begin
   i := 0;
@@ -897,7 +897,7 @@ begin
   if i < Line then raise EParseError.Create('One cast permitted');
 end;
 
-procedure DoInvenotry(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoInvenotry(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var
   amount, ts: integer;
   t, stage: string;
@@ -923,7 +923,7 @@ begin
   AUnit.Inventory.Add(NewItem(item, amount, TTurnStage(ts), 'manual entry'));
 end;
 
-procedure DoSell(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoSell(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var i, j, amt, income: integer;
     t2, t3, msg: string;
     idata: TItemData;
@@ -977,7 +977,7 @@ begin
   end;
 end;
 
-procedure DoAttack(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoAttack(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Target: TUnit;
 begin
   while (Trim(s) <> '') do begin
@@ -987,7 +987,7 @@ begin
   end;
 end;
 
-procedure DoBuy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoBuy(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var amt, i, j, expense: integer;
     t2, t3, msg: string;
     Item: TItem;
@@ -1061,7 +1061,7 @@ begin
   end;
 end;
 
-procedure DoBuild(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+procedure DoBuild(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
 var i, lv, amt, maxout: integer;
     StData: TStructData;
     order, t: string;
@@ -1150,7 +1150,7 @@ begin
   DoMonth(ARegion, AUnit, s, Line, AOrder);
 end;
 
-procedure DoForget(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoForget(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     i: integer;
 begin
@@ -1165,7 +1165,7 @@ begin
   else raise EParseError.Create('Bad skill');
 end;
 
-procedure DoMonth(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoMonth(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var ord: string;
 begin
   ord := AUnit.MonthOrder;
@@ -1192,7 +1192,7 @@ begin
   end;
 end;
 
-procedure DoEntertain(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoEntertain(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Skill: TSkill;
 begin
   Skill := AUnit.Skills.Find(Keys[s_EntertainSkill]);
@@ -1201,7 +1201,7 @@ begin
   DoMonth(ARegion, AUnit, s, Line, Order);
 end;
 
-procedure DoEvict(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoEvict(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var Target: TUnit;
 begin
   Target := GetUnit(ARegion, s, False, tsEvict);
@@ -1215,13 +1215,13 @@ begin
   Target.Struct := nil;
 end;
 
-procedure DoWork(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoWork(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
   WorkUnits.Add(AUnit);
   DoMonth(ARegion, AUnit, s, Line, Order);
 end;
 
-procedure DoStudy(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoStudy(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var t2: string;
     SData: TSkillData;
     Skill: TSkill;
@@ -1259,17 +1259,17 @@ begin
   DoMonth(ARegion, AUnit, s, Line, Order);
 end;
 
-procedure DoMove(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
+procedure DoMove(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; AOrder: string);
 var i, mt, mp, d, struct, cap: integer;
     order, t2: string;
     C: TCoords;
     swim, sail: boolean;
-    R: TRegion;
+    R: TARegion;
 
   procedure Finish;
   var i: integer;
       Troop: TTroop;
-      vreg: TRegion;
+      vreg: TARegion;
       finalCoords: TCoords;
       moved: boolean;
   begin
@@ -1400,7 +1400,7 @@ begin
   DoMonth(ARegion, AUnit, s, Line, AOrder);
 end;
 
-procedure DoTransport(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoTransport(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 var
   skill: TSkill;
   item: TItemData;
@@ -1806,7 +1806,7 @@ begin
 end;
 
 // Split taxes evenly between taxers
-procedure ResolveTaxes(ARegion: TRegion; TaxUnits: TUnitList; RateMul, IncomeMul: integer);
+procedure ResolveTaxes(ARegion: TARegion; TaxUnits: TUnitList; RateMul, IncomeMul: integer);
 var i, total_men, men, tax_rate, tax_income, amt: integer;
     cash: real;
     U: TUnit;
@@ -1843,7 +1843,7 @@ begin
   end;
 end;
 
-procedure ResolveEntertainment(ARegion: TRegion);
+procedure ResolveEntertainment(ARegion: TARegion);
 var i, total, amt, ent_income, income: integer;
     cash: real;
     U: TUnit;
@@ -1875,7 +1875,7 @@ begin
   end;
 end;
 
-procedure ResolveWork(ARegion: TRegion);
+procedure ResolveWork(ARegion: TARegion);
 var i, total_men, men, amt: integer;
     cash: real;
     U: TUnit;
@@ -1961,7 +1961,7 @@ begin
   end;
 end;
 
-procedure DoTag(ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+procedure DoTag(ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 begin
   AUnit.Tag := GetToken(s);
 

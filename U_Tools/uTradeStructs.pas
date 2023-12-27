@@ -41,7 +41,7 @@ implementation
 
 procedure TTradeStructForm.FormCreate(Sender: TObject);
 var i, j, row: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   gStructs.Cells[0, 0] := 'Amt';
   gStructs.Cells[1, 0] := 'Buildings';

@@ -137,7 +137,7 @@ begin
     if (arow >= 0) and (arow < RowCount) and (Rows[arow].Data <> nil)
       and ((TObject(Rows[arow].Data).ClassType = TBattle)
       or (TObject(Rows[arow].Data).ClassType = TUnit)
-      or (TObject(Rows[arow].Data).ClassType = TRegion)) then
+      or (TObject(Rows[arow].Data).ClassType = TARegion)) then
       Cursor := crHandPoint
     else Cursor := crDefault;
   end;
@@ -179,7 +179,7 @@ begin
       end
       else C := AUnit.Region.Coords;
     end
-    else if Obj.ClassType = TRegion then C := TRegion(Obj).Coords;
+    else if Obj.ClassType = TARegion then C := TARegion(Obj).Coords;
   end
   else if Grid.MouseCell.X = 0 then begin
     s0 := Grid.ImgCells[0, Grid.MouseCell.Y];
@@ -221,7 +221,7 @@ begin
     if ACol = 0 then begin
       if Rows[ARow].Data <> nil then begin
         // Region
-        if TObject(Rows[ARow].Data).ClassType = TRegion then
+        if TObject(Rows[ARow].Data).ClassType = TARegion then
           ResForm.IconList.Draw(Canvas, x, y, bmpError);
         // Battle
         if TObject(Rows[ARow].Data).ClassType = TBattle then

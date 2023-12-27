@@ -65,7 +65,7 @@ var i, struct, order_idx: integer;
     Trace: TTrace;
     C: TCoords;
     order, s: string;
-    R: TRegion;
+    R: TARegion;
     end_route: boolean;
 
   procedure HandleError(Msg: string);
@@ -320,7 +320,7 @@ end;
 
 procedure RunAllRoutes(ATurn: TTurn);
 var i, j: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   for i := 0 to ATurn.Regions.Count-1 do begin
     R := ATurn.Regions[i];

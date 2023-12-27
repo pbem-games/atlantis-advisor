@@ -58,12 +58,12 @@ const
 
   procedure CalcHexMapCoords(mapX, mapY: integer; var HX, HY: integer);
   procedure CalcMapCoords(HX, HY: integer; var mapX, mapY: integer);
-  procedure DrawHex(ACanvas: TCanvas; CX, CY: integer; Region: TRegion);
-  procedure DrawExtra(ACanvas: TCanvas; CX, CY: integer; Region: TRegion;
+  procedure DrawHex(ACanvas: TCanvas; CX, CY: integer; Region: TARegion);
+  procedure DrawExtra(ACanvas: TCanvas; CX, CY: integer; Region: TARegion;
     Simple: boolean);
   procedure HexMapSetup(HexMap: TCylinderMap);
   procedure DrawArrow(ACanvas: TCanvas; cx, cy, Dir, bmpArrows: integer);
-  procedure DrawMoveState(Region: TRegion; ACanvas: TCanvas; mapX, mapY,
+  procedure DrawMoveState(Region: TARegion; ACanvas: TCanvas; mapX, mapY,
     cx, cy: integer);
   procedure DrawPathArrows(ACanvas: TCanvas; mapX, mapY, cx, cy: integer);
   function SelectMoveModeHex(C: TCoords): boolean;
@@ -184,7 +184,7 @@ begin
   else DrawPath(CurrUnit.Moves, bmp_arrGreenArrows, False, CurrUnit.FinalPoint);
 end;
 
-procedure DrawMoveState(Region: TRegion; ACanvas: TCanvas; mapX, mapY,
+procedure DrawMoveState(Region: TARegion; ACanvas: TCanvas; mapX, mapY,
   cx, cy: integer);
 var i, arr: integer;
     Bmp: TBitmap;
@@ -295,21 +295,21 @@ begin
   mapY := HY + MapBounds[Map.Level].Top;
 end;
 
-function StructFaction(R: TRegion; AStruct: TStruct): TFaction;
+function StructFaction(R: TARegion; AStruct: TStruct): TFaction;
 begin
   if (not Test(AStruct.Data.Flags, ST_SHAFT) or (R.Visited = Turn.Num)) and (AStruct.Owner <> nil) then
     Result := AStruct.Owner.Faction
   else Result := VTurn.Factions[0];
 end;
 
-procedure DrawSettlement(ARegion: TRegion; ACanvas: TCanvas; cx, cy: integer);
+procedure DrawSettlement(ARegion: TARegion; ACanvas: TCanvas; cx, cy: integer);
 begin
   if ARegion.SettlementType > 0 then
     ResForm.Extras.Draw(ACanvas, cx-hs50 + 3, cy-5,
     bmp_extVillage + ARegion.SettlementType-1);
 end;
 
-procedure DrawSimpleExtras(Region: TRegion; ACanvas: TCanvas; cx, cy: integer);
+procedure DrawSimpleExtras(Region: TARegion; ACanvas: TCanvas; cx, cy: integer);
 var i, x, xtra: integer;
  astr: TStruct;
 begin
@@ -324,7 +324,7 @@ begin
   DrawSettlement(Region, ACanvas, cx, cy);
 end;
 
-procedure DrawHexExtra(Region, RealR: TRegion; ACanvas: TCanvas; cx, cy: integer);
+procedure DrawHexExtra(Region, RealR: TARegion; ACanvas: TCanvas; cx, cy: integer);
 var fright: integer;
     Flag, Mic, SExtras: DWord;
 
@@ -599,7 +599,7 @@ begin
     DrawStructs;
 end;
 
-procedure DrawHexList(Region: TRegion; List: TItemList;
+procedure DrawHexList(Region: TARegion; List: TItemList;
   ACanvas: TCanvas; cx, cy: integer);
 var i, itms, y: integer;
     Bmp: TBitmap;
@@ -631,9 +631,9 @@ begin
   Bmp.Free;
 end;
 
-procedure DrawExtra(ACanvas: TCanvas; CX, CY: integer; Region: TRegion;
+procedure DrawExtra(ACanvas: TCanvas; CX, CY: integer; Region: TARegion;
   Simple: boolean);
-var RealR: TRegion;
+var RealR: TARegion;
 begin
   RealR := Map.Region(Region.Coords, Turn.Num);
   if Simple then DrawSimpleExtras(Region, ACanvas, cx, cy)
@@ -651,7 +651,7 @@ begin
   end;
 end;
 
-procedure DrawHex(ACanvas: TCanvas; CX, CY: integer; Region: TRegion);
+procedure DrawHex(ACanvas: TCanvas; CX, CY: integer; Region: TARegion);
 var idx, i, terr: integer;
     Flags: DWord;
 begin

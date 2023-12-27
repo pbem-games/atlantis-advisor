@@ -12,7 +12,7 @@ uses
   Resources in 'Resources.pas' {ResForm},
   //uOrderProcessor in 'U_Orders\uOrderProcessor.pas',
   //uVisualOrders in 'U_Orders\uVisualOrders.pas',
-  //uGameSubs in 'U_Base\uGameSubs.pas',
+  uGameSubs in 'U_Base\uGameSubs.pas',
   DataStructs in 'U_Base\DataStructs.pas',
   //uHexMap in 'uHexMap.pas',
   //uKeys in 'U_Base\uKeys.pas',

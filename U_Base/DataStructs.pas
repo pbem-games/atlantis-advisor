@@ -456,7 +456,7 @@ type
     destructor Destroy; override;
   end;
 
-  TRegion = class;
+  TARegion = class;
   TUnit = class;
 
   TFleetShip = class
@@ -569,7 +569,7 @@ type
     destructor Destroy; override;
   end;
 
-  TRegion = class
+  TARegion = class
     x, y, z: integer;
     FullData: boolean;
     Visited: integer;
@@ -626,7 +626,7 @@ type
   public
     constructor Create(X, Y, Z, TurnNum: integer);
     destructor Destroy; override;
-    procedure Assign(Source: TRegion; CopyTurnData: boolean);
+    procedure Assign(Source: TARegion; CopyTurnData: boolean);
     property Coords: TCoords read GetCoords write SetCoords;
     function PlayerTroop: TTroop;
     function ArrivingPlayerTroop: TTroop;
@@ -649,13 +649,13 @@ type
     TurnNum: integer;
     Level: integer;
     Levels: TMapLevelList;
-    function Region(X, Y: integer): TRegion; overload;
-    function Region(X, Y, Z: integer): TRegion; overload;
-    function Region(C: TCoords): TRegion; overload;
-    function Region(C: TCoords; T: integer): TRegion; overload;
-    function Region(X, Y, Z, T: integer): TRegion; overload;
-    function SeekRegion(X, Y, Z: integer): TRegion; overload;
-    function SeekRegion(C: TCoords): TRegion; overload;
+    function Region(X, Y: integer): TARegion; overload;
+    function Region(X, Y, Z: integer): TARegion; overload;
+    function Region(C: TCoords): TARegion; overload;
+    function Region(C: TCoords; T: integer): TARegion; overload;
+    function Region(X, Y, Z, T: integer): TARegion; overload;
+    function SeekRegion(X, Y, Z: integer): TARegion; overload;
+    function SeekRegion(C: TCoords): TARegion; overload;
     procedure CreateVirtualLayer;
     procedure FreeVirtualLayer;
     constructor Create;
@@ -713,7 +713,7 @@ type
     Former: TUnit;  // for "new 1"... units
     TradeIncome, WorkIncome: integer;
 
-    Region: TRegion;
+    Region: TARegion;
     CanStudy: TSkillDataList;
     ReadyWeapons, ReadyArmor: TItemDataList;
     UArmy: TUArmy;
@@ -768,7 +768,7 @@ type
     procedure Assign(Source: TTurn);
     function FindUnit(Num: integer): TUnit;
 
-    procedure MakeDependecy(SourceRegion: TRegion; TargetRegion: TRegion);
+    procedure MakeDependecy(SourceRegion: TARegion; TargetRegion: TARegion);
   end;
 
   TGame = class
@@ -812,7 +812,7 @@ type
 
   TBattle = class
     Name: string;
-    Region: TRegion;
+    Region: TARegion;
     Report: TStrings;
     Units: array[sideAttack..sideDefence] of TBattleUnitList;
     Rounds: array of TRound;
@@ -949,11 +949,11 @@ type
 
   TRegionList = class(TList)
   protected
-    function Get(Index: Integer): TRegion;
-    procedure Put(Index: Integer; Item: TRegion);
+    function Get(Index: Integer): TARegion;
+    procedure Put(Index: Integer; Item: TARegion);
   public
-    property Items[Index: Integer]: TRegion read Get write Put; default;
-    function Find(coords: TCoords): TRegion;
+    property Items[Index: Integer]: TARegion read Get write Put; default;
+    function Find(coords: TCoords): TARegion;
   end;
 
   TBattleUnitList = class(TList)
@@ -1085,11 +1085,11 @@ var
   Faction, VFaction: TFaction; // Turn.Factions[1]; general player's faction
 
   CurrUnit: TUnit;
-  CurrRegion: TRegion;
+  CurrRegion: TARegion;
   CurrStruct: TStruct;
 
   SimBattle: TBattle; // Stand-alone battle for simulator
-  SimRegion: TRegion;
+  SimRegion: TARegion;
   SilverData: TItemData;
 
   Progress: array[prFirst..prLast] of array of integer;
@@ -1354,7 +1354,7 @@ end;
 
 // Get region from real turn
 procedure TGame.RecreateVRegion(C: TCoords);
-var OldRegion, NewRegion: TRegion;
+var OldRegion, NewRegion: TARegion;
 begin
   CurrUnit := nil;
   SaveVTurnOrders;
@@ -1435,7 +1435,7 @@ begin
   end;
 end;
 
-procedure TTurn.MakeDependecy(SourceRegion: TRegion; TargetRegion: TRegion);
+procedure TTurn.MakeDependecy(SourceRegion: TARegion; TargetRegion: TARegion);
 begin
   if SourceRegion = nil then Exit;
   if TargetRegion = nil then Exit;
@@ -1733,9 +1733,9 @@ begin
   //  Assign Faction outside
 end;
 
- { TRegion Methods }
+ { TARegion Methods }
 
-constructor TRegion.Create(X, Y, Z, TurnNum: integer);
+constructor TARegion.Create(X, Y, Z, TurnNum: integer);
 begin
   Self.x := X;
   Self.y := Y;
@@ -1754,7 +1754,7 @@ begin
   DependedBy := TRegionList.Create;
 end;
 
-destructor TRegion.Destroy;
+destructor TARegion.Destroy;
 begin
   Wanted.ClearAndFree;
   ForSale.ClearAndFree;
@@ -1774,7 +1774,7 @@ begin
 end;
 
 // Copy Units only if Source and Destination's turns equal!
-procedure TRegion.Assign(Source: TRegion; CopyTurnData: boolean);
+procedure TARegion.Assign(Source: TARegion; CopyTurnData: boolean);
 var i, j: integer;
     side: boolean;
     NewUnit: TUnit;
@@ -1883,39 +1883,39 @@ begin
   end;
 end;
 
-function TRegion.GetCoords: TCoords;
+function TARegion.GetCoords: TCoords;
 begin
   Result.x := x;
   Result.y := y;
   Result.z := z;
 end;
 
-procedure TRegion.SetCoords(const Value: TCoords);
+procedure TARegion.SetCoords(const Value: TCoords);
 begin
   x := Value.x;
   y := Value.y;
   z := Value.z;
 end;
 
-function TRegion.PlayerTroop: TTroop;
+function TARegion.PlayerTroop: TTroop;
 begin
   if (Troops.Count = 0) or not Troops[0].Faction.Player then Result := nil
   else Result := Troops[0];
 end;
 
-function TRegion.ArrivingPlayerTroop: TTroop;
+function TARegion.ArrivingPlayerTroop: TTroop;
 begin
   if (ArrivingTroops.Count = 0) or not ArrivingTroops[0].Faction.Player then Result := nil
   else Result := ArrivingTroops[0];
 end;
 
-function TRegion.FinalPlayerTroop: TTroop;
+function TARegion.FinalPlayerTroop: TTroop;
 begin
   if (FinalTroops.Count = 0) or not FinalTroops[0].Faction.Player then Result := nil
   else Result := FinalTroops[0];
 end;
 
-function TRegion.FindUnit(Num: integer; Stage: TTurnStage): TUnit;
+function TARegion.FindUnit(Num: integer; Stage: TTurnStage): TUnit;
 var
   i: integer;
   list: TTroopList;
@@ -1934,7 +1934,7 @@ begin
   end;
 end;
 
-function TRegion.FindFaction(Num: integer; Stage: TTurnStage): TTroop;
+function TARegion.FindFaction(Num: integer; Stage: TTurnStage): TTroop;
 begin
   if Stage <= tsMove then
     Result := Troops.Find(Num)
@@ -2039,32 +2039,32 @@ begin
   Levels.ClearAndFree;
 end;
 
-function TMap.Region(X, Y: integer): TRegion;
+function TMap.Region(X, Y: integer): TARegion;
 begin
   Result := Region(X, Y, Level, TurnNum);
 end;
 
-function TMap.Region(X, Y, Z: integer): TRegion;
+function TMap.Region(X, Y, Z: integer): TARegion;
 begin
   Result := Region(X, Y, Z, TurnNum);
 end;
 
-function TMap.Region(C: TCoords): TRegion;
+function TMap.Region(C: TCoords): TARegion;
 begin
   Result := Region(C.x, C.y, C.z, TurnNum);
 end;
 
-function TMap.Region(C: TCoords; T: integer): TRegion;
+function TMap.Region(C: TCoords; T: integer): TARegion;
 begin
   Result := Region(C.x, C.y, C.z, T);
 end;
 
-function TMap.Region(X, Y, Z, T: integer): TRegion;
+function TMap.Region(X, Y, Z, T: integer): TARegion;
 var left, right, i: integer;
-    R: TRegion;
+    R: TARegion;
     List: TRegionList;
 
-  function FindRegion(List: TRegionList; turn: integer): TRegion;
+  function FindRegion(List: TRegionList; turn: integer): TARegion;
   var j: integer;
   begin
     j := 0;
@@ -2113,7 +2113,7 @@ begin
         if (R.x = X) and (R.y = Y) then begin
           List := TRegionList(RCols[i]);
           if T = 0 then begin
-            if TRegion(List[0]).IsVirtual then Result := List[0]
+            if TARegion(List[0]).IsVirtual then Result := List[0]
             else Result := FindRegion(List, Turn.Num);
           end
           else Result := FindRegion(List, T);
@@ -2123,14 +2123,14 @@ begin
   end;
 end;
 
-function TMap.SeekRegion(C: TCoords): TRegion;
+function TMap.SeekRegion(C: TCoords): TARegion;
 begin
   Result := SeekRegion(C.x, C.y, C.z);
 end;
 
-function TMap.SeekRegion(X, Y, Z: integer): TRegion;
+function TMap.SeekRegion(X, Y, Z: integer): TARegion;
 var i, j, left, right: integer;
-    R: TRegion;
+    R: TARegion;
     List: TRegionList;
 begin
   with Levels[Z] do begin
@@ -2172,20 +2172,20 @@ begin
     if (R = nil) or (R.x <> X) or (R.y <> Y) then begin
       // Add new collection
       RCols.Insert(i, TList.Create);
-      TRegionList(RCols[i]).Add(TRegion.Create(X, Y, Z, TurnNum));
+      TRegionList(RCols[i]).Add(TARegion.Create(X, Y, Z, TurnNum));
     end
     else begin
       List := TRegionList(RCols[i]);
       // Find turn region in collection
       if (TurnNum = 0) and not List[0].IsVirtual then begin
-        List.Insert(0, TRegion.Create(X, Y, Z, TurnNum));
+        List.Insert(0, TARegion.Create(X, Y, Z, TurnNum));
         List[0].IsVirtual := True;
       end
       else begin
         if (TurnNum > 0) and List[0].IsVirtual then Inc(j);
         while (j < List.Count) and (List[j].Visited < TurnNum) do Inc(j);
         if (j = List.Count) or (List[j].Visited > TurnNum) then
-          List.Insert(j, TRegion.Create(X, Y, Z, TurnNum));
+          List.Insert(j, TARegion.Create(X, Y, Z, TurnNum));
       end;
     end;
     Result := TList(RCols[i])[j];
@@ -2195,7 +2195,7 @@ end;
 // Flatten map data from current turn to one layer (turn 0)
 procedure TMap.CreateVirtualLayer;
 var i: integer;
-    VRegion: TRegion;
+    VRegion: TARegion;
 begin
   TurnNum := 0;
   FreeVirtualLayer;
@@ -3101,17 +3101,17 @@ end;
 
 { TRegionList }
 
-function TRegionList.Get(Index: Integer): TRegion;
+function TRegionList.Get(Index: Integer): TARegion;
 begin
-  Result := TRegion(inherited Get(Index));
+  Result := TARegion(inherited Get(Index));
 end;
 
-procedure TRegionList.Put(Index: Integer; Item: TRegion);
+procedure TRegionList.Put(Index: Integer; Item: TARegion);
 begin
   inherited Put(Index, Item);
 end;
 
-function TRegionList.Find(coords: TCoords): TRegion;
+function TRegionList.Find(coords: TCoords): TARegion;
 var i: integer;
 begin
   Result := nil;
@@ -3369,7 +3369,7 @@ end;
 
 
 initialization
-  SimRegion := TRegion.Create(0, 0, 0, 1);
+  SimRegion := TARegion.Create(0, 0, 0, 1);
   SimBattle := TBattle.Create('Simulation');
   SimBattle.Region := SimRegion;
 

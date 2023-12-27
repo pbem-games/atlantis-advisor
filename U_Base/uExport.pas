@@ -34,7 +34,7 @@ var
 
   procedure CompileOrder(Lines: TStrings; Compact: boolean);
   procedure CompileCommonMap(Lines: TStrings; Parts: DWord);
-  procedure CompileRegion(Lines: TStrings; ARegion: TRegion; Parts: DWord);
+  procedure CompileRegion(Lines: TStrings; ARegion: TARegion; Parts: DWord);
   procedure AddMapHeader(Lines: TStrings);
   function UnitString(AUnit: TUnit; Parts: DWord): string;
   procedure CompileExportSkills(U: TUnit; Lines: TStrings);
@@ -142,7 +142,7 @@ procedure CompileOrder(Lines: TStrings; Compact: boolean);
 var i, k, n: integer;
     s, s1: string;
     U: TUnit;
-    R: TRegion;
+    R: TARegion;
     CompactRepeating: boolean;
 
   function CompactOrder(Order, s: string): string;
@@ -246,11 +246,11 @@ begin
   Lines.Add('');
 end;
 
-procedure CompileRegion(Lines: TStrings; ARegion: TRegion; Parts: DWord);
+procedure CompileRegion(Lines: TStrings; ARegion: TARegion; Parts: DWord);
 var i, j: integer;
     s: string;
     C: TCoords;
-    R: TRegion;
+    R: TARegion;
     transport: boolean;
     tmpGate: string;
 
@@ -290,7 +290,7 @@ var i, j: integer;
     Result := Result + '.';
   end;
 
-  function RegionID(R: TRegion): string;
+  function RegionID(R: TARegion): string;
   begin
     Result := MakeRegionName(R.Coords, False);
     if R.Settlement <> '' then
@@ -298,7 +298,7 @@ var i, j: integer;
         GetKey(s_Village, R.SettlementType - 1)]);
   end;
 
-  procedure WriteUnits(ARegion: TRegion; Struct: TStruct);
+  procedure WriteUnits(ARegion: TARegion; Struct: TStruct);
   var first, player: boolean;
       i, j: integer;
       s, pref: string;
@@ -425,7 +425,7 @@ end;
 
 procedure CompileCommonMap(Lines: TStrings; Parts: DWord);
 var x, y, z: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   AddMapHeader(Lines);
   for z := 0 to Map.Levels.Count-1 do

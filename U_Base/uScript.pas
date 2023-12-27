@@ -575,8 +575,8 @@ begin
   end
 
   // Region context
-  else if Context.ClassType = TRegion then begin
-    with TRegion(Context) do begin
+  else if Context.ClassType = TARegion then begin
+    with TARegion(Context) do begin
 
       if      id = 'x'       then Result := IntToStr(X)
       else if id = 'y'       then Result := IntToStr(Y)
@@ -630,7 +630,7 @@ begin
             Result := IntToStr(EnterCost(Movement(args[1]), C, Coords, False));
         end
         else if id = 'nextnew' then
-          Result := IntToStr(NextAttemptedNew(TRegion(Context)))
+          Result := IntToStr(NextAttemptedNew(TARegion(Context)))
         // lists
         else if id = 'wanted' then
           Result := GetListValue(Wanted, ItemFinder, ItemValue)
@@ -910,7 +910,7 @@ begin
     end
     else if ArgToken(id, 'region') then begin
       Context := Map.Region(StrToCoords(args[0]));
-      if Context <> nil then Result := CoordsToStr(TRegion(Context).Coords);
+      if Context <> nil then Result := CoordsToStr(TARegion(Context).Coords);
     end
     else if id = 'allitems' then
       Result := GetListValue(Game.ItemData, ItemDataFinder, ItemDataValue)

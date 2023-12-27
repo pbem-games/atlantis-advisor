@@ -38,7 +38,7 @@ uses Main;
 
 procedure TWantedItemsForm.FormCreate(Sender: TObject);
 var x, y: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   Grid.Cells[0, 0] := 'Settlement';
   Grid.Cells[1, 0] := 'Cost';
@@ -115,7 +115,7 @@ end;
 procedure TWantedItemsForm.GridDblClick(Sender: TObject);
 begin
   if Grid.RowCount > 1 then
-    MainForm.HexMapGoto(TRegion(Grid.Rows[Grid.Row].Data).Coords);
+    MainForm.HexMapGoto(TARegion(Grid.Rows[Grid.Row].Data).Coords);
 end;
 
 end.

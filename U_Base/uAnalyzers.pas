@@ -121,7 +121,7 @@ var i, j, k: integer;
     Res: TItemData;
     Item: TItem;
     Troop: TTroop;
-    R: TRegion;
+    R: TARegion;
 begin
   for k := 0 to Turn.Regions.Count-1 do begin
     R := Turn.Regions[k];
@@ -156,7 +156,7 @@ begin
   end;
 end;
 
-function GetMaxOut(U: TUnit; R: TRegion; Mode: integer; IData: TItemData): integer;
+function GetMaxOut(U: TUnit; R: TARegion; Mode: integer; IData: TItemData): integer;
 var maxout, turnout: integer;
 begin
   Result := 0;
@@ -169,7 +169,7 @@ begin
   end;
 end;
 
-function ProductionGap(Units: TUnitList; PrevR: TRegion; Value: integer; Key1, Key2: string;
+function ProductionGap(Units: TUnitList; PrevR: TARegion; Value: integer; Key1, Key2: string;
   Mode: integer; IData: TItemData): real;
 var i, j, total, maxout, output: integer;
     U: TUnit;
@@ -212,7 +212,7 @@ end;
 // SpyReports Economical section
 procedure DetectOtherProduction;
 var PrevTurn: TTurn;
-    R, PrevR: TRegion;
+    R, PrevR: TARegion;
     i, j, x: integer;
 begin
   PrevTurn := Game.Turns[Game.Turns.IndexOf(Turn) - 1];

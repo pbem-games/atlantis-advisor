@@ -55,7 +55,7 @@ begin
 end;
 
 // Redirect orders to "new 1" units to new unit numbers, if "@;new 1" found
-function RedirNewOrders(R: TRegion): boolean;
+function RedirNewOrders(R: TARegion): boolean;
 var j, k: integer;
     Troop: TTroop;
     U: TUnit;

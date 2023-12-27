@@ -32,12 +32,12 @@ type
     procedure gChangesDblClick(Sender: TObject);
   private
     procedure AddMsg(U: TUnit; MsgType, Text: string); overload;
-    procedure AddMsg(R: TRegion; MsgType, Text: string); overload;
-    procedure Scan(U: TUnit; PrevR: TRegion);
+    procedure AddMsg(R: TARegion; MsgType, Text: string); overload;
+    procedure Scan(U: TUnit; PrevR: TARegion);
     procedure ReadGuardEvents(U: TUnit);
     procedure CollectInTurn(ATurn: TTurn);
     procedure CollectChanges;
-    procedure AddEconomies(R: TRegion);
+    procedure AddEconomies(R: TARegion);
   public
     procedure SetUnitFilter;
   end;
@@ -101,7 +101,7 @@ end;
 
 procedure TSpyRepForm.CollectInTurn(ATurn: TTurn);
 var i, j, k: integer;
-    R, PrevR: TRegion;
+    R, PrevR: TARegion;
     U: TUnit;
 begin
   for i := 0 to ATurn.Regions.Count-1 do begin
@@ -155,7 +155,7 @@ begin
   end;
 end;
 
-procedure TSpyRepForm.Scan(U: TUnit; PrevR: TRegion);
+procedure TSpyRepForm.Scan(U: TUnit; PrevR: TARegion);
 var i, amt: integer;
     PrevTroop: TTroop;
     PrevU: TUnit;
@@ -241,7 +241,7 @@ begin
   gChanges.Rows[row].Color := FactionColor(U.Faction);
 end;
 
-procedure TSpyRepForm.AddMsg(R: TRegion; MsgType, Text: string);
+procedure TSpyRepForm.AddMsg(R: TARegion; MsgType, Text: string);
 var row: integer;
 begin
   row := gChanges.RowCount;
@@ -314,7 +314,7 @@ procedure TSpyRepForm.gChangesDblClick(Sender: TObject);
 begin
   with gChanges do
     if RowCount > 1 then begin
-      MainForm.HexMapGoto(TRegion(ImgRows[Row].Data).Coords);
+      MainForm.HexMapGoto(TARegion(ImgRows[Row].Data).Coords);
       Close;
     end;
 end;
@@ -358,7 +358,7 @@ begin
     end;
 end;
 
-procedure TSpyRepForm.AddEconomies(R: TRegion);
+procedure TSpyRepForm.AddEconomies(R: TARegion);
 begin
   if R.OtherFactions.Taxers > 0 then
     AddMsg(R, 'economy', 'Taxed: ' + IntToStr(R.OtherFactions.Taxers));

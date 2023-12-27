@@ -28,7 +28,7 @@ implementation
 
 procedure TUnitProductionForm.FormCreate(Sender: TObject);
 var i, row, amt, lv, maxout, turnout: integer;
-    RealR: TRegion;
+    RealR: TARegion;
     Skill: TSkill;
 begin
   if CurrUnit <> nil then begin

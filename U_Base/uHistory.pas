@@ -694,9 +694,9 @@ end;
 
 procedure SaveMap(Lines: TStrings);
 var i, x, y, z: integer;
-    R: TRegion;
+    R: TARegion;
 
-  procedure SaveRegion(R: TRegion);
+  procedure SaveRegion(R: TARegion);
   var j, own, ter: integer;
       s, s1, note: string;
       A: array of string;
@@ -1188,7 +1188,7 @@ end;
 
 procedure RegionParser(Trace: TTrace);
 var i: integer;
-    R: TRegion;
+    R: TARegion;
     RegCoords: TCoords;
     note: string;
 begin
@@ -1346,7 +1346,7 @@ end;
 procedure MergeWithHistory(ATurn: TTurn);
 var i, k, x, y, z: integer;
     Fac: TFaction;
-    R: TRegion;
+    R: TARegion;
 begin
   // Copy factions to history
   for i := 0 to ATurn.Factions.Count-1 do begin

@@ -8,9 +8,7 @@
       <Unit>
         <Filename Value="advisor.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="30"/>
-        <CursorPos X="13" Y="63"/>
+        <CursorPos X="16" Y="15"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -64,8 +62,10 @@
       <Unit>
         <Filename Value="U_Base\uGameSubs.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="14" Y="293"/>
+        <TopLine Value="269"/>
+        <CursorPos X="56" Y="291"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -570,6 +570,8 @@
         <Filename Value="..\..\..\bin\lazarus\lcl\graphics.pp"/>
         <UnitName Value="Graphics"/>
         <EditorIndex Value="-1"/>
+        <TopLine Value="754"/>
+        <CursorPos X="3" Y="772"/>
         <UsageCount Value="10"/>
       </Unit>
       <Unit>
@@ -600,13 +602,12 @@
       <Unit>
         <Filename Value="U_Base\AtlaDate.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="20"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="25">
+    <JumpHistory HistoryIndex="27">
       <Position>
         <Filename Value="advisor.lpr"/>
       </Position>
@@ -709,6 +710,14 @@
       <Position>
         <Filename Value="U_Base\uGameSubs.pas"/>
         <Caret Line="293" Column="14"/>
+      </Position>
+      <Position>
+        <Filename Value="advisor.lpr"/>
+        <Caret Line="15" Column="16"/>
+      </Position>
+      <Position>
+        <Filename Value="U_Base\uGameSubs.pas"/>
+        <Caret Line="293" Column="14" TopLine="259"/>
       </Position>
     </JumpHistory>
     <RunParams>

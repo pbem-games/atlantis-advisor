@@ -14,7 +14,7 @@ var
 
   // Process orders for region; if region = nil, process all orders
   // Before resuming and processing, execute Script for current unit
-  procedure DoProcessOrders(ARegion: TRegion; AScript: integer; Args: string;
+  procedure DoProcessOrders(ARegion: TARegion; AScript: integer; Args: string;
     AStartup: boolean);
   procedure StopProcessOrders;
 
@@ -22,20 +22,20 @@ var
 implementation
 
 type
-  TProcessor = procedure (ARegion: TRegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
+  TProcessor = procedure (ARegion: TARegion; AUnit: TUnit; s: string; var Line: integer; Order: string);
 
   TProcessThread = class(TThread)
   private
     procedure DoManualScript;
-    procedure DoOrder(ARegion: TRegion; AUnit: TUnit; Order: string; var Line: integer;
+    procedure DoOrder(ARegion: TARegion; AUnit: TUnit; Order: string; var Line: integer;
       Processor: TProcessor; CurrentOrder: string);
-    procedure DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor; UseFinal: boolean = false);
-    procedure DoScripts(R: TRegion; Order: string; UseFinal: boolean = false);
-    procedure DoGlobalOrders(R: TRegion);
+    procedure DoOrders(R: TARegion; Orders: array of string; Processor: TProcessor; UseFinal: boolean = false);
+    procedure DoScripts(R: TARegion; Order: string; UseFinal: boolean = false);
+    procedure DoGlobalOrders(R: TARegion);
     procedure ProcessRegion(Regs: TRegionList; RecreateRegion: boolean);
     procedure ProcessAllRegions;
   protected
-    Region: TRegion;
+    Region: TARegion;
     Script: integer;
     ScriptArgs: string;
     Startup: boolean;
@@ -53,7 +53,7 @@ var
   ProcessThread: TProcessThread;
   Terminator: TTerminator;
 
-procedure TProcessThread.DoOrder(ARegion: TRegion; AUnit: TUnit; Order: string; var Line:
+procedure TProcessThread.DoOrder(ARegion: TARegion; AUnit: TUnit; Order: string; var Line:
   integer; Processor: TProcessor; CurrentOrder: string);
 var args, msg: string;
 begin
@@ -82,7 +82,7 @@ begin
 end;
 
 // Process one type of orders for all units in region
-procedure TProcessThread.DoOrders(R: TRegion; Orders: array of string; Processor: TProcessor; UseFinal: boolean = false);
+procedure TProcessThread.DoOrders(R: TARegion; Orders: array of string; Processor: TProcessor; UseFinal: boolean = false);
 var i: integer;
     u: TUnit;
     inRegion: array of TUnit;
@@ -183,7 +183,7 @@ begin
   end;
 end;
 
-procedure TProcessThread.DoScripts(R: TRegion; Order: string; UseFinal: boolean = false);
+procedure TProcessThread.DoScripts(R: TARegion; Order: string; UseFinal: boolean = false);
 var
   i: integer;
   units: TUnitList;
@@ -203,7 +203,7 @@ end;
 
 
 // Execute global orders for all regions except current before region processing
-procedure TProcessThread.DoGlobalOrders(R: TRegion);
+procedure TProcessThread.DoGlobalOrders(R: TARegion);
 var i: integer;
     Fac: TFaction;
 begin
@@ -231,8 +231,8 @@ type
 var i, k, n: integer;
     U: TUnit;
     tempItems: TItemList;
-    R, freg: TRegion;
-    finalRegions: array of TRegion;
+    R, freg: TARegion;
+    finalRegions: array of TARegion;
     troop: TTroop;
     unitSet: TUnitSet;
 
@@ -247,7 +247,7 @@ var i, k, n: integer;
       list[High(list)] := u;
     end;
 
-  procedure addToFinal(r: TRegion);
+  procedure addToFinal(r: TARegion);
   var m: integer;
   begin
     for m := 0 to High(finalRegions) do
@@ -510,7 +510,7 @@ end;
 
 procedure TProcessThread.ProcessAllRegions;
 var i: integer;
-  reg: TRegion;
+  reg: TARegion;
   troop: TTroop;
 begin
   InitUnexplored;
@@ -569,15 +569,15 @@ end;
 
 procedure TProcessThread.Execute;
 type
-  TRegionArray = array of TRegion;
+  TRegionArray = array of TARegion;
 
-  procedure push(item: TRegion; var list: TRegionArray);
+  procedure push(item: TARegion; var list: TRegionArray);
   begin
     SetLength(list, Length(list) + 1);
     list[High(list)] := item;
   end;
 
-  function pop(var list: TRegionArray): TRegion;
+  function pop(var list: TRegionArray): TARegion;
   begin
     Result := list[High(list)];
     SetLength(list, Length(list) - 1);
@@ -588,7 +588,7 @@ type
     Result := Length(list) = 0;
   end;
 
-  function contains(item: TRegion; var list: TRegionArray): boolean;
+  function contains(item: TARegion; var list: TRegionArray): boolean;
   var i: integer;
   begin
     Result := False;
@@ -603,7 +603,7 @@ type
 var
   regs: TRegionList;
 
-  function getRegionsToProcess(r: TRegion): TRegionList;
+  function getRegionsToProcess(r: TARegion): TRegionList;
   var
     i: integer;
     p, s: TRegionArray;
@@ -696,7 +696,7 @@ begin
 end;
 
 // Start order-processing thread
-procedure DoProcessOrders(ARegion: TRegion; AScript: integer; Args: string; AStartup: boolean);
+procedure DoProcessOrders(ARegion: TARegion; AScript: integer; Args: string; AStartup: boolean);
 begin
   if ProcessThread = nil then begin
     ProcessThread := TProcessThread.Create(True);

@@ -93,7 +93,7 @@ var
   procedure AddOrderTo(AUnit: TUnit; s: string; CanRepeat: boolean);
   procedure ExecOrder(s: string; CanRepeat: boolean); overload;
   procedure ExecOrder(AUnit: TUnit; s: string; CanRepeat: boolean); overload;
-  function NextAttemptedNew(R: TRegion): integer;
+  function NextAttemptedNew(R: TARegion): integer;
   procedure ClearMoves;
   procedure ClearUnitMoves(AUnit: TUnit);
   procedure GetArmyOut;
@@ -170,7 +170,7 @@ begin
 end;
 
 // Scan orders of units to determine next unit number to form (for scripts)
-function NextAttemptedNew(R: TRegion): integer;
+function NextAttemptedNew(R: TARegion): integer;
 var i, j: integer;
     Troop: TTroop;
     Trace: TTrace;
@@ -1156,7 +1156,7 @@ end;
 
 procedure TOrderHandlers.Produce(Sender: TObject);
 var IData: TItemData;
-    RealR: TRegion;
+    RealR: TARegion;
     i, maxout, turnout: integer;
     Tool: TItem;
 begin
@@ -1464,7 +1464,7 @@ end;
 procedure MakeProduceMenu(U: TUnit; Item: TMenuItem);
 var i, lv, amt: integer;
     can: integer;
-    RealR: TRegion;
+    RealR: TARegion;
 begin
   Item.Clear;
   RealR := Map.Region(U.Region.Coords, Turn.Num);
@@ -1541,7 +1541,7 @@ end;
 
 procedure MakeBuyMenu(U: TUnit; Item: TMenuItem);
 var i: integer;
-    RealR: TRegion;
+    RealR: TARegion;
 begin
   Item.Clear;
   RealR := Map.Region(U.Region.Coords, Turn.Num);
@@ -1616,7 +1616,7 @@ end;
 procedure CustomizeUnitPopup(AUnit: TUnit);
 var i: integer;
     Popup: TPopupMenu;
-    RealR: TRegion;
+    RealR: TARegion;
     Item, Child, Specials, SailRoute: TMenuItem;
 begin
   Popup := MainForm.PopMenu;

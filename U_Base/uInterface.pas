@@ -29,7 +29,7 @@ uses
   procedure ItemDataListDrawItem(Control: TWinControl; Index: Integer; Rect: TRect);
   procedure ItemListToCombo(Items: TItemList; Combo: TComboBox; Flags: DWord; NotFlags, FirstEmpty: boolean);
   procedure ItemComboDrawItem(Control: TWinControl; Index: Integer; Rect: TRect);
-  procedure FillRegionUnits(Combo: TComboBox; ARegion: TRegion; AUnit: TUnit;
+  procedure FillRegionUnits(Combo: TComboBox; ARegion: TARegion; AUnit: TUnit;
     ExcludeUnit, SelectFormer: boolean);
   procedure AddItemGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor);
   procedure AddInventoryGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor; row: integer);
@@ -308,7 +308,7 @@ begin
   end;
 end;
 
-procedure FillRegionUnits(Combo: TComboBox; ARegion: TRegion; AUnit: TUnit;
+procedure FillRegionUnits(Combo: TComboBox; ARegion: TARegion; AUnit: TUnit;
   ExcludeUnit, SelectFormer: boolean);
 var i: integer;
 begin

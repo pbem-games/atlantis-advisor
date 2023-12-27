@@ -33,7 +33,7 @@ uses Types;
 
 procedure TRegStatForm.FormCreate(Sender: TObject);
 var i, row, j, k, wid: integer;
-    R, RealR: TRegion;
+    R, RealR: TARegion;
 begin
   cbNumbers.Checked := Config.ReadBool('RegionStats', 'Numbers', True);
   if CurrRegion <> nil then begin

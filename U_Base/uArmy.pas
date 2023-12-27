@@ -52,7 +52,7 @@ type
       AttackType: integer;
       Level: integer;
     end;
-    constructor Create(BUnits: TBattleUnitList; R: TRegion);
+    constructor Create(BUnits: TBattleUnitList; R: TARegion);
     destructor Destroy; override;
     function Broken: boolean;
     function CanAttack: integer;
@@ -91,13 +91,13 @@ type
       ASpecial: TSpecData);
   end;
 
-  function AddSoldiers(List: TSoldierList; AUnit: TBaseUnit; R: TRegion;
+  function AddSoldiers(List: TSoldierList; AUnit: TBaseUnit; R: TARegion;
     var Index: integer): integer;
-  function TypicalSoldier(AUnit: TBaseUnit; R: TRegion): TSoldier;
+  function TypicalSoldier(AUnit: TBaseUnit; R: TARegion): TSoldier;
   function EqualSoldiers(S1, S2: TSoldier): boolean;
   function TacticsLevel(BUnits: TBattleUnitList; var Tactitian: integer): integer;
   function CreateSoldier(AUnit: TBaseUnit; Man: TItemData; Items: TItemList;
-    R: TRegion): TSoldier;
+    R: TARegion): TSoldier;
 
 implementation
 
@@ -278,7 +278,7 @@ begin
 end;
 
 function CreateSoldier(AUnit: TBaseUnit; Man: TItemData; Items: TItemList;
-  R: TRegion): TSoldier;
+  R: TARegion): TSoldier;
 var S: TSoldier;
     i, j, ridingBonus, attackBonus, defenceBonus: integer;
     Skill: TSkill;
@@ -435,7 +435,7 @@ begin
   end;
 end;
 
-function TypicalSoldier(AUnit: TBaseUnit; R: TRegion): TSoldier;
+function TypicalSoldier(AUnit: TBaseUnit; R: TARegion): TSoldier;
 var Items: TItemList;
     i: integer;
 begin
@@ -452,7 +452,7 @@ begin
   Items.ClearAndFree;
 end;
 
-function AddSoldiers(List: TSoldierList; AUnit: TBaseUnit; R: TRegion;
+function AddSoldiers(List: TSoldierList; AUnit: TBaseUnit; R: TARegion;
   var Index: integer): integer;
 var Items: TItemList;
     i: integer;
@@ -546,7 +546,7 @@ end;
 
 { TArmy }
 
-constructor TArmy.Create(BUnits: TBattleUnitList; R: TRegion);
+constructor TArmy.Create(BUnits: TBattleUnitList; R: TARegion);
 var i, idx, FrontCount: integer;
 begin
   Soldiers := TSoldierList.Create;

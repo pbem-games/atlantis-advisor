@@ -82,7 +82,7 @@ end;
 procedure TMiniMapForm.MiniMapDrawHex(Sender: TObject; HX, HY: Integer;
   ACanvas: TCanvas; CX, CY: Integer; AState: TCylinderMapDrawState);
 var mapX, mapY: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   if (Game = nil) or (VTurn = nil) then Exit;
   CalcMapCoords(HX, HY, mapX, mapY);

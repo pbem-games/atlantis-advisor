@@ -65,7 +65,7 @@ var
   function MonsterTroop(Troop: TTroop): boolean;
   function ScoutTroop(Troop: TTroop): boolean;
   function CountMen(ALFaction: TTroop): integer;
-  function HasMonsters(ARegion: TRegion): boolean;
+  function HasMonsters(ARegion: TARegion): boolean;
   function UnitLoad(U: TUnit; MT: integer): integer;
   function UnitCapacity(U: TUnit; MT: integer): integer;
   function SingleRace(Items: TItemList): TItem;
@@ -80,9 +80,9 @@ var
   function FindUnit(Num: integer): TUnit;
   function ProduceMaterials(Items, Materials: TItemList; AnyOf: boolean): integer;
   function GetToolsBonus(Items: TItemList; IData: TItemData; men: integer): integer;
-  function CanProduce(U: TUnit; R: TRegion; IData: TItemData;
+  function CanProduce(U: TUnit; R: TARegion; IData: TItemData;
     var Level, Amount: integer): integer;
-  function ProduceOut(U: TUnit; R: TRegion; IData: TItemData; var MaxOut,
+  function ProduceOut(U: TUnit; R: TARegion; IData: TItemData; var MaxOut,
     TurnOut: integer; limitOut: integer; StatInfo: boolean): integer;
   function EntertainOut(U: TUnit): integer;
   function BuildMaterials(AUnit: TUnit; Data: TStructData): integer;
@@ -107,7 +107,7 @@ var
   // Regions
   function StructCarriedWeight(Struct: TStruct): integer;
   function GetWeather(ACoords: TCoords): TWeatherData;
-  function RegionInDir(Coords: TCoords; Dir: integer): TRegion;
+  function RegionInDir(Coords: TCoords; Dir: integer): TARegion;
   function IsNexus(Level: integer): boolean;
   // Other data
   function TestItemName(AItemData: TItemData; s: string): boolean;
@@ -257,7 +257,7 @@ begin
   Result := Result * U.Items.Amount(IT_MAN);
 end;
 
-function CanProduce(U: TUnit; R: TRegion; IData: TItemData;
+function CanProduce(U: TUnit; R: TARegion; IData: TItemData;
   var Level, Amount: integer): integer;
 var Skill: TSkill;
     Res: TItem;
@@ -316,7 +316,7 @@ begin
   Result := prdOk;
 end;
 
-function ProduceOut(U: TUnit; R: TRegion; IData: TItemData; var MaxOut,
+function ProduceOut(U: TUnit; R: TARegion; IData: TItemData; var MaxOut,
   TurnOut: integer; limitOut: integer; StatInfo: boolean): integer;
 var level, amt, men, bonus: integer;
 begin
@@ -409,7 +409,7 @@ end;
 
 function GetWeather(ACoords: TCoords): TWeatherData;
 var area, month: integer;
-    Region: TRegion;
+    Region: TARegion;
 begin
   Region := Map.Region(ACoords);
   if (Region <> nil) and (Region.Visited = Turn.Num) and Region.FullData
@@ -452,7 +452,7 @@ begin
 end;
 
 function MakeRegionName(C: TCoords; UseSettlement: boolean): string;
-var Region: TRegion;
+var Region: TARegion;
 begin
   Result := IntToStr(C.X) + ',' + IntToStr(C.Y);
   if Map.Levels[C.Z].Name <> Keys[s_Surface] then
@@ -466,7 +466,7 @@ begin
 end;
 
 function MakeAltRegionName(C: TCoords): string;
-var Region: TRegion;
+var Region: TARegion;
 begin
   Result := IntToStr(C.X) + ',' + IntToStr(C.Y);
   if Map.Levels[C.Z].Name <> Keys[s_Surface] then
@@ -551,7 +551,7 @@ end;
 
 function FindShaft(CFrom, CTo: TCoords): TStruct;
 var i: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   Result := nil;
   R := Map.Region(CFrom);
@@ -598,7 +598,7 @@ begin
   end;
 end;
 
-function RoadExists(Region: TRegion; From: TCoords): boolean;
+function RoadExists(Region: TARegion; From: TCoords): boolean;
 var i: integer;
 begin
   Result := False;
@@ -611,7 +611,7 @@ begin
 end;
 
 function EnterCost(MT: integer; C, From: TCoords; Sailing: boolean): integer;
-var Region: TRegion;
+var Region: TARegion;
     Weather: TWeatherData;
 begin
   Result := 1;
@@ -683,7 +683,7 @@ begin
   Result := Min(directDistance(a, c), Result);
 end;
 
-function RegionInDir(Coords: TCoords; Dir: integer): TRegion;
+function RegionInDir(Coords: TCoords; Dir: integer): TARegion;
 var C: TCoords;
 begin
   C := CoordsInDir(Coords, Dir);
@@ -699,7 +699,7 @@ begin
 end;
 
 function MovableDir(From: TCoords; Dir: integer; Sail: boolean; MT: integer; CanSwim: boolean; Ship: TStruct): boolean;
-var Region, RegInDir: TRegion;
+var Region, RegInDir: TARegion;
     C: TCoords;
 begin
   Result := False;
@@ -786,7 +786,7 @@ var
   iMaxRange:  integer;
   iUnitRange: integer;
   iRegion:    integer;
-  rRegion:    TRegion;
+  rRegion:    TARegion;
   iRange:     integer;
   iTroop:     integer;
   trTroop:    TTroop;
@@ -961,7 +961,7 @@ end;
 
 function StructCarriedWeight(Struct: TStruct): integer;
 var i, j: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   Result := 0;
   if Struct.Owner <> nil then begin
@@ -1026,7 +1026,7 @@ begin
 end;
 
 // Determine amount of monsters (faction 2 or unknown faction, no men, some monsters)
-function HasMonsters(ARegion: TRegion): boolean;
+function HasMonsters(ARegion: TARegion): boolean;
 var i: integer;
 begin
   i := ARegion.Troops.Count-1;

@@ -28,7 +28,7 @@ uses Main;
 
 procedure TGatesForm.FormCreate(Sender: TObject);
 var z, x, y, row: integer;
-    R: TRegion;
+    R: TARegion;
 begin
   Grid.Cells[0, 0] := 'Num';
   Grid.Cols[0].Format := cfNumber;
@@ -50,10 +50,10 @@ begin
 end;
 
 procedure TGatesForm.GridDblClick(Sender: TObject);
-var R: TRegion;
+var R: TARegion;
 begin
   with Sender as TPowerGrid do
-    R := TRegion(ImgRows[Row].Data);
+    R := TARegion(ImgRows[Row].Data);
   if R <> nil then begin
     MainForm.HexMapGoto(R.Coords);
     Close;

@@ -39,7 +39,7 @@ uses Types;
 
 procedure TTownTradeForm.FormCreate(Sender: TObject);
 var x, y: integer;
-    R, RealR: TRegion;
+    R, RealR: TARegion;
 begin
   if (CurrRegion <> nil) and (CurrRegion.Settlement <> '') then begin
     Caption := Caption + ' - ' + CurrRegion.Settlement;
@@ -72,8 +72,8 @@ begin
     j := 0;
     row := -1;
     while (j < Regions.Count) do begin
-      if Wanted then List2 := TRegion(Regions[j]).Wanted
-      else List2 := TRegion(Regions[j]).ForSale;
+      if Wanted then List2 := TARegion(Regions[j]).Wanted
+      else List2 := TARegion(Regions[j]).ForSale;
       for k := 0 to List2.Count-1 do
         if List2[k].Data.Short = List1[i].Data.Short then begin
           if row = -1 then begin
@@ -83,7 +83,7 @@ begin
           if Grid.Cells[3, row] <> '' then
             Grid.Cells[3, row] := Grid.Cells[3, row] + ', ';
           Grid.Cells[3, row] := Grid.Cells[3, row] +
-            TRegion(Regions[j]).Settlement + ' $' +
+            TARegion(Regions[j]).Settlement + ' $' +
             IntToStr(List2[k].Cost);
           profit := List2[k].Cost - List1[i].Cost;
           if (Wanted and (profit > 0))
