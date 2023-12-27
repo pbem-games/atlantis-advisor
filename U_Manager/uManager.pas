@@ -6,7 +6,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, Buttons, Grids, PowerGrid, ImgList, FileCtrl, DataStructs, RepRead,
+  StdCtrls, Buttons, Grids, ImgList, FileCtrl, DataStructs, RepRead,
   AtlaDate, ExtCtrls, ComCtrls, uHistory, Clipbrd, IniFiles, MyStrings,
   Resources, uOptions, uKeys, uGameSubs, uAvatars, uNewGame, uUnitRecs,
   IntEdit, uMgrOptions, uAnalyzers;

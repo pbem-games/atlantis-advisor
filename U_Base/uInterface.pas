@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, LCLIntf, LCLType, LMessages, Classes, Controls, StdCtrls, DataStructs, uGameSubs,
-  Resources, PowerGrid, Graphics, MyStrings, Forms;
+  Resources, Graphics, MyStrings, Forms;
 
   procedure ListDrawItem(Control: TWinControl; Index: Integer; Rect: TRect;
     BmpIndex: integer);

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, PowerGrid, uInterface, DataStructs, Resources;
+  Dialogs, Grids, uInterface, DataStructs, Resources;
 
 type
   TItemStatsForm = class(TForm)

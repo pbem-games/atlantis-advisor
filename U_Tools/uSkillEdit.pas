@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Resources, ComCtrls, ToolWin, CheckLst, DataStructs, uGameSubs,
-  Buttons, IntEdit, uInterface, Grids, PowerGrid;
+  Buttons, IntEdit, uInterface, Grids;
 
 const
   TypeIcons: array[0..2] of integer = (bmpSkill, bmpSpell, bmpFoundation);

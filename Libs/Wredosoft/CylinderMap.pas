@@ -4,12 +4,13 @@
 
 unit CylinderMap;
 
+{$MODE Delphi}
+
 {$R cursors.res}
 
 interface
 
-uses Windows, Messages, Classes, Graphics, Forms, Controls, ExtCtrls, Math,
-  LMessages;
+uses LCLIntf, LCLType, LMessages, Classes, Graphics, Forms, Controls, ExtCtrls, Math;
 
 const
   KeyStep = 10;
@@ -72,7 +73,6 @@ type
     OldHexes: TRect;
     StoredCursor: TCursor;
     function Cyl(n: integer): integer;
-    function GetCursor: TCursor;
     procedure IterateHexes(HexRect: TRect; Handler: TIterationHandler);
     procedure IHDrawNewHex(HX, HY: integer);
     procedure IHDrawNewCell(HX, HY: integer);
@@ -81,7 +81,6 @@ type
     procedure SetCellWidth(Value: integer);
     procedure SetCellHeight(Value: integer);
     procedure SetColCount(Value: integer);
-    procedure SetCursor(Value: TCursor);
     procedure SetGridColor(Value: TColor);
     procedure SetHexSize(Value: integer);
     procedure SetMapRect(Value: TRect);
@@ -90,14 +89,15 @@ type
     procedure SetRowCount(Value: integer);
     procedure SetSelected(Value: TPoint);
     procedure SetSelectColor(Value: TColor);
-    procedure WMGetDlgCode(var Message: TWMGetDlgCode); message WM_GETDLGCODE;
-    procedure WMSize(var Message: TWMSize); message WM_SIZE;
+    // FIXME: Windows only
+    // procedure WMGetDlgCode(var Message: TWMGetDlgCode); message WM_GETDLGCODE;
+    // procedure WMSize(var Message: TWMSize); message WM_SIZE;
     procedure SetFirstOdd(const Value: boolean);
   protected
+    procedure SetCursor(Value: TCursor); override;
     procedure BeforePaint; dynamic;
     procedure AfterPaint; dynamic;
-    function DoKeyDownBeforeInterface(var Message: TLMKey; IsRecurseCall: Boolean): Boolean;
-    procedure DrawHex(HX, HY: integer); dynamic;
+        procedure DrawHex(HX, HY: integer); dynamic;
     procedure DrawExtra(HX, HY: integer); dynamic;
     procedure DblClick; override;
     procedure KeyDown(var Key: Word; Shift: TShiftState); override;
@@ -305,12 +305,6 @@ begin
   if hmDblClickCenter in FOptions then Center(FSelected.X, FSelected.Y);
 end;
 
-function TCylinderMap.DoKeyDownBeforeInterface(var Message: TLMKey; IsRecurseCall: Boolean): Boolean;
-begin
-  inherited DoKeyDownBeforeInterface(Message, IsRecurseCall);
-  Result := false;
-end;
-
 procedure TCylinderMap.DrawHex(HX, HY: integer);
 var cx,cy: integer;
     State: TCylinderMapDrawState;
@@ -343,11 +337,6 @@ begin
   end;
   if Assigned(FOnDrawExtra) then
     FOnDrawExtra(Self, Cyl(HX), HY, OffScreen.Canvas, cx, cy, State);
-end;
-
-function TCylinderMap.GetCursor: TCursor;
-begin
-  Result := inherited Cursor;
 end;
 
 function TCylinderMap.GridWidth: integer;
@@ -730,20 +719,22 @@ begin
   Invalidate;
 end;
 
-procedure TCylinderMap.WMGetDlgCode(var Message: TWMGetDlgCode);
-begin
-  Message.Result := DLGC_WANTARROWS + DLGC_WANTCHARS;
-end;
+// FIXME: Windows only
+// procedure TCylinderMap.WMGetDlgCode(var Message: TWMGetDlgCode);
+// begin
+//   Message.Result := DLGC_WANTARROWS + DLGC_WANTCHARS;
+// end;
 
-procedure TCylinderMap.WMSize(var Message: TWMSize);
-begin
-  MapState := MapState + [msNoPaint];
-  inherited;
-  FMapRect.Right := FMapRect.Left + Width;
-  FMapRect.Bottom := FMapRect.Top + Height;
-  MoveMap(FMapRect.Left, FMapRect.Top);
-  MapState := MapState + [msRedraw] - [msNoPaint];
-end;
+// FIXME: Windows only
+// procedure TCylinderMap.WMSize(var Message: TWMSize);
+// begin
+//   MapState := MapState + [msNoPaint];
+//   inherited;
+//   FMapRect.Right := FMapRect.Left + Width;
+//   FMapRect.Bottom := FMapRect.Top + Height;
+//   MoveMap(FMapRect.Left, FMapRect.Top);
+//   MapState := MapState + [msRedraw] - [msNoPaint];
+// end;
 
 procedure TCylinderMap.SetFirstOdd(const Value: boolean);
 begin

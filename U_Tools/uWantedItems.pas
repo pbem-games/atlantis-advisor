@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Grids, PowerGrid, DataStructs, Resources, uInterface;
+  Dialogs, StdCtrls, Grids, DataStructs, Resources, uInterface;
 
 type
   TWantedItemsForm = class(TForm)

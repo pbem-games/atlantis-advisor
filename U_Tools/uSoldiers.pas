@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DataStructs, Resources, Grids, PowerGrid, uArmy, uGameSubs,
+  Dialogs, DataStructs, Resources, Grids, uArmy, uGameSubs,
   MyStrings, IniFiles;
 
 type

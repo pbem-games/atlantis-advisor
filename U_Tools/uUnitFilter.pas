@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, Resources, StdCtrls, ComCtrls, ToolWin, IntEdit,
-  ExtCtrls, uInterface, uGameSubs, PowerGrid;
+  ExtCtrls, uInterface, uGameSubs;
 
 type
   TUnitFilterForm = class(TForm)

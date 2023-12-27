@@ -6,7 +6,7 @@ interface
 
 uses
   LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ImgList, DataStructs, Grids, PowerGrid, StdCtrls, Buttons, ComCtrls, MyStrings,
+  ImgList, DataStructs, Grids, StdCtrls, Buttons, ComCtrls, MyStrings,
   Resources, ExtCtrls, uAvatars, ToolWin, uGameSubs, CheckLst;
 
 const

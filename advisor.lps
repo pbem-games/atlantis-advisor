@@ -30,6 +30,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
+        <CursorPos Y="3"/>
         <UsageCount Value="20"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
@@ -368,7 +369,7 @@
       <Unit>
         <Filename Value="Libs\Wredosoft\PowerGrid.pas"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="39" Y="12"/>
+        <CursorPos X="26" Y="53"/>
         <UsageCount Value="20"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit>
@@ -503,8 +504,10 @@
       <Unit>
         <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="12" Y="12"/>
+        <TopLine Value="58"/>
+        <CursorPos X="80" Y="90"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -512,24 +515,58 @@
       <Unit>
         <Filename Value="..\..\..\bin\lazarus\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="2222"/>
-        <CursorPos X="98" Y="2237"/>
+        <TopLine Value="2214"/>
+        <CursorPos X="39" Y="2244"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\bin\lazarus\lcl\lmessages.pp"/>
         <UnitName Value="LMessages"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="296"/>
         <CursorPos X="3" Y="318"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\bin\lazarus\fpc\3.2.2\source\rtl\win\messages.pp"/>
+        <UnitName Value="Messages"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\bin\lazarus\fpc\3.2.2\source\rtl\win64\classes.pp"/>
+        <UnitName Value="Classes"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\bin\lazarus\lcl\graphics.pp"/>
+        <UnitName Value="Graphics"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\bin\lazarus\lcl\forms.pp"/>
+        <UnitName Value="Forms"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\bin\lazarus\lcl\extctrls.pp"/>
+        <UnitName Value="ExtCtrls"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\bin\lazarus\fpc\3.2.2\source\rtl\objpas\math.pp"/>
+        <UnitName Value="Math"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="13">
+    <JumpHistory HistoryIndex="20">
       <Position>
         <Filename Value="advisor.lpr"/>
       </Position>
@@ -540,10 +577,6 @@
       <Position>
         <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
         <Caret Line="46" Column="3" TopLine="24"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\bin\lazarus\lcl\controls.pp"/>
-        <Caret Line="2455" Column="56" TopLine="2431"/>
       </Position>
       <Position>
         <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
@@ -578,12 +611,44 @@
         <Caret Line="98" Column="54" TopLine="76"/>
       </Position>
       <Position>
-        <Filename Value="..\..\..\bin\lazarus\lcl\controls.pp"/>
-        <Caret Line="2244" Column="15" TopLine="2221"/>
+        <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
+        <Caret Line="12" Column="12"/>
       </Position>
       <Position>
         <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
-        <Caret Line="12" Column="12"/>
+        <Caret Line="12" Column="14"/>
+      </Position>
+      <Position>
+        <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
+        <Caret Line="13" Column="33"/>
+      </Position>
+      <Position>
+        <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
+        <Caret Line="21" Column="73" TopLine="57"/>
+      </Position>
+      <Position>
+        <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
+        <Caret Line="275" Column="100" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
+        <Caret Line="96" Column="36" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
+        <Caret Line="92" Column="41" TopLine="70"/>
+      </Position>
+      <Position>
+        <Filename Value="Libs\Wredosoft\CylinderMap.pas"/>
+        <Caret Line="51" Column="9" TopLine="18"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\bin\lazarus\lcl\controls.pp"/>
+        <Caret Line="2453" Column="3" TopLine="2430"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\bin\lazarus\lcl\controls.pp"/>
+        <Caret Line="2062" Column="3" TopLine="2133"/>
       </Position>
     </JumpHistory>
     <RunParams>

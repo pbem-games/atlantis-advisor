@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, PowerGrid, StdCtrls, Buttons, DataStructs, Resources,
+  Dialogs, Grids, StdCtrls, Buttons, DataStructs, Resources,
   ComCtrls, ToolWin, uGameSubs, MyStrings;
 
 type

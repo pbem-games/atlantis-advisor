@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, Resources, StdCtrls, ComCtrls, ToolWin, IntEdit,
-  Grids, PowerGrid, MyStrings, uGameSubs, uInterface, uNeeds;
+  Grids, MyStrings, uGameSubs, uInterface, uNeeds;
 
 type
   TUnitNeedsForm = class(TForm)
