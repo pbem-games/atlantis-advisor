@@ -1,9 +1,11 @@
 unit uMiniMap;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   CylinderMap, DataStructs, Math, Resources, uHexMap;
 
 const
@@ -37,7 +39,7 @@ implementation
 
 uses Main;
 
-{$R *.DFM}
+{$R *.lfm}
 
 constructor TMiniMapForm.Create(AOwner: TComponent; AHexMap: TCylinderMap);
 begin

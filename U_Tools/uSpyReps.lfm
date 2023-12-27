@@ -14,7 +14,7 @@ object SpyRepForm: TSpyRepForm
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
-  object gChanges: TPowerGrid
+  object gChanges: TStringGrid
     Left = 0
     Top = 29
     Width = 569
@@ -22,15 +22,8 @@ object SpyRepForm: TSpyRepForm
     Align = alClient
     Color = clBlack
     ColCount = 9
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 1
-    ImageCol = 0
     RowCount = 1
-    Sorted = True
-    SortBy = 0
-    StickySelect = False
-    TopRow = 1
     OnDblClick = gChangesDblClick
     OnDrawCell = gChangesDrawCell
   end

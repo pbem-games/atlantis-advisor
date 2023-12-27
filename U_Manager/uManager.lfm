@@ -27,8 +27,8 @@ object ManagerForm: TManagerForm
     BevelOuter = bvNone
     TabOrder = 0
     object DetailBtn: TSpeedButton
-      Left = 310
-      Top = 314
+      Left = 308
+      Top = 312
       Width = 15
       Height = 21
       Hint = 'Show Details'
@@ -49,23 +49,23 @@ object ManagerForm: TManagerForm
       OnClick = DetailBtnClick
     end
     object Panel1: TPanel
-      Left = 2
-      Top = 2
+      Left = 0
+      Top = 0
       Width = 321
       Height = 45
       BevelInner = bvRaised
       BevelOuter = bvLowered
       TabOrder = 0
       object Label1: TLabel
-        Left = 10
-        Top = 14
+        Left = 8
+        Top = 12
         Width = 31
         Height = 13
         Caption = 'Game:'
       end
       object GameCombo: TComboBox
-        Left = 50
-        Top = 10
+        Left = 48
+        Top = 8
         Width = 161
         Height = 21
         Style = csDropDownList
@@ -74,8 +74,8 @@ object ManagerForm: TManagerForm
         OnChange = GameComboChange
       end
       object NewGameBtn: TBitBtn
-        Left = 234
-        Top = 9
+        Left = 232
+        Top = 7
         Width = 23
         Height = 22
         Hint = 'New Game'
@@ -114,8 +114,8 @@ object ManagerForm: TManagerForm
         Margin = 1
       end
       object KillBtn: TBitBtn
-        Left = 282
-        Top = 9
+        Left = 280
+        Top = 7
         Width = 23
         Height = 22
         Hint = 'Kill Game'
@@ -154,8 +154,8 @@ object ManagerForm: TManagerForm
         Margin = 1
       end
       object RenameBtn: TBitBtn
-        Left = 258
-        Top = 9
+        Left = 256
+        Top = 7
         Width = 23
         Height = 22
         Hint = 'Rename Game'
@@ -194,29 +194,9 @@ object ManagerForm: TManagerForm
         Margin = 1
       end
     end
-    object RepGrid: TPowerGrid
-      Left = 2
-      Top = 54
-      Width = 221
-      Height = 285
-      ColCount = 4
-      DefaultRowColor = clBlack
-      DefaultRowHeight = 18
-      Editing = False
-      FixedRows = 0
-      ImageCol = 0
-      Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoRowSelect]
-      RowCount = 0
-      Sorted = True
-      SortBy = 2
-      SortOrder = soDescending
-      StickySelect = True
-      TopRow = 0
-      OnDrawCell = RepGridDrawCell
-    end
     object AddBtn: TBitBtn
-      Left = 230
-      Top = 58
+      Left = 228
+      Top = 56
       Width = 92
       Height = 22
       Caption = 'Add Reports'
@@ -252,8 +232,8 @@ object ManagerForm: TManagerForm
       Margin = 2
     end
     object PasteBtn: TBitBtn
-      Left = 230
-      Top = 86
+      Left = 228
+      Top = 84
       Width = 92
       Height = 22
       Caption = 'Paste Report'
@@ -289,8 +269,8 @@ object ManagerForm: TManagerForm
       Margin = 2
     end
     object DelBtn: TBitBtn
-      Left = 230
-      Top = 114
+      Left = 228
+      Top = 112
       Width = 92
       Height = 22
       Caption = 'Del Report'
@@ -326,8 +306,8 @@ object ManagerForm: TManagerForm
       Margin = 2
     end
     object ReadBtn: TBitBtn
-      Left = 230
-      Top = 142
+      Left = 228
+      Top = 140
       Width = 92
       Height = 22
       Caption = 'Read List'
@@ -363,8 +343,8 @@ object ManagerForm: TManagerForm
       Margin = 2
     end
     object ProgressBar: TProgressBar
-      Left = 230
-      Top = 170
+      Left = 228
+      Top = 168
       Width = 92
       Height = 6
       Min = 0
@@ -373,8 +353,8 @@ object ManagerForm: TManagerForm
       TabOrder = 6
     end
     object ReadCloseBtn: TBitBtn
-      Left = 230
-      Top = 286
+      Left = 228
+      Top = 284
       Width = 92
       Height = 22
       Caption = 'Read && Close'
@@ -412,8 +392,8 @@ object ManagerForm: TManagerForm
       Margin = 2
     end
     object CloseBtn: TBitBtn
-      Left = 230
-      Top = 258
+      Left = 228
+      Top = 256
       Width = 92
       Height = 22
       Caption = 'Close'
@@ -449,8 +429,8 @@ object ManagerForm: TManagerForm
       Margin = 2
     end
     object btnOptions: TBitBtn
-      Left = 230
-      Top = 194
+      Left = 228
+      Top = 192
       Width = 92
       Height = 22
       Caption = 'Options'

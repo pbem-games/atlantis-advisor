@@ -1,14 +1,16 @@
 unit uItemStats;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, uInterface, DataStructs, Resources;
 
 type
   TItemStatsForm = class(TForm)
-    Grid: TPowerGrid;
+    Grid: TStringGrid;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure GridDrawIcon(Sender: TObject; ACanvas: TCanvas; X,
@@ -25,43 +27,44 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TItemStatsForm.FormCreate(Sender: TObject);
 var OldList: TItemList;
     OldI: TItem;
     i, row, idx, amt: integer;
 begin
-  Grid.Cells[0, 0] := 'Item';
-  Grid.Cols[0].Format := cfNumber;
-  Grid.Cells[1, 0] := 'Amount';
-  Grid.Cols[1].Format := cfNumber;
-  Grid.Cells[2, 0] := 'Change';
-  Grid.Cols[2].Format := cfNumber;
-
-  List := TItemList.Create;
-  CountItems(Turn.Factions[1], List);
-  idx := Game.Turns.IndexOf(Turn);
-  OldList := TItemList.Create;
-  if idx > 1 then CountItems(Game.Turns[idx-1].Factions[1], OldList);
-
-  Grid.RowCount := 1;
-  for i := 0 to List.Count-1 do begin
-    row := Grid.RowCount;
-    Grid.Cells[0, row] := List[i].Name;
-    Grid.SortKeys[0, row] := IntToStr(Game.ItemData.IndexOf(List[i].Data));
-    Grid.Cells[1, row] := IntToStr(List[i].Amount);
-    OldI := OldList.Find(List[i].Data.Short);
-    if OldI <> nil then begin
-      amt := List[i].Amount - OldI.Amount;
-      Grid.Cells[2, row] := IntToStr(amt);
-      if amt > 0 then Grid.Cells[2, row] := '+' + Grid.Cells[2, row];
-    end;
-    Grid.Rows[row].Data := List[i].Data;
-  end;
-  Grid.Fixup;
-
-  OldList.Free;
+  // FIXME: broken
+  //Grid.Cells[0, 0] := 'Item';
+  //Grid.Cols[0].Format := cfNumber;
+  //Grid.Cells[1, 0] := 'Amount';
+  //Grid.Cols[1].Format := cfNumber;
+  //Grid.Cells[2, 0] := 'Change';
+  //Grid.Cols[2].Format := cfNumber;
+  //
+  //List := TItemList.Create;
+  //CountItems(Turn.Factions[1], List);
+  //idx := Game.Turns.IndexOf(Turn);
+  //OldList := TItemList.Create;
+  //if idx > 1 then CountItems(Game.Turns[idx-1].Factions[1], OldList);
+  //
+  //Grid.RowCount := 1;
+  //for i := 0 to List.Count-1 do begin
+  //  row := Grid.RowCount;
+  //  Grid.Cells[0, row] := List[i].Name;
+  //  Grid.SortKeys[0, row] := IntToStr(Game.ItemData.IndexOf(List[i].Data));
+  //  Grid.Cells[1, row] := IntToStr(List[i].Amount);
+  //  OldI := OldList.Find(List[i].Data.Short);
+  //  if OldI <> nil then begin
+  //    amt := List[i].Amount - OldI.Amount;
+  //    Grid.Cells[2, row] := IntToStr(amt);
+  //    if amt > 0 then Grid.Cells[2, row] := '+' + Grid.Cells[2, row];
+  //  end;
+  //  Grid.Rows[row].Data := List[i].Data;
+  //end;
+  //Grid.Fixup;
+  //
+  //OldList.Free;
 end;
 
 procedure TItemStatsForm.FormDestroy(Sender: TObject);

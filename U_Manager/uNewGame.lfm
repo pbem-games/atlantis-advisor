@@ -11,14 +11,9 @@ object NewGameForm: TNewGameForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
-  DesignSize = (
-    248
-    162)
   PixelsPerInch = 96
-  TextHeight = 13
   object Button1: TButton
     Left = 167
     Top = 135
@@ -48,30 +43,30 @@ object NewGameForm: TNewGameForm
     Caption = 'Properties'
     TabOrder = 2
     object Label1: TLabel
-      Left = 24
-      Top = 28
+      Left = 22
+      Top = 14
       Width = 60
       Height = 13
       Caption = 'Game name:'
     end
     object Label2: TLabel
-      Left = 24
-      Top = 56
+      Left = 22
+      Top = 42
       Width = 39
       Height = 13
       Caption = 'Ruleset:'
     end
     object GameNameEdit: TEdit
-      Left = 92
-      Top = 24
+      Left = 90
+      Top = 10
       Width = 121
       Height = 21
       TabOrder = 0
       Text = 'new game'
     end
     object cmRuleset: TComboBox
-      Left = 92
-      Top = 52
+      Left = 90
+      Top = 38
       Width = 121
       Height = 21
       Style = csDropDownList
@@ -80,8 +75,8 @@ object NewGameForm: TNewGameForm
       TabOrder = 1
     end
     object cbLocal: TCheckBox
-      Left = 92
-      Top = 84
+      Left = 90
+      Top = 70
       Width = 81
       Height = 17
       Caption = 'Local game'

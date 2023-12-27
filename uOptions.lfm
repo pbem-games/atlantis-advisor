@@ -153,53 +153,53 @@ object OptionForm: TOptionForm
             Caption = 'E-Mail'
             TabOrder = 2
             object Label11: TLabel
-              Left = 10
-              Top = 30
+              Left = 8
+              Top = 16
               Width = 16
               Height = 13
               Caption = 'To:'
             end
             object Label15: TLabel
-              Left = 10
-              Top = 54
+              Left = 8
+              Top = 40
               Width = 39
               Height = 13
               Caption = 'Subject:'
             end
             object Label12: TLabel
-              Left = 10
-              Top = 6
+              Left = 8
+              Top = 0
               Width = 26
               Height = 13
               Caption = 'From:'
             end
             object ServEmailEdit: TEdit
-              Left = 54
-              Top = 26
+              Left = 52
+              Top = 12
               Width = 133
               Height = 21
               TabOrder = 1
               Text = 'atlantis@mtu.ru'
             end
             object ServSubjEdit: TEdit
-              Left = 54
-              Top = 50
+              Left = 52
+              Top = 36
               Width = 89
               Height = 21
               TabOrder = 2
               Text = 'game 2'
             end
             object FromEdit: TEdit
-              Left = 54
-              Top = 2
+              Left = 52
+              Top = 0
               Width = 133
               Height = 21
               TabOrder = 0
               Text = 'FromEdit'
             end
             object cbNoMailDialog: TCheckBox
-              Left = 150
-              Top = 54
+              Left = 148
+              Top = 40
               Width = 69
               Height = 17
               Caption = 'No Dialog'
@@ -293,7 +293,7 @@ object OptionForm: TOptionForm
             Items.Strings = (
               '50% soldiers died'
               '50% of total hits lost'
-              'Total of died soldiers'' hits is 50%')
+              'Total of died soldiers hits is 50%')
           end
           object cmMod: TComboBox
             Left = 356
@@ -358,24 +358,24 @@ object OptionForm: TOptionForm
             Caption = 'Map dimensions'
             TabOrder = 0
             object Label9: TLabel
-              Left = 149
-              Top = 74
+              Left = 147
+              Top = 60
               Width = 10
               Height = 13
               Anchors = [akTop, akRight]
               Caption = 'Y:'
             end
             object Label8: TLabel
-              Left = 149
-              Top = 50
+              Left = 147
+              Top = 36
               Width = 10
               Height = 13
               Anchors = [akTop, akRight]
               Caption = 'X:'
             end
             object btnDetect: TButton
-              Left = 150
-              Top = 102
+              Left = 148
+              Top = 88
               Width = 57
               Height = 21
               Anchors = [akTop, akRight]
@@ -385,8 +385,8 @@ object OptionForm: TOptionForm
               OnClick = btnDetectClick
             end
             object lbDimensions: TListBox
-              Left = 10
-              Top = 6
+              Left = 8
+              Top = 0
               Width = 125
               Height = 117
               ItemHeight = 13
@@ -394,8 +394,8 @@ object OptionForm: TOptionForm
               OnClick = lbDimensionsClick
             end
             object rbAutodetect: TRadioButton
-              Left = 142
-              Top = 6
+              Left = 140
+              Top = 0
               Width = 73
               Height = 17
               Anchors = [akTop, akRight]
@@ -404,8 +404,8 @@ object OptionForm: TOptionForm
               OnClick = rbDimClick
             end
             object rbManual: TRadioButton
-              Left = 142
-              Top = 22
+              Left = 140
+              Top = 8
               Width = 65
               Height = 17
               Anchors = [akTop, akRight]
@@ -414,8 +414,8 @@ object OptionForm: TOptionForm
               OnClick = rbDimClick
             end
             object eMapX: TSpinEdit
-              Left = 162
-              Top = 46
+              Left = 160
+              Top = 32
               Width = 45
               Height = 22
               Anchors = [akTop, akRight]
@@ -427,8 +427,8 @@ object OptionForm: TOptionForm
               OnChange = eMapDimChange
             end
             object eMapY: TSpinEdit
-              Left = 162
-              Top = 70
+              Left = 160
+              Top = 56
               Width = 45
               Height = 22
               Anchors = [akTop, akRight]
@@ -448,8 +448,8 @@ object OptionForm: TOptionForm
             Caption = 'Bad seasons'
             TabOrder = 1
             object tcWeather: TTabControl
-              Left = 10
-              Top = 6
+              Left = 8
+              Top = 0
               Width = 205
               Height = 117
               TabOrder = 0
@@ -634,30 +634,30 @@ object OptionForm: TOptionForm
             Caption = 'Unit grid'
             TabOrder = 0
             object Label10: TLabel
-              Left = 14
-              Top = 6
+              Left = 12
+              Top = 0
               Width = 93
               Height = 13
               Caption = 'Custom string items:'
             end
             object Label1: TLabel
-              Left = 126
-              Top = 6
+              Left = 124
+              Top = 0
               Width = 27
               Height = 13
               Caption = 'Skills:'
             end
             object LongITCheck: TCheckBox
-              Left = 10
-              Top = 146
+              Left = 8
+              Top = 132
               Width = 97
               Height = 17
               Caption = 'Long item lists'
               TabOrder = 0
             end
             object clCustomStr: TCheckListBox
-              Left = 10
-              Top = 22
+              Left = 8
+              Top = 8
               Width = 101
               Height = 117
               ItemHeight = 13
@@ -673,16 +673,16 @@ object OptionForm: TOptionForm
               TabOrder = 1
             end
             object cbNameAsLocal: TCheckBox
-              Left = 10
-              Top = 166
+              Left = 8
+              Top = 152
               Width = 213
               Height = 17
               Caption = 'Show Name if no Local Description given'
               TabOrder = 2
             end
             object cmSkillColumn: TComboBox
-              Left = 122
-              Top = 22
+              Left = 120
+              Top = 8
               Width = 97
               Height = 21
               Style = csDropDownList
@@ -694,8 +694,8 @@ object OptionForm: TOptionForm
                 'First letter')
             end
             object cbArmyColors: TCheckBox
-              Left = 10
-              Top = 186
+              Left = 8
+              Top = 172
               Width = 105
               Height = 17
               Caption = 'Show army colors'
@@ -710,16 +710,16 @@ object OptionForm: TOptionForm
             Caption = 'Ask confirmation when'
             TabOrder = 1
             object SaveConfCheck: TCheckBox
-              Left = 10
-              Top = 10
+              Left = 8
+              Top = 0
               Width = 169
               Height = 17
               Caption = 'Saving configuration before quit'
               TabOrder = 0
             end
             object cbUnsavedOrders: TCheckBox
-              Left = 10
-              Top = 30
+              Left = 8
+              Top = 16
               Width = 149
               Height = 17
               Caption = 'Quit with unsaved orders'
@@ -734,55 +734,55 @@ object OptionForm: TOptionForm
             Caption = 'Misc'
             TabOrder = 2
             object Label18: TLabel
-              Left = 10
-              Top = 190
+              Left = 8
+              Top = 176
               Width = 146
               Height = 13
               Caption = 'Custom Fog: regions older than'
             end
             object cbCompactOrders: TCheckBox
-              Left = 10
-              Top = 62
+              Left = 8
+              Top = 48
               Width = 189
               Height = 17
               Caption = 'Compact orders before save/send'
               TabOrder = 0
             end
             object cbOverwriteMonthlong: TCheckBox
-              Left = 10
-              Top = 102
+              Left = 8
+              Top = 88
               Width = 161
               Height = 17
               Caption = 'Overwrite month-long orders'
               TabOrder = 1
             end
             object cbTurnEvents: TCheckBox
-              Left = 10
-              Top = 42
+              Left = 8
+              Top = 28
               Width = 189
               Height = 17
               Caption = 'Show Turn Events on game startup'
               TabOrder = 2
             end
             object cbBattleImages: TCheckBox
-              Left = 10
-              Top = 22
+              Left = 8
+              Top = 8
               Width = 177
               Height = 17
               Caption = 'Show Battle Images as Avatars'
               TabOrder = 3
             end
             object cbMonthNeeds: TCheckBox
-              Left = 10
-              Top = 122
+              Left = 8
+              Top = 108
               Width = 177
               Height = 17
               Caption = 'Auto-set Needs with priority'
               TabOrder = 4
             end
             object eNeedsPriority: TSpinEdit
-              Left = 162
-              Top = 119
+              Left = 160
+              Top = 105
               Width = 41
               Height = 22
               MaxValue = 99
@@ -791,24 +791,24 @@ object OptionForm: TOptionForm
               Value = 0
             end
             object cbRedirNew: TCheckBox
-              Left = 10
-              Top = 142
+              Left = 8
+              Top = 128
               Width = 149
               Height = 17
               Caption = 'Redirect "new" orders'
               TabOrder = 6
             end
             object cbCompactRepeating: TCheckBox
-              Left = 30
-              Top = 82
+              Left = 28
+              Top = 68
               Width = 165
               Height = 17
               Caption = 'Also compact repeating orders'
               TabOrder = 7
             end
             object eCustomFog: TSpinEdit
-              Left = 162
-              Top = 186
+              Left = 160
+              Top = 172
               Width = 41
               Height = 22
               MaxValue = 0
@@ -817,8 +817,8 @@ object OptionForm: TOptionForm
               Value = 0
             end
             object cbTurnInTitle: TCheckBox
-              Left = 10
-              Top = 2
+              Left = 8
+              Top = 0
               Width = 141
               Height = 17
               Caption = 'Show turn number in title'
@@ -833,44 +833,44 @@ object OptionForm: TOptionForm
             Caption = 'Default faction colors'
             TabOrder = 3
             object Label3: TLabel
-              Left = 6
-              Top = 10
+              Left = 4
+              Top = 0
               Width = 32
               Height = 13
               Caption = 'Hostile'
             end
             object Label4: TLabel
-              Left = 46
-              Top = 10
+              Left = 44
+              Top = 0
               Width = 47
               Height = 13
               Caption = 'Unfriendly'
             end
             object Label5: TLabel
-              Left = 98
-              Top = 10
+              Left = 96
+              Top = 0
               Width = 34
               Height = 13
               Caption = 'Neutral'
             end
             object Label6: TLabel
-              Left = 138
-              Top = 10
+              Left = 136
+              Top = 0
               Width = 36
               Height = 13
               Caption = 'Friendly'
             end
             object Label7: TLabel
-              Left = 182
-              Top = 10
+              Left = 180
+              Top = 0
               Width = 16
               Height = 13
               Caption = 'Ally'
             end
             object ColorBtn1: TColorBtn
               Tag = 1
-              Left = 10
-              Top = 26
+              Left = 8
+              Top = 12
               Width = 34
               Height = 17
               Color = clRed
@@ -879,8 +879,8 @@ object OptionForm: TOptionForm
             end
             object ColorBtn2: TColorBtn
               Tag = 2
-              Left = 50
-              Top = 26
+              Left = 48
+              Top = 12
               Width = 34
               Height = 17
               Color = 8421631
@@ -889,8 +889,8 @@ object OptionForm: TOptionForm
             end
             object ColorBtn3: TColorBtn
               Tag = 3
-              Left = 90
-              Top = 26
+              Left = 88
+              Top = 12
               Width = 34
               Height = 17
               Color = clWhite
@@ -899,8 +899,8 @@ object OptionForm: TOptionForm
             end
             object ColorBtn4: TColorBtn
               Tag = 4
-              Left = 130
-              Top = 26
+              Left = 128
+              Top = 12
               Width = 34
               Height = 17
               Color = 8454016
@@ -909,8 +909,8 @@ object OptionForm: TOptionForm
             end
             object ColorBtn5: TColorBtn
               Tag = 5
-              Left = 170
-              Top = 26
+              Left = 168
+              Top = 12
               Width = 34
               Height = 17
               Color = clLime
@@ -994,24 +994,6 @@ object OptionForm: TOptionForm
             Width = 217
             Height = 13
             Caption = 'Numpad keys will work right for unit menu only'
-          end
-          object gShortcuts: TPowerGrid
-            Left = 8
-            Top = 16
-            Width = 441
-            Height = 257
-            ColCount = 2
-            DefaultRowColor = clBlack
-            Editing = False
-            FixedRows = 0
-            ImageCol = 0
-            Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
-            RowCount = 0
-            Sorted = False
-            SortBy = 0
-            StickySelect = False
-            TopRow = 0
-            OnKeyDown = gShortcutsKeyDown
           end
           object btnClear: TButton
             Left = 12

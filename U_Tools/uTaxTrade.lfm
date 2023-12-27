@@ -31,22 +31,15 @@ object TaxTradeForm: TTaxTradeForm
         Height = 13
         Caption = 'Used: 12 of 21 (War 2)'
       end
-      object gTax: TPowerGrid
+      object gTax: TStringGrid
         Left = 0
         Top = 32
         Width = 289
         Height = 281
         ColCount = 4
-        DefaultRowColor = clBlack
-        Editing = False
         FixedRows = 1
-        ImageCol = 0
         Options = [pgoLines, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
         RowCount = 1
-        Sorted = True
-        SortBy = 0
-        StickySelect = False
-        TopRow = 1
         OnDblClick = GridDblClick
         OnDrawCell = gTaxDrawCell
       end
@@ -61,22 +54,15 @@ object TaxTradeForm: TTaxTradeForm
         Height = 13
         Caption = 'Used: 12 of 21 (Trade 2)'
       end
-      object gTrade: TPowerGrid
+      object gTrade: TStringGrid
         Left = 0
         Top = 32
         Width = 289
         Height = 281
         ColCount = 1
-        DefaultRowColor = clBlack
-        Editing = False
         FixedRows = 1
-        ImageCol = 0
         Options = [pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
         RowCount = 1
-        Sorted = True
-        SortBy = 0
-        StickySelect = False
-        TopRow = 1
         OnDblClick = GridDblClick
       end
     end
@@ -90,22 +76,15 @@ object TaxTradeForm: TTaxTradeForm
         Height = 13
         Caption = 'Used: 12 of 21 (Trade 2)'
       end
-      object gFishing: TPowerGrid
+      object gFishing: TStringGrid
         Left = 0
         Top = 32
         Width = 289
         Height = 281
         ColCount = 1
-        DefaultRowColor = clBlack
-        Editing = False
         FixedRows = 1
-        ImageCol = 0
         Options = [pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
         RowCount = 1
-        Sorted = True
-        SortBy = 0
-        StickySelect = False
-        TopRow = 1
         OnDblClick = GridDblClick
       end
     end
@@ -119,22 +98,15 @@ object TaxTradeForm: TTaxTradeForm
         Height = 13
         Caption = 'Used: 12 of 21 (Trade 2)'
       end
-      object gRoadBuild: TPowerGrid
+      object gRoadBuild: TStringGrid
         Left = 0
         Top = 32
         Width = 289
         Height = 281
         ColCount = 1
-        DefaultRowColor = clBlack
-        Editing = False
         FixedRows = 1
-        ImageCol = 0
         Options = [pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
         RowCount = 1
-        Sorted = True
-        SortBy = 0
-        StickySelect = False
-        TopRow = 1
         OnDblClick = GridDblClick
       end
     end

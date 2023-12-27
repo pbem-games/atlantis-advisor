@@ -11,14 +11,9 @@ object ManagerOptionsForm: TManagerOptionsForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
-  DesignSize = (
-    332
-    287)
   PixelsPerInch = 96
-  TextHeight = 13
   object Button1: TButton
     Left = 156
     Top = 260
@@ -49,15 +44,15 @@ object ManagerOptionsForm: TManagerOptionsForm
     Caption = 'Engine for local games'
     TabOrder = 2
     object Label18: TLabel
-      Left = 20
-      Top = 24
+      Left = 18
+      Top = 10
       Width = 92
       Height = 13
       Caption = 'Path to executable:'
     end
     object eEngineFile: TFilenameEdit
-      Left = 12
-      Top = 44
+      Left = 10
+      Top = 30
       Width = 293
       Height = 21
       Filter = 'Executable files (*.exe)|*.exe|All files (*.*)|*.*'
@@ -73,22 +68,22 @@ object ManagerOptionsForm: TManagerOptionsForm
     Caption = 'Options'
     TabOrder = 3
     object Label2: TLabel
-      Left = 32
-      Top = 27
+      Left = 30
+      Top = 13
       Width = 25
       Height = 13
       Caption = 'Keep'
     end
     object Label3: TLabel
-      Left = 118
-      Top = 27
+      Left = 116
+      Top = 13
       Width = 122
       Height = 13
       Caption = 'turns, write older to history'
     end
     object KeepEdit: TSpinEdit
-      Left = 68
-      Top = 24
+      Left = 66
+      Top = 10
       Width = 41
       Height = 22
       MaxValue = 0
@@ -97,24 +92,24 @@ object ManagerOptionsForm: TManagerOptionsForm
       Value = 0
     end
     object MoveRepCheck: TCheckBox
-      Left = 32
-      Top = 56
+      Left = 30
+      Top = 42
       Width = 185
       Height = 17
       Caption = 'Move added reports to game folder'
       TabOrder = 1
     end
     object cbLastOrder: TCheckBox
-      Left = 32
-      Top = 96
+      Left = 30
+      Top = 82
       Width = 157
       Height = 17
       Caption = 'Try to load order for last turn'
       TabOrder = 2
     end
     object PromptWrongCheck: TCheckBox
-      Left = 32
-      Top = 76
+      Left = 30
+      Top = 62
       Width = 165
       Height = 17
       Caption = 'Prompt to remove bad reports'

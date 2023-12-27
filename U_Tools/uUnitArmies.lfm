@@ -14,20 +14,15 @@ object UArmyForm: TUArmyForm
   Position = poMainFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
-  object Grid: TPowerGrid
+  object Grid: TStringGrid
     Left = 8
     Top = 28
     Width = 197
     Height = 313
     ColCount = 1
-    DefaultRowColor = clBlack
     FixedRows = 0
     Options = [pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
     RowCount = 0
-    Sorted = True
-    SortBy = 0
-    StickySelect = True
-    TopRow = 0
     OnDrawCell = GridDrawCell
     OnSelectCell = GridSelectCell
   end
@@ -77,22 +72,22 @@ object UArmyForm: TUArmyForm
     Caption = 'Properties'
     TabOrder = 3
     object Label1: TLabel
-      Left = 14
-      Top = 14
+      Left = 12
+      Top = 0
       Width = 31
       Height = 13
       Caption = 'Name:'
     end
     object Label2: TLabel
-      Left = 14
-      Top = 42
+      Left = 12
+      Top = 28
       Width = 27
       Height = 13
       Caption = 'Color:'
     end
     object eName: TEdit
-      Left = 58
-      Top = 10
+      Left = 56
+      Top = 0
       Width = 157
       Height = 21
       TabOrder = 0
@@ -100,8 +95,8 @@ object UArmyForm: TUArmyForm
       OnKeyPress = eNameKeyPress
     end
     object btnColor: TColorBtn
-      Left = 58
-      Top = 40
+      Left = 56
+      Top = 26
       Width = 34
       Height = 17
       Color = clWhite
@@ -109,20 +104,15 @@ object UArmyForm: TUArmyForm
       Transparency = True
       OnClick = DataChange
     end
-    object gUnits: TPowerGrid
-      Left = 10
-      Top = 70
+    object gUnits: TStringGrid
+      Left = 8
+      Top = 56
       Width = 205
       Height = 216
       ColCount = 2
-      DefaultRowColor = clBlack
       FixedRows = 1
       Options = [pgoLines, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
       RowCount = 1
-      Sorted = True
-      SortBy = 0
-      StickySelect = False
-      TopRow = 1
       OnDblClick = gUnitsDblClick
     end
   end

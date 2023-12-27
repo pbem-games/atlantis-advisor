@@ -1,9 +1,11 @@
 unit uUnitFilter;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, Resources, StdCtrls, ComCtrls, ToolWin, Spin,
   ExtCtrls, uInterface, uGameSubs;
 
@@ -68,7 +70,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 uses Main;
 

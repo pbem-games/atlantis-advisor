@@ -1,9 +1,11 @@
 unit uBattle;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, StdCtrls, ExtCtrls, Resources, Math, ComCtrls,
   uGameSubs, IniFiles, MyStrings, Painter, Grids, uInterface,
   CylinderMap, uKeys, ToolWin, Buttons, Spin, uAvatars, uArmy, uSoldiers,
@@ -14,7 +16,7 @@ type
 
   TBattleForm = class(TForm)
     tsSpoils: TTabSheet;
-    gSpoils: TPowerGrid;
+    gSpoils: TStringGrid;
     pnToolbar: TPanel;
     ToolBar: TToolBar;
     btnSimulation: TToolButton;
@@ -63,12 +65,12 @@ type
     eName: TEdit;
     bvName: TBevel;
     cbBehind: TCheckBox;
-    ItemGrid: TPowerGrid;
+    ItemGrid: TStringGrid;
     cmItems: TComboBox;
     ToolBar2: TToolBar;
     btnAddItem: TToolButton;
     btnDelItem: TToolButton;
-    SkillGrid: TPowerGrid;
+    SkillGrid: TStringGrid;
     cmSkills: TComboBox;
     ToolBar1: TToolBar;
     btnAddSkill: TToolButton;
@@ -95,8 +97,8 @@ type
     lNum: TLabel;
     lCast: TLabel;
     Label7: TLabel;
-    gUItems: TPowerGrid;
-    gUSkills: TPowerGrid;
+    gUItems: TStringGrid;
+    gUSkills: TStringGrid;
     lUName: TLabel;
     cmTerrain: TComboBox;
     Label1: TLabel;
@@ -106,7 +108,7 @@ type
     barStructControl: TToolBar;
     tbAddStruct: TToolButton;
     tbDelStruct: TToolButton;
-    gStructs: TPowerGrid;
+    gStructs: TStringGrid;
     Label4: TLabel;
     cmInside: TComboBox;
     ToolBar5: TToolBar;
@@ -202,7 +204,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 { TBattleForm }
 
@@ -217,67 +219,68 @@ var i: integer;
 
 begin
   inherited Create(AOwner);
-  SetupDrawArea(Painter);
-
-  gStructs.Cells[0, 0] := 'N';
-  gStructs.Cells[1, 0] := 'Object';
-  gStructs.Cells[2, 0] := 'Defence';
-
-  ItemGrid.Cols[0].AutoEdit := True;
-  SkillGrid.Cols[1].AutoEdit := True;
-  gSpoils.Cols[1].Format := cfNumber;
-
-  // Fill battle select
-  if ABattle = nil then begin
-    Caption := 'Battles in ' + MakeRegionName(CurrRegion.Coords, True);
-    for i := 0 to CurrRegion.Battles.Count-1 do
-      cmBattles.AddItem(CurrRegion.Battles[i].Name, CurrRegion.Battles[i]);
-  end
-  else cmBattles.AddItem(ABattle.Name, ABattle);
-  cmBattles.ItemIndex := 0;
-  cmBattles.Enabled := (cmBattles.Items.Count > 1);
-
-  // Fill unit pickers
-  AddSkill(Game.SkillData.Find(Keys[s_Combat]));
-  AddSkill(Game.SkillData.Find(Keys[s_Tactics]));
-  for i := 0 to Game.ItemData.Count-1 do begin
-    // Add weapon and mount's skills
-    if Test(Game.ItemData[i].Flags, IT_WEAPON) then begin
-      AddSkill(Game.ItemData[i].Weapon.Skill1);
-      AddSkill(Game.ItemData[i].Weapon.Skill2);
-    end
-    else if Test(Game.ItemData[i].Flags, IT_MOUNT) then
-      AddSkill(Game.ItemData[i].Mount.RideSkill);
-  end;
-  AddSkill(Game.SkillData.Find(Keys[s_Healing]));
-  AddSkill(Game.SkillData.Find(Keys[s_MagicalHealing]));
-  for i := 0 to Game.SkillData.Count-1 do
-    if Test(Game.SkillData[i].Flags, SK_COMBATSPELL) then
-      cmSkills.AddItem(Game.SkillData[i].Name, Game.SkillData[i]);
-
-  // Add items
-  FillItems(IT_MAN + IT_MONSTER + IT_WEAPON + IT_ARMOR + IT_MOUNT +
-    IT_MAGIC, True);
-
-  // Region
-  for i := 0 to Game.TerrainData.Count-1 do
-    cmTerrain.AddItem(Game.TerrainData[i].Name, Game.TerrainData[i]);
-  for i := 0 to Game.StructData.Count-1 do
-    if Game.StructData[i].Protection > 0 then
-      cmStructs.AddItem(Game.StructData[i].Group, Game.StructData[i]);
-
-  if (ABattle <> nil) and (ABattle.Name = 'Simulation') then begin
-    btnSimulation.Down := True;
-    btnSimulation.Enabled := False;
-    PControl.ActivePage := tsSimUnit;
-  end
-  else begin
-    PControl.ActivePageIndex := Config.ReadInteger('BattleViewer', 'Page', 0);
-    barStructControl.Enabled := False;
-    cmTerrain.Enabled := False;
-  end;
-  SetupControls;
-  FillUnitInfo(nil, True);
+  // FIXME: broken
+  //SetupDrawArea(Painter);
+  //
+  //gStructs.Cells[0, 0] := 'N';
+  //gStructs.Cells[1, 0] := 'Object';
+  //gStructs.Cells[2, 0] := 'Defence';
+  //
+  //ItemGrid.Cols[0].AutoEdit := True;
+  //SkillGrid.Cols[1].AutoEdit := True;
+  //gSpoils.Cols[1].Format := cfNumber;
+  //
+  //// Fill battle select
+  //if ABattle = nil then begin
+  //  Caption := 'Battles in ' + MakeRegionName(CurrRegion.Coords, True);
+  //  for i := 0 to CurrRegion.Battles.Count-1 do
+  //    cmBattles.AddItem(CurrRegion.Battles[i].Name, CurrRegion.Battles[i]);
+  //end
+  //else cmBattles.AddItem(ABattle.Name, ABattle);
+  //cmBattles.ItemIndex := 0;
+  //cmBattles.Enabled := (cmBattles.Items.Count > 1);
+  //
+  //// Fill unit pickers
+  //AddSkill(Game.SkillData.Find(Keys[s_Combat]));
+  //AddSkill(Game.SkillData.Find(Keys[s_Tactics]));
+  //for i := 0 to Game.ItemData.Count-1 do begin
+  //  // Add weapon and mount's skills
+  //  if Test(Game.ItemData[i].Flags, IT_WEAPON) then begin
+  //    AddSkill(Game.ItemData[i].Weapon.Skill1);
+  //    AddSkill(Game.ItemData[i].Weapon.Skill2);
+  //  end
+  //  else if Test(Game.ItemData[i].Flags, IT_MOUNT) then
+  //    AddSkill(Game.ItemData[i].Mount.RideSkill);
+  //end;
+  //AddSkill(Game.SkillData.Find(Keys[s_Healing]));
+  //AddSkill(Game.SkillData.Find(Keys[s_MagicalHealing]));
+  //for i := 0 to Game.SkillData.Count-1 do
+  //  if Test(Game.SkillData[i].Flags, SK_COMBATSPELL) then
+  //    cmSkills.AddItem(Game.SkillData[i].Name, Game.SkillData[i]);
+  //
+  //// Add items
+  //FillItems(IT_MAN + IT_MONSTER + IT_WEAPON + IT_ARMOR + IT_MOUNT +
+  //  IT_MAGIC, True);
+  //
+  //// Region
+  //for i := 0 to Game.TerrainData.Count-1 do
+  //  cmTerrain.AddItem(Game.TerrainData[i].Name, Game.TerrainData[i]);
+  //for i := 0 to Game.StructData.Count-1 do
+  //  if Game.StructData[i].Protection > 0 then
+  //    cmStructs.AddItem(Game.StructData[i].Group, Game.StructData[i]);
+  //
+  //if (ABattle <> nil) and (ABattle.Name = 'Simulation') then begin
+  //  btnSimulation.Down := True;
+  //  btnSimulation.Enabled := False;
+  //  PControl.ActivePage := tsSimUnit;
+  //end
+  //else begin
+  //  PControl.ActivePageIndex := Config.ReadInteger('BattleViewer', 'Page', 0);
+  //  barStructControl.Enabled := False;
+  //  cmTerrain.Enabled := False;
+  //end;
+  //SetupControls;
+  //FillUnitInfo(nil, True);
 end;
 
 procedure TBattleForm.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -301,18 +304,19 @@ procedure TBattleForm.FillStructs;
 var i: integer;
     St: TStruct;
 begin
-  cmInside.Items.Clear;
-  cmInside.Items.Add('');
-  gStructs.RowCount := 0;
-  for i := 0 to Battle.Region.Structs.Count-1 do begin
-    St := Battle.Region.Structs[i];
-    cmInside.AddItem(St.Data.Group + ' [' + IntToStr(i+1) + ']', St.Data);
-    gStructs.Cells[0, i + 1] := IntToStr(i + 1);
-    gStructs.Cells[1, i + 1] := St.Data.Group;
-    gStructs.Cells[2, i + 1] := IntToStr(St.Data.Protection);
-    gStructs.Rows[i + 1].Data := St.Data;
-  end;
-  gStructs.Fixup;
+  // FIXME: broken
+  //cmInside.Items.Clear;
+  //cmInside.Items.Add('');
+  //gStructs.RowCount := 0;
+  //for i := 0 to Battle.Region.Structs.Count-1 do begin
+  //  St := Battle.Region.Structs[i];
+  //  cmInside.AddItem(St.Data.Group + ' [' + IntToStr(i+1) + ']', St.Data);
+  //  gStructs.Cells[0, i + 1] := IntToStr(i + 1);
+  //  gStructs.Cells[1, i + 1] := St.Data.Group;
+  //  gStructs.Cells[2, i + 1] := IntToStr(St.Data.Protection);
+  //  gStructs.Rows[i + 1].Data := St.Data;
+  //end;
+  //gStructs.Fixup;
 end;
 
 procedure TBattleForm.SetupControls;
@@ -502,55 +506,56 @@ end;
 
 procedure TBattleForm.FillUnitInfo(BUnit: TBattleUnit; ForceRefresh: boolean);
 begin
-  Filling := True;
-  ItemGrid.HideEditor;
-  SkillGrid.HideEditor;
-  pUnitControls.Enabled := (BUnit <> nil);
-  btnDelUnit.Enabled := (SelUnit <> nil) and (BUnit <> nil);
-  if BUnit <> FillingUnit then begin
-    tbCombatSpell.Down := False;
-    tbCombatSpell.Enabled := False;
-  end;
-  if BUnit = nil then begin
-    eName.Text := '';
-    lUName.Caption := '';
-    lNum.Caption := '';
-    cbBehind.Checked := False;
-    lCast.Caption := '';
-    lFaction.Caption := '';
-    imgFaction.Visible := False;
-    ItemGrid.RowCount := 0;
-    ItemGrid.Fixup;
-    gUItems.RowCount := 0;
-    gUItems.Fixup;
-    SkillGrid.RowCount := 0;
-    SkillGrid.Fixup;
-    gUSkills.RowCount := 0;
-    gUSkills.Fixup;
-    cmInside.ItemIndex := -1;
-  end
-  else begin
-    if (FillingUnit <> BUnit) or ForceRefresh then begin
-      eName.Text := BUnit.Name;
-      lUName.Caption := BUnit.Name;
-      lNum.Caption := IntToStr(BUnit.Num);
-      cbBehind.Checked := BUnit.Behind;
-      lCast.Caption := BUnit.SpellText;
-      if BUnit.Faction <> nil then lFaction.Caption := BUnit.Faction.Name
-      else lFaction.Caption := '';
-      imgFaction.Visible := TRUE;
-      DrawCExtra(extFlag, BUnit.Faction, imgFaction.Canvas, 0, 0);
-      cmInside.ItemIndex := Battle.Region.Structs.IndexOf(BUnit.Struct) + 1;
-      // Items
-      FillIDataGrid(ItemGrid, BUnit.Items);
-      FillIDataGrid(gUItems, BUnit.Items);
-      // Skills
-      FillSDataGrid(SkillGrid, BUnit.Skills);
-      FillSDataGrid(gUSkills, BUnit.Skills);
-    end;
-  end;
-  FillingUnit := BUnit;
-  Filling := False;
+  // FIXME: broken
+  //Filling := True;
+  //ItemGrid.HideEditor;
+  //SkillGrid.HideEditor;
+  //pUnitControls.Enabled := (BUnit <> nil);
+  //btnDelUnit.Enabled := (SelUnit <> nil) and (BUnit <> nil);
+  //if BUnit <> FillingUnit then begin
+  //  tbCombatSpell.Down := False;
+  //  tbCombatSpell.Enabled := False;
+  //end;
+  //if BUnit = nil then begin
+  //  eName.Text := '';
+  //  lUName.Caption := '';
+  //  lNum.Caption := '';
+  //  cbBehind.Checked := False;
+  //  lCast.Caption := '';
+  //  lFaction.Caption := '';
+  //  imgFaction.Visible := False;
+  //  ItemGrid.RowCount := 0;
+  //  ItemGrid.Fixup;
+  //  gUItems.RowCount := 0;
+  //  gUItems.Fixup;
+  //  SkillGrid.RowCount := 0;
+  //  SkillGrid.Fixup;
+  //  gUSkills.RowCount := 0;
+  //  gUSkills.Fixup;
+  //  cmInside.ItemIndex := -1;
+  //end
+  //else begin
+  //  if (FillingUnit <> BUnit) or ForceRefresh then begin
+  //    eName.Text := BUnit.Name;
+  //    lUName.Caption := BUnit.Name;
+  //    lNum.Caption := IntToStr(BUnit.Num);
+  //    cbBehind.Checked := BUnit.Behind;
+  //    lCast.Caption := BUnit.SpellText;
+  //    if BUnit.Faction <> nil then lFaction.Caption := BUnit.Faction.Name
+  //    else lFaction.Caption := '';
+  //    imgFaction.Visible := TRUE;
+  //    DrawCExtra(extFlag, BUnit.Faction, imgFaction.Canvas, 0, 0);
+  //    cmInside.ItemIndex := Battle.Region.Structs.IndexOf(BUnit.Struct) + 1;
+  //    // Items
+  //    FillIDataGrid(ItemGrid, BUnit.Items);
+  //    FillIDataGrid(gUItems, BUnit.Items);
+  //    // Skills
+  //    FillSDataGrid(SkillGrid, BUnit.Skills);
+  //    FillSDataGrid(gUSkills, BUnit.Skills);
+  //  end;
+  //end;
+  //FillingUnit := BUnit;
+  //Filling := False;
 end;
 
 procedure TBattleForm.DataChange(Sender: TObject);
@@ -587,34 +592,37 @@ end;
 procedure TBattleForm.SkillGridDrawCell(Sender: TObject; ACol,
   ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
 begin
-  with Sender as TPowerGrid do begin
-    if ACol = 0 then begin
-      if (FillingUnit <> nil) and
-        (FillingUnit.CombatSpell = TSkillData(ImgRows[ARow].Data)) then
-        ResForm.IconList.Draw(Canvas, TxtRect.Left+1, TxtRect.Top, bmpCombatSpell)
-      else ResForm.IconList.Draw(Canvas, TxtRect.Left+1, TxtRect.Top,
-        SkillIcon(TSkillData(ImgRows[ARow].Data)));
-      TxtRect.Left := TxtRect.Left + 18;
-    end;
-  end;
+  // FIXME: broken
+  //with Sender as TStringGrid do begin
+  //  if ACol = 0 then begin
+  //    if (FillingUnit <> nil) and
+  //      (FillingUnit.CombatSpell = TSkillData(ImgRows[ARow].Data)) then
+  //      ResForm.IconList.Draw(Canvas, TxtRect.Left+1, TxtRect.Top, bmpCombatSpell)
+  //    else ResForm.IconList.Draw(Canvas, TxtRect.Left+1, TxtRect.Top,
+  //      SkillIcon(TSkillData(ImgRows[ARow].Data)));
+  //    TxtRect.Left := TxtRect.Left + 18;
+  //  end;
+  //end;
 end;
 
 procedure TBattleForm.SkillGridSelectCell(Sender: TObject; ACol,
   ARow: Integer; var CanSelect: Boolean);
 var SData: TSkillData;
 begin
-  SData := TSkillData(SkillGrid.ImgRows[ARow].Data);
-  tbCombatSpell.Enabled := Test(SData.Flags, SK_COMBATSPELL);
-  tbCombatSpell.Down := (FillingUnit <> nil) and (SData = FillingUnit.CombatSpell);
+  // FIXME: broken
+  //SData := TSkillData(SkillGrid.ImgRows[ARow].Data);
+  //tbCombatSpell.Enabled := Test(SData.Flags, SK_COMBATSPELL);
+  //tbCombatSpell.Down := (FillingUnit <> nil) and (SData = FillingUnit.CombatSpell);
 end;
 
 procedure TBattleForm.tbCombatSpellClick(Sender: TObject);
 begin
-  if SelUnit = nil then Exit;
-  if tbCombatSpell.Down then
-    SelUnit.CombatSpell := TSkillData(SkillGrid.ImgRows[SkillGrid.Row].Data)
-  else SelUnit.CombatSpell := nil;
-  FillUnitInfo(SelUnit, True);
+  // FIXME: broken
+  //if SelUnit = nil then Exit;
+  //if tbCombatSpell.Down then
+  //  SelUnit.CombatSpell := TSkillData(SkillGrid.ImgRows[SkillGrid.Row].Data)
+  //else SelUnit.CombatSpell := nil;
+  //FillUnitInfo(SelUnit, True);
 end;
 
 procedure TBattleForm.PainterMouseMove(Sender: TObject;
@@ -935,12 +943,13 @@ end;
 procedure TBattleForm.gStructsDrawCell(Sender: TObject; ACol,
   ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
 begin
-  with TPowerGrid(Sender) do
-    if (ARow > 0) and (ACol = 1) then begin
-      DrawStructIcon(Canvas, TxtRect.Left, TxtRect.Top,
-        TStructData(Rows[ARow].Data), False);
-      Inc(TxtRect.Left, 18);
-    end;
+  // FIXME: broken
+  //with TStringGrid(Sender) do
+  //  if (ARow > 0) and (ACol = 1) then begin
+  //    DrawStructIcon(Canvas, TxtRect.Left, TxtRect.Top,
+  //      TStructData(Rows[ARow].Data), False);
+  //    Inc(TxtRect.Left, 18);
+  //  end;
 end;
 
 procedure TBattleForm.cmInsideDrawItem(Control: TWinControl;

@@ -1,9 +1,11 @@
 unit uTownTrade;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, uInterface, DataStructs, uGameSubs,
   Buttons;
 
@@ -12,8 +14,8 @@ type
     Button1: TButton;
     Label1: TLabel;
     Label2: TLabel;
-    gWanted: TPowerGrid;
-    gForSale: TPowerGrid;
+    gWanted: TStringGrid;
+    gForSale: TStringGrid;
     cmTowns: TComboBox;
     bAdd: TButton;
     procedure DrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -23,7 +25,7 @@ type
     procedure bAddClick(Sender: TObject);
   private
     Regions: TList;
-    procedure FillGrid(Grid: TPowerGrid; List1: TItemList; Wanted: boolean);
+    procedure FillGrid(Grid: TStringGrid; List1: TItemList; Wanted: boolean);
   public
     { Public declarations }
   end;
@@ -35,7 +37,7 @@ implementation
 
 uses Types;
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TTownTradeForm.FormCreate(Sender: TObject);
 var x, y: integer;
@@ -62,39 +64,40 @@ begin
   else Caption := Caption + ' - No town';
 end;
 
-procedure TTownTradeForm.FillGrid(Grid: TPowerGrid; List1: TItemList;
+procedure TTownTradeForm.FillGrid(Grid: TStringGrid; List1: TItemList;
   Wanted: boolean);
 var i, j, k, row, profit: integer;
     List2: TItemList;
 begin
-  Grid.RowCount := 0;
-  for i := 0 to List1.Count-1 do begin
-    j := 0;
-    row := -1;
-    while (j < Regions.Count) do begin
-      if Wanted then List2 := TARegion(Regions[j]).Wanted
-      else List2 := TARegion(Regions[j]).ForSale;
-      for k := 0 to List2.Count-1 do
-        if List2[k].Data.Short = List1[i].Data.Short then begin
-          if row = -1 then begin
-            row := Grid.RowCount;
-            AddItemGridItem(Grid, List1[i], clWindowText);
-          end;
-          if Grid.Cells[3, row] <> '' then
-            Grid.Cells[3, row] := Grid.Cells[3, row] + ', ';
-          Grid.Cells[3, row] := Grid.Cells[3, row] +
-            TARegion(Regions[j]).Settlement + ' $' +
-            IntToStr(List2[k].Cost);
-          profit := List2[k].Cost - List1[i].Cost;
-          if (Wanted and (profit > 0))
-            or (not Wanted and (profit < 0)) then
-            Grid.Cells[3, row] := Grid.Cells[3, row] + ' (' +
-              IntToStr(Abs(profit)) + ')';
-        end;
-      Inc(j);
-    end;
-  end;
-  Grid.Fixup;
+  // FIXME: broken
+  //Grid.RowCount := 0;
+  //for i := 0 to List1.Count-1 do begin
+  //  j := 0;
+  //  row := -1;
+  //  while (j < Regions.Count) do begin
+  //    if Wanted then List2 := TARegion(Regions[j]).Wanted
+  //    else List2 := TARegion(Regions[j]).ForSale;
+  //    for k := 0 to List2.Count-1 do
+  //      if List2[k].Data.Short = List1[i].Data.Short then begin
+  //        if row = -1 then begin
+  //          row := Grid.RowCount;
+  //          AddItemGridItem(Grid, List1[i], clWindowText);
+  //        end;
+  //        if Grid.Cells[3, row] <> '' then
+  //          Grid.Cells[3, row] := Grid.Cells[3, row] + ', ';
+  //        Grid.Cells[3, row] := Grid.Cells[3, row] +
+  //          TARegion(Regions[j]).Settlement + ' $' +
+  //          IntToStr(List2[k].Cost);
+  //        profit := List2[k].Cost - List1[i].Cost;
+  //        if (Wanted and (profit > 0))
+  //          or (not Wanted and (profit < 0)) then
+  //          Grid.Cells[3, row] := Grid.Cells[3, row] + ' (' +
+  //            IntToStr(Abs(profit)) + ')';
+  //      end;
+  //    Inc(j);
+  //  end;
+  //end;
+  //Grid.Fixup;
 end;
 
 procedure TTownTradeForm.FormDestroy(Sender: TObject);

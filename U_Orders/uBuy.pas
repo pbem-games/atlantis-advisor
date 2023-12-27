@@ -1,9 +1,11 @@
 unit uBuy;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Spin, uGameSubs, DataStructs, Resources, Math,
   uInterface;
 
@@ -46,7 +48,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TBuyForm.Setup(AUnit: TUnit; SaleItem: TItem);
 begin

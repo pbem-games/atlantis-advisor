@@ -1,30 +1,25 @@
-object BuyForm: TBuyForm
-  Left = 210
-  Top = 103
+object SelAmountForm: TSelAmountForm
+  Left = 211
+  Top = 102
   HelpContext = 6
   BorderStyle = bsDialog
-  Caption = 'Buy'
-  ClientHeight = 227
-  ClientWidth = 265
+  Caption = 'Sell'
+  ClientHeight = 147
+  ClientWidth = 239
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
-  DesignSize = (
-    265
-    227)
   PixelsPerInch = 96
-  TextHeight = 13
   object HavingLabel: TLabel
     Left = 4
     Top = 8
-    Width = 40
+    Width = 42
     Height = 13
-    Caption = 'For sale:'
+    Caption = 'Unit has:'
   end
   object HavingCountLabel: TLabel
     Left = 52
@@ -34,81 +29,28 @@ object BuyForm: TBuyForm
     AutoSize = False
     Caption = '10 plainsmen'
   end
-  object FundsImage: TImage
-    Left = 192
-    Top = 6
-    Width = 16
-    Height = 16
-    Picture.Data = {
-      07544269746D617036040000424D360400000000000036000000280000001000
-      0000100000000100200000000000000400000000000000000000000000000000
-      0000FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0FF00FFC0000000C00000000000000000FF00FF00FF00FFC0FF00FFC0FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0000000C000FFFF0000FFFFFF00FFFFFF000000FFFF00FF00FF00FFC0FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0000000C000FFFF0000FFFFFF00FFFFFF000000FFFF00FF00FF00FFC0FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0000000C00000000000000000FF00FF00FF00
-      FFC0FF00FFC0000000C00000000000000000FF00FF00000000C0000000000000
-      0000FF00FF00FF00FFC0000000C000FFFF0000FFFFFF00FFFFFF000000FFFF00
-      FF00FF00FFC0FF00FFC0FF00FFC0FF00FFC0000000C0FFFFFF00FFFFFFFFFFFF
-      FFFF000000FFFF00FF00000000C000000000000000000000000000000000FF00
-      FF00FF00FFC0FF00FFC0FF00FFC0000000C000000000FFFFFF00FFFFFFFFFFFF
-      FFFF000000FFFF00FF00000000C0FFFFFF00FFFFFFFFFFFFFFFF000000FFFF00
-      FF00FF00FFC0FF00FFC0000000C000FFFF0000FFFFFF000000FF000000000000
-      0000FF00FF00FF00FFC0000000C000000000000000000000000000000000FF00
-      FF00FF00FFC0FF00FFC0000000C000FFFF0000FFFFFF00FFFFFF000000FFFF00
-      FF00FF00FFC0FF00FFC0000000C000FFFF0000FFFFFF00FFFFFF000000FFFF00
-      FF00FF00FFC0FF00FFC0FF00FFC0000000C00000000000000000FF00FF00FF00
-      FFC0FF00FFC0FF00FFC0000000C000000000000000000000000000000000FF00
-      FF00FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0000000C0000000000000
-      0000FF00FF00FF00FFC0000000C000FFFF0000FFFFFF00FFFFFF000000FFFF00
-      FF00FF00FFC0FF00FFC0FF00FFC0FF00FFC0000000C000FFFF0000FFFFFF00FF
-      FFFF000000FFFF00FF00FF00FFC0000000C00000000000000000FF00FF00FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0000000C000000000000000000000
-      000000000000FF00FF00FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0000000C0FFFFFF00FFFFFFFFFFFF
-      FFFF000000FFFF00FF00FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0000000C0000000000000
-      0000FF00FF00FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0FF00FF00FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00FFC0FF00
-      FFC0}
-    Transparent = True
-  end
-  object FundsLabel: TLabel
-    Left = 212
-    Top = 8
-    Width = 49
-    Height = 13
-    AutoSize = False
-    Caption = '2000'
-  end
   object FundsWantedLabel: TLabel
-    Left = 156
+    Left = 144
     Top = 8
-    Width = 32
+    Width = 62
     Height = 13
-    Caption = 'Funds:'
+    Caption = 'Wanted: 200'
   end
   object Button1: TButton
-    Left = 56
-    Top = 196
+    Left = 36
+    Top = 116
     Width = 75
     Height = 21
-    Anchors = [akLeft, akBottom]
     Caption = 'OK'
     Default = True
     ModalResult = 1
     TabOrder = 0
   end
   object Button2: TButton
-    Left = 148
-    Top = 196
+    Left = 128
+    Top = 116
     Width = 75
     Height = 21
-    Anchors = [akLeft, akBottom]
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 1
@@ -116,20 +58,20 @@ object BuyForm: TBuyForm
   object TradeBox: TGroupBox
     Left = 4
     Top = 28
-    Width = 257
+    Width = 229
     Height = 77
-    Caption = 'Buy'
+    Caption = ' Sell '
     TabOrder = 2
     object GoodsLabel: TLabel
-      Left = 146
-      Top = 24
+      Left = 116
+      Top = 10
       Width = 47
       Height = 13
       Caption = 'plainsmen'
     end
     object GoodsImage: TImage
-      Left = 124
-      Top = 22
+      Left = 94
+      Top = 8
       Width = 16
       Height = 16
       Picture.Data = {
@@ -171,15 +113,15 @@ object BuyForm: TBuyForm
       Transparent = True
     end
     object CostLabel: TLabel
-      Left = 146
-      Top = 48
+      Left = 116
+      Top = 34
       Width = 24
       Height = 13
       Caption = '2000'
     end
     object Image1: TImage
-      Left = 124
-      Top = 46
+      Left = 94
+      Top = 32
       Width = 16
       Height = 16
       Picture.Data = {
@@ -221,61 +163,24 @@ object BuyForm: TBuyForm
       Transparent = True
     end
     object AmountEdit: TSpinEdit
-      Left = 44
-      Top = 20
+      Left = 14
+      Top = 6
       Width = 73
       Height = 22
-      MaxValue = 9999
+      MaxValue = 0
       MinValue = 0
       TabOrder = 0
       Value = 0
       OnChange = AmountEditChange
     end
     object cbAll: TCheckBox
-      Left = 44
-      Top = 44
-      Width = 33
+      Left = 14
+      Top = 30
+      Width = 41
       Height = 17
       Caption = 'all'
       TabOrder = 1
       OnClick = cbAllClick
-    end
-  end
-  object GroupBox1: TGroupBox
-    Left = 4
-    Top = 108
-    Width = 257
-    Height = 77
-    Caption = 'Extra Money'
-    TabOrder = 3
-    object cbClaim: TCheckBox
-      Left = 16
-      Top = 20
-      Width = 53
-      Height = 17
-      Caption = 'Claim'
-      TabOrder = 0
-      OnClick = ExtraChange
-    end
-    object cbTake: TCheckBox
-      Left = 16
-      Top = 44
-      Width = 73
-      Height = 17
-      Caption = 'Take from:'
-      TabOrder = 1
-      OnClick = ExtraChange
-    end
-    object cmTakeUnit: TComboBox
-      Left = 92
-      Top = 42
-      Width = 157
-      Height = 21
-      Style = csDropDownList
-      ItemHeight = 13
-      Sorted = True
-      TabOrder = 2
-      OnChange = ExtraChange
     end
   end
 end

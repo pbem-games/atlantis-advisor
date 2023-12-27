@@ -14,23 +14,16 @@ object UnitProductionForm: TUnitProductionForm
   Position = poMainFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
-  object Grid: TPowerGrid
+  object Grid: TStringGrid
     Left = 0
     Top = 0
     Width = 246
     Height = 384
     Align = alClient
     ColCount = 4
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 1
-    ImageCol = 0
     Options = [pgoLines, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
     RowCount = 1
-    Sorted = False
-    SortBy = 0
-    StickySelect = False
-    TopRow = 1
     OnDrawCell = GridDrawCell
   end
 end

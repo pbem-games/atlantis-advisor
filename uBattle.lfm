@@ -25,8 +25,8 @@ object BattleForm: TBattleForm
     BorderWidth = 4
     TabOrder = 0
     object btnClose: TButton
-      Left = 617
-      Top = 9
+      Left = 615
+      Top = 7
       Width = 75
       Height = 22
       Anchors = [akRight]
@@ -46,16 +46,16 @@ object BattleForm: TBattleForm
     Caption = 'pnMain'
     TabOrder = 1
     object Bevel1: TBevel
-      Left = 322
-      Top = 2
+      Left = 320
+      Top = 0
       Width = 8
       Height = 431
       Align = alLeft
       Shape = bsSpacer
     end
     object pnDetails: TPanel
-      Left = 330
-      Top = 2
+      Left = 328
+      Top = 0
       Width = 366
       Height = 431
       Align = alClient
@@ -64,7 +64,7 @@ object BattleForm: TBattleForm
       TabOrder = 0
       object PControl: TPageControl
         Left = 0
-        Top = 27
+        Top = 25
         Width = 366
         Height = 402
         ActivePage = tsReport
@@ -96,43 +96,28 @@ object BattleForm: TBattleForm
         end
         object tsUnit: TTabSheet
           Caption = 'Unit'
-          object gUItems: TPowerGrid
+          object gUItems: TStringGrid
             Left = 0
             Top = 73
             Width = 358
             Height = 159
             Align = alClient
             ColCount = 2
-            DefaultRowColor = clBlack
-            Editing = False
             FixedRows = 0
-            ImageCol = 1
             Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
             RowCount = 0
-            Sorted = False
-            SortBy = 0
             ShowHint = True
-            StickySelect = False
-            TopRow = 0
-            OnDrawIcon = ItemGridDrawIcon
           end
-          object gUSkills: TPowerGrid
+          object gUSkills: TStringGrid
             Left = 0
             Top = 232
             Width = 358
             Height = 141
             Align = alBottom
             ColCount = 2
-            DefaultRowColor = clBlack
-            Editing = False
             FixedRows = 0
-            ImageCol = 0
             Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
             RowCount = 0
-            Sorted = False
-            SortBy = 0
-            StickySelect = False
-            TopRow = 0
             OnDrawCell = SkillGridDrawCell
           end
           object Panel4: TPanel
@@ -144,15 +129,15 @@ object BattleForm: TBattleForm
             Caption = 'Panel4'
             TabOrder = 2
             object Label2: TLabel
-              Left = 2
-              Top = 30
+              Left = 0
+              Top = 28
               Width = 38
               Height = 13
               Caption = 'Faction:'
             end
             object lFaction: TLabel
-              Left = 58
-              Top = 30
+              Left = 56
+              Top = 28
               Width = 145
               Height = 13
               AutoSize = False
@@ -160,8 +145,8 @@ object BattleForm: TBattleForm
               ShowAccelChar = False
             end
             object imgFaction: TImage
-              Left = 46
-              Top = 30
+              Left = 44
+              Top = 28
               Width = 10
               Height = 10
               Picture.Data = {
@@ -181,8 +166,8 @@ object BattleForm: TBattleForm
               Transparent = True
             end
             object lNum: TLabel
-              Left = 162
-              Top = 2
+              Left = 160
+              Top = 0
               Width = 40
               Height = 13
               Alignment = taRightJustify
@@ -190,23 +175,23 @@ object BattleForm: TBattleForm
               Caption = '6353'
             end
             object lCast: TLabel
-              Left = 46
-              Top = 46
+              Left = 44
+              Top = 44
               Width = 157
               Height = 13
               AutoSize = False
               Caption = 'shoots a Fireball'
             end
             object Label7: TLabel
-              Left = 2
-              Top = 46
+              Left = 0
+              Top = 44
               Width = 29
               Height = 13
               Caption = 'Casts:'
             end
             object lUName: TLabel
-              Left = 2
-              Top = 2
+              Left = 0
+              Top = 0
               Width = 161
               Height = 21
               AutoSize = False
@@ -223,25 +208,16 @@ object BattleForm: TBattleForm
         object tsSpoils: TTabSheet
           Caption = 'Spoils'
           ImageIndex = 63
-          object gSpoils: TPowerGrid
+          object gSpoils: TStringGrid
             Left = 0
             Top = 0
             Width = 358
             Height = 373
             Align = alClient
             ColCount = 2
-            DefaultRowColor = clBlack
-            Editing = False
             FixedRows = 0
-            Images = ResForm.IconList
-            ImageCol = 1
             Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
             RowCount = 0
-            Sorted = True
-            SortBy = 1
-            StickySelect = False
-            TopRow = 0
-            OnDrawIcon = ItemGridDrawIcon
           end
         end
         object tsSimUnit: TTabSheet
@@ -255,21 +231,21 @@ object BattleForm: TBattleForm
             BevelOuter = bvNone
             TabOrder = 0
             object bvName: TBevel
-              Left = 1
-              Top = 1
+              Left = 0
+              Top = 0
               Width = 142
               Height = 23
             end
             object Label4: TLabel
-              Left = 2
-              Top = 34
+              Left = 0
+              Top = 32
               Width = 31
               Height = 13
               Caption = 'Inside:'
             end
             object eName: TEdit
-              Left = 2
-              Top = 2
+              Left = 0
+              Top = 0
               Width = 137
               Height = 21
               AutoSize = False
@@ -287,39 +263,30 @@ object BattleForm: TBattleForm
               OnKeyPress = eNameKeyPress
             end
             object cbBehind: TCheckBox
-              Left = 150
-              Top = 5
+              Left = 148
+              Top = 3
               Width = 57
               Height = 17
               Caption = 'Behind'
               TabOrder = 1
               OnClick = DataChange
             end
-            object ItemGrid: TPowerGrid
-              Left = 2
-              Top = 58
+            object ItemGrid: TStringGrid
+              Left = 0
+              Top = 56
               Width = 319
               Height = 121
               Anchors = [akLeft, akTop, akRight, akBottom]
               ColCount = 2
-              DefaultRowColor = clBlack
-              Editing = False
               FixedRows = 0
-              Images = ResForm.IconList
-              ImageCol = 1
               Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
               RowCount = 0
-              Sorted = False
-              SortBy = 0
               ShowHint = True
-              StickySelect = False
-              TopRow = 0
-              OnDrawIcon = ItemGridDrawIcon
               OnSetEditText = ItemGridSetEditText
             end
             object cmItems: TComboBox
-              Left = 2
-              Top = 198
+              Left = 0
+              Top = 196
               Width = 161
               Height = 22
               Style = csOwnerDrawFixed
@@ -329,8 +296,8 @@ object BattleForm: TBattleForm
               OnDrawItem = cmItemsDrawItem
             end
             object ToolBar2: TToolBar
-              Left = 166
-              Top = 200
+              Left = 164
+              Top = 198
               Width = 45
               Height = 21
               Align = alNone
@@ -356,29 +323,21 @@ object BattleForm: TBattleForm
                 OnClick = btnDelItemClick
               end
             end
-            object SkillGrid: TPowerGrid
-              Left = 2
-              Top = 230
+            object SkillGrid: TStringGrid
+              Left = 0
+              Top = 228
               Width = 173
               Height = 89
               ColCount = 2
-              DefaultRowColor = clBlack
-              Editing = False
               FixedRows = 0
-              Images = ResForm.IconList
-              ImageCol = 0
               Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
               RowCount = 0
-              Sorted = False
-              SortBy = 0
-              StickySelect = False
-              TopRow = 0
               OnSetEditText = SkillGridSetEditText
               OnSelectCell = SkillGridSelectCell
             end
             object cmSkills: TComboBox
-              Left = 2
-              Top = 322
+              Left = 0
+              Top = 320
               Width = 161
               Height = 22
               Style = csOwnerDrawFixed
@@ -387,8 +346,8 @@ object BattleForm: TBattleForm
               OnDrawItem = cmSkillsDrawItem
             end
             object ToolBar1: TToolBar
-              Left = 166
-              Top = 324
+              Left = 164
+              Top = 322
               Width = 45
               Height = 21
               Align = alNone
@@ -415,8 +374,8 @@ object BattleForm: TBattleForm
               end
             end
             object cmInside: TComboBox
-              Left = 38
-              Top = 30
+              Left = 36
+              Top = 28
               Width = 137
               Height = 22
               Style = csOwnerDrawFixed
@@ -426,8 +385,8 @@ object BattleForm: TBattleForm
               OnDrawItem = cmInsideDrawItem
             end
             object ToolBar5: TToolBar
-              Left = 178
-              Top = 230
+              Left = 176
+              Top = 228
               Width = 25
               Height = 49
               Align = alNone
@@ -449,8 +408,8 @@ object BattleForm: TBattleForm
               end
             end
             object ToolBar6: TToolBar
-              Left = 178
-              Top = 58
+              Left = 176
+              Top = 56
               Width = 25
               Height = 141
               Align = alNone
@@ -538,8 +497,8 @@ object BattleForm: TBattleForm
               end
             end
             object ToolBar4: TToolBar
-              Left = 178
-              Top = 28
+              Left = 176
+              Top = 26
               Width = 37
               Height = 29
               Align = alNone
@@ -568,8 +527,8 @@ object BattleForm: TBattleForm
             BevelOuter = bvNone
             TabOrder = 1
             object btnAddAttacker: TBitBtn
-              Left = 2
-              Top = 2
+              Left = 0
+              Top = 0
               Width = 73
               Height = 21
               Caption = 'Attacker'
@@ -596,8 +555,8 @@ object BattleForm: TBattleForm
             end
             object btnAddDefender: TBitBtn
               Tag = 1
-              Left = 78
-              Top = 2
+              Left = 76
+              Top = 0
               Width = 73
               Height = 21
               Caption = 'Defender'
@@ -623,8 +582,8 @@ object BattleForm: TBattleForm
               Margin = 2
             end
             object btnDelUnit: TButton
-              Left = 162
-              Top = 2
+              Left = 160
+              Top = 0
               Width = 43
               Height = 21
               Caption = 'Delete'
@@ -708,22 +667,15 @@ object BattleForm: TBattleForm
               OnClick = tbDelStructClick
             end
           end
-          object gStructs: TPowerGrid
+          object gStructs: TStringGrid
             Left = 4
             Top = 104
             Width = 201
             Height = 241
             ColCount = 3
-            DefaultRowColor = clBlack
-            Editing = False
             FixedRows = 1
-            ImageCol = 0
             Options = [pgoLines, pgoRowSelect, pgoStretchLastCol]
             RowCount = 1
-            Sorted = False
-            SortBy = 0
-            StickySelect = False
-            TopRow = 1
             OnDrawCell = gStructsDrawCell
           end
         end
@@ -750,8 +702,8 @@ object BattleForm: TBattleForm
       end
     end
     object pnOverview: TPanel
-      Left = 2
-      Top = 2
+      Left = 0
+      Top = 0
       Width = 320
       Height = 431
       Align = alLeft
@@ -759,7 +711,7 @@ object BattleForm: TBattleForm
       TabOrder = 1
       object Bevel2: TBevel
         Left = 0
-        Top = 83
+        Top = 81
         Width = 320
         Height = 8
         Align = alTop
@@ -767,7 +719,7 @@ object BattleForm: TBattleForm
       end
       object Bevel3: TBevel
         Left = 0
-        Top = 50
+        Top = 48
         Width = 320
         Height = 8
         Align = alTop
@@ -790,8 +742,8 @@ object BattleForm: TBattleForm
           BevelOuter = bvNone
           TabOrder = 0
           object lAtkWin: TLabel
-            Left = 58
-            Top = 37
+            Left = 56
+            Top = 35
             Width = 85
             Height = 13
             AutoSize = False
@@ -804,7 +756,7 @@ object BattleForm: TBattleForm
             ParentFont = False
           end
           object lAtkLeaderName: TLabel
-            Left = 58
+            Left = 56
             Top = 0
             Width = 81
             Height = 13
@@ -818,8 +770,8 @@ object BattleForm: TBattleForm
             ParentFont = False
           end
           object lAtkTactics: TLabel
-            Left = 58
-            Top = 14
+            Left = 56
+            Top = 12
             Width = 81
             Height = 13
             AutoSize = False
@@ -841,7 +793,7 @@ object BattleForm: TBattleForm
           end
         end
         object pnDefender: TPanel
-          Left = 162
+          Left = 160
           Top = 0
           Width = 156
           Height = 52
@@ -849,8 +801,8 @@ object BattleForm: TBattleForm
           BevelOuter = bvNone
           TabOrder = 1
           object lDefWin: TLabel
-            Left = 14
-            Top = 37
+            Left = 12
+            Top = 35
             Width = 80
             Height = 13
             Alignment = taRightJustify
@@ -864,7 +816,7 @@ object BattleForm: TBattleForm
             ParentFont = False
           end
           object lDefLeaderName: TLabel
-            Left = 14
+            Left = 12
             Top = 0
             Width = 80
             Height = 13
@@ -879,8 +831,8 @@ object BattleForm: TBattleForm
             ParentFont = False
           end
           object lDefTactics: TLabel
-            Left = 14
-            Top = 14
+            Left = 12
+            Top = 12
             Width = 80
             Height = 13
             Alignment = taRightJustify
@@ -888,7 +840,7 @@ object BattleForm: TBattleForm
             Caption = 'tactics 4'
           end
           object Panel2: TPanel
-            Left = 102
+            Left = 100
             Top = 0
             Width = 52
             Height = 52
@@ -905,7 +857,7 @@ object BattleForm: TBattleForm
       end
       object pnToolbar: TPanel
         Left = 0
-        Top = 58
+        Top = 56
         Width = 320
         Height = 25
         Align = alTop
@@ -961,7 +913,7 @@ object BattleForm: TBattleForm
           end
         end
         object pRound: TPanel
-          Left = 261
+          Left = 259
           Top = 0
           Width = 57
           Height = 25
@@ -969,8 +921,8 @@ object BattleForm: TBattleForm
           BevelOuter = bvNone
           TabOrder = 1
           object lRound: TLabel
-            Left = 5
-            Top = 3
+            Left = 3
+            Top = 1
             Width = 48
             Height = 13
             Alignment = taRightJustify
@@ -978,7 +930,7 @@ object BattleForm: TBattleForm
           end
         end
         object trRounds: TTrackBar
-          Left = 103
+          Left = 101
           Top = 0
           Width = 158
           Height = 25
@@ -997,7 +949,7 @@ object BattleForm: TBattleForm
       end
       object Panel3: TPanel
         Left = 0
-        Top = 91
+        Top = 89
         Width = 320
         Height = 338
         Align = alClient
@@ -1021,7 +973,7 @@ object BattleForm: TBattleForm
           OnMouseOut = PainterMouseOut
         end
         object ScrollBar: TScrollBar
-          Left = 305
+          Left = 303
           Top = 0
           Width = 13
           Height = 338

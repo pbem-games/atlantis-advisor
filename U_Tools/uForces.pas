@@ -1,15 +1,17 @@
 unit uForces;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, Resources, StdCtrls, Grids, ComCtrls,
   ToolWin, ColorBtn, Math;
 
 type
   TForceForm = class(TForm)
-    Grid: TPowerGrid;
+    Grid: TStringGrid;
     Button1: TButton;
     ToolBar1: TToolBar;
     btnAddForce: TToolButton;
@@ -40,7 +42,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TForceForm.FormCreate(Sender: TObject);
 begin

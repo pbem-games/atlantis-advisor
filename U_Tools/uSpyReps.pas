@@ -1,15 +1,17 @@
 unit uSpyReps;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, Resources, StdCtrls, Grids, uGameSubs,
   ComCtrls, ToolWin, AtlaDate, uInterface, uKeys, MyStrings;
 
 type
   TSpyRepForm = class(TForm)
-    gChanges: TPowerGrid;
+    gChanges: TStringGrid;
     ToolBar1: TToolBar;
     btnAppeared: TToolButton;
     btnDisappeared: TToolButton;
@@ -47,7 +49,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 uses
   Main;
@@ -55,48 +57,51 @@ uses
 procedure TSpyRepForm.FormCreate(Sender: TObject);
 var i: integer;
 begin
-  gChanges.LoadColumns(Config);
-  LoadFormPosition(Self);
-
-  btnAppeared.Down := Config.ReadBool('SpyReports', 'Appeared', True);
-  btnDisappeared.Down := Config.ReadBool('SpyReports', 'Disappeared', True);
-  btnChanges.Down := Config.ReadBool('SpyReports', 'Changes', True);
-  btnGuard.Down := Config.ReadBool('SpyReports', 'Flags', True);
-  btnItems.Down := Config.ReadBool('SpyReports', 'Items', True);
-  btnEconomy.Down := Config.ReadBool('SpyReports', 'Economy', True);
-  btnRegion.Down := Config.ReadBool('SpyReports', 'Region', False);
-  btnUnit.Down := Config.ReadBool('SpyReports', 'Unit', False);
-  btnAllTurns.Down := Config.ReadBool('SpyReports', 'AllTurns', False);
-
-  FillFactionsCombo(cmFactions, True, True);
-
-  if Config.ReadInteger('SpyReports', 'Faction', -1) >= 0 then begin
-    i := cmFactions.Items.Count-1;
-    while (i >= 0) and (TFaction(cmFactions.Items.Objects[i]).Num <>
-      Config.ReadInteger('SpyReports', 'Faction', -1)) do Dec(i);
-    if i >= 0 then cmFactions.ItemIndex := i;
-  end;
-  if btnUnit.Down = True then cmFactions.ItemIndex := 0;
-  cmFactions.Enabled := not btnUnit.Down;
-
-  CollectChanges;
+  // FIXME: broken
+  //gChanges.LoadColumns(Config);
+  //LoadFormPosition(Self);
+  //
+  //btnAppeared.Down := Config.ReadBool('SpyReports', 'Appeared', True);
+  //btnDisappeared.Down := Config.ReadBool('SpyReports', 'Disappeared', True);
+  //btnChanges.Down := Config.ReadBool('SpyReports', 'Changes', True);
+  //btnGuard.Down := Config.ReadBool('SpyReports', 'Flags', True);
+  //btnItems.Down := Config.ReadBool('SpyReports', 'Items', True);
+  //btnEconomy.Down := Config.ReadBool('SpyReports', 'Economy', True);
+  //btnRegion.Down := Config.ReadBool('SpyReports', 'Region', False);
+  //btnUnit.Down := Config.ReadBool('SpyReports', 'Unit', False);
+  //btnAllTurns.Down := Config.ReadBool('SpyReports', 'AllTurns', False);
+  //
+  //FillFactionsCombo(cmFactions, True, True);
+  //
+  //if Config.ReadInteger('SpyReports', 'Faction', -1) >= 0 then begin
+  //  i := cmFactions.Items.Count-1;
+  //  while (i >= 0) and (TFaction(cmFactions.Items.Objects[i]).Num <>
+  //    Config.ReadInteger('SpyReports', 'Faction', -1)) do Dec(i);
+  //  if i >= 0 then cmFactions.ItemIndex := i;
+  //end;
+  //if btnUnit.Down = True then cmFactions.ItemIndex := 0;
+  //cmFactions.Enabled := not btnUnit.Down;
+  //
+  //CollectChanges;
 end;
 
 procedure TSpyRepForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  gChanges.SaveColumns(Config);
-  SaveFormPosition(Self);
+  // FIXME: broken
+  //gChanges.SaveColumns(Config);
+  //SaveFormPosition(Self);
 end;
 
 procedure TSpyRepForm.CollectChanges;
 var i: integer;
 begin
-  gChanges.RowCount := 1;
-  if not btnAllTurns.Down then
-    CollectInTurn(Turn)
-  else
-    for i := 2 to Game.Turns.Count-1 do CollectInTurn(Game.Turns[i]);
-  gChanges.Fixup;
+  // FIXME: broken
+  //gChanges.RowCount := 1;
+  //if not btnAllTurns.Down then
+  //  CollectInTurn(Turn)
+  //else
+  //  for i := 2 to Game.Turns.Count-1 do CollectInTurn(Game.Turns[i]);
+  //gChanges.Fixup;
 end;
 
 procedure TSpyRepForm.CollectInTurn(ATurn: TTurn);
@@ -224,58 +229,61 @@ end;
 procedure TSpyRepForm.AddMsg(U: TUnit; MsgType, Text: string);
 var row: integer;
 begin
-  row := gChanges.RowCount;
-  gChanges.Cells[0, row] := MsgType;
-  gChanges.Cells[1, row] := U.Name;
-  gChanges.Cells[2, row] := U.NumStr;
-  gChanges.Cells[3, row] := FactionName(U.Faction);
-  gChanges.Cells[4, row] := IntToStr(U.Faction.Num);
-  gChanges.Cells[5, row] := MakeRegionName(U.Region.Coords, True);
-  gChanges.Cells[6, row] := Text;
-  if MsgType = 'disappear' then
-    gChanges.Cells[7, row] := IntToStr(U.Region.Visited + 1)
-  else gChanges.Cells[7, row] := IntToStr(U.Region.Visited);
-  gChanges.Cells[8, row] := IntToStr(U.Items.Amount(IT_MAN) +
-    U.Items.Amount(IT_MONSTER));
-  gChanges.Rows[row].Data := U.Region;
-  gChanges.Rows[row].Color := FactionColor(U.Faction);
+  // FIXME: broken
+  //row := gChanges.RowCount;
+  //gChanges.Cells[0, row] := MsgType;
+  //gChanges.Cells[1, row] := U.Name;
+  //gChanges.Cells[2, row] := U.NumStr;
+  //gChanges.Cells[3, row] := FactionName(U.Faction);
+  //gChanges.Cells[4, row] := IntToStr(U.Faction.Num);
+  //gChanges.Cells[5, row] := MakeRegionName(U.Region.Coords, True);
+  //gChanges.Cells[6, row] := Text;
+  //if MsgType = 'disappear' then
+  //  gChanges.Cells[7, row] := IntToStr(U.Region.Visited + 1)
+  //else gChanges.Cells[7, row] := IntToStr(U.Region.Visited);
+  //gChanges.Cells[8, row] := IntToStr(U.Items.Amount(IT_MAN) +
+  //  U.Items.Amount(IT_MONSTER));
+  //gChanges.Rows[row].Data := U.Region;
+  //gChanges.Rows[row].Color := FactionColor(U.Faction);
 end;
 
 procedure TSpyRepForm.AddMsg(R: TARegion; MsgType, Text: string);
 var row: integer;
 begin
-  row := gChanges.RowCount;
-  gChanges.Cells[0, row] := MsgType;
-  gChanges.Cells[1, row] := 'Unknown units';
-  gChanges.Cells[5, row] := MakeRegionName(R.Coords, True);
-  gChanges.Cells[6, row] := Text;
-  gChanges.Cells[7, row] := IntToStr(R.Visited);
-  gChanges.Rows[row].Data := R;
-  gChanges.Rows[row].Color := clWhite;
+  // FIXME: broken
+  //row := gChanges.RowCount;
+  //gChanges.Cells[0, row] := MsgType;
+  //gChanges.Cells[1, row] := 'Unknown units';
+  //gChanges.Cells[5, row] := MakeRegionName(R.Coords, True);
+  //gChanges.Cells[6, row] := Text;
+  //gChanges.Cells[7, row] := IntToStr(R.Visited);
+  //gChanges.Rows[row].Data := R;
+  //gChanges.Rows[row].Color := clWhite;
 end;
 
 procedure TSpyRepForm.gChangesDrawCell(Sender: TObject; ACol,
   ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
 var icon: integer;
 begin
-  with TPowerGrid(Sender) do begin
-    if (ACol = 0) and (ARow > 0) then begin
-      icon := bmpUnknownItem;
-      if ImgCells[ACol, ARow] = 'unit' then icon := bmpMen
-      else if ImgCells[ACol, ARow] = 'appear' then icon := bmpNewUnit
-      else if ImgCells[ACol, ARow] = 'disappear' then icon := bmpDelUnit
-      else if ImgCells[ACol, ARow] = 'flags' then icon := bmpAdvance
-      else if ImgCells[ACol, ARow] = 'items' then icon := bmpTradeGoods
-      else if ImgCells[ACol, ARow] = 'economy' then icon := bmpSilver;
-      ResForm.IconList.Draw(Canvas, TxtRect.Left, TxtRect.Top, icon);
-      TxtRect.Left := TxtRect.Right;
-    end
-    else if (ImgCells[ACol, 0] = 'Date') and (ARow > 0) then begin
-      Canvas.TextRect(TxtRect, TxtRect.Left + 2, TxtRect.Top + 2,
-        TurnToShortDate(StrToInt(ImgCells[ACol, ARow])));
-      TxtRect.Left := TxtRect.Right;
-    end;
-  end;
+  // FIXME: broken
+  //with TStringGrid(Sender) do begin
+  //  if (ACol = 0) and (ARow > 0) then begin
+  //    icon := bmpUnknownItem;
+  //    if ImgCells[ACol, ARow] = 'unit' then icon := bmpMen
+  //    else if ImgCells[ACol, ARow] = 'appear' then icon := bmpNewUnit
+  //    else if ImgCells[ACol, ARow] = 'disappear' then icon := bmpDelUnit
+  //    else if ImgCells[ACol, ARow] = 'flags' then icon := bmpAdvance
+  //    else if ImgCells[ACol, ARow] = 'items' then icon := bmpTradeGoods
+  //    else if ImgCells[ACol, ARow] = 'economy' then icon := bmpSilver;
+  //    ResForm.IconList.Draw(Canvas, TxtRect.Left, TxtRect.Top, icon);
+  //    TxtRect.Left := TxtRect.Right;
+  //  end
+  //  else if (ImgCells[ACol, 0] = 'Date') and (ARow > 0) then begin
+  //    Canvas.TextRect(TxtRect, TxtRect.Left + 2, TxtRect.Top + 2,
+  //      TurnToShortDate(StrToInt(ImgCells[ACol, ARow])));
+  //    TxtRect.Left := TxtRect.Right;
+  //  end;
+  //end;
 end;
 
 procedure TSpyRepForm.FilterChange(Sender: TObject);
@@ -312,11 +320,12 @@ end;
 
 procedure TSpyRepForm.gChangesDblClick(Sender: TObject);
 begin
-  with gChanges do
-    if RowCount > 1 then begin
-      MainForm.HexMapGoto(TARegion(ImgRows[Row].Data).Coords);
-      Close;
-    end;
+  // FIXME: broken
+  //with gChanges do
+  //  if RowCount > 1 then begin
+  //    MainForm.HexMapGoto(TARegion(ImgRows[Row].Data).Coords);
+  //    Close;
+  //  end;
 end;
 
 procedure TSpyRepForm.ReadGuardEvents(U: TUnit);
@@ -325,37 +334,38 @@ var i, row, unum, num: integer;
     Fac: TFaction;
     uname: string;
 begin
-  if not U.Flags[flgGuard] then Exit;
-  for i := 0 to U.Events.Count-1 do
-    if Pos(Keys[s_Forbids], U.Events[i]) = 1 then begin
-      Trace := TTrace.Create(U.Events[i]);
-      Trace.Before(Keys[s_Forbids]);
-      row := gChanges.RowCount;
-      uname := Trace.Before(' (');
-      unum := StrToInt(Trace.Before(')'));
-      if not btnUnit.Down or ((CurrUnit <> nil) and (CurrUnit.Num = unum)) then begin
-        gChanges.Cells[0, row] := 'flags';
-        gChanges.Cells[1, row] := uname;
-        gChanges.Cells[2, row] := IntToStr(unum);
-        Fac := nil;
-        if Pos(',', Trace.Text) = 1 then begin
-          Trace.Before(' ');
-          gChanges.Cells[3, row] := Trace.Before(' (');
-          num := Trace.Num;
-          Fac := FindFaction(num);
-          gChanges.Cells[4, row] := IntToStr(num);
-        end;
-        if Fac = nil then Fac := Turn.Factions[0];
-        gChanges.Cells[5, row] := MakeRegionName(U.Region.Coords, True);
-        gChanges.Cells[6, row] := 'Forbidden entry';
-        gChanges.Cells[7, row] := IntToStr(U.Region.Visited);
-        gChanges.Cells[8, row] := IntToStr(U.Items.Amount(IT_MAN) +
-          U.Items.Amount(IT_MONSTER));
-        gChanges.Rows[row].Data := U.Region;
-        gChanges.Rows[row].Color := FactionColor(Fac);
-      end;
-      Trace.Free;
-    end;
+  // FIXME: broken
+  //if not U.Flags[flgGuard] then Exit;
+  //for i := 0 to U.Events.Count-1 do
+  //  if Pos(Keys[s_Forbids], U.Events[i]) = 1 then begin
+  //    Trace := TTrace.Create(U.Events[i]);
+  //    Trace.Before(Keys[s_Forbids]);
+  //    row := gChanges.RowCount;
+  //    uname := Trace.Before(' (');
+  //    unum := StrToInt(Trace.Before(')'));
+  //    if not btnUnit.Down or ((CurrUnit <> nil) and (CurrUnit.Num = unum)) then begin
+  //      gChanges.Cells[0, row] := 'flags';
+  //      gChanges.Cells[1, row] := uname;
+  //      gChanges.Cells[2, row] := IntToStr(unum);
+  //      Fac := nil;
+  //      if Pos(',', Trace.Text) = 1 then begin
+  //        Trace.Before(' ');
+  //        gChanges.Cells[3, row] := Trace.Before(' (');
+  //        num := Trace.Num;
+  //        Fac := FindFaction(num);
+  //        gChanges.Cells[4, row] := IntToStr(num);
+  //      end;
+  //      if Fac = nil then Fac := Turn.Factions[0];
+  //      gChanges.Cells[5, row] := MakeRegionName(U.Region.Coords, True);
+  //      gChanges.Cells[6, row] := 'Forbidden entry';
+  //      gChanges.Cells[7, row] := IntToStr(U.Region.Visited);
+  //      gChanges.Cells[8, row] := IntToStr(U.Items.Amount(IT_MAN) +
+  //        U.Items.Amount(IT_MONSTER));
+  //      gChanges.Rows[row].Data := U.Region;
+  //      gChanges.Rows[row].Color := FactionColor(Fac);
+  //    end;
+  //    Trace.Free;
+  //  end;
 end;
 
 procedure TSpyRepForm.AddEconomies(R: TARegion);

@@ -1,15 +1,17 @@
 unit uSoldiers;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, Resources, Grids, uArmy, uGameSubs,
   MyStrings, IniFiles;
 
 type
   TSoldiersForm = class(TForm)
-    Grid: TPowerGrid;
+    Grid: TStringGrid;
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure GridDrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -32,7 +34,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 function GetBattleImage(Soldier: TSoldier; Section: string): string;
 var Trace: TTrace;
@@ -172,24 +174,25 @@ end;
 procedure TSoldiersForm.Setup(AUnit: TBaseUnit; R: TARegion);
 var i, j, row: integer;
 begin
-  FUnit := AUnit;
-  Caption := 'Soldiers in ' + FUnit.Name;
-  i := -1;
-  AddSoldiers(Soldiers, FUnit, R, i);
-  Grid.RowCount := 0;
-  row := 0;
-  i := 0;
-  while (i < Soldiers.Count) do begin
-    Grid.Cells[0, row] := '';
-    Grid.Rows[row].Data := Soldiers[i];
-    j := i;
-    Inc(i);
-    while (i < Soldiers.Count) and
-      EqualSoldiers(Grid.Rows[row].Data, Soldiers[i]) do Inc(i);
-    Grid.Cells[0, row] := IntToStr(i - j);
-    Inc(row);
-  end;
-  Grid.Fixup;
+  // FIXME: broken
+  //FUnit := AUnit;
+  //Caption := 'Soldiers in ' + FUnit.Name;
+  //i := -1;
+  //AddSoldiers(Soldiers, FUnit, R, i);
+  //Grid.RowCount := 0;
+  //row := 0;
+  //i := 0;
+  //while (i < Soldiers.Count) do begin
+  //  Grid.Cells[0, row] := '';
+  //  Grid.Rows[row].Data := Soldiers[i];
+  //  j := i;
+  //  Inc(i);
+  //  while (i < Soldiers.Count) and
+  //    EqualSoldiers(Grid.Rows[row].Data, Soldiers[i]) do Inc(i);
+  //  Grid.Cells[0, row] := IntToStr(i - j);
+  //  Inc(row);
+  //end;
+  //Grid.Fixup;
 end;
 
 procedure TSoldiersForm.GridDrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -217,86 +220,87 @@ var Soldier: TSoldier;
   end;
 
 begin
-  with Grid do begin
-    Soldier := TSoldier(Grid.Rows[ARow].Data);
-    DrawBattleImage(Canvas, TxtRect.Left + 4, TxtRect.Top + 10,
-      SoldierImg(Soldier), FactionColor(FUnit.Faction), False);
-    // Men
-    men := Cells[ACol, ARow];
-    Canvas.Font.Name := 'Small Fonts';
-    Canvas.Font.Size := 6;
-    Write(32, 32, men, clWindowText);
-    Canvas.Font.Name := 'MS Sans Serif';
-    Canvas.Font.Size := 8;
-  end;
-
-  Write(atk_x, atk_y, 'Attack:', clGray);
-  s := IntToStr(Soldier.Attack);
-  x := atk_x + 62 + Grid.Canvas.TextWidth(s);
-  Grid.Canvas.Font.Size := 6;
-  Grid.Canvas.Font.Name := 'Small Fonts';
-  if Soldier.Weapon = nil then begin
-    Draw(atk_x + 40, atk_y + 2, bmp_extWpnClasses);
-    Draw(atk_x + 50, atk_y + 2, bmp_extAttackTypes);
-    Write(x, atk_y + 4, 'S', clWindowText);
-  end
-  else begin
-    Draw(atk_x + 40, atk_y + 2, bmp_extWpnClasses + Soldier.Weapon.Weapon.WpnClass);
-    Draw(atk_x + 50, atk_y + 2, bmp_extAttackTypes + Soldier.Weapon.Weapon.AttackType);
-    if Test(Soldier.Weapon.Weapon.Flags, WPN_SHORT) then
-      Write(x, atk_y + 4, 'S', clWindowText);
-    if Test(Soldier.Weapon.Weapon.Flags, WPN_LONG) then
-      Write(x, atk_y + 4, 'L', clWindowText);
-  end;
-  Grid.Canvas.Font.Name := 'MS Sans Serif';
-  Grid.Canvas.Font.Size := 8;
-  Write(atk_x + 60, atk_y, s, clWindowText);
-
-  Write(def_x, def_y, 'Defence:', clGray);
-  for i := 0 to atCount-2 do begin
-    Draw(def_x + 50 + i * 27, def_y + 2, bmp_extAttackTypes + i);
-    Write(def_x + 62 + i * 27, def_y, IntToStr(Soldier.Defence[i]),
-      clWindowText);
-  end;
-
-  Write(num_x, num_y, 'Attacks:', clGray);
-  if Soldier.NumAttacks >= 0 then s := IntToStr(Soldier.NumAttacks)
-  else s := '1/' + IntToStr(-Soldier.NumAttacks);
-  Write(num_x + 45, num_y, s, clWindowText);
-
-  Write(hit_x, hit_y, 'Hits:', clGray);
-  Write(hit_x + 25, hit_y, IntToStr(Soldier.Hits), clWindowText);
-
-  Write(arm_x, arm_y, 'Armor:', clGray);
-  for i := 0 to wcCount-1 do begin
-    Draw(arm_x + 36 + i * 27, arm_y + 2, bmp_extWpnClasses + i);
-    if Soldier.Armor = nil then s := '0'
-    else s := IntToStr(Soldier.Armor.Armor.Defence[i]);
-    Write(arm_x + 48 + i * 27, arm_y, s, clWindowText);
-  end;
-
-  x := itm_x;
-  if Soldier.Special <> nil then begin
-    Write(sp_x, sp_y, 'Spell:', clGray);
-    s := Soldier.Special.Name + ', lv ' + IntToStr(Soldier.SpecLevel);
-    Write(sp_x + 30, sp_y, s, clWindowText);
-    Inc(x, Grid.Canvas.TextWidth(s) + 45);
-  end;
-
-  // Items
-  s := Soldier.Man.Name(men <> '1');
-  if Soldier.Weapon <> nil then
-    s := s + ', ' + Soldier.Weapon.Name(men <> '1');
-  if Soldier.Armor <> nil then
-    s := s + ', ' + Soldier.Armor.Name(men <> '1');
-  if Soldier.Mount <> nil then
-    s := s + ', ' + Soldier.Mount.Name(men <> '1');
-  if Soldier.BItems <> nil then
-    for i := 0 to Soldier.BItems.Count-1 do
-      s := s + ', ' + Soldier.BItems[i].Name(men <> '1');
-  Write(x, itm_y, s, clWindowText);
-
-  TxtRect.Left := TxtRect.Right;
+  // FIXME: broken
+  //with Grid do begin
+  //  Soldier := TSoldier(Grid.Rows[ARow].Data);
+  //  DrawBattleImage(Canvas, TxtRect.Left + 4, TxtRect.Top + 10,
+  //    SoldierImg(Soldier), FactionColor(FUnit.Faction), False);
+  //  // Men
+  //  men := Cells[ACol, ARow];
+  //  Canvas.Font.Name := 'Small Fonts';
+  //  Canvas.Font.Size := 6;
+  //  Write(32, 32, men, clWindowText);
+  //  Canvas.Font.Name := 'MS Sans Serif';
+  //  Canvas.Font.Size := 8;
+  //end;
+  //
+  //Write(atk_x, atk_y, 'Attack:', clGray);
+  //s := IntToStr(Soldier.Attack);
+  //x := atk_x + 62 + Grid.Canvas.TextWidth(s);
+  //Grid.Canvas.Font.Size := 6;
+  //Grid.Canvas.Font.Name := 'Small Fonts';
+  //if Soldier.Weapon = nil then begin
+  //  Draw(atk_x + 40, atk_y + 2, bmp_extWpnClasses);
+  //  Draw(atk_x + 50, atk_y + 2, bmp_extAttackTypes);
+  //  Write(x, atk_y + 4, 'S', clWindowText);
+  //end
+  //else begin
+  //  Draw(atk_x + 40, atk_y + 2, bmp_extWpnClasses + Soldier.Weapon.Weapon.WpnClass);
+  //  Draw(atk_x + 50, atk_y + 2, bmp_extAttackTypes + Soldier.Weapon.Weapon.AttackType);
+  //  if Test(Soldier.Weapon.Weapon.Flags, WPN_SHORT) then
+  //    Write(x, atk_y + 4, 'S', clWindowText);
+  //  if Test(Soldier.Weapon.Weapon.Flags, WPN_LONG) then
+  //    Write(x, atk_y + 4, 'L', clWindowText);
+  //end;
+  //Grid.Canvas.Font.Name := 'MS Sans Serif';
+  //Grid.Canvas.Font.Size := 8;
+  //Write(atk_x + 60, atk_y, s, clWindowText);
+  //
+  //Write(def_x, def_y, 'Defence:', clGray);
+  //for i := 0 to atCount-2 do begin
+  //  Draw(def_x + 50 + i * 27, def_y + 2, bmp_extAttackTypes + i);
+  //  Write(def_x + 62 + i * 27, def_y, IntToStr(Soldier.Defence[i]),
+  //    clWindowText);
+  //end;
+  //
+  //Write(num_x, num_y, 'Attacks:', clGray);
+  //if Soldier.NumAttacks >= 0 then s := IntToStr(Soldier.NumAttacks)
+  //else s := '1/' + IntToStr(-Soldier.NumAttacks);
+  //Write(num_x + 45, num_y, s, clWindowText);
+  //
+  //Write(hit_x, hit_y, 'Hits:', clGray);
+  //Write(hit_x + 25, hit_y, IntToStr(Soldier.Hits), clWindowText);
+  //
+  //Write(arm_x, arm_y, 'Armor:', clGray);
+  //for i := 0 to wcCount-1 do begin
+  //  Draw(arm_x + 36 + i * 27, arm_y + 2, bmp_extWpnClasses + i);
+  //  if Soldier.Armor = nil then s := '0'
+  //  else s := IntToStr(Soldier.Armor.Armor.Defence[i]);
+  //  Write(arm_x + 48 + i * 27, arm_y, s, clWindowText);
+  //end;
+  //
+  //x := itm_x;
+  //if Soldier.Special <> nil then begin
+  //  Write(sp_x, sp_y, 'Spell:', clGray);
+  //  s := Soldier.Special.Name + ', lv ' + IntToStr(Soldier.SpecLevel);
+  //  Write(sp_x + 30, sp_y, s, clWindowText);
+  //  Inc(x, Grid.Canvas.TextWidth(s) + 45);
+  //end;
+  //
+  //// Items
+  //s := Soldier.Man.Name(men <> '1');
+  //if Soldier.Weapon <> nil then
+  //  s := s + ', ' + Soldier.Weapon.Name(men <> '1');
+  //if Soldier.Armor <> nil then
+  //  s := s + ', ' + Soldier.Armor.Name(men <> '1');
+  //if Soldier.Mount <> nil then
+  //  s := s + ', ' + Soldier.Mount.Name(men <> '1');
+  //if Soldier.BItems <> nil then
+  //  for i := 0 to Soldier.BItems.Count-1 do
+  //    s := s + ', ' + Soldier.BItems[i].Name(men <> '1');
+  //Write(x, itm_y, s, clWindowText);
+  //
+  //TxtRect.Left := TxtRect.Right;
 end;
 
 

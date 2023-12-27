@@ -261,32 +261,32 @@ object AvatarForm: TAvatarForm
     ParentBackground = False
     TabOrder = 2
     object Label1: TLabel
-      Left = 18
+      Left = 16
       Height = 44
-      Top = 24
+      Top = 10
       Width = 278
       AutoSize = False
       Caption = 'Check to show avatars from the pack to other Advisor users'
       WordWrap = True
     end
     object PackLabel: TLabel
-      Left = 18
+      Left = 16
       Height = 20
-      Top = 320
+      Top = 306
       Width = 278
       AutoSize = False
       Caption = 'bin by Gnawer'
     end
     object Bevel2: TBevel
-      Left = 12
+      Left = 10
       Height = 24
-      Top = 318
+      Top = 304
       Width = 290
     end
     object ImgGrid: TDrawGrid
-      Left = 312
+      Left = 310
       Height = 327
-      Top = 16
+      Top = 2
       Width = 452
       Color = clBtnFace
       ColCount = 4
@@ -303,9 +303,9 @@ object AvatarForm: TAvatarForm
       OnSelectCell = ImgGridSelectCell
     end
     object lbPacks: TCheckListBox
-      Left = 12
+      Left = 10
       Height = 236
-      Top = 72
+      Top = 58
       Width = 290
       ItemHeight = 24
       Sorted = True

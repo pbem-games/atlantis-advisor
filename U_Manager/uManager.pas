@@ -1,15 +1,25 @@
 unit uManager;
 
+{$MODE Delphi}
+
 {$WARN UNIT_PLATFORM OFF}
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Buttons, Grids, ImgList, FileCtrl, DataStructs, RepRead,
   AtlaDate, ExtCtrls, ComCtrls, uHistory, Clipbrd, IniFiles, MyStrings,
-  Resources, uOptions, uKeys, uGameSubs, uAvatars, uNewGame, uUnitRecs,
-  Spin, uMgrOptions, uAnalyzers;
+  Resources, Spin
+  , uOptions
+  , uKeys
+  , uGameSubs
+  , uAvatars
+  , uNewGame
+  , uMgrOptions
+  , uAnalyzers
+  , uUnitRecs
+  ;
 
 const
   FilenameCol = 3;
@@ -81,55 +91,57 @@ var
 implementation
 
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure RunEngine(params: string; dir: string);
 var exe: string;
     si: TStartupInfo;
-    pinf: TProcessInformation;
+    //pinf: TProcessInformation;
 begin
-  exe := Config.ReadString('Engine', 'EngineFile', '');
-  if FileExists(exe) and (DirectoryExists(dir)) then begin
-    FillChar( Si, SizeOf( Si ) , 0 );
-    Si.cb := SizeOf(Si);
-    Si.dwFlags := startf_UseShowWindow;
-    Si.wShowWindow := SW_SHOW;
-
-    CreateProcess(nil, PChar(exe + ' ' + params), nil, nil, False, CREATE_DEFAULT_ERROR_MODE,
-      nil, PChar(dir), si, pinf);
-    WaitForSingleObject(pinf.hProcess, infinite);
-  end
-  else raise EInOutError.Create('Either path to exe file or directory is incorrect');
+  // FIXME: broken
+  //exe := Config.ReadString('Engine', 'EngineFile', '');
+  //if FileExists(exe) and (DirectoryExists(dir)) then begin
+  //  FillChar( Si, SizeOf( Si ) , 0 );
+  //  Si.cb := SizeOf(Si);
+  //  Si.dwFlags := startf_UseShowWindow;
+  //  Si.wShowWindow := SW_SHOW;
+  //
+  //  CreateProcess(nil, PChar(exe + ' ' + params), nil, nil, False, CREATE_DEFAULT_ERROR_MODE,
+  //    nil, PChar(dir), si, pinf);
+  //  WaitForSingleObject(pinf.hProcess, infinite);
+  //end
+  //else raise EInOutError.Create('Either path to exe file or directory is incorrect');
 end;
 
 procedure RunLocalTurn(Num: integer; GetOutput: boolean);
 var dir, turn_dir: string;
 begin
-  dir := BaseDir + Game.Name + '\local\';
-  turn_dir := dir + 'turn.' + IntToStr(Num) + '\';
-  ForceDirectories(turn_dir);
-
-  if GetOutput then begin
-    CopyFile(PChar(dir + 'game.out'), PChar(turn_dir + 'game.in'), False);
-    DeleteFile(dir + 'game.out');
-    CopyFile(PChar(dir + 'players.out'), PChar(turn_dir + 'players.in'), False);
-    DeleteFile(dir + 'players.out');
-  end;
-
-  DeleteFile(turn_dir + 'game.out');
-  DeleteFile(turn_dir + 'players.out');
-  DeleteFile(turn_dir + 'report.3');
-
-  RunEngine('run', turn_dir);
-
-  Config.WriteInteger('Engine', 'LastTurn', Num);
-
-  CopyFile(PChar(turn_dir + 'game.out'), PChar(dir + 'game.out'), False);
-  DeleteFile(turn_dir + 'game.out');
-  CopyFile(PChar(turn_dir + 'players.out'), PChar(dir + 'players.out'), False);
-  DeleteFile(turn_dir + 'players.out');
-
-  GameConfig.WriteInteger('Game', 'LastTurnRan', Num);
+  // FIXME: broken
+  //dir := BaseDir + Game.Name + '\local\';
+  //turn_dir := dir + 'turn.' + IntToStr(Num) + '\';
+  //ForceDirectories(turn_dir);
+  //
+  //if GetOutput then begin
+  //  CopyFile(PChar(dir + 'game.out'), PChar(turn_dir + 'game.in'), False);
+  //  DeleteFile(dir + 'game.out');
+  //  CopyFile(PChar(dir + 'players.out'), PChar(turn_dir + 'players.in'), False);
+  //  DeleteFile(dir + 'players.out');
+  //end;
+  //
+  //DeleteFile(turn_dir + 'game.out');
+  //DeleteFile(turn_dir + 'players.out');
+  //DeleteFile(turn_dir + 'report.3');
+  //
+  //RunEngine('run', turn_dir);
+  //
+  //Config.WriteInteger('Engine', 'LastTurn', Num);
+  //
+  //CopyFile(PChar(turn_dir + 'game.out'), PChar(dir + 'game.out'), False);
+  //DeleteFile(turn_dir + 'game.out');
+  //CopyFile(PChar(turn_dir + 'players.out'), PChar(dir + 'players.out'), False);
+  //DeleteFile(turn_dir + 'players.out');
+  //
+  //GameConfig.WriteInteger('Game', 'LastTurnRan', Num);
 end;
 
 function GetLocalFolder(TurnNum: integer): string;
@@ -229,47 +241,49 @@ procedure TManagerForm.FormCreate(Sender: TObject);
 var Trace: TTrace;
     Base, s: string;
 begin
- // Setup clipboard listener
-  NextInChain := SetClipboardViewer(Handle);
-  PasteBtn.Enabled := Clipboard.HasFormat(CF_TEXT);
-
- // Configure window
-  RepGrid.Cols[2].Format := cfNumber;
-  SetLogPanel(Config.ReadBool('Game Manager', 'Details', TRUE));
-
- // Fill games
-  Base := ExtractFilePath(Application.ExeName);
-  Trace := TTrace.Create(Config.ReadString('Game Manager', 'Games', ''));
-  while not Trace.Ends and (Pos('.', Trace.Text) > 1) do begin
-    s := Trace.QBlock;
-    if (s <> '') and DirectoryExists(Base + s) then GameCombo.Items.Add(s);
-  end;
-  Trace.Free;
-  if Game <> nil then ActiveGame := Game.Name;
-  GameCombo.ItemIndex := Config.ReadInteger('Game Manager', 'GameIndex', 0);
-  GameComboChange(Self);
+ // FIXME: broken
+ //// Setup clipboard listener
+ // NextInChain := SetClipboardViewer(Handle);
+ // PasteBtn.Enabled := Clipboard.HasFormat(CF_TEXT);
+ //
+ //// Configure window
+ // RepGrid.Cols[2].Format := cfNumber;
+ // SetLogPanel(Config.ReadBool('Game Manager', 'Details', TRUE));
+ //
+ //// Fill games
+ // Base := ExtractFilePath(Application.ExeName);
+ // Trace := TTrace.Create(Config.ReadString('Game Manager', 'Games', ''));
+ // while not Trace.Ends and (Pos('.', Trace.Text) > 1) do begin
+ //   s := Trace.QBlock;
+ //   if (s <> '') and DirectoryExists(Base + s) then GameCombo.Items.Add(s);
+ // end;
+ // Trace.Free;
+ // if Game <> nil then ActiveGame := Game.Name;
+ // GameCombo.ItemIndex := Config.ReadInteger('Game Manager', 'GameIndex', 0);
+ // GameComboChange(Self);
 end;
 
 procedure TManagerForm.FormClose(Sender: TObject; var Action: TCloseAction);
 var i: integer;
     A: array of string;
 begin
- // Deactivate clipboard listener
-  ChangeClipboardChain(Handle, NextInChain);
-
- // Close game if no reports read
-  if (Game <> nil) and (Game.Turns.Count <= 1) then CloseGame;
-
- // Save games
-  Config.WriteInteger('Game Manager', 'GameIndex', GameCombo.ItemIndex);
-  SetLength(A, GameCombo.Items.Count);
-  for i := 0 to GameCombo.Items.Count-1 do A[i] := '"' + GameCombo.Items[i] + '"';
-  Config.WriteString('Game Manager', 'Games', MakeList(A));
-
-  // Re-run last loaded turn for local game
-  if (Game <> nil) and GameConfig.ReadBool('Game', 'Local', False)
-    and (GameConfig.ReadInteger('Game', 'LastTurnRan', 0) > Turn.Num) then
-    RunLocalTurn(Turn.Num, False);
+ // FIXME: broken
+ //// Deactivate clipboard listener
+ // ChangeClipboardChain(Handle, NextInChain);
+ //
+ //// Close game if no reports read
+ // if (Game <> nil) and (Game.Turns.Count <= 1) then CloseGame;
+ //
+ //// Save games
+ // Config.WriteInteger('Game Manager', 'GameIndex', GameCombo.ItemIndex);
+ // SetLength(A, GameCombo.Items.Count);
+ // for i := 0 to GameCombo.Items.Count-1 do A[i] := '"' + GameCombo.Items[i] + '"';
+ // Config.WriteString('Game Manager', 'Games', MakeList(A));
+ //
+ // // Re-run last loaded turn for local game
+ // if (Game <> nil) and GameConfig.ReadBool('Game', 'Local', False)
+ //   and (GameConfig.ReadInteger('Game', 'LastTurnRan', 0) > Turn.Num) then
+ //   RunLocalTurn(Turn.Num, False);
 end;
 
 function TManagerForm.MoveReport(Lines: TStrings; OldName: string): string;
@@ -369,11 +383,12 @@ end;
 procedure TManagerForm.DelBtnClick(Sender: TObject);
 var i: integer;
 begin
-  i := 0;
-  while (i < Reports.Count) and (Reports[i] <>
-    RepGrid.ImgCells[FilenameCol, RepGrid.Row]) do Inc(i);
-  if i < Reports.Count then Reports.Delete(i);
-  FillRepGrid;
+  // FIXME: broken
+  //i := 0;
+  //while (i < Reports.Count) and (Reports[i] <>
+  //  RepGrid.ImgCells[FilenameCol, RepGrid.Row]) do Inc(i);
+  //if i < Reports.Count then Reports.Delete(i);
+  //FillRepGrid;
 end;
 
 procedure TManagerForm.DetailBtnClick(Sender: TObject);
@@ -408,7 +423,7 @@ begin
       Lines.Free;
     end;
   end;
-  RepGrid.Fixup;
+  RepGrid.Update;
 end;
 
 
@@ -457,57 +472,58 @@ procedure TManagerForm.NewGameBtnClick(Sender: TObject);
 var i: integer;
     s: string;
 begin
-  if not ProgOpened and (GameCombo.Items.Count >= 1) then begin
-    MessageDlg('Cannot create more than one game in unregistered version.',
-      mtWarning, [mbOk], 0);
-    Exit;
-  end;
-  with TNewGameForm.Create(Self) do begin
-    if (ShowModal = mrOk) and (cmRuleset.ItemIndex >= 0) then begin
-      if DirectoryExists(BaseDir + GameNameEdit.Text) then begin
-        // Check if game already in list
-         i := 0;
-         while (i < GameCombo.Items.Count) and (GameCombo.Items[i] <>
-           GameNameEdit.Text) do Inc(i);
-         if GameCombo.Items[i] = GameNameEdit.Text then MessageDlg('This game ' +
-           'already exists.', mtError, [mbOK], 0)
-         else begin
-          // Prompt to re-attach the game
-           if MessageDlg(s + 'Game folder "' + BaseDir + GameNameEdit.Text +
-             '" already exists. Do you want to open it?', mtWarning, [mbYes, mbCancel], 0)
-             = mrYes then begin
-             GameCombo.Items.Add(GameNameEdit.Text);
-             GameCombo.ItemIndex := GameCombo.Items.Count-1;
-             GameComboChange(Self);
-           end;
-         end;
-      end
-      else begin
-        // Create new game
-        CreateDir(BaseDir + GameNameEdit.Text);
-        CreateDir(BaseDir + GameNameEdit.Text + '\orders');
-        CreateDir(BaseDir + GameNameEdit.Text + '\reports');
-        if cbLocal.Checked then
-          CreateDir(BaseDir + GameNameEdit.Text + '\local');
-        // Copy ruleset to history
-        CopyFile(PChar(BaseDir + RuleFolder +
-          cmRuleset.Items[cmRuleset.ItemIndex] + '.dat'),
-          PChar(BaseDir + GameNameEdit.Text + '\game.dat'), False);
-        // Add to game list
-        GameCombo.Items.Add(GameNameEdit.Text);
-        GameCombo.ItemIndex := GameCombo.Items.Count-1;
-        GameComboChange(Self);
-        // Create world and add first report for local game
-        if cbLocal.Checked then begin
-          GameConfig.WriteBool('Game', 'Local', True);
-          CreateLocalWorld;
-          Reports.Add(GetLocalFolder(1) + 'report.3');
-          FillRepGrid;
-        end;
-      end;
-    end;
-    Free;
-  end;
+  // FIXME: broken
+  //if not ProgOpened and (GameCombo.Items.Count >= 1) then begin
+  //  MessageDlg('Cannot create more than one game in unregistered version.',
+  //    mtWarning, [mbOk], 0);
+  //  Exit;
+  //end;
+  //with TNewGameForm.Create(Self) do begin
+  //  if (ShowModal = mrOk) and (cmRuleset.ItemIndex >= 0) then begin
+  //    if DirectoryExists(BaseDir + GameNameEdit.Text) then begin
+  //      // Check if game already in list
+  //       i := 0;
+  //       while (i < GameCombo.Items.Count) and (GameCombo.Items[i] <>
+  //         GameNameEdit.Text) do Inc(i);
+  //       if GameCombo.Items[i] = GameNameEdit.Text then MessageDlg('This game ' +
+  //         'already exists.', mtError, [mbOK], 0)
+  //       else begin
+  //        // Prompt to re-attach the game
+  //         if MessageDlg(s + 'Game folder "' + BaseDir + GameNameEdit.Text +
+  //           '" already exists. Do you want to open it?', mtWarning, [mbYes, mbCancel], 0)
+  //           = mrYes then begin
+  //           GameCombo.Items.Add(GameNameEdit.Text);
+  //           GameCombo.ItemIndex := GameCombo.Items.Count-1;
+  //           GameComboChange(Self);
+  //         end;
+  //       end;
+  //    end
+  //    else begin
+  //      // Create new game
+  //      CreateDir(BaseDir + GameNameEdit.Text);
+  //      CreateDir(BaseDir + GameNameEdit.Text + '\orders');
+  //      CreateDir(BaseDir + GameNameEdit.Text + '\reports');
+  //      if cbLocal.Checked then
+  //        CreateDir(BaseDir + GameNameEdit.Text + '\local');
+  //      // Copy ruleset to history
+  //      CopyFile(PChar(BaseDir + RuleFolder +
+  //        cmRuleset.Items[cmRuleset.ItemIndex] + '.dat'),
+  //        PChar(BaseDir + GameNameEdit.Text + '\game.dat'), False);
+  //      // Add to game list
+  //      GameCombo.Items.Add(GameNameEdit.Text);
+  //      GameCombo.ItemIndex := GameCombo.Items.Count-1;
+  //      GameComboChange(Self);
+  //      // Create world and add first report for local game
+  //      if cbLocal.Checked then begin
+  //        GameConfig.WriteBool('Game', 'Local', True);
+  //        CreateLocalWorld;
+  //        Reports.Add(GetLocalFolder(1) + 'report.3');
+  //        FillRepGrid;
+  //      end;
+  //    end;
+  //  end;
+  //  Free;
+  //end;
 end;
 
 procedure TManagerForm.OptionBtnClick(Sender: TObject);
@@ -537,103 +553,104 @@ var i, j: integer;
     filename: string;
     sr: TSearchRec;
 begin
-  Screen.Cursor := crHourGlass;
-  CloseGame;
-  OpenGame(ActiveGame);
-  LogMemo.Lines.Clear;
-
- // Read game history
-  LogMemo.Lines.Add('Reading game history');
-  Lines := TStringList.Create;
-  try
-    Lines.LoadFromFile(BaseDir + ActiveGame + '\game.dat');
-  except
-  end;
-  try
-    ReadGameHistory(Lines);
-    SimRegion.Terrain := Game.TerrainData.Find('plain');
-    ReadFilters(Lines);
-    UnitRecs.Read(Lines);
-  except
-    on E: Exception do begin
-      MessageDlg('Error in history file: "' + E.Message + '". You should ' +
-        'manually correct "game.dat" or create new game for this reports.',
-        mtError, [mbOk], 0);
-      Exit;
-    end;
-  end;
-  Lines.Free;
-  ProgressBar.Position := Round(1 / (RepGrid.RowCount+1) * 100);
-
-  if History.Factions[1].Num > 0 then begin
-    LogMemo.Lines.Add('Active faction: ' + History.Factions[1].Name +
-      ' (' + IntToStr(History.Factions[1].Num) + ')');
-  end;
-  LogMemo.Lines.Add('');
-
-  // Read reports
-  for i := RepGrid.RowCount-1 downto 0 do begin
-    filename := Unlocalize(BaseDir + ActiveGame, RepGrid.ImgCells[FilenameCol, i]);
-    LogMemo.Lines.Add('Reading ' + filename);
-
-    Lines := TStringList.Create;
-    Lines.LoadFromFile(filename);
-    rrs := ReadRep(Lines, LogMemo.Lines);
-    Lines.Free;
-
-    // Analyze loaded turn
-    RunTurnAnalyzers;
-
-    ProgressBar.Position := Round((RepGrid.RowCount - i + 1) / (RepGrid.RowCount+1) * 100);
-    if rrs <> rrsFailed then begin
-      if Turn.Num <= ToInt(RepGrid.ImgCells[2, 0]) -
-        Config.ReadInteger('Game Manager', 'KeepReps', 10) then begin
-        MergeWithHistory(Turn);
-        rrs := -1;
-        j := 0;
-        while (j < Reports.Count) and (Reports[j] <>
-          RepGrid.ImgCells[FilenameCol, i]) do Inc(j);
-        if j < Reports.Count then Reports.Delete(j);
-      end;
-    end;
-    case rrs of
-      -1:
-        RepGrid.ImgCells[0, i] := 'archive';
-      rrsOk:
-        RepGrid.ImgCells[0, i] := 'ok';
-      rrsFailed:
-        RepGrid.ImgCells[0, i] := 'failed';
-      else
-        RepGrid.ImgCells[0, i] := 'errors';
-    end;
-    RepGrid.Repaint;
-  end;
-  RepGrid.Fixup;
-
-  RereadIncomplete;
-
-  // Load last turn order
-  OrdersLoaded := False;
-  if Config.ReadBool('Game Manager', 'LoadLastOrder', True)
-    and (Game.Turns.Count > 1) then begin
-    if FindFirst(BaseDir + ActiveGame + '\orders\*.ord', 0, sr) = 0 then begin
-      repeat
-        RepLines := TStringList.Create;
-        RepPos := 0;
-        RepLines.LoadFromFile(BaseDir + ActiveGame + '\orders\' + sr.Name);
-        if OrderTurn = Turn.Num then begin
-          ReadOrders;
-          LogMemo.Lines.Add('Found orders for turn ' + IntToStr(Turn.Num));
-          OrdersLoaded := True;
-        end;
-        RepLines.Free;
-      until FindNext(sr) <> 0;
-      FindClose(sr);
-    end;
-  end;
-
-  LogMemo.Lines.Add('Done.');
-  Screen.Cursor := crDefault;
+ // FIXME: broken
+ // Screen.Cursor := crHourGlass;
+ // CloseGame;
+ // OpenGame(ActiveGame);
+ // LogMemo.Lines.Clear;
+ //
+ //// Read game history
+ // LogMemo.Lines.Add('Reading game history');
+ // Lines := TStringList.Create;
+ // try
+ //   Lines.LoadFromFile(BaseDir + ActiveGame + '\game.dat');
+ // except
+ // end;
+ // try
+ //   ReadGameHistory(Lines);
+ //   SimRegion.Terrain := Game.TerrainData.Find('plain');
+ //   ReadFilters(Lines);
+ //   UnitRecs.Read(Lines);
+ // except
+ //   on E: Exception do begin
+ //     MessageDlg('Error in history file: "' + E.Message + '". You should ' +
+ //       'manually correct "game.dat" or create new game for this reports.',
+ //       mtError, [mbOk], 0);
+ //     Exit;
+ //   end;
+ // end;
+ // Lines.Free;
+ // ProgressBar.Position := Round(1 / (RepGrid.RowCount+1) * 100);
+ //
+ // if History.Factions[1].Num > 0 then begin
+ //   LogMemo.Lines.Add('Active faction: ' + History.Factions[1].Name +
+ //     ' (' + IntToStr(History.Factions[1].Num) + ')');
+ // end;
+ // LogMemo.Lines.Add('');
+ //
+ // // Read reports
+ // for i := RepGrid.RowCount-1 downto 0 do begin
+ //   filename := Unlocalize(BaseDir + ActiveGame, RepGrid.ImgCells[FilenameCol, i]);
+ //   LogMemo.Lines.Add('Reading ' + filename);
+ //
+ //   Lines := TStringList.Create;
+ //   Lines.LoadFromFile(filename);
+ //   rrs := ReadRep(Lines, LogMemo.Lines);
+ //   Lines.Free;
+ //
+ //   // Analyze loaded turn
+ //   RunTurnAnalyzers;
+ //
+ //   ProgressBar.Position := Round((RepGrid.RowCount - i + 1) / (RepGrid.RowCount+1) * 100);
+ //   if rrs <> rrsFailed then begin
+ //     if Turn.Num <= ToInt(RepGrid.ImgCells[2, 0]) -
+ //       Config.ReadInteger('Game Manager', 'KeepReps', 10) then begin
+ //       MergeWithHistory(Turn);
+ //       rrs := -1;
+ //       j := 0;
+ //       while (j < Reports.Count) and (Reports[j] <>
+ //         RepGrid.ImgCells[FilenameCol, i]) do Inc(j);
+ //       if j < Reports.Count then Reports.Delete(j);
+ //     end;
+ //   end;
+ //   case rrs of
+ //     -1:
+ //       RepGrid.ImgCells[0, i] := 'archive';
+ //     rrsOk:
+ //       RepGrid.ImgCells[0, i] := 'ok';
+ //     rrsFailed:
+ //       RepGrid.ImgCells[0, i] := 'failed';
+ //     else
+ //       RepGrid.ImgCells[0, i] := 'errors';
+ //   end;
+ //   RepGrid.Repaint;
+ // end;
+ // RepGrid.Fixup;
+ //
+ // RereadIncomplete;
+ //
+ // // Load last turn order
+ // OrdersLoaded := False;
+ // if Config.ReadBool('Game Manager', 'LoadLastOrder', True)
+ //   and (Game.Turns.Count > 1) then begin
+ //   if FindFirst(BaseDir + ActiveGame + '\orders\*.ord', 0, sr) = 0 then begin
+ //     repeat
+ //       RepLines := TStringList.Create;
+ //       RepPos := 0;
+ //       RepLines.LoadFromFile(BaseDir + ActiveGame + '\orders\' + sr.Name);
+ //       if OrderTurn = Turn.Num then begin
+ //         ReadOrders;
+ //         LogMemo.Lines.Add('Found orders for turn ' + IntToStr(Turn.Num));
+ //         OrdersLoaded := True;
+ //       end;
+ //       RepLines.Free;
+ //     until FindNext(sr) <> 0;
+ //     FindClose(sr);
+ //   end;
+ // end;
+ //
+ // LogMemo.Lines.Add('Done.');
+ // Screen.Cursor := crDefault;
 end;
 
 procedure TManagerForm.RenameBtnClick(Sender: TObject);
@@ -669,18 +686,19 @@ end;
 procedure TManagerForm.RepGridDrawCell(Sender: TObject; ACol,
   ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
 begin
-  with RepGrid do
-    if ACol = 0 then begin
-      if ImgCells[ACol, ARow] = 'ok' then
-        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpOK)
-      else if ImgCells[ACol, ARow] = 'failed' then
-        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpNo)
-      else if ImgCells[ACol, ARow] = 'archive' then
-        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpSpell)
-      else if ImgCells[ACol, ARow] = 'errors' then
-        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpError);
-      TxtRect.Left := TxtRect.Right;
-    end;
+  // FIXME: broken
+  //with RepGrid do
+  //  if ACol = 0 then begin
+  //    if ImgCells[ACol, ARow] = 'ok' then
+  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpOK)
+  //    else if ImgCells[ACol, ARow] = 'failed' then
+  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpNo)
+  //    else if ImgCells[ACol, ARow] = 'archive' then
+  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpSpell)
+  //    else if ImgCells[ACol, ARow] = 'errors' then
+  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpError);
+  //    TxtRect.Left := TxtRect.Right;
+  //  end;
 end;
 
 procedure TManagerForm.SetLogPanel(Open: boolean);

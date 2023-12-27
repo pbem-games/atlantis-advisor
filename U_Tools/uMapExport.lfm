@@ -73,7 +73,7 @@ object MapExportForm: TMapExportForm
     Height = 24
     Top = 246
     Width = 117
-    Caption = 'Player''s units'
+    Caption = 'Players units'
     TabOrder = 5
   end
   object cbOtherUnits: TCheckBox

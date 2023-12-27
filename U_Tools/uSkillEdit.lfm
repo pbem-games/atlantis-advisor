@@ -46,15 +46,15 @@ object SkillEditForm: TSkillEditForm
     Caption = 'Skill'
     TabOrder = 2
     object Label1: TLabel
-      Left = 10
-      Top = 10
+      Left = 8
+      Top = 0
       Width = 28
       Height = 13
       Caption = 'Code:'
     end
     object CodeLabel: TLabel
-      Left = 46
-      Top = 10
+      Left = 44
+      Top = 0
       Width = 37
       Height = 13
       Caption = 'WEAP'
@@ -66,36 +66,36 @@ object SkillEditForm: TSkillEditForm
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 10
-      Top = 74
+      Left = 8
+      Top = 60
       Width = 48
       Height = 13
       Caption = 'Based on:'
     end
     object Label4: TLabel
-      Left = 102
-      Top = 10
+      Left = 100
+      Top = 0
       Width = 24
       Height = 13
       Caption = 'Cost:'
     end
     object Label2: TLabel
-      Left = 206
-      Top = 10
+      Left = 204
+      Top = 0
       Width = 53
       Height = 13
       Caption = 'Specialists:'
     end
     object Label5: TLabel
-      Left = 206
-      Top = 146
+      Left = 204
+      Top = 132
       Width = 30
       Height = 13
       Caption = 'Ability:'
     end
     object cbCombat: TCheckBox
-      Left = 114
-      Top = 58
+      Left = 112
+      Top = 44
       Width = 85
       Height = 17
       Caption = 'Combat spell'
@@ -103,8 +103,8 @@ object SkillEditForm: TSkillEditForm
       OnClick = DataChange
     end
     object cbCast: TCheckBox
-      Left = 114
-      Top = 38
+      Left = 112
+      Top = 24
       Width = 85
       Height = 17
       Caption = 'Can be cast'
@@ -112,8 +112,8 @@ object SkillEditForm: TSkillEditForm
       OnClick = DataChange
     end
     object cmType: TComboBox
-      Left = 6
-      Top = 42
+      Left = 4
+      Top = 28
       Width = 93
       Height = 22
       Style = csOwnerDrawFixed
@@ -127,8 +127,8 @@ object SkillEditForm: TSkillEditForm
         'Foundation')
     end
     object cmBased: TComboBox
-      Left = 6
-      Top = 162
+      Left = 4
+      Top = 148
       Width = 141
       Height = 22
       Style = csOwnerDrawFixed
@@ -140,8 +140,8 @@ object SkillEditForm: TSkillEditForm
       OnDrawItem = cmBasedDrawItem
     end
     object eCost: TSpinEdit
-      Left = 134
-      Top = 6
+      Left = 132
+      Top = 0
       Width = 57
       Height = 22
       MaxValue = 0
@@ -151,8 +151,8 @@ object SkillEditForm: TSkillEditForm
       OnChange = DataChange
     end
     object ToolBar2: TToolBar
-      Left = 152
-      Top = 165
+      Left = 150
+      Top = 151
       Width = 47
       Height = 18
       Align = alNone
@@ -178,27 +178,20 @@ object SkillEditForm: TSkillEditForm
         OnClick = btnDelBasedClick
       end
     end
-    object gSpecs: TPowerGrid
-      Left = 202
-      Top = 26
+    object gSpecs: TStringGrid
+      Left = 200
+      Top = 12
       Width = 117
       Height = 113
       ColCount = 1
-      DefaultRowColor = clBlack
-      Editing = False
       FixedRows = 0
-      ImageCol = 0
       Options = [pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
       RowCount = 0
-      Sorted = False
-      SortBy = 0
-      StickySelect = False
-      TopRow = 0
       OnDrawCell = gSpecsDrawCell
     end
     object cmAbility: TComboBox
-      Left = 202
-      Top = 162
+      Left = 200
+      Top = 148
       Width = 117
       Height = 22
       Style = csOwnerDrawFixed
@@ -208,23 +201,15 @@ object SkillEditForm: TSkillEditForm
       OnChange = DataChange
       OnDrawItem = cmAbilityDrawItem
     end
-    object gBased: TPowerGrid
-      Left = 6
-      Top = 90
+    object gBased: TStringGrid
+      Left = 4
+      Top = 76
       Width = 185
       Height = 69
       ColCount = 2
-      DefaultRowColor = clBlack
-      Editing = False
       FixedRows = 0
-      Images = ResForm.IconList
-      ImageCol = 0
       Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
       RowCount = 0
-      Sorted = False
-      SortBy = 0
-      StickySelect = False
-      TopRow = 0
       OnSetEditText = gBasedSetEditText
     end
   end

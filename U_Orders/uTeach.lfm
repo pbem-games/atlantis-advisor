@@ -22,26 +22,6 @@ object TeachForm: TTeachForm
     Height = 13
     Caption = 'Students: 10 of 10'
   end
-  object TeachGrid: TPowerGrid
-    Left = 4
-    Top = 32
-    Width = 485
-    Height = 257
-    Color = clBlack
-    ColCount = 7
-    DefaultRowColor = clBlack
-    Editing = False
-    FixedRows = 1
-    ImageCol = 0
-    Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
-    RowCount = 2
-    Sorted = True
-    SortBy = 1
-    StickySelect = False
-    TopRow = 1
-    OnClick = TeachGridClick
-    OnDrawCell = TeachGridDrawCell
-  end
   object Button2: TButton
     Left = 408
     Top = 296
@@ -74,7 +54,7 @@ object TeachForm: TTeachForm
     object btnMyFaction: TToolButton
       Left = 0
       Top = 2
-      Hint = 'Player''s faction'
+      Hint = 'Players faction'
       Caption = 'btnMyFaction'
       ImageIndex = 11
       ParentShowHint = False

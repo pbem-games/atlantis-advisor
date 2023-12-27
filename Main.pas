@@ -1,13 +1,15 @@
 unit Main;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Math,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Math,
   StdCtrls, ImgList, IniFiles, Clipbrd, ActnList, Menus,
   CylinderMap, ComCtrls, ToolWin, ExtCtrls, Buttons, Grids,
   uKeys, MyStrings, DataStructs, Resources, uManager, uHexMap,
-  uVisualOrders, uOrderProcessor, uListFilter, AtlaDate, uGameSubs, uAvatars, ShellApi,
+  uVisualOrders, uOrderProcessor, uListFilter, AtlaDate, uGameSubs, uAvatars,
   uMail, uExport, uScript, uInterface, Spin, uTurnEvents, uUnitRecs,
   RepRead, uHistory, uSpecEdit, uTerrEdit, uTradeStructs, uTaxTrade,
   uUnitArmies, uRegionStat, uSpyReps, uUnitProduction, uGameStart,
@@ -52,7 +54,7 @@ type
     File1: TMenuItem;
     View1: TMenuItem;
     ShowToolbarItm: TMenuItem;
-    UnitGrid: TPowerGrid;
+    UnitGrid: TStringGrid;
     MapToolbar: TToolBar;
     ToolButton4: TToolButton;
     ListBtn: TToolButton;
@@ -105,7 +107,7 @@ type
     OpenDialog: TOpenDialog;
     RegisterItm: TMenuItem;
     RegSplit: TMenuItem;
-    MsgGrid: TPowerGrid;
+    MsgGrid: TStringGrid;
     Panel2: TPanel;
     spItemsSkills: TSplitter;
     Map1: TMenuItem;
@@ -206,9 +208,9 @@ type
     Label8: TLabel;
     pnForSale: TPanel;
     Label18: TLabel;
-    WantedGrid: TPowerGrid;
+    WantedGrid: TStringGrid;
     Label17: TLabel;
-    ForSaleGrid: TPowerGrid;
+    ForSaleGrid: TStringGrid;
     MoveTypeLabel: TLabel;
     Label2: TLabel;
     Image1: TImage;
@@ -240,9 +242,9 @@ type
     IncomplStructImage: TImage;
     Label19: TLabel;
     StructGroupLabel: TLabel;
-    ProductGrid: TPowerGrid;
+    ProductGrid: TStringGrid;
     FactionFlagImage: TImage;
-    SkillGrid: TPowerGrid;
+    SkillGrid: TStringGrid;
     ToolBar: TToolBar;
     ToolButton24: TToolButton;
     ToolButton25: TToolButton;
@@ -340,7 +342,7 @@ type
     Label20: TLabel;
     MaxWagesLabel: TLabel;
     pItemGrid: TPanel;
-    ItemGrid: TPowerGrid;
+    ItemGrid: TStringGrid;
     StructEnabledItm: TMenuItem;
     N8: TMenuItem;
     StructDefItm: TMenuItem;
@@ -358,7 +360,7 @@ type
     Label21: TLabel;
     eGiveAmt: TSpinEdit;
     btnLocal: TSpeedButton;
-    StructGrid: TPowerGrid;
+    StructGrid: TStringGrid;
     N19: TMenuItem;
     SoldiersAction: TAction;
     ToolButton42: TToolButton;
@@ -380,7 +382,7 @@ type
     ToolButton23: TToolButton;
     TerrEditAction: TAction;
     SkillEditor2: TMenuItem;
-    gAllItems: TPowerGrid;
+    gAllItems: TStringGrid;
     AllItemsAction: TAction;
     ItemsinRegion1: TMenuItem;
     TradeStructAction: TAction;
@@ -516,10 +518,10 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
-    ItemGridFinal: TPowerGrid;
-    InventoryChanges: TPowerGrid;
+    ItemGridFinal: TStringGrid;
+    InventoryChanges: TStringGrid;
     pnlQuartermaster: TPanel;
-    pgQuartermaster: TPowerGrid;
+    pgQuartermaster: TStringGrid;
     Panel1: TPanel;
     cbQuartermaster: TComboBox;
     lblQmasterRange: TLabel;
@@ -803,7 +805,7 @@ uses uOptions, uAbout, uMiniMap, uFactions, uMemo, uStructEdit,
   uItemEdit, uSkillEdit, uAvatarEdit, uRegistration, RegCode, uBattle,
   uScriptEdit, uMapExport, uTownTrade, uSoldiers;
 
-{$R *.DFM}
+{$R *.lfm}
 
 function AddMenuItem(AParent: TMenuItem; ACaption: string; AImage: integer;
   Handler: TNotifyEvent): TMenuItem;
@@ -927,7 +929,8 @@ end;
 procedure TMainForm.FormCreate(Sender: TObject);
 var Base: string;
 begin
-  Application.OnMessage := AppMessage;
+  // FIXME: broken
+  //Application.OnMessage := AppMessage;
   State := State + [asFirstActivate];
   DecimalSeparator := '.';
   Base := ExtractFilePath(Application.ExeName);
@@ -969,17 +972,20 @@ begin
   tbGiveBattle.Cursor := crHand;
   tbGiveTrade.Cursor := crHand;
   tbGiveSpoils.Cursor := crHand;
-  gAllItems.Cols[1].Format := cfNumber;
-  ItemGrid.Cols[1].Format := cfNumber;
+  // FIXME: broken
+  //gAllItems.Cols[1].Format := cfNumber;
+  //ItemGrid.Cols[1].Format := cfNumber;
   gAllItems.Cells[0, 0] := 'Amount';
   gAllItems.Cells[1, 0] := 'Item';
   gAllItems.Cells[2, 0] := 'Unit';
 
-  pgQuartermaster.Cols[0].Format := cfNumber;
+  // FIXME: broken
+  //pgQuartermaster.Cols[0].Format := cfNumber;
   pgQuartermaster.Cells[0, 0] := 'Amount';
   pgQuartermaster.Cells[1, 0] := 'Item';
 
-  InventoryChanges.Cols[1].Format := cfNumber;
+  // FIXME: broken
+  //InventoryChanges.Cols[1].Format := cfNumber;
 
   // Makeup window
   ApplyConfig;
@@ -1018,7 +1024,8 @@ begin
 
       Screen.Cursor := crHourGlass;
       CloseGame;
-      UnitGrid.SaveColumns(Config);
+      // FIXME: broken
+      //UnitGrid.SaveColumns(Config);
       SaveConfigColors;
       if Config.ReadBool('MiniMap', 'Visible', FALSE) = True then begin
         MiniMapForm.Close; // Just to pickup config changes from OnClose
@@ -1146,7 +1153,8 @@ var listmode: boolean;
     end;
 begin
   // Grids
-  UnitGrid.LoadColumns(Config);
+  // FIXME: broken
+  //UnitGrid.LoadColumns(Config);
   ClearUnitFilter;
 
   // Tabs
@@ -1320,11 +1328,12 @@ begin
     for i := 0 to ScriptsItm.Count-1 do
       if ScriptsItm.Items[i].Tag = 1 then ScriptsItm.Items[i].Enabled := Value;
 
-  ItemGrid.NoRepaint := not Value;
-  SkillGrid.NoRepaint := not Value;
-  ProductGrid.NoRepaint := not Value;
-  WantedGrid.NoRepaint := not Value;
-  ForSaleGrid.NoRepaint := not Value;
+  // FIXME: broken
+  //ItemGrid.NoRepaint := not Value;
+  //SkillGrid.NoRepaint := not Value;
+  //ProductGrid.NoRepaint := not Value;
+  //WantedGrid.NoRepaint := not Value;
+  //ForSaleGrid.NoRepaint := not Value;
 
   cbQuartermaster.Enabled := Value and (cbQuartermaster.Items.Count > 0);
   pgQuartermaster.Enabled := cbQuartermaster.Enabled;
@@ -1929,11 +1938,13 @@ begin
   NotesMemo.Modified := False;
  // Grids
   WantedGrid.RowCount := 0;
-  WantedGrid.Fixup;
   ForSaleGrid.RowCount := 0;
-  ForSaleGrid.Fixup;
   ProductGrid.RowCount := 0;
-  ProductGrid.Fixup;
+
+  // FIXME: broken
+  //WantedGrid.Fixup;
+  //ForSaleGrid.Fixup;
+  //ProductGrid.Fixup;
 end;
 
 procedure TMainForm.FillRegionInfo(ARegion: TARegion);
@@ -1941,31 +1952,32 @@ var Weather: TWeatherData;
     RealRegion: TARegion;
     amt, tax_income, ent_income: integer;
 
-  procedure FillDiffItemGrid(Grid: TPowerGrid; List, RealList: TItemList);
+  procedure FillDiffItemGrid(Grid: TStringGrid; List, RealList: TItemList);
   var i: integer;
       Item: TItem;
   begin
-    Grid.RowCount := 0;
-    for i := 0 to RealList.Count-1 do begin
-      Item := RealList[i];
-      if Item.Amount > 0 then begin
-        if Item.Amount = List[i].Amount then
-          Grid.Cells[0, i] := IntToStr(Item.Amount)
-        else Grid.Cells[0, i] := IntToStr(List[i].Amount) + '/' + IntToStr(Item.Amount);
-      end;
-      Grid.Cells[1, i] := Item.Name;
-      if Grid.ColCount > 2 then Grid.Cells[2, i] := '$' + IntToStr(Item.Cost);
-      Grid.Rows[i].Data := Item;
-      if Item.Amount <> 0 then begin
-        Grid.Rows[i].Color := clWindowText;
-        Grid.Rows[i].FontStyle := [];
-      end
-      else begin
-        Grid.Rows[i].Color := clGrayText;
-        Grid.Rows[i].FontStyle := [fsStrikeOut];
-      end;
-    end;
-    Grid.Fixup;
+    // FIXME: broken
+    //Grid.RowCount := 0;
+    //for i := 0 to RealList.Count-1 do begin
+    //  Item := RealList[i];
+    //  if Item.Amount > 0 then begin
+    //    if Item.Amount = List[i].Amount then
+    //      Grid.Cells[0, i] := IntToStr(Item.Amount)
+    //    else Grid.Cells[0, i] := IntToStr(List[i].Amount) + '/' + IntToStr(Item.Amount);
+    //  end;
+    //  Grid.Cells[1, i] := Item.Name;
+    //  if Grid.ColCount > 2 then Grid.Cells[2, i] := '$' + IntToStr(Item.Cost);
+    //  Grid.Rows[i].Data := Item;
+    //  if Item.Amount <> 0 then begin
+    //    Grid.Rows[i].Color := clWindowText;
+    //    Grid.Rows[i].FontStyle := [];
+    //  end
+    //  else begin
+    //    Grid.Rows[i].Color := clGrayText;
+    //    Grid.Rows[i].FontStyle := [fsStrikeOut];
+    //  end;
+    //end;
+    //Grid.Fixup;
   end;
 
 begin
@@ -2258,20 +2270,21 @@ procedure TMainForm.FillStructGrid(ARegion: TARegion);
 var i, idx: integer;
     SData: TStructData;
 begin
-  ClearStructInfo;
-  StructGrid.RowCount := 0;
-  StructGrid.Cols[0].Format := cfNumber;
-  if ARegion <> nil then begin
-    for i := 0 to ARegion.Structs.Count-1 do
-      if (ARegion.Visited = Turn.Num) or not Test(ARegion.Structs[i].Data.Flags, ST_TRANSPORT) then begin
-      SData := ARegion.Structs[i].Data;
-      idx := Game.StructData.IndexOf(SData) * 100000 + ARegion.Structs[i].Num;
-      StructGrid.Cells[0, i] := IntToStr(idx);
-      StructGrid.Cells[1, i] := ARegion.Structs[i].Name + ' [' + IntToStr(ARegion.Structs[i].Num) + '] : ' + FormatFleetShips(ARegion.Structs[i]);
-      StructGrid.Rows[i].Data := ARegion.Structs[i];
-    end;
-  end;
-  StructGrid.Fixup;
+  // FIXME: broken
+  //ClearStructInfo;
+  //StructGrid.RowCount := 0;
+  //StructGrid.Cols[0].Format := cfNumber;
+  //if ARegion <> nil then begin
+  //  for i := 0 to ARegion.Structs.Count-1 do
+  //    if (ARegion.Visited = Turn.Num) or not Test(ARegion.Structs[i].Data.Flags, ST_TRANSPORT) then begin
+  //    SData := ARegion.Structs[i].Data;
+  //    idx := Game.StructData.IndexOf(SData) * 100000 + ARegion.Structs[i].Num;
+  //    StructGrid.Cells[0, i] := IntToStr(idx);
+  //    StructGrid.Cells[1, i] := ARegion.Structs[i].Name + ' [' + IntToStr(ARegion.Structs[i].Num) + '] : ' + FormatFleetShips(ARegion.Structs[i]);
+  //    StructGrid.Rows[i].Data := ARegion.Structs[i];
+  //  end;
+  //end;
+  //StructGrid.Fixup;
 end;
 
 procedure TMainForm.StructGridDrawCell(Sender: TObject; ACol,
@@ -2280,32 +2293,33 @@ var Struct: TStruct;
     fontname: string;
     fontsize: integer;
 begin
-  if NoDraw then Exit;
-  Struct := TStruct(StructGrid.ImgRows[ARow].Data);
-  with StructGrid.Canvas do begin
-    if Struct <> CurrStruct then begin
-      Brush.Color := clBtnFace;
-      Font.Color := clWindowText;
-      FillRect(Rect(TxtRect.Left, TxtRect.Top, TxtRect.Right + 2,
-        TxtRect.Bottom + 1));
-    end;
-    if ACol = 1 then begin
-      if not Test(Struct.Data.Flags, ST_SHAFT) or ((CurrRegion <> nil)
-        and (CurrRegion.Visited = Turn.Num)) then
-        DrawOwnedStruct(StructGrid.Canvas, TxtRect.Left+3, TxtRect.Top+1, Struct)
-      else DrawStructIcon(StructGrid.Canvas, TxtRect.Left+3, TxtRect.Top+1, Struct, Struct.HasExit);
-      if Struct.Needs > 0 then begin
-        fontname := Font.Name;
-        fontsize := Font.Size;
-        Font.Name := 'Small Fonts';
-        Font.Size := 6;
-          TextOut(TxtRect.Left + 12, TxtRect.Top + 10, IntToStr(Struct.Needs));
-        Font.Name := fontname;
-        Font.Size := fontsize;
-      end;
-      TxtRect.Left := TxtRect.Left + 23;
-    end;
-  end;
+  // FIXME: broken
+  //if NoDraw then Exit;
+  //Struct := TStruct(StructGrid.ImgRows[ARow].Data);
+  //with StructGrid.Canvas do begin
+  //  if Struct <> CurrStruct then begin
+  //    Brush.Color := clBtnFace;
+  //    Font.Color := clWindowText;
+  //    FillRect(Rect(TxtRect.Left, TxtRect.Top, TxtRect.Right + 2,
+  //      TxtRect.Bottom + 1));
+  //  end;
+  //  if ACol = 1 then begin
+  //    if not Test(Struct.Data.Flags, ST_SHAFT) or ((CurrRegion <> nil)
+  //      and (CurrRegion.Visited = Turn.Num)) then
+  //      DrawOwnedStruct(StructGrid.Canvas, TxtRect.Left+3, TxtRect.Top+1, Struct)
+  //    else DrawStructIcon(StructGrid.Canvas, TxtRect.Left+3, TxtRect.Top+1, Struct, Struct.HasExit);
+  //    if Struct.Needs > 0 then begin
+  //      fontname := Font.Name;
+  //      fontsize := Font.Size;
+  //      Font.Name := 'Small Fonts';
+  //      Font.Size := 6;
+  //        TextOut(TxtRect.Left + 12, TxtRect.Top + 10, IntToStr(Struct.Needs));
+  //      Font.Name := fontname;
+  //      Font.Size := fontsize;
+  //    end;
+  //    TxtRect.Left := TxtRect.Left + 23;
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.StructGridMouseDown(Sender: TObject;
@@ -2314,102 +2328,104 @@ var Struct: TStruct;
     i, mapX, mapY: integer;
     R: TARegion;
 begin
-  if StructGrid.MouseCell.Y < 0 then Exit;
-  Struct := TStruct(StructGrid.ImgRows[StructGrid.MouseCell.Y].Data);
-
-  // Move mode
-  if (Mode = mMove) and (MoveOrder <> 'sail') then begin
-    // Enter structure
-    if RouteMode.Enabled then begin
-      if Test(Struct.Data.Flags, ST_SHAFT) and Struct.HasExit then begin
-        AddCoords(RouteMode.Route.Moves, Struct.Passage);
-        if CtrlPressed then
-          AddInt(MainForm.RouteMode.Route.Stops, High(RouteMode.Route.Moves) + 1);
-        CurrUnit.Route := RouteMode.Route.Moves;
-        HexMapGoto(Struct.Passage)
-      end
-      else begin
-        if Test(Struct.Data.Flags, ST_SHAFT) then
-          RouteMode.Route.Remaining := IntToStr(Struct.Num);
-          RouteMode.Route.Remaining := RouteMode.Route.Remaining + ' IN';
-        EndMoveMode;
-      end;
-    end
-    else begin
-      if CurrUnit.Struct <> Struct then begin
-        if Length(CurrUnit.Moves) = 1 then GetArmyOut;
-        AddOrder(MoveOrder + ' ' + IntToStr(Struct.Num), True);
-        CurrUnit.MonthOrder := CurrUnit.Orders[CurrUnit.Orders.Count-1];
-        AddCoords(CurrUnit.Moves, SelectedCoords);
-      end;
-      if Test(Struct.Data.Flags, ST_SHAFT) then begin
-        // If inside unlinked shaft
-        if (CurrUnit.Struct = Struct) and not Struct.HasExit then begin
-          // Look for other shafts
-          CalcMapCoords(HexMap.Selected.X, HexMap.Selected.Y, mapX, mapY);
-          R := Map.Region(mapX, mapY);
-          if R <> nil then begin
-            i := R.Structs.Count-1;
-            while (i >= 0) and (not Test(R.Structs[i].Data.Flags, ST_SHAFT)
-              or (R.Structs[i] = Struct)) do Dec(i);
-            if i >= 0 then begin
-              // leave and re-enter to produce event
-              AddOrder('leave', False);
-              AddOrder(MoveOrder + ' ' + IntToStr(Struct.Num), True);
-              CurrUnit.MonthOrder := CurrUnit.Orders[CurrUnit.Orders.Count-1];
-              AddCoords(CurrUnit.Moves, SelectedCoords);
-            end;
-          end;
-        end;
-        // Move IN
-        AddOrder(MoveOrder + ' IN', True);
-        CurrUnit.MonthOrder := CurrUnit.Orders[CurrUnit.Orders.Count-1];
-        if Struct.HasExit then HexMapGoto(Struct.Passage)
-        else EndMoveMode;
-      end
-      else EndMoveMode;
-    end;
-  end
-
-  // Normal mode
-  else begin
-    // Filter units in grid
-    Filter.RegCoords := CurrRegion.Coords;
-    Filter.StructNum := Struct.Num;
-    Filter.StructFilter := True;
-    FillUnitGrid;
-    FillStructInfo(Struct);
-
-    // Move through shaft
-    if (ssDouble in Shift) and Struct.HasExit then begin
-      Filter.StructFilter := False;
-      HexMapGoto(Struct.Passage);
-    end;
-  end;
+  // FIXME: broken
+  //if StructGrid.MouseCell.Y < 0 then Exit;
+  //Struct := TStruct(StructGrid.ImgRows[StructGrid.MouseCell.Y].Data);
+  //
+  //// Move mode
+  //if (Mode = mMove) and (MoveOrder <> 'sail') then begin
+  //  // Enter structure
+  //  if RouteMode.Enabled then begin
+  //    if Test(Struct.Data.Flags, ST_SHAFT) and Struct.HasExit then begin
+  //      AddCoords(RouteMode.Route.Moves, Struct.Passage);
+  //      if CtrlPressed then
+  //        AddInt(MainForm.RouteMode.Route.Stops, High(RouteMode.Route.Moves) + 1);
+  //      CurrUnit.Route := RouteMode.Route.Moves;
+  //      HexMapGoto(Struct.Passage)
+  //    end
+  //    else begin
+  //      if Test(Struct.Data.Flags, ST_SHAFT) then
+  //        RouteMode.Route.Remaining := IntToStr(Struct.Num);
+  //        RouteMode.Route.Remaining := RouteMode.Route.Remaining + ' IN';
+  //      EndMoveMode;
+  //    end;
+  //  end
+  //  else begin
+  //    if CurrUnit.Struct <> Struct then begin
+  //      if Length(CurrUnit.Moves) = 1 then GetArmyOut;
+  //      AddOrder(MoveOrder + ' ' + IntToStr(Struct.Num), True);
+  //      CurrUnit.MonthOrder := CurrUnit.Orders[CurrUnit.Orders.Count-1];
+  //      AddCoords(CurrUnit.Moves, SelectedCoords);
+  //    end;
+  //    if Test(Struct.Data.Flags, ST_SHAFT) then begin
+  //      // If inside unlinked shaft
+  //      if (CurrUnit.Struct = Struct) and not Struct.HasExit then begin
+  //        // Look for other shafts
+  //        CalcMapCoords(HexMap.Selected.X, HexMap.Selected.Y, mapX, mapY);
+  //        R := Map.Region(mapX, mapY);
+  //        if R <> nil then begin
+  //          i := R.Structs.Count-1;
+  //          while (i >= 0) and (not Test(R.Structs[i].Data.Flags, ST_SHAFT)
+  //            or (R.Structs[i] = Struct)) do Dec(i);
+  //          if i >= 0 then begin
+  //            // leave and re-enter to produce event
+  //            AddOrder('leave', False);
+  //            AddOrder(MoveOrder + ' ' + IntToStr(Struct.Num), True);
+  //            CurrUnit.MonthOrder := CurrUnit.Orders[CurrUnit.Orders.Count-1];
+  //            AddCoords(CurrUnit.Moves, SelectedCoords);
+  //          end;
+  //        end;
+  //      end;
+  //      // Move IN
+  //      AddOrder(MoveOrder + ' IN', True);
+  //      CurrUnit.MonthOrder := CurrUnit.Orders[CurrUnit.Orders.Count-1];
+  //      if Struct.HasExit then HexMapGoto(Struct.Passage)
+  //      else EndMoveMode;
+  //    end
+  //    else EndMoveMode;
+  //  end;
+  //end
+  //
+  //// Normal mode
+  //else begin
+  //  // Filter units in grid
+  //  Filter.RegCoords := CurrRegion.Coords;
+  //  Filter.StructNum := Struct.Num;
+  //  Filter.StructFilter := True;
+  //  FillUnitGrid;
+  //  FillStructInfo(Struct);
+  //
+  //  // Move through shaft
+  //  if (ssDouble in Shift) and Struct.HasExit then begin
+  //    Filter.StructFilter := False;
+  //    HexMapGoto(Struct.Passage);
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.StructGridMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var Struct: TStruct;
 begin
-  with StructGrid do begin
-    if (Mode = mMove) and (MoveOrder <> 'sail') and (MouseCell.Y >= 0)
-      and (MouseCell.Y < RowCount) then
-      Cursor := crMove
-    else Cursor := crDefault;
-    // Passage hint
-    if (MouseCell.Y >= 0) and (MouseCell.Y < RowCount) then begin
-      Struct := TStruct(ImgRows[MouseCell.Y].Data);
-      if Struct.HasExit then begin
-        Hint := MakeRegionName(Struct.Passage, True);
-        ShowHint := True;
-      end
-      else begin
-        Hint := '';
-        ShowHint := False;
-      end;
-    end;
-  end;
+  // FIXME: broken
+  //with StructGrid do begin
+  //  if (Mode = mMove) and (MoveOrder <> 'sail') and (MouseCell.Y >= 0)
+  //    and (MouseCell.Y < RowCount) then
+  //    Cursor := crMove
+  //  else Cursor := crDefault;
+  //  // Passage hint
+  //  if (MouseCell.Y >= 0) and (MouseCell.Y < RowCount) then begin
+  //    Struct := TStruct(ImgRows[MouseCell.Y].Data);
+  //    if Struct.HasExit then begin
+  //      Hint := MakeRegionName(Struct.Passage, True);
+  //      ShowHint := True;
+  //    end
+  //    else begin
+  //      Hint := '';
+  //      ShowHint := False;
+  //    end;
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.ClearStructInfo;
@@ -2520,20 +2536,21 @@ var i, j: integer;
   var i, amt: integer;
       s: string;
   begin
-    s := '';
-    amt := U.Items.Amount(Mask);
-    if amt > 0 then begin
-      s := s + IntToStr(amt);
-      if Config.ReadBool('MainWin', 'LongITs', True) then begin
-        for i := 0 to U.Items.Count-1 do
-          if Test(U.Items[i].Data.Flags, Mask) then begin
-            if Pos(' ', s) > 0 then s := s + ',';
-            s := s + ' ' + U.Items[i].Name;
-          end;
-      end;
-    end;
-    UnitGrid.Cells[ACol, ARow] := s;
-    UnitGrid.SortKeys[ACol, ARow] := IntToStr(amt);
+    // FIXME: broken
+    //s := '';
+    //amt := U.Items.Amount(Mask);
+    //if amt > 0 then begin
+    //  s := s + IntToStr(amt);
+    //  if Config.ReadBool('MainWin', 'LongITs', True) then begin
+    //    for i := 0 to U.Items.Count-1 do
+    //      if Test(U.Items[i].Data.Flags, Mask) then begin
+    //        if Pos(' ', s) > 0 then s := s + ',';
+    //        s := s + ' ' + U.Items[i].Name;
+    //      end;
+    //  end;
+    //end;
+    //UnitGrid.Cells[ACol, ARow] := s;
+    //UnitGrid.SortKeys[ACol, ARow] := IntToStr(amt);
   end;
 
   procedure AddUnitToGrid(AUnit: TUnit; Arriving: boolean);
@@ -2606,14 +2623,17 @@ var i, j: integer;
       else UnitGrid.Cells[3, row] := Fac.Name;
       if Fac.Num <> 0 then
         UnitGrid.Cells[4, row] := IntToStr(Faction.Num);
-      if Faction.Player then begin
-        UnitGrid.SortKeys[3, row] := '';
-        UnitGrid.SortKeys[4, row] := '-1';
-      end;
+      // FIXME: broken
+      //if Faction.Player then begin
+      //  UnitGrid.SortKeys[3, row] := '';
+      //  UnitGrid.SortKeys[4, row] := '-1';
+      //end;
 
       UnitGrid.Cells[5, row] := Name;
       UnitGrid.Cells[6, row] := NumStr;
-      UnitGrid.SortKeys[6, row] := IntToStr(Num);
+      // FIXME: broken
+      //UnitGrid.SortKeys[6, row] := IntToStr(Num);
+
       {if Arriving then begin
         UnitGrid.SortKeys[5, row] := '';
         UnitGrid.SortKeys[6, row] := IntToStr(Num + 1000000);
@@ -2644,11 +2664,12 @@ var i, j: integer;
           2: s := s + Copy(AUnit.Skills[i].Data.Short, 1, 1) + ' ' + IntToStr(AUnit.Skills[i].Level);
         end;
       end;
-      UnitGrid.Cells[15, row] := s;
-      UnitGrid.Rows[row].Data := AUnit;
-      if not Arriving then
-        UnitGrid.Rows[row].Color := FactionColor(AUnit.Faction)
-      else UnitGrid.Rows[row].Color := clGray;
+      // FIXME: broken
+      //UnitGrid.Cells[15, row] := s;
+      //UnitGrid.Rows[row].Data := AUnit;
+      //if not Arriving then
+      //  UnitGrid.Rows[row].Color := FactionColor(AUnit.Faction)
+      //else UnitGrid.Rows[row].Color := clGray;
     end;
   end;
 
@@ -2689,16 +2710,18 @@ begin
   // Now a little messing with UnitGrid to speed up repainting units in new region
   with UnitGrid do begin
     OnSelectCell := nil;
-    Fixup;
+    // FIXME: broken
+    //Fixup;
     OnSelectCell := UnitGridSelectCell;
     Repaint;
-    if UnitGrid.ImgRowCount > 1 then
-      UnitGridSelectCell(UnitGrid, UnitGrid.Col, UnitGrid.Row, cansel)
-    else
-    begin
-      HexMap.Redraw; // to remove arrows
-      ClearQmaster;
-    end;
+    // FIXME: broken
+    //if UnitGrid.ImgRowCount > 1 then
+    //  UnitGridSelectCell(UnitGrid, UnitGrid.Col, UnitGrid.Row, cansel)
+    //else
+    //begin
+    //  HexMap.Redraw; // to remove arrows
+    //  ClearQmaster;
+    //end;
   end;
   // Clear AllItems if no faction units in region
   if (CurrRegion = nil) or (CurrRegion.PlayerTroop = nil) then
@@ -2708,14 +2731,15 @@ end;
 procedure TMainForm.SelectUnit(U: TUnit);
 var i: integer;
 begin
-  if U = nil then Exit;
-  if not EqualCoords(SelectedCoords, U.Region.Coords) then
-    HexMapGoto(U.Region.Coords);
-  with UnitGrid do begin
-    i := RowCount-1;
-    while (i >= 1) and (TUnit(ImgRows[i].Data).Num <> U.Num) do Dec(i);
-    if i >= 1 then Row := i;
-  end;
+  // FIXME: broken
+  //if U = nil then Exit;
+  //if not EqualCoords(SelectedCoords, U.Region.Coords) then
+  //  HexMapGoto(U.Region.Coords);
+  //with UnitGrid do begin
+  //  i := RowCount-1;
+  //  while (i >= 1) and (TUnit(ImgRows[i].Data).Num <> U.Num) do Dec(i);
+  //  if i >= 1 then Row := i;
+  //end;
 end;
 
 procedure TMainForm.btnMyFactionClick(Sender: TObject);
@@ -2755,153 +2779,156 @@ var intcol, namecol: integer;
     brushColor, textColor: TColor;
     brushStyle: TBrushStyle;
 begin
-  if NoDraw then Exit;
-  with UnitGrid do begin
-    // Detect Column number
-    intcol := 0;
-    while (intcol < UnitGridColCount-1) and (Cells[intcol, 0] <>
-      ImgCells[ACol, 0]) do Inc(intcol);
-    if (ARow = 0) then begin
-      // Top row
-      if UnitGridHeadIcons[intcol] <> 0 then begin
-        TxtRect.Left := TxtRect.Left + 18;
-        ResForm.IconList.Draw(Canvas, TxtRect.Left - 17, TxtRect.Top-1,
-          UnitGridHeadIcons[intcol]);
-      end;
-    end
-    else begin
-      AUnit := TUnit(ImgRows[ARow].Data);
-      if (ImgCells[ACol, 0] = 'Object') and (AUnit.Struct <> nil) then
-        with AUnit.Struct do begin
-          // Struct with owner flag
-          if Owner = AUnit then
-            DrawOwnedStruct(Canvas, TxtRect.Left+1, TxtRect.Top, AUnit.Struct)
-          // Simple struct
-          else DrawStructIcon(Canvas, TxtRect.Left+1, TxtRect.Top, AUnit.Struct, AUnit.Struct.HasExit);
-          TxtRect.Left := TxtRect.Left + 17;
-        end;
-      // Unknown faction mark
-      if (intcol = ugcFaction) and (AUnit.Faction.Num = 0)
-        and (ImgCells[ACol, ARow] <> ' ') then begin
-        ResForm.Extras.Draw(Canvas, TxtRect.Right - 8, TxtRect.Top + 1,
-          bmp_extUnknown);
-        TxtRect.Right := TxtRect.Right - 8;
-      end;
-      // Unit marks
-      if Config.ReadBool('MainWin', 'NameAsLocal', True) then
-        namecol := ugcLocal
-      else namecol := ugcUnitName;
-      if (intcol = namecol) then begin
-        if Length(AUnit.Tag) > 0 then begin
-          brushColor := Canvas.Brush.Color;
-          brushStyle := Canvas.Brush.Style;
-          textColor := Canvas.Font.Color;
-          textHeight := Canvas.Font.Size;
-
-          Canvas.Font.Size := 3;
-          textWidth := Canvas.TextWidth(AUnit.Tag);
-
-          borderRadius := (TxtRect.Bottom - TxtRect.Top - 2) div 4;
-          tagOffset := 4;
-          tagLeft := TxtRect.Right - textWidth - (borderRadius * 2) - tagOffset;
-
-          if AUnit.TagColor > -1 then
-            Canvas.Brush.Color := AUnit.TagColor
-          else 
-            Canvas.Brush.Color := clWhite;
-
-          Canvas.RoundRect(tagLeft, TxtRect.Top + 2, TxtRect.Right - tagOffset, TxtRect.Bottom - 2, borderRadius, borderRadius);
-
-
-          if AUnit.TagTextColor > -1 then
-            Canvas.Font.Color := AUnit.TagTextColor
-          else 
-            Canvas.Font.Color := clBlack;
-
-          Canvas.Brush.Style := bsClear;
-          Canvas.TextOut(tagLeft + borderRadius, TxtRect.Top + 1, AUnit.Tag);
-
-          Canvas.Brush.Color := brushColor;
-          Canvas.Brush.Style := brushStyle;
-          Canvas.Font.Color := textColor;
-          Canvas.Font.Size := textHeight;
-
-          TxtRect.Right := tagLeft - tagOffset;
-        end;
-
-        if (AUnit.UArmy <> nil) and (AUnit.UArmy.Color >= 0) and
-          Config.ReadBool('MainWin', 'ArmyColors', True) then
-          Canvas.Font.Color := AUnit.UArmy.Color;
-
-        if Test(AUnit.Marks, UM_ALLY) then begin
-          ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
-            bmp_extGrayFlag);
-          TxtRect.Right := TxtRect.Right - 8;
-        end;
-
-        if Test(AUnit.Marks, UM_BATTLE) and not Test(AUnit.Marks, UM_DEADMEN) then begin
-          ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
-            bmp_extBattle);
-          TxtRect.Right := TxtRect.Right - 8;
-        end;
-
-        if Test(AUnit.Marks, UM_DEADMEN) then begin
-          ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
-            bmp_extCross);
-          TxtRect.Right := TxtRect.Right - 8;
-        end;
-
-        if Test(AUnit.Marks, UM_ATTACK) then begin
-          ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
-            bmp_extAttack);
-          TxtRect.Right := TxtRect.Right - 8;
-        end;
-
-        if AUnit.Mage then begin
-          ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
-            bmp_extMage);
-          TxtRect.Right := TxtRect.Right - 8;
-        end;
-
-        if (ClearOrder(AUnit.MonthOrder) = 'study') and (AUnit.MonthInfo.Amount > 30) then
-        begin
-          ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
-            bmp_extStudyTarget);
-          TxtRect.Right := TxtRect.Right - 8;
-        end;
-
-        if AUnit.Faction.Player and (AUnit.Items.Amount(IT_MAN) = 0) then
-          Canvas.Font.Style := [fsStrikeout];
-      end;
-    end;
-  end;
+  // FIXME: broken
+  //if NoDraw then Exit;
+  //with UnitGrid do begin
+  //  // Detect Column number
+  //  intcol := 0;
+  //  while (intcol < UnitGridColCount-1) and (Cells[intcol, 0] <>
+  //    ImgCells[ACol, 0]) do Inc(intcol);
+  //  if (ARow = 0) then begin
+  //    // Top row
+  //    if UnitGridHeadIcons[intcol] <> 0 then begin
+  //      TxtRect.Left := TxtRect.Left + 18;
+  //      ResForm.IconList.Draw(Canvas, TxtRect.Left - 17, TxtRect.Top-1,
+  //        UnitGridHeadIcons[intcol]);
+  //    end;
+  //  end
+  //  else begin
+  //    AUnit := TUnit(ImgRows[ARow].Data);
+  //    if (ImgCells[ACol, 0] = 'Object') and (AUnit.Struct <> nil) then
+  //      with AUnit.Struct do begin
+  //        // Struct with owner flag
+  //        if Owner = AUnit then
+  //          DrawOwnedStruct(Canvas, TxtRect.Left+1, TxtRect.Top, AUnit.Struct)
+  //        // Simple struct
+  //        else DrawStructIcon(Canvas, TxtRect.Left+1, TxtRect.Top, AUnit.Struct, AUnit.Struct.HasExit);
+  //        TxtRect.Left := TxtRect.Left + 17;
+  //      end;
+  //    // Unknown faction mark
+  //    if (intcol = ugcFaction) and (AUnit.Faction.Num = 0)
+  //      and (ImgCells[ACol, ARow] <> ' ') then begin
+  //      ResForm.Extras.Draw(Canvas, TxtRect.Right - 8, TxtRect.Top + 1,
+  //        bmp_extUnknown);
+  //      TxtRect.Right := TxtRect.Right - 8;
+  //    end;
+  //    // Unit marks
+  //    if Config.ReadBool('MainWin', 'NameAsLocal', True) then
+  //      namecol := ugcLocal
+  //    else namecol := ugcUnitName;
+  //    if (intcol = namecol) then begin
+  //      if Length(AUnit.Tag) > 0 then begin
+  //        brushColor := Canvas.Brush.Color;
+  //        brushStyle := Canvas.Brush.Style;
+  //        textColor := Canvas.Font.Color;
+  //        textHeight := Canvas.Font.Size;
+  //
+  //        Canvas.Font.Size := 3;
+  //        textWidth := Canvas.TextWidth(AUnit.Tag);
+  //
+  //        borderRadius := (TxtRect.Bottom - TxtRect.Top - 2) div 4;
+  //        tagOffset := 4;
+  //        tagLeft := TxtRect.Right - textWidth - (borderRadius * 2) - tagOffset;
+  //
+  //        if AUnit.TagColor > -1 then
+  //          Canvas.Brush.Color := AUnit.TagColor
+  //        else 
+  //          Canvas.Brush.Color := clWhite;
+  //
+  //        Canvas.RoundRect(tagLeft, TxtRect.Top + 2, TxtRect.Right - tagOffset, TxtRect.Bottom - 2, borderRadius, borderRadius);
+  //
+  //
+  //        if AUnit.TagTextColor > -1 then
+  //          Canvas.Font.Color := AUnit.TagTextColor
+  //        else 
+  //          Canvas.Font.Color := clBlack;
+  //
+  //        Canvas.Brush.Style := bsClear;
+  //        Canvas.TextOut(tagLeft + borderRadius, TxtRect.Top + 1, AUnit.Tag);
+  //
+  //        Canvas.Brush.Color := brushColor;
+  //        Canvas.Brush.Style := brushStyle;
+  //        Canvas.Font.Color := textColor;
+  //        Canvas.Font.Size := textHeight;
+  //
+  //        TxtRect.Right := tagLeft - tagOffset;
+  //      end;
+  //
+  //      if (AUnit.UArmy <> nil) and (AUnit.UArmy.Color >= 0) and
+  //        Config.ReadBool('MainWin', 'ArmyColors', True) then
+  //        Canvas.Font.Color := AUnit.UArmy.Color;
+  //
+  //      if Test(AUnit.Marks, UM_ALLY) then begin
+  //        ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
+  //          bmp_extGrayFlag);
+  //        TxtRect.Right := TxtRect.Right - 8;
+  //      end;
+  //
+  //      if Test(AUnit.Marks, UM_BATTLE) and not Test(AUnit.Marks, UM_DEADMEN) then begin
+  //        ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
+  //          bmp_extBattle);
+  //        TxtRect.Right := TxtRect.Right - 8;
+  //      end;
+  //
+  //      if Test(AUnit.Marks, UM_DEADMEN) then begin
+  //        ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
+  //          bmp_extCross);
+  //        TxtRect.Right := TxtRect.Right - 8;
+  //      end;
+  //
+  //      if Test(AUnit.Marks, UM_ATTACK) then begin
+  //        ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
+  //          bmp_extAttack);
+  //        TxtRect.Right := TxtRect.Right - 8;
+  //      end;
+  //
+  //      if AUnit.Mage then begin
+  //        ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
+  //          bmp_extMage);
+  //        TxtRect.Right := TxtRect.Right - 8;
+  //      end;
+  //
+  //      if (ClearOrder(AUnit.MonthOrder) = 'study') and (AUnit.MonthInfo.Amount > 30) then
+  //      begin
+  //        ResForm.Extras.Draw(Canvas, TxtRect.Right - 9, TxtRect.Top + 1,
+  //          bmp_extStudyTarget);
+  //        TxtRect.Right := TxtRect.Right - 8;
+  //      end;
+  //
+  //      if AUnit.Faction.Player and (AUnit.Items.Amount(IT_MAN) = 0) then
+  //        Canvas.Font.Style := [fsStrikeout];
+  //    end;
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.UnitGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  if (Button = mbRight) and (UnitGrid.MouseCell.Y > 0)
-    and (UnitGrid.ImgRowCount > 1) then begin
-    UnitGrid.PopupMenu := PopMenu;
-    CustomizeUnitPopup(TUnit(UnitGrid.ImgRows[UnitGrid.MouseCell.Y].Data));
-    UnitGrid.Row := UnitGrid.MouseCell.Y;
-  end
-  else UnitGrid.PopupMenu := nil;
+  // FIXME: broken
+  //if (Button = mbRight) and (UnitGrid.MouseCell.Y > 0)
+  //  and (UnitGrid.ImgRowCount > 1) then begin
+  //  UnitGrid.PopupMenu := PopMenu;
+  //  CustomizeUnitPopup(TUnit(UnitGrid.ImgRows[UnitGrid.MouseCell.Y].Data));
+  //  UnitGrid.Row := UnitGrid.MouseCell.Y;
+  //end
+  //else UnitGrid.PopupMenu := nil;
 end;
 
 procedure TMainForm.UnitGridSelectCell(Sender: TObject; ACol,
   ARow: Integer; var CanSelect: Boolean);
 var i: integer;
 begin
-  CurrUnit := TUnit(UnitGrid.ImgRows[ARow].Data);
-  if CurrUnit.NumStr <> NumLabel.Caption then
-    FillUnitInfo(UnitGrid.ImgRows[ARow].Data);
-  HexMap.Redraw; // for moving arrows
-  // Disable manual scripts for non-player units
-  for i := 0 to ScriptsItm.Count-1 do
-    if (ScriptsItm.Items[i].Tag = 1) then
-      ScriptsItm.Items[i].Enabled := (CurrUnit.Faction.Player and
-        (CurrUnit.Num > 0));
+  // FIXME: broken
+  //CurrUnit := TUnit(UnitGrid.ImgRows[ARow].Data);
+  //if CurrUnit.NumStr <> NumLabel.Caption then
+  //  FillUnitInfo(UnitGrid.ImgRows[ARow].Data);
+  //HexMap.Redraw; // for moving arrows
+  //// Disable manual scripts for non-player units
+  //for i := 0 to ScriptsItm.Count-1 do
+  //  if (ScriptsItm.Items[i].Tag = 1) then
+  //    ScriptsItm.Items[i].Enabled := (CurrUnit.Faction.Player and
+  //      (CurrUnit.Num > 0));
 end;
 
 procedure TMainForm.UnitGridDblClick(Sender: TObject);
@@ -2945,44 +2972,45 @@ end;
 procedure TMainForm.ClearUnitInfo;
 var i: integer;
 begin
-  UnitEnable(False);
-  CurrUnit := nil;
-  if not Config.ReadBool('MainWin', 'BattleImages', True) then
-    UnitImagePanel.Width := 0;
-  UnitNameEdit.Text := '';
-  UnitNameEdit.ReadOnly := TRUE;
-  NumLabel.Caption := '';
-  UnitDescrEdit.Text := '';
-  UnitDescrEdit.ReadOnly := TRUE;
-  FactionLabel.Caption := '';
-  FactionFlagImage.Visible := FALSE;
-  StructImage.Canvas.FillRect(StructImage.Canvas.ClipRect);
-  StructLabel.Caption := '';
-  for i := 0 to UnitFlagsCount-1 do
-    with FlagBar.Buttons[i] do begin
-      Down := FALSE;
-      Enabled := FALSE;
-    end;
-  btnConsume.Enabled := False;
-  btnReveal.Enabled := False;
-  btnSpoils.Enabled := False;
-
-  ItemGrid.RowCount := 0;
-  ItemGrid.Fixup;
-  eGiveAmt.Value := 0;
-  tbGiveAll.Enabled := False;
-  tbGiveBattle.Enabled := False;
-  tbGiveTrade.Enabled := False;
-  tbGiveSpoils.Enabled := False;
-  MsgGrid.RowCount := 0;
-  MsgGrid.Fixup;
-  SkillGrid.RowCount := 0;
-  SkillGrid.Fixup;
-  OrderMemo.Lines.Clear;
-  OrderMemo.ReadOnly := TRUE;
-  OrderMemo.Color := clBtnFace;
-  lMonthOut.Caption := '';
-  imgMonthOrder.Picture.Bitmap.Height := 0;
+  // FIXME: broken
+  //UnitEnable(False);
+  //CurrUnit := nil;
+  //if not Config.ReadBool('MainWin', 'BattleImages', True) then
+  //  UnitImagePanel.Width := 0;
+  //UnitNameEdit.Text := '';
+  //UnitNameEdit.ReadOnly := TRUE;
+  //NumLabel.Caption := '';
+  //UnitDescrEdit.Text := '';
+  //UnitDescrEdit.ReadOnly := TRUE;
+  //FactionLabel.Caption := '';
+  //FactionFlagImage.Visible := FALSE;
+  //StructImage.Canvas.FillRect(StructImage.Canvas.ClipRect);
+  //StructLabel.Caption := '';
+  //for i := 0 to UnitFlagsCount-1 do
+  //  with FlagBar.Buttons[i] do begin
+  //    Down := FALSE;
+  //    Enabled := FALSE;
+  //  end;
+  //btnConsume.Enabled := False;
+  //btnReveal.Enabled := False;
+  //btnSpoils.Enabled := False;
+  //
+  //ItemGrid.RowCount := 0;
+  //ItemGrid.Fixup;
+  //eGiveAmt.Value := 0;
+  //tbGiveAll.Enabled := False;
+  //tbGiveBattle.Enabled := False;
+  //tbGiveTrade.Enabled := False;
+  //tbGiveSpoils.Enabled := False;
+  //MsgGrid.RowCount := 0;
+  //MsgGrid.Fixup;
+  //SkillGrid.RowCount := 0;
+  //SkillGrid.Fixup;
+  //OrderMemo.Lines.Clear;
+  //OrderMemo.ReadOnly := TRUE;
+  //OrderMemo.Color := clBtnFace;
+  //lMonthOut.Caption := '';
+  //imgMonthOrder.Picture.Bitmap.Height := 0;
 end;
 
 procedure TMainForm.FillUnitInfo(AUnit: TUnit);
@@ -2998,306 +3026,307 @@ var i, j, capacity, load, row: integer;
     fleet: TFLeetInfo;
 
 begin
-  UnitEnable(True);
-
-  Route := TRoute.Create;
-  ReadRoute(AUnit, Route);
-  AUnit.Route := Route.Moves;
-  Route.Free;
-
-  with AUnit do begin
-    // Select structure
-    if Struct <> nil then begin
-      i := 0;
-      while (i < Region.Structs.Count-1) and (Region.Structs[i] <> Struct) do
-        Inc(i);
-      if i < Region.Structs.Count then begin
-        FillStructInfo(Region.Structs[i]);
-        j := StructGrid.RowCount-1;
-        while (j >= 0) and (StructGrid.ImgRows[j].Data <> CurrStruct) do Dec(j);
-        if j >= 0 then StructGrid.Row := j;
-      end;
-      StructGrid.StickySelect := True;
-    end
-    else if CurrStruct <> nil then begin
-      ClearStructInfo;
-      StructGrid.StickySelect := False;
-    end;
-
-    // Avatar
-    if not Config.ReadBool('MainWin', 'BattleImages', True) then s := '-'
-    else s := UnitImg(AUnit, AUnit.Region);
-    if DrawCombinedAvatar(AUnit, AUnit.Faction, s, UnitImage.Picture.Bitmap,
-      True) then begin
-      UnitImagePanel.Width := UnitImage.Width + 2;
-      UnitImage.Invalidate;
-    end
-    else UnitImagePanel.Width := 0;
-
-    UnitNameEdit.Text := Name;
-    UnitNameEdit.Modified := FALSE;
-    NumLabel.Caption := NumStr;
-    UnitNameEdit.ReadOnly := (Faction.Num <> VFaction.Num);
-    if not btnLocal.Down then begin
-      UnitDescrEdit.Text := StripTags(Description);
-      UnitDescrEdit.ReadOnly := not Faction.Player;
-    end
-    else begin
-      UnitDescrEdit.Text := UnitRecs.Local(Num, Region.Coords);
-      UnitDescrEdit.ReadOnly := False;
-    end;
-    UnitDescrEdit.Modified := FALSE;
-    FactionLabel.Caption := Faction.Name;
-    FactionFlagImage.Visible := TRUE;
-    DrawCExtra(extFlag, Faction, FactionFlagImage.Canvas, 0, 0);
-    // Struct
-    StructImage.Canvas.Brush.Color := clBtnFace;
-    StructImage.Canvas.FillRect(StructImage.Canvas.ClipRect);
-    if Struct <> nil then begin
-      StructLabel.Caption := Struct.Name + ' [' + IntToStr(Struct.Num) +
-        '] : ' + Struct.Data.Group;
-      if (Struct.Owner <> nil) and (Struct.Owner.Num = Num) then
-        DrawOwnedStruct(StructImage.Canvas, 0, 0, Struct)
-      else DrawStructIcon(StructImage.Canvas, 0, 0, Struct, Struct.HasExit);
-    end
-    else StructLabel.Caption := '';
-    // Flags
-    for i := 0 to UnitFlagsCount-1 do
-      with FlagBar.Buttons[i] do begin
-        Down := Flags[i];
-        Enabled := (Faction.Num = VFaction.Num);
-      end;
-    if Faction.Num = VFaction.Num then begin
-      btnConsume.ImageIndex := Consuming + bmp_efConsume;
-      btnConsume.Hint := ExtFlags[0, Consuming];
-      btnReveal.ImageIndex := Revealing + bmp_efReveal;
-      btnReveal.Hint := ExtFlags[1, Revealing];
-      btnSpoils.ImageIndex := Spoils + bmp_efSpoils;
-      btnSpoils.Hint := ExtFlags[2, Spoils];
-    end
-    else begin
-      btnConsume.Hint := ExtFlags[0, 0];
-      btnReveal.Hint := ExtFlags[1, 0];
-      btnSpoils.Hint := ExtFlags[2, 0];
-    end;
-    btnConsume.Enabled := (Faction.Num = VFaction.Num);
-    btnReveal.Enabled := (Faction.Num = VFaction.Num);
-    btnSpoils.Enabled := (Faction.Num = VFaction.Num);
-
-    // Fill items
-    ItemGrid.NoRepaint := True;
-
-    if Config.ReadBool('MainWin', 'UnmodItemAmounts', False) then
-    begin
-      RealU := Turn.Factions[1].Units.Find(AUnit.Num);
-      if RealU <> nil then
-        FillItemGrid(ItemGrid, RealU.Items)
-      else
-        FillItemGrid(ItemGrid, Items);
-    end
-    else
-    begin
-      FillItemGrid(ItemGrid, Items);
-    end;
-
-    FillItemGrid(ItemGridFinal, FinalItems);
-
-    // Incomes
-    with ItemGrid do begin
-      if WorkIncome > 0 then
-        InsertItemGridRow(ItemGrid, 0, IntToStr(WorkIncome),
-          Keys[s_WorkIncome], '-2', nil, clGrayText);
-      if TradeIncome > 0 then
-        InsertItemGridRow(ItemGrid, 0, IntToStr(TradeIncome),
-          Keys[s_TradeIncome], '-1', nil, clGrayText);
-      Fixup;
-    end;
-    eGiveAmt.Value := 0;
-    // Position
-    if ItemGrid.RowCount > 0 then
-      ItemGrid.TopRow := Min(ItemGridTop, ItemGrid.RowCount -
-        ItemGrid.VisibleRowCount);
-
-    ItemGridTop := 0;
-    ItemGrid.NoRepaint := False;
-    ItemGrid.Invalidate;
-
-    tbGiveAll.Enabled := Faction.Player;
-    tbGiveBattle.Enabled := Faction.Player;
-    tbGiveTrade.Enabled := Faction.Player;
-    tbGiveSpoils.Enabled := Faction.Player;
-
-   // Fill messages
-    MsgGrid.RowCount := 0;
-    for i := 0 to Events.Count-1 do begin
-      row := MsgGrid.RowCount;
-      if Pos('!', Events[i]) = 0 then begin
-        MsgGrid.Cells[1, row] := Events[i];
-        MsgGrid.Cells[0, MsgGrid.RowCount-1] := IntToStr(bmpInfo);
-      end
-      else begin
-        MsgGrid.Cells[1, row] := Copy(Events[i], 2, Length(Events[i])-1);
-        MsgGrid.Cells[0, MsgGrid.RowCount-1] := IntToStr(bmpError);
-      end;
-    end;
-    MsgGrid.Fixup;
-
-    if not Faction.Player then begin
-      OrderMemo.ReadOnly := TRUE;
-      OrderMemo.Color := clBtnFace;
-    end
-    else begin
-      OrderMemo.ReadOnly := FALSE;
-      OrderMemo.Color := clWindow;
-    end;
-
-    // Fill skills
-    SkillGrid.RowCount := 0;
-    with SkillGrid do begin
-      i := 0;
-      while i < Skills.Count do begin
-        Cells[0, i] := Skills[i].Data.Name;
-        Cells[1, i] := IntToStr(Skills[i].Level);
-        Cells[2, i] := IntToStr(Skills[i].Points);
-        Rows[i].Data := Skills[i].Data;
-        if Skills[i].Data = CombatSpell then
-          Rows[i].ImageIndex := bmpCombatSpell
-        else Rows[i].ImageIndex := SkillIcon(Skills[i].Data);
-        Inc(i);
-      end;
-      j := 0;
-      while j < CanStudy.Count do begin
-        Cells[0, i] := CanStudy[j].Name;
-        Rows[i].Data := CanStudy[j];
-        Rows[i].Color := clGray;
-        Rows[i].ImageIndex := SkillIcon(CanStudy[j]);
-        Inc(i);
-        Inc(j);
-      end;
-      Fixup;
-    end;
-
-    // Orders
-    OrderMemo.Lines.Assign(Orders);
-    OrderMemo.Modified := FALSE;
-    btnCheckOrder.Enabled := Faction.Player;
-    btnClearOrder.Enabled := Faction.Player;
-
-    // Fill weight
-    i := MovementType(AUnit);
-    case i of
-      mtWalk..mtSwim: MoveTypeLabel.Caption := GetKey(s_Walking, i - 1);
-      else MoveTypeLabel.Caption := 'none';
-    end;
-    // Walk
-    capacity := UnitCapacity(AUnit, mtWalk);
-    load := UnitLoad(AUnit, mtWalk);
-    UnitWeightLabel.Caption := IntToStr(load);
-    if capacity > 0 then begin
-      UnitWeightLabel.Caption := UnitWeightLabel.Caption + ' (max ' +
-      IntToStr(capacity) + ')';
-      UnitWeightLabel.Font.Color := clWindowText;
-    end
-    else UnitWeightLabel.Font.Color := clGrayText;
-    UnitWeightWarning.Visible := (load > capacity) and (capacity > 0);
-    // Ride
-    capacity := UnitCapacity(AUnit, mtRide);
-    load := UnitLoad(AUnit, mtRide);
-    HorsesWeightLabel.Caption := IntToStr(load);
-    if capacity > 0 then begin
-      HorsesWeightLabel.Caption := HorsesWeightLabel.Caption + ' (max ' +
-      IntToStr(capacity) + ')';
-      HorsesWeightLabel.Font.Color := clWindowText;
-    end
-    else HorsesWeightLabel.Font.Color := clGrayText;
-    HorsesWeightWarning.Visible := (load > capacity) and (capacity > 0);
-    // Fly
-    capacity := UnitCapacity(AUnit, mtFly);
-    load := UnitLoad(AUnit, mtFly);
-    WingWeightLabel.Caption := IntToStr(load);
-    if capacity > 0 then begin
-      WingWeightLabel.Caption := WingWeightLabel.Caption + ' (max ' +
-        IntToStr(capacity) + ')';
-      WingWeightLabel.Font.Color := clWindowText;
-    end
-    else WingWeightLabel.Font.Color := clGrayText;
-    WingWeightWarning.Visible := (load > capacity) and (capacity > 0);
-
-    // Struct
-    TransportWeightLabel.Caption := IntToStr(UnitLoad(AUnit, mtNone));
-    if (Struct <> nil) and IsFleet(Struct) then begin
-      fleet := GetFleetInfo(Struct);
-
-      capacity := fleet.Capacity;
-      TransportWeightLabel.Caption := TransportWeightLabel.Caption + '/' + IntToStr(StructCarriedWeight(Struct)) + ' (max ' + IntToStr(capacity) + ')';
-      TransportWeightWarning.Visible := (StructCarriedWeight(Struct) > capacity);
-      TransportWeightLabel.Font.Color := clWindowText;
-    end
-    else begin
-      TransportWeightWarning.Visible := FALSE;
-      TransportWeightLabel.Font.Color := clGrayText;
-    end;
-
-    // Month order
-    lMonthOut.Caption := '';
-    PrepareBmp(imgMonthOrder.Picture.Bitmap, 16, 16, clNether);
-    if Faction.Player then begin
-      s := IntToStr(MonthInfo.Amount) + ' (max ' + IntToStr(MonthInfo.Max) + ') ';
-
-      if ClearOrder(MonthOrder) = 'produce' then begin
-        if MonthInfo.Data <> nil then begin
-          s := s + TItemData(MonthInfo.Data).Name(MonthInfo.Amount <> 1);
-          DrawItemIcon(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, MonthInfo.Data);
-        end;
-      end
-      else if ClearOrder(MonthOrder) = 'build' then begin
-        if MonthInfo.Data <> nil then begin
-          s := s + TStructData(MonthInfo.Data).Group;
-          DrawStructIcon(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, TStructData(MonthInfo.Data), False);
-        end;
-      end
-      else if ClearOrder(MonthOrder) = 'study' then begin
-        s := IntToStr(MonthInfo.Amount) + ' days';
-        if MonthInfo.Details <> '' then
-          s := s + ': ' + MonthInfo.Details;
-        ResForm.IconList.Draw(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, bmpGlasses);
-      end
-      else if (ClearOrder(MonthOrder) = 'entertain')
-        or (ClearOrder(MonthOrder) = 'work')
-        or (GameConfig.ReadBool('Settings', 'MonthTax', False) and
-          (ClearOrder(MonthOrder) = 'tax')) then begin
-        ResForm.IconList.Draw(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, bmpSilver);
-      end
-      else if ClearOrder(MonthOrder) = 'teach' then begin
-        s := IntToStr(MonthInfo.Amount) + ' (max ' +
-          IntToStr(MonthInfo.Max) + ') students';
-        ResForm.IconList.Draw(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, bmpGlasses);
-      end
-      else begin
-        s := '';
-        imgMonthOrder.Picture.Bitmap.Height := 0;
-      end;
-      lMonthOut.Caption := s;
-    end;
-
-  end;
-
-  FillAllItems(AUnit);
-  FillQmasters(AUnit);
-
-  InventoryChanges.NoRepaint := True;
-  InventoryChanges.RowCount := AUnit.Inventory.Count;
-  for j := 0 to AUnit.Inventory.Count - 1 do
-  begin
-    item := AUnit.Inventory[j];
-    if item.Stage = tsInitial then
-      AddInventoryGridItem(InventoryChanges, AUnit.Inventory[j], clGrayText, j)
-    else
-      AddInventoryGridItem(InventoryChanges, AUnit.Inventory[j], clWindowText, j);
-  end;
-  InventoryChanges.Fixup;
-  InventoryChanges.NoRepaint := False;
-  InventoryChanges.Invalidate;
+  // FIXME: broken
+  //UnitEnable(True);
+  //
+  //Route := TRoute.Create;
+  //ReadRoute(AUnit, Route);
+  //AUnit.Route := Route.Moves;
+  //Route.Free;
+  //
+  //with AUnit do begin
+  //  // Select structure
+  //  if Struct <> nil then begin
+  //    i := 0;
+  //    while (i < Region.Structs.Count-1) and (Region.Structs[i] <> Struct) do
+  //      Inc(i);
+  //    if i < Region.Structs.Count then begin
+  //      FillStructInfo(Region.Structs[i]);
+  //      j := StructGrid.RowCount-1;
+  //      while (j >= 0) and (StructGrid.ImgRows[j].Data <> CurrStruct) do Dec(j);
+  //      if j >= 0 then StructGrid.Row := j;
+  //    end;
+  //    StructGrid.StickySelect := True;
+  //  end
+  //  else if CurrStruct <> nil then begin
+  //    ClearStructInfo;
+  //    StructGrid.StickySelect := False;
+  //  end;
+  //
+  //  // Avatar
+  //  if not Config.ReadBool('MainWin', 'BattleImages', True) then s := '-'
+  //  else s := UnitImg(AUnit, AUnit.Region);
+  //  if DrawCombinedAvatar(AUnit, AUnit.Faction, s, UnitImage.Picture.Bitmap,
+  //    True) then begin
+  //    UnitImagePanel.Width := UnitImage.Width + 2;
+  //    UnitImage.Invalidate;
+  //  end
+  //  else UnitImagePanel.Width := 0;
+  //
+  //  UnitNameEdit.Text := Name;
+  //  UnitNameEdit.Modified := FALSE;
+  //  NumLabel.Caption := NumStr;
+  //  UnitNameEdit.ReadOnly := (Faction.Num <> VFaction.Num);
+  //  if not btnLocal.Down then begin
+  //    UnitDescrEdit.Text := StripTags(Description);
+  //    UnitDescrEdit.ReadOnly := not Faction.Player;
+  //  end
+  //  else begin
+  //    UnitDescrEdit.Text := UnitRecs.Local(Num, Region.Coords);
+  //    UnitDescrEdit.ReadOnly := False;
+  //  end;
+  //  UnitDescrEdit.Modified := FALSE;
+  //  FactionLabel.Caption := Faction.Name;
+  //  FactionFlagImage.Visible := TRUE;
+  //  DrawCExtra(extFlag, Faction, FactionFlagImage.Canvas, 0, 0);
+  //  // Struct
+  //  StructImage.Canvas.Brush.Color := clBtnFace;
+  //  StructImage.Canvas.FillRect(StructImage.Canvas.ClipRect);
+  //  if Struct <> nil then begin
+  //    StructLabel.Caption := Struct.Name + ' [' + IntToStr(Struct.Num) +
+  //      '] : ' + Struct.Data.Group;
+  //    if (Struct.Owner <> nil) and (Struct.Owner.Num = Num) then
+  //      DrawOwnedStruct(StructImage.Canvas, 0, 0, Struct)
+  //    else DrawStructIcon(StructImage.Canvas, 0, 0, Struct, Struct.HasExit);
+  //  end
+  //  else StructLabel.Caption := '';
+  //  // Flags
+  //  for i := 0 to UnitFlagsCount-1 do
+  //    with FlagBar.Buttons[i] do begin
+  //      Down := Flags[i];
+  //      Enabled := (Faction.Num = VFaction.Num);
+  //    end;
+  //  if Faction.Num = VFaction.Num then begin
+  //    btnConsume.ImageIndex := Consuming + bmp_efConsume;
+  //    btnConsume.Hint := ExtFlags[0, Consuming];
+  //    btnReveal.ImageIndex := Revealing + bmp_efReveal;
+  //    btnReveal.Hint := ExtFlags[1, Revealing];
+  //    btnSpoils.ImageIndex := Spoils + bmp_efSpoils;
+  //    btnSpoils.Hint := ExtFlags[2, Spoils];
+  //  end
+  //  else begin
+  //    btnConsume.Hint := ExtFlags[0, 0];
+  //    btnReveal.Hint := ExtFlags[1, 0];
+  //    btnSpoils.Hint := ExtFlags[2, 0];
+  //  end;
+  //  btnConsume.Enabled := (Faction.Num = VFaction.Num);
+  //  btnReveal.Enabled := (Faction.Num = VFaction.Num);
+  //  btnSpoils.Enabled := (Faction.Num = VFaction.Num);
+  //
+  //  // Fill items
+  //  ItemGrid.NoRepaint := True;
+  //
+  //  if Config.ReadBool('MainWin', 'UnmodItemAmounts', False) then
+  //  begin
+  //    RealU := Turn.Factions[1].Units.Find(AUnit.Num);
+  //    if RealU <> nil then
+  //      FillItemGrid(ItemGrid, RealU.Items)
+  //    else
+  //      FillItemGrid(ItemGrid, Items);
+  //  end
+  //  else
+  //  begin
+  //    FillItemGrid(ItemGrid, Items);
+  //  end;
+  //
+  //  FillItemGrid(ItemGridFinal, FinalItems);
+  //
+  //  // Incomes
+  //  with ItemGrid do begin
+  //    if WorkIncome > 0 then
+  //      InsertItemGridRow(ItemGrid, 0, IntToStr(WorkIncome),
+  //        Keys[s_WorkIncome], '-2', nil, clGrayText);
+  //    if TradeIncome > 0 then
+  //      InsertItemGridRow(ItemGrid, 0, IntToStr(TradeIncome),
+  //        Keys[s_TradeIncome], '-1', nil, clGrayText);
+  //    Fixup;
+  //  end;
+  //  eGiveAmt.Value := 0;
+  //  // Position
+  //  if ItemGrid.RowCount > 0 then
+  //    ItemGrid.TopRow := Min(ItemGridTop, ItemGrid.RowCount -
+  //      ItemGrid.VisibleRowCount);
+  //
+  //  ItemGridTop := 0;
+  //  ItemGrid.NoRepaint := False;
+  //  ItemGrid.Invalidate;
+  //
+  //  tbGiveAll.Enabled := Faction.Player;
+  //  tbGiveBattle.Enabled := Faction.Player;
+  //  tbGiveTrade.Enabled := Faction.Player;
+  //  tbGiveSpoils.Enabled := Faction.Player;
+  //
+  // // Fill messages
+  //  MsgGrid.RowCount := 0;
+  //  for i := 0 to Events.Count-1 do begin
+  //    row := MsgGrid.RowCount;
+  //    if Pos('!', Events[i]) = 0 then begin
+  //      MsgGrid.Cells[1, row] := Events[i];
+  //      MsgGrid.Cells[0, MsgGrid.RowCount-1] := IntToStr(bmpInfo);
+  //    end
+  //    else begin
+  //      MsgGrid.Cells[1, row] := Copy(Events[i], 2, Length(Events[i])-1);
+  //      MsgGrid.Cells[0, MsgGrid.RowCount-1] := IntToStr(bmpError);
+  //    end;
+  //  end;
+  //  MsgGrid.Fixup;
+  //
+  //  if not Faction.Player then begin
+  //    OrderMemo.ReadOnly := TRUE;
+  //    OrderMemo.Color := clBtnFace;
+  //  end
+  //  else begin
+  //    OrderMemo.ReadOnly := FALSE;
+  //    OrderMemo.Color := clWindow;
+  //  end;
+  //
+  //  // Fill skills
+  //  SkillGrid.RowCount := 0;
+  //  with SkillGrid do begin
+  //    i := 0;
+  //    while i < Skills.Count do begin
+  //      Cells[0, i] := Skills[i].Data.Name;
+  //      Cells[1, i] := IntToStr(Skills[i].Level);
+  //      Cells[2, i] := IntToStr(Skills[i].Points);
+  //      Rows[i].Data := Skills[i].Data;
+  //      if Skills[i].Data = CombatSpell then
+  //        Rows[i].ImageIndex := bmpCombatSpell
+  //      else Rows[i].ImageIndex := SkillIcon(Skills[i].Data);
+  //      Inc(i);
+  //    end;
+  //    j := 0;
+  //    while j < CanStudy.Count do begin
+  //      Cells[0, i] := CanStudy[j].Name;
+  //      Rows[i].Data := CanStudy[j];
+  //      Rows[i].Color := clGray;
+  //      Rows[i].ImageIndex := SkillIcon(CanStudy[j]);
+  //      Inc(i);
+  //      Inc(j);
+  //    end;
+  //    Fixup;
+  //  end;
+  //
+  //  // Orders
+  //  OrderMemo.Lines.Assign(Orders);
+  //  OrderMemo.Modified := FALSE;
+  //  btnCheckOrder.Enabled := Faction.Player;
+  //  btnClearOrder.Enabled := Faction.Player;
+  //
+  //  // Fill weight
+  //  i := MovementType(AUnit);
+  //  case i of
+  //    mtWalk..mtSwim: MoveTypeLabel.Caption := GetKey(s_Walking, i - 1);
+  //    else MoveTypeLabel.Caption := 'none';
+  //  end;
+  //  // Walk
+  //  capacity := UnitCapacity(AUnit, mtWalk);
+  //  load := UnitLoad(AUnit, mtWalk);
+  //  UnitWeightLabel.Caption := IntToStr(load);
+  //  if capacity > 0 then begin
+  //    UnitWeightLabel.Caption := UnitWeightLabel.Caption + ' (max ' +
+  //    IntToStr(capacity) + ')';
+  //    UnitWeightLabel.Font.Color := clWindowText;
+  //  end
+  //  else UnitWeightLabel.Font.Color := clGrayText;
+  //  UnitWeightWarning.Visible := (load > capacity) and (capacity > 0);
+  //  // Ride
+  //  capacity := UnitCapacity(AUnit, mtRide);
+  //  load := UnitLoad(AUnit, mtRide);
+  //  HorsesWeightLabel.Caption := IntToStr(load);
+  //  if capacity > 0 then begin
+  //    HorsesWeightLabel.Caption := HorsesWeightLabel.Caption + ' (max ' +
+  //    IntToStr(capacity) + ')';
+  //    HorsesWeightLabel.Font.Color := clWindowText;
+  //  end
+  //  else HorsesWeightLabel.Font.Color := clGrayText;
+  //  HorsesWeightWarning.Visible := (load > capacity) and (capacity > 0);
+  //  // Fly
+  //  capacity := UnitCapacity(AUnit, mtFly);
+  //  load := UnitLoad(AUnit, mtFly);
+  //  WingWeightLabel.Caption := IntToStr(load);
+  //  if capacity > 0 then begin
+  //    WingWeightLabel.Caption := WingWeightLabel.Caption + ' (max ' +
+  //      IntToStr(capacity) + ')';
+  //    WingWeightLabel.Font.Color := clWindowText;
+  //  end
+  //  else WingWeightLabel.Font.Color := clGrayText;
+  //  WingWeightWarning.Visible := (load > capacity) and (capacity > 0);
+  //
+  //  // Struct
+  //  TransportWeightLabel.Caption := IntToStr(UnitLoad(AUnit, mtNone));
+  //  if (Struct <> nil) and IsFleet(Struct) then begin
+  //    fleet := GetFleetInfo(Struct);
+  //
+  //    capacity := fleet.Capacity;
+  //    TransportWeightLabel.Caption := TransportWeightLabel.Caption + '/' + IntToStr(StructCarriedWeight(Struct)) + ' (max ' + IntToStr(capacity) + ')';
+  //    TransportWeightWarning.Visible := (StructCarriedWeight(Struct) > capacity);
+  //    TransportWeightLabel.Font.Color := clWindowText;
+  //  end
+  //  else begin
+  //    TransportWeightWarning.Visible := FALSE;
+  //    TransportWeightLabel.Font.Color := clGrayText;
+  //  end;
+  //
+  //  // Month order
+  //  lMonthOut.Caption := '';
+  //  PrepareBmp(imgMonthOrder.Picture.Bitmap, 16, 16, clNether);
+  //  if Faction.Player then begin
+  //    s := IntToStr(MonthInfo.Amount) + ' (max ' + IntToStr(MonthInfo.Max) + ') ';
+  //
+  //    if ClearOrder(MonthOrder) = 'produce' then begin
+  //      if MonthInfo.Data <> nil then begin
+  //        s := s + TItemData(MonthInfo.Data).Name(MonthInfo.Amount <> 1);
+  //        DrawItemIcon(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, MonthInfo.Data);
+  //      end;
+  //    end
+  //    else if ClearOrder(MonthOrder) = 'build' then begin
+  //      if MonthInfo.Data <> nil then begin
+  //        s := s + TStructData(MonthInfo.Data).Group;
+  //        DrawStructIcon(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, TStructData(MonthInfo.Data), False);
+  //      end;
+  //    end
+  //    else if ClearOrder(MonthOrder) = 'study' then begin
+  //      s := IntToStr(MonthInfo.Amount) + ' days';
+  //      if MonthInfo.Details <> '' then
+  //        s := s + ': ' + MonthInfo.Details;
+  //      ResForm.IconList.Draw(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, bmpGlasses);
+  //    end
+  //    else if (ClearOrder(MonthOrder) = 'entertain')
+  //      or (ClearOrder(MonthOrder) = 'work')
+  //      or (GameConfig.ReadBool('Settings', 'MonthTax', False) and
+  //        (ClearOrder(MonthOrder) = 'tax')) then begin
+  //      ResForm.IconList.Draw(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, bmpSilver);
+  //    end
+  //    else if ClearOrder(MonthOrder) = 'teach' then begin
+  //      s := IntToStr(MonthInfo.Amount) + ' (max ' +
+  //        IntToStr(MonthInfo.Max) + ') students';
+  //      ResForm.IconList.Draw(imgMonthOrder.Picture.Bitmap.Canvas, 0, 0, bmpGlasses);
+  //    end
+  //    else begin
+  //      s := '';
+  //      imgMonthOrder.Picture.Bitmap.Height := 0;
+  //    end;
+  //    lMonthOut.Caption := s;
+  //  end;
+  //
+  //end;
+  //
+  //FillAllItems(AUnit);
+  //FillQmasters(AUnit);
+  //
+  //InventoryChanges.NoRepaint := True;
+  //InventoryChanges.RowCount := AUnit.Inventory.Count;
+  //for j := 0 to AUnit.Inventory.Count - 1 do
+  //begin
+  //  item := AUnit.Inventory[j];
+  //  if item.Stage = tsInitial then
+  //    AddInventoryGridItem(InventoryChanges, AUnit.Inventory[j], clGrayText, j)
+  //  else
+  //    AddInventoryGridItem(InventoryChanges, AUnit.Inventory[j], clWindowText, j);
+  //end;
+  //InventoryChanges.Fixup;
+  //InventoryChanges.NoRepaint := False;
+  //InventoryChanges.Invalidate;
 end;
 
 procedure TMainForm.ItemGridDrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -3315,28 +3344,29 @@ var i, j, row: integer;
     Troop: TTroop;
     Item: TItem;
 begin
-  if not gAllItems.Visible then Exit;
-  if AUnit <> nil then Troop := AUnit.Region.PlayerTroop
-  else Troop := nil;
-  gAllItems.RowCount := 0;
-  if Troop <> nil then begin
-    row := 1;
-    for i := 0 to Troop.Units.Count-1 do
-      if Troop.Units[i] <> AUnit then
-        for j := 0 to Troop.Units[i].Items.Count-1 do begin
-          Item := Troop.Units[i].Items[j];
-          if not Item.Bought and not Test(Item.Data.Flags, IT_MAN) then begin
-            gAllItems.Cells[0, row] := IntToStr(Item.Amount);
-            gAllItems.Cells[1, row] := Item.Name;
-            gAllItems.SortKeys[1, row] := IntToStr(Game.ItemData.IndexOf(Item.Data));
-            gAllItems.Cells[2, row] := Troop.Units[i].Name + ' (' +
-              Troop.Units[i].NumStr + ')';
-            gAllItems.Rows[row].Data := Item;
-            Inc(row);
-          end;
-        end;
-  end;
-  gAllItems.Fixup;
+  // FIXME: broken
+  //if not gAllItems.Visible then Exit;
+  //if AUnit <> nil then Troop := AUnit.Region.PlayerTroop
+  //else Troop := nil;
+  //gAllItems.RowCount := 0;
+  //if Troop <> nil then begin
+  //  row := 1;
+  //  for i := 0 to Troop.Units.Count-1 do
+  //    if Troop.Units[i] <> AUnit then
+  //      for j := 0 to Troop.Units[i].Items.Count-1 do begin
+  //        Item := Troop.Units[i].Items[j];
+  //        if not Item.Bought and not Test(Item.Data.Flags, IT_MAN) then begin
+  //          gAllItems.Cells[0, row] := IntToStr(Item.Amount);
+  //          gAllItems.Cells[1, row] := Item.Name;
+  //          gAllItems.SortKeys[1, row] := IntToStr(Game.ItemData.IndexOf(Item.Data));
+  //          gAllItems.Cells[2, row] := Troop.Units[i].Name + ' (' +
+  //            Troop.Units[i].NumStr + ')';
+  //          gAllItems.Rows[row].Data := Item;
+  //          Inc(row);
+  //        end;
+  //      end;
+  //end;
+  //gAllItems.Fixup;
 end;
 
 procedure TMainForm.FillQmasters(AUnit: TUnit);
@@ -3403,41 +3433,43 @@ end;
 
 procedure TMainForm.ClearQmaster;
 begin
-  cbQuartermaster.Enabled := false;
-  cbQuartermaster.Clear;
-  pgQuartermaster.Enabled := false;
-  pgQuartermaster.RowCount := 1;
-  pgQuartermaster.Fixup;
-  iQMFeeWarning.Visible := false;
-  lblQmasterRange.Caption := EmptyStr;
-  iQMAbilityWarning.Visible := false;
-  lblQmasterAbility.Caption := EmptyStr;
+  // FIXME: broken
+  //cbQuartermaster.Enabled := false;
+  //cbQuartermaster.Clear;
+  //pgQuartermaster.Enabled := false;
+  //pgQuartermaster.RowCount := 1;
+  //pgQuartermaster.Fixup;
+  //iQMFeeWarning.Visible := false;
+  //lblQmasterRange.Caption := EmptyStr;
+  //iQMAbilityWarning.Visible := false;
+  //lblQmasterAbility.Caption := EmptyStr;
 end;
 
 procedure TMainForm.cbQuartermasterChange(Sender: TObject);
 var
   qiQMInfo: PQmasterInfo;
 
-  procedure FillItemGrid(AGrid: TPowerGrid; AItemList: TItemList);
+  procedure FillItemGrid(AGrid: TStringGrid; AItemList: TItemList);
   var
     iIdx:     integer;
     iItem:    TItem;
     cColour:  TColor;
   begin
-    AGrid.RowCount := 1;
-
-    for iIdx := 0 to AItemList.Count - 1 do
-    begin
-      iItem := AItemList[iIdx];
-      if InvalidTransport(iItem) then
-        cColour := clGrayText
-      else
-        cColour := clWindowText;
-
-      AddItemGridItem(AGrid, iItem, cColour);
-    end;
-
-    AGrid.Fixup;
+    // FIXME: broken
+    //AGrid.RowCount := 1;
+    //
+    //for iIdx := 0 to AItemList.Count - 1 do
+    //begin
+    //  iItem := AItemList[iIdx];
+    //  if InvalidTransport(iItem) then
+    //    cColour := clGrayText
+    //  else
+    //    cColour := clWindowText;
+    //
+    //  AddItemGridItem(AGrid, iItem, cColour);
+    //end;
+    //
+    //AGrid.Fixup;
   end;
 
 begin
@@ -3509,17 +3541,19 @@ end;
 
 procedure TMainForm.FormEditEnter(Sender: TObject);
 begin
-  TEdit(Sender).BevelKind := bkSoft;
+  // FIXME: broken
+  //TEdit(Sender).BevelKind := bkSoft;
 end;
 
 procedure TMainForm.FormEditExit(Sender: TObject);
 var Key: Char;
 begin
-  TEdit(Sender).BevelKind := bkNone;
-  if TEdit(Sender).Modified then begin
-    Key := #13;
-    FormEditKeyPress(Sender, Key);
-  end;
+  // FIXME: broken
+  //TEdit(Sender).BevelKind := bkNone;
+  //if TEdit(Sender).Modified then begin
+  //  Key := #13;
+  //  FormEditKeyPress(Sender, Key);
+  //end;
 end;
 
 procedure TMainForm.FormEditKeyPress(Sender: TObject; var Key: Char);
@@ -3558,78 +3592,82 @@ end;
 
 procedure TMainForm.SkillGridDblClick(Sender: TObject);
 begin
-  with TSkillEditForm.Create(Self) do begin
-    SelectItem(TSkillData(SkillGrid.ImgRows[SkillGrid.Row].Data));
-    ShowModal;
-    Free;
-  end;
-  ProcessAllOrders;
+  // FIXME: broken
+  //with TSkillEditForm.Create(Self) do begin
+  //  SelectItem(TSkillData(SkillGrid.ImgRows[SkillGrid.Row].Data));
+  //  ShowModal;
+  //  Free;
+  //end;
+  //ProcessAllOrders;
 end;
 
 procedure TMainForm.SkillGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var lv: integer;
 begin
-  if (Button = mbRight) and (SkillGrid.MouseCell.Y >= 0)
-    and (SkillGrid.ImgRowCount > 0) then begin
-    SkillGrid.PopupMenu := PopMenu;
-    if SkillGrid.ImgCells[1, SkillGrid.MouseCell.Y] = '' then lv := 0
-    else lv := StrToInt(SkillGrid.ImgCells[1, SkillGrid.MouseCell.Y]);
-    CustomizeSkillPopup(
-      TSkillData(SkillGrid.ImgRows[SkillGrid.MouseCell.Y].Data), lv);
-    SkillGrid.Row := SkillGrid.MouseCell.Y;
-  end
-  else SkillGrid.PopupMenu := nil;
+  // FIXME: broken
+  //if (Button = mbRight) and (SkillGrid.MouseCell.Y >= 0)
+  //  and (SkillGrid.ImgRowCount > 0) then begin
+  //  SkillGrid.PopupMenu := PopMenu;
+  //  if SkillGrid.ImgCells[1, SkillGrid.MouseCell.Y] = '' then lv := 0
+  //  else lv := StrToInt(SkillGrid.ImgCells[1, SkillGrid.MouseCell.Y]);
+  //  CustomizeSkillPopup(
+  //    TSkillData(SkillGrid.ImgRows[SkillGrid.MouseCell.Y].Data), lv);
+  //  SkillGrid.Row := SkillGrid.MouseCell.Y;
+  //end
+  //else SkillGrid.PopupMenu := nil;
 end;
 
 procedure TMainForm.ItemGridDblClick(Sender: TObject);
-var Grid: TPowerGrid;
+var Grid: TStringGrid;
     Item: TItem;
 begin
-  if Sender is TPowerGrid then Grid := TPowerGrid(Sender)
-  else if ItemGrid.Focused then Grid := ItemGrid
-  else if gAllItems.Focused then Grid := gAllItems
-  else Exit;
-
-  Item := TItem(Grid.ImgRows[Grid.Row].Data);
-  if Item = nil then Exit;
-
-  with TItemEditForm.Create(Self) do begin
-    SelectItem(Item.Data);
-    ShowModal;
-    if Modified then ProcessAllOrders;
-    Free;
-  end;
+  // FIXME: broken
+  //if Sender is TStringGrid then Grid := TStringGrid(Sender)
+  //else if ItemGrid.Focused then Grid := ItemGrid
+  //else if gAllItems.Focused then Grid := gAllItems
+  //else Exit;
+  //
+  //Item := TItem(Grid.ImgRows[Grid.Row].Data);
+  //if Item = nil then Exit;
+  //
+  //with TItemEditForm.Create(Self) do begin
+  //  SelectItem(Item.Data);
+  //  ShowModal;
+  //  if Modified then ProcessAllOrders;
+  //  Free;
+  //end;
 end;
 
 procedure TMainForm.ItemGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var Item: TItem;
 begin
-  with TPowerGrid(Sender) do begin
-    if MouseCell.Y < FixedRows then Exit;
-    // mbRight: Popup menu
-    PopupMenu := nil;
-    if (Button = mbRight) and (MouseCell.Y >= 0) and (ImgRowCount > 0)
-      and (SelectedRows = 1) then begin
-      Row := MouseCell.Y;
-      Item := TItem(ImgRows[Row].Data);
-      if Item <> nil then begin
-        PopupMenu := PopMenu;
-        CustomizeItemPopup(Item);
-      end;
-    end;
-    // mbLeft: Drag GIVE
-    if (CurrUnit <> nil)
-      and (Button = mbLeft) and (RowCount > 0)
-      and (CurrUnit.Faction.Player or (Sender = gAllItems))
-      and  not (ssDouble in Shift)
-      and (ImgRows[Row].Data <> nil)
-      and not TItem(ImgRows[Row].Data).Bought then begin
-      GiveToMovement := mtNone;
-      BeginDrag(False);
-    end;
-  end;
+  // FIXME: broken
+  //with TStringGrid(Sender) do begin
+  //  if MouseCell.Y < FixedRows then Exit;
+  //  // mbRight: Popup menu
+  //  PopupMenu := nil;
+  //  if (Button = mbRight) and (MouseCell.Y >= 0) and (ImgRowCount > 0)
+  //    and (SelectedRows = 1) then begin
+  //    Row := MouseCell.Y;
+  //    Item := TItem(ImgRows[Row].Data);
+  //    if Item <> nil then begin
+  //      PopupMenu := PopMenu;
+  //      CustomizeItemPopup(Item);
+  //    end;
+  //  end;
+  //  // mbLeft: Drag GIVE
+  //  if (CurrUnit <> nil)
+  //    and (Button = mbLeft) and (RowCount > 0)
+  //    and (CurrUnit.Faction.Player or (Sender = gAllItems))
+  //    and  not (ssDouble in Shift)
+  //    and (ImgRows[Row].Data <> nil)
+  //    and not TItem(ImgRows[Row].Data).Bought then begin
+  //    GiveToMovement := mtNone;
+  //    BeginDrag(False);
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.ItemGridDragOver(Sender, Source: TObject; X,
@@ -3647,11 +3685,12 @@ procedure TMainForm.ItemGridSelectCell(Sender: TObject; ACol,
   ARow: Integer; var CanSelect: Boolean);
 var Item: TItem;
 begin
-  if (ARow <> TPowerGrid(Sender).Row) or (eGiveAmt.Value = 0) then begin
-    Item := TItem(TPowerGrid(Sender).ImgRows[ARow].Data);
-    if Item <> nil then eGiveAmt.Value := Item.Amount
-    else eGiveAmt.Value := 0;
-  end;
+  // FIXME: broken
+  //if (ARow <> TStringGrid(Sender).Row) or (eGiveAmt.Value = 0) then begin
+  //  Item := TItem(TStringGrid(Sender).ImgRows[ARow].Data);
+  //  if Item <> nil then eGiveAmt.Value := Item.Amount
+  //  else eGiveAmt.Value := 0;
+  //end;
 end;
 
 procedure TMainForm.ItemGridEndDrag(Sender, Target: TObject; X,
@@ -3663,20 +3702,21 @@ var i: integer;
   var
     iRow: integer;
   begin
-    with Sender as TPowerGrid do
-      if SelectedRows = 1 then
-        Result := InvalidTransport(TItem(ImgRows[Row].Data))
-      else
-      begin
-        Result := false;
-
-        for iRow := 1 to RowCount - 1 do
-          if Rows[iRow].Selected and InvalidTransport(TItem(Rows[iRow].Data)) then
-          begin
-            Result := true;
-            break;
-          end;
-      end;
+    // FIXME: broken
+    //with Sender as TStringGrid do
+    //  if SelectedRows = 1 then
+    //    Result := InvalidTransport(TItem(ImgRows[Row].Data))
+    //  else
+    //  begin
+    //    Result := false;
+    //
+    //    for iRow := 1 to RowCount - 1 do
+    //      if Rows[iRow].Selected and InvalidTransport(TItem(Rows[iRow].Data)) then
+    //      begin
+    //        Result := true;
+    //        break;
+    //      end;
+    //  end;
   end;
 
   procedure DoTransport(Item: TItem; amt: integer);
@@ -3696,72 +3736,74 @@ var i: integer;
       AUnit: TUnit;
       give_amt: string;
   begin
-    if Target = UnitGrid then begin
-      P := UnitGrid.MouseCell;
-      if P.Y >= 1 then begin
-        AUnit := TUnit(UnitGrid.ImgRows[P.Y].Data);
-        if AUnit = CurrUnit then Exit;
-        // Adjust amount to allow unit move
-        if (GiveToMovement <> mtNone) and (Item.Data.Weight > 0) then
-          amt := Min(amt, (UnitCapacity(AUnit, GiveToMovement) -
-            UnitLoad(AUnit, GiveToMovement)) div Item.Data.Weight);
-        if AltPressed then give_amt := 'all'
-        else give_amt := IntToStr(amt);
-        ExecOrder('give ' + AUnit.NumStr + ' ' + give_amt +
-          ' "' + Item.Data.Name + '"; ' + AUnit.Name, True);
-      end;
-    end
-    else if Target = HexMap then begin
-      if AltPressed then give_amt := 'all'
-      else give_amt := IntToStr(amt);
-
-      ExecOrder('give 0 ' + give_amt + ' "' + Item.Data.Name + '"; Nobody', True)
-    end;
+    // FIXME: broken
+    //if Target = UnitGrid then begin
+    //  P := UnitGrid.MouseCell;
+    //  if P.Y >= 1 then begin
+    //    AUnit := TUnit(UnitGrid.ImgRows[P.Y].Data);
+    //    if AUnit = CurrUnit then Exit;
+    //    // Adjust amount to allow unit move
+    //    if (GiveToMovement <> mtNone) and (Item.Data.Weight > 0) then
+    //      amt := Min(amt, (UnitCapacity(AUnit, GiveToMovement) -
+    //        UnitLoad(AUnit, GiveToMovement)) div Item.Data.Weight);
+    //    if AltPressed then give_amt := 'all'
+    //    else give_amt := IntToStr(amt);
+    //    ExecOrder('give ' + AUnit.NumStr + ' ' + give_amt +
+    //      ' "' + Item.Data.Name + '"; ' + AUnit.Name, True);
+    //  end;
+    //end
+    //else if Target = HexMap then begin
+    //  if AltPressed then give_amt := 'all'
+    //  else give_amt := IntToStr(amt);
+    //
+    //  ExecOrder('give 0 ' + give_amt + ' "' + Item.Data.Name + '"; Nobody', True)
+    //end;
   end;
 
 begin
-  if Target = pgQuartermaster then
-  begin
-    if not QMInfo.Recieve then
-    begin
-      MessageDlg('Quartermaster is out of range', mtError, [mbOK], 0);
-      exit;
-    end
-    else if InvalidItems then
-    begin
-      MessageDlg('Cannot transport magical or living items', mtError, [mbOK], 0);
-      exit;
-    end;
-
-    with Sender as TPowerGrid do
-    begin
-      if SelectedRows = 1 then
-        DoTransport(TItem(ImgRows[Row].Data), eGiveAmt.Value)
-      else
-      begin
-        for i := 0 to RowCount-1 do
-          if Rows[i].Selected then
-          begin
-            Item := TItem(Rows[i].Data);
-            if Item <> nil then
-              DoTransport(Item, Item.Amount);
-          end;
-      end;
-    end;
-  end
-  else
-    with Sender as TPowerGrid do begin
-      if SelectedRows = 1 then
-        DoGive(TItem(ImgRows[Row].Data), eGiveAmt.Value)
-      else begin
-        for i := 0 to RowCount-1 do
-          if Rows[i].Selected then begin
-            Item := TItem(Rows[i].Data);
-            if (Item = nil) or Item.Bought then Continue;
-            DoGive(Item, Item.Amount);
-          end;
-      end;
-    end;
+  // FIXME: broken
+  //if Target = pgQuartermaster then
+  //begin
+  //  if not QMInfo.Recieve then
+  //  begin
+  //    MessageDlg('Quartermaster is out of range', mtError, [mbOK], 0);
+  //    exit;
+  //  end
+  //  else if InvalidItems then
+  //  begin
+  //    MessageDlg('Cannot transport magical or living items', mtError, [mbOK], 0);
+  //    exit;
+  //  end;
+  //
+  //  with Sender as TStringGrid do
+  //  begin
+  //    if SelectedRows = 1 then
+  //      DoTransport(TItem(ImgRows[Row].Data), eGiveAmt.Value)
+  //    else
+  //    begin
+  //      for i := 0 to RowCount-1 do
+  //        if Rows[i].Selected then
+  //        begin
+  //          Item := TItem(Rows[i].Data);
+  //          if Item <> nil then
+  //            DoTransport(Item, Item.Amount);
+  //        end;
+  //    end;
+  //  end;
+  //end
+  //else
+  //  with Sender as TStringGrid do begin
+  //    if SelectedRows = 1 then
+  //      DoGive(TItem(ImgRows[Row].Data), eGiveAmt.Value)
+  //    else begin
+  //      for i := 0 to RowCount-1 do
+  //        if Rows[i].Selected then begin
+  //          Item := TItem(Rows[i].Data);
+  //          if (Item = nil) or Item.Bought then Continue;
+  //          DoGive(Item, Item.Amount);
+  //        end;
+  //    end;
+  //  end;
 end;
 
 procedure TMainForm.tbMaskGiveEndDrag(Sender, Target: TObject; X,
@@ -3772,40 +3814,41 @@ var P: TGridCoord;
     i: integer;
     Item: TItem;
 begin
-  if Target = UnitGrid then begin
-    P := UnitGrid.MouseCell;
-    if P.Y >= 0 then begin
-      U := TUnit(UnitGrid.ImgRows[P.Y].Data);
-      if U = CurrUnit then Exit;
-      name := U.Name;
-      num := U.NumStr;
-    end;
-  end
-  else if Target = HexMap then begin
-    name := 'Nobody';
-    num := '0';
-  end
-  else Exit;
-
-  order := '';
-  case TToolButton(Sender).Tag of
-    1: begin
-      order := 'give ' + num + ' all items';
-      if CurrUnit.Flags[flgTax] then order := 'autotax 0' + #13#10 + order;
-      if CurrUnit.Flags[flgGuard] then order := 'guard 0' + #13#10 + order;
-    end;
-    2: order := 'give ' + num + ' all weapon' + #13#10 +
-      'give ' + num + ' all armor';
-    3: order := 'give ' + num + ' all trade';
-    4: for i := 0 to CurrUnit.Items.Count-1 do begin
-        Item := CurrUnit.Items[i];
-        if Item.Bought or not IsSpoils(Item.Data) then Continue;
-        AddOrder('give ' + num + ' ' + IntToStr(Item.Amount) + ' "' + Item.Name +
-          '"; ' + name, False);
-      end;
-  end;
-
-  ExecOrder(order, True);
+  // FIXME: broken
+  //if Target = UnitGrid then begin
+  //  P := UnitGrid.MouseCell;
+  //  if P.Y >= 0 then begin
+  //    U := TUnit(UnitGrid.ImgRows[P.Y].Data);
+  //    if U = CurrUnit then Exit;
+  //    name := U.Name;
+  //    num := U.NumStr;
+  //  end;
+  //end
+  //else if Target = HexMap then begin
+  //  name := 'Nobody';
+  //  num := '0';
+  //end
+  //else Exit;
+  //
+  //order := '';
+  //case TToolButton(Sender).Tag of
+  //  1: begin
+  //    order := 'give ' + num + ' all items';
+  //    if CurrUnit.Flags[flgTax] then order := 'autotax 0' + #13#10 + order;
+  //    if CurrUnit.Flags[flgGuard] then order := 'guard 0' + #13#10 + order;
+  //  end;
+  //  2: order := 'give ' + num + ' all weapon' + #13#10 +
+  //    'give ' + num + ' all armor';
+  //  3: order := 'give ' + num + ' all trade';
+  //  4: for i := 0 to CurrUnit.Items.Count-1 do begin
+  //      Item := CurrUnit.Items[i];
+  //      if Item.Bought or not IsSpoils(Item.Data) then Continue;
+  //      AddOrder('give ' + num + ' ' + IntToStr(Item.Amount) + ' "' + Item.Name +
+  //        '"; ' + name, False);
+  //    end;
+  //end;
+  //
+  //ExecOrder(order, True);
 end;
 
 procedure TMainForm.gAllItemsDragOver(Sender, Source: TObject; X,
@@ -3849,47 +3892,51 @@ var Item: TItem;
   end;
 
 begin
-  if Target <> ItemGrid then Exit;
-  with Sender as TPowerGrid do begin
-    if SelectedRows = 1 then
-      DoGive(TItem(ImgRows[Row].Data), eGiveAmt.Value)
-    else begin
-      for i := 0 to RowCount-1 do
-        if Rows[i].Selected then begin
-          Item := TItem(Rows[i].Data);
-          if (Item = nil) or Item.Bought then Continue;
-          DoGive(Item, Item.Amount);
-        end;
-    end;
-  end;
+  // FIXME: broken
+  //if Target <> ItemGrid then Exit;
+  //with Sender as TStringGrid do begin
+  //  if SelectedRows = 1 then
+  //    DoGive(TItem(ImgRows[Row].Data), eGiveAmt.Value)
+  //  else begin
+  //    for i := 0 to RowCount-1 do
+  //      if Rows[i].Selected then begin
+  //        Item := TItem(Rows[i].Data);
+  //        if (Item = nil) or Item.Bought then Continue;
+  //        DoGive(Item, Item.Amount);
+  //      end;
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.ItemGridEnter(Sender: TObject);
 begin
-  with TPowerGrid(Sender) do
-    if (RowCount > FixedRows) and (ImgRows[Row].Data <> nil) then
-      eGiveAmt.Value := TItem(ImgRows[Row].Data).Amount
-    else eGiveAmt.Value := 0;
+  // FIXME: broken
+  //with TStringGrid(Sender) do
+  //  if (RowCount > FixedRows) and (ImgRows[Row].Data <> nil) then
+  //    eGiveAmt.Value := TItem(ImgRows[Row].Data).Amount
+  //  else eGiveAmt.Value := 0;
 end;
 
 procedure TMainForm.MsgGridDrawCell(Sender: TObject; ACol, ARow: Integer;
   var TxtRect: TRect; State: TGridDrawState);
 begin
-  if NoDraw then Exit;
-  with Sender as TPowerGrid do begin
-    if ACol = 0 then begin
-      ResForm.IconList.Draw(Canvas, TxtRect.Left + 2, TxtRect.Top + 1,
-        StrToInt(ImgCells[ACol, ARow]));
-      TxtRect.Right := TxtRect.Left;
-    end;
-  end;
+  // FIXME: broken
+  //if NoDraw then Exit;
+  //with Sender as TStringGrid do begin
+  //  if ACol = 0 then begin
+  //    ResForm.IconList.Draw(Canvas, TxtRect.Left + 2, TxtRect.Top + 1,
+  //      StrToInt(ImgCells[ACol, ARow]));
+  //    TxtRect.Right := TxtRect.Left;
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.OrderMemoKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if UnitGrid.RowCount > 1 then
-    TUnit(UnitGrid.ImgRows[UnitGrid.Row].Data).Orders.Text := OrderMemo.Text;
+  // FIXME: broken
+  //if UnitGrid.RowCount > 1 then
+  //  TUnit(UnitGrid.ImgRows[UnitGrid.Row].Data).Orders.Text := OrderMemo.Text;
 end;
 
 procedure TMainForm.OrderMemoExit(Sender: TObject);
@@ -4240,14 +4287,12 @@ end;
 
 procedure TMainForm.HelpContents1Click(Sender: TObject);
 begin
-  ShellExecute(Application.Handle, PChar('open'),
-    PChar(BaseDir + '\Help\help.html'), PChar(0), nil, SW_NORMAL);
+   OpenDocument(PChar(BaseDir + '\Help\help.html')); { *Converted from ShellExecute* }
 end;
 
 procedure TMainForm.GameRulesItmClick(Sender: TObject);
 begin
-  ShellExecute(Application.Handle, PChar('open'),
-    PChar(BaseDir + '\Help\rules.html'), PChar(0), nil, SW_NORMAL);
+   OpenDocument(PChar(BaseDir + '\Help\rules.html')); { *Converted from ShellExecute* }
 end;
 
 procedure TMainForm.MiniMapActionExecute(Sender: TObject);
@@ -4881,17 +4926,18 @@ end;
 
 procedure TMainForm.pgQuartermasterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  with TPowerGrid(Sender) do
-  begin
-    if (MouseCell.Y < FixedRows) or (RowCount <= 1) or (ssDouble in Shift) then
-      exit;
-
-    case Button of
-    mbLeft:
-      if (CurrUnit <> nil) and (ImgRows[Row].Data <> nil) then
-        BeginDrag(False);
-    end;
-  end;
+  // FIXME: broken
+  //with TStringGrid(Sender) do
+  //begin
+  //  if (MouseCell.Y < FixedRows) or (RowCount <= 1) or (ssDouble in Shift) then
+  //    exit;
+  //
+  //  case Button of
+  //  mbLeft:
+  //    if (CurrUnit <> nil) and (ImgRows[Row].Data <> nil) then
+  //      BeginDrag(False);
+  //  end;
+  //end;
 end;
 
 procedure TMainForm.pgQuartermasterEndDrag(Sender, Target: TObject; X, Y: Integer);
@@ -4906,39 +4952,41 @@ var
   var
     iRow: integer;
   begin
-    with Sender as TPowerGrid do
-      if SelectedRows = 1 then
-        Result := InvalidTransport(TItem(ImgRows[Row].Data))
-      else
-      begin
-        Result := false;
-
-        for iRow := 1 to RowCount - 1 do
-          if Rows[iRow].Selected and InvalidTransport(TItem(Rows[iRow].Data)) then
-          begin
-            Result := true;
-            break;
-          end;
-      end;
+    // FIXME: broken
+    //with Sender as TStringGrid do
+    //  if SelectedRows = 1 then
+    //    Result := InvalidTransport(TItem(ImgRows[Row].Data))
+    //  else
+    //  begin
+    //    Result := false;
+    //
+    //    for iRow := 1 to RowCount - 1 do
+    //      if Rows[iRow].Selected and InvalidTransport(TItem(Rows[iRow].Data)) then
+    //      begin
+    //        Result := true;
+    //        break;
+    //      end;
+    //  end;
   end;
 
   function GetTarget: TUnit;
   var
     gcCell: TGridCoord;
   begin
-    Result := nil;
-
-    with Target as TPowerGrid do
-    begin
-      gcCell := MouseCell;
-
-      if gcCell.Y >= 1 then
-      begin
-        Result := TUnit(ImgRows[gcCell.Y].Data);
-        if (Result <> nil) and (Result.Num = QMInfo.Qmaster.Num) then
-          Result := nil;
-      end;
-    end;
+    // FIXME: broken
+    //Result := nil;
+    //
+    //with Target as TStringGrid do
+    //begin
+    //  gcCell := MouseCell;
+    //
+    //  if gcCell.Y >= 1 then
+    //  begin
+    //    Result := TUnit(ImgRows[gcCell.Y].Data);
+    //    if (Result <> nil) and (Result.Num = QMInfo.Qmaster.Num) then
+    //      Result := nil;
+    //  end;
+    //end;
   end;
 
   procedure DoTransport;
@@ -4953,53 +5001,54 @@ var
     ExecOrder(QMInfo.Qmaster, sCommand + ' ' + uTarget.NumStr + ' ' + sAmount + ' "' + iItem.Data.Name + '"; ' + uTarget.Name, True);
   end;
 begin
-  if (Sender = Target) or (Target = nil) then
-    exit;
-
-  if not QMInfo.Send then
-  begin
-    MessageDlg('Quartermaster is out of range', mtError, [mbOK], 0);
-    exit;
-  end
-  else if InvalidItems then
-  begin
-    MessageDlg('Cannot transport magical or living items', mtError, [mbOK], 0);
-    exit;
-  end;
-
-  if Target = ItemGrid then
-    uTarget := CurrUnit
-  else if Target = UnitGrid then
-  begin
-    uTarget := GetTarget;
-    if uTarget = nil then
-      exit;
-  end
-  else
-    exit;
-
-  if QMInfo.Local then
-    sCommand := 'distribute'
-  else
-    sCommand := 'transport';
-
-  with Sender as TPowerGrid do
-    if SelectedRows = 1 then
-    begin
-      iItem := TItem(ImgRows[Row].Data);
-      iAmount := eGiveAmt.Value;
-
-      DoTransport;
-    end
-    else
-      for iRow := 1 to RowCount - 1 do
-        if Rows[iRow].Selected then
-        begin
-          iItem := TItem(Rows[iRow].Data);
-          iAmount := iItem.Amount;
-
-          DoTransport;
-        end;
+  // FIXME: broken
+  //if (Sender = Target) or (Target = nil) then
+  //  exit;
+  //
+  //if not QMInfo.Send then
+  //begin
+  //  MessageDlg('Quartermaster is out of range', mtError, [mbOK], 0);
+  //  exit;
+  //end
+  //else if InvalidItems then
+  //begin
+  //  MessageDlg('Cannot transport magical or living items', mtError, [mbOK], 0);
+  //  exit;
+  //end;
+  //
+  //if Target = ItemGrid then
+  //  uTarget := CurrUnit
+  //else if Target = UnitGrid then
+  //begin
+  //  uTarget := GetTarget;
+  //  if uTarget = nil then
+  //    exit;
+  //end
+  //else
+  //  exit;
+  //
+  //if QMInfo.Local then
+  //  sCommand := 'distribute'
+  //else
+  //  sCommand := 'transport';
+  //
+  //with Sender as TStringGrid do
+  //  if SelectedRows = 1 then
+  //  begin
+  //    iItem := TItem(ImgRows[Row].Data);
+  //    iAmount := eGiveAmt.Value;
+  //
+  //    DoTransport;
+  //  end
+  //  else
+  //    for iRow := 1 to RowCount - 1 do
+  //      if Rows[iRow].Selected then
+  //      begin
+  //        iItem := TItem(Rows[iRow].Data);
+  //        iAmount := iItem.Amount;
+  //
+  //        DoTransport;
+  //      end;
 end;
 
 procedure TMainForm.pgQuartermasterDragOver(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean);
@@ -5014,24 +5063,26 @@ procedure TMainForm.pgQuartermasterSelectCell(Sender: TObject; ACol, ARow: Integ
 var
   iItem:  TItem;
 begin
-  if (ARow <> TPowerGrid(Sender).Row) or (eGiveAmt.Value = 0) then
-  begin
-    iItem := TItem(TPowerGrid(Sender).ImgRows[ARow].Data);
-
-    if iItem <> nil then
-      eGiveAmt.Value := iItem.Amount
-    else
-      eGiveAmt.Value := 0;
-  end;
+  // FIXME: broken
+  //if (ARow <> TStringGrid(Sender).Row) or (eGiveAmt.Value = 0) then
+  //begin
+  //  iItem := TItem(TStringGrid(Sender).ImgRows[ARow].Data);
+  //
+  //  if iItem <> nil then
+  //    eGiveAmt.Value := iItem.Amount
+  //  else
+  //    eGiveAmt.Value := 0;
+  //end;
 end;
 
 procedure TMainForm.pgQuartermasterEnter(Sender: TObject);
 begin
-  with TPowerGrid(Sender) do
-    if (RowCount > FixedRows) and (ImgRows[Row].Data <> nil) then
-      eGiveAmt.Value := TItem(ImgRows[Row].Data).Amount
-    else
-      eGiveAmt.Value := 0;
+  // FIXME: broken
+  //with TStringGrid(Sender) do
+  //  if (RowCount > FixedRows) and (ImgRows[Row].Data <> nil) then
+  //    eGiveAmt.Value := TItem(ImgRows[Row].Data).Amount
+  //  else
+  //    eGiveAmt.Value := 0;
 end;
 
 procedure TMainForm.CopyLabelToClipboard(Sender: TObject);

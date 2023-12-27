@@ -11,12 +11,10 @@ object TradeStructForm: TTradeStructForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
-  TextHeight = 13
   object Label1: TLabel
     Left = 20
     Top = 12
@@ -50,44 +48,30 @@ object TradeStructForm: TTradeStructForm
     Height = 13
     Caption = 'Show workers at level:'
   end
-  object gProducts: TPowerGrid
+  object gProducts: TStringGrid
     Left = 12
     Top = 32
     Width = 177
     Height = 241
     ColCount = 2
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 0
-    ImageCol = 0
     Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
     RowCount = 0
-    Sorted = False
-    SortBy = 0
-    StickySelect = False
-    TopRow = 0
     OnDrawCell = gProductsDrawCell
     OnSelectCell = gProductsSelectCell
     ColWidths = (
       48
       125)
   end
-  object gStructs: TPowerGrid
+  object gStructs: TStringGrid
     Left = 196
     Top = 32
     Width = 217
     Height = 241
     ColCount = 4
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 1
-    ImageCol = 0
     Options = [pgoLines, pgoRowSelect, pgoStretchLastCol]
     RowCount = 1
-    Sorted = False
-    SortBy = 0
-    StickySelect = False
-    TopRow = 1
     OnDrawCell = gStructsDrawCell
     ColWidths = (
       29

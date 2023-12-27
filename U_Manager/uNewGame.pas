@@ -1,9 +1,11 @@
 unit uNewGame;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Resources;
 
 type
@@ -28,7 +30,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 procedure TNewGameForm.FormCreate(Sender: TObject);
 var sr: TSearchRec;

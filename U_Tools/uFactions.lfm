@@ -26,8 +26,8 @@ object FactionForm: TFactionForm
     Caption = 'My Faction'
     TabOrder = 0
     object lUnclaim: TLabel
-      Left = 10
-      Top = 10
+      Left = 8
+      Top = 0
       Width = 80
       Height = 13
       Caption = 'Unclaimed: 1000'
@@ -39,8 +39,8 @@ object FactionForm: TFactionForm
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 10
-      Top = 34
+      Left = 8
+      Top = 20
       Width = 76
       Height = 13
       Caption = 'Default Attitude:'
@@ -52,72 +52,72 @@ object FactionForm: TFactionForm
       ParentFont = False
     end
     object lFP0Num: TLabel
-      Left = 110
-      Top = 68
+      Left = 108
+      Top = 54
       Width = 54
       Height = 13
       Caption = '10 Regions'
     end
     object lFP1Num: TLabel
-      Left = 110
-      Top = 92
+      Left = 108
+      Top = 78
       Width = 54
       Height = 13
       Caption = '10 Regions'
     end
     object lFP2Num: TLabel
-      Left = 110
-      Top = 116
+      Left = 108
+      Top = 102
       Width = 36
       Height = 13
       Caption = '1 Mage'
     end
     object lFP0Label: TLabel
-      Left = 10
-      Top = 68
+      Left = 8
+      Top = 54
       Width = 20
       Height = 13
       Caption = 'War'
     end
     object lFP1Label: TLabel
-      Left = 10
-      Top = 92
+      Left = 8
+      Top = 78
       Width = 28
       Height = 13
       Caption = 'Trade'
     end
     object lFP2Label: TLabel
-      Left = 10
-      Top = 116
+      Left = 8
+      Top = 102
       Width = 29
       Height = 13
       Caption = 'Magic'
     end
     object Label5: TLabel
-      Left = 10
-      Top = 162
+      Left = 8
+      Top = 148
       Width = 36
       Height = 13
       Caption = 'Leader:'
     end
     object Label6: TLabel
-      Left = 26
-      Top = 182
+      Left = 24
+      Top = 168
       Width = 140
       Height = 13
       Caption = '(unit to receive faction orders)'
     end
     object lAlignment: TLabel
-      Left = 10
-      Top = 206
+      Left = 8
+      Top = 192
       Width = 49
       Height = 13
       Caption = 'Alignment:'
       Visible = False
     end
     object DefAttCombo: TComboBox
-      Left = 90
-      Top = 30
+      Left = 88
+      Top = 16
       Width = 77
       Height = 21
       Style = csDropDownList
@@ -132,8 +132,8 @@ object FactionForm: TFactionForm
         'Ally')
     end
     object tbFP2Track: TTrackBar
-      Left = 42
-      Top = 114
+      Left = 40
+      Top = 100
       Width = 65
       Height = 25
       LineSize = 2
@@ -149,8 +149,8 @@ object FactionForm: TFactionForm
       OnChange = tbFP2TrackChange
     end
     object tbFP1Track: TTrackBar
-      Left = 42
-      Top = 90
+      Left = 40
+      Top = 76
       Width = 65
       Height = 25
       LineSize = 2
@@ -166,8 +166,8 @@ object FactionForm: TFactionForm
       OnChange = tbFP1TrackChange
     end
     object tbFP0Track: TTrackBar
-      Left = 42
-      Top = 66
+      Left = 40
+      Top = 52
       Width = 65
       Height = 25
       LineSize = 2
@@ -183,8 +183,8 @@ object FactionForm: TFactionForm
       OnChange = tbFP0TrackChange
     end
     object LeaderBox: TComboBox
-      Left = 62
-      Top = 158
+      Left = 60
+      Top = 144
       Width = 105
       Height = 21
       Style = csDropDownList
@@ -194,8 +194,8 @@ object FactionForm: TFactionForm
       OnChange = LeaderBoxChange
     end
     object cmAlignment: TComboBox
-      Left = 62
-      Top = 202
+      Left = 60
+      Top = 188
       Width = 105
       Height = 21
       Style = csDropDownList
@@ -217,22 +217,22 @@ object FactionForm: TFactionForm
     Caption = 'Faction'
     TabOrder = 1
     object Label3: TLabel
-      Left = 10
-      Top = 10
+      Left = 8
+      Top = 0
       Width = 39
       Height = 13
       Caption = 'Attitude:'
     end
     object Label4: TLabel
-      Left = 10
-      Top = 36
+      Left = 8
+      Top = 22
       Width = 27
       Height = 13
       Caption = 'Color:'
     end
     object AttCombo: TComboBox
-      Left = 54
-      Top = 6
+      Left = 52
+      Top = 0
       Width = 73
       Height = 21
       Style = csDropDownList
@@ -247,8 +247,8 @@ object FactionForm: TFactionForm
         'Ally')
     end
     object ColorBtn: TColorBtn
-      Left = 54
-      Top = 34
+      Left = 52
+      Top = 20
       Width = 34
       Height = 17
       Color = -1
@@ -257,8 +257,8 @@ object FactionForm: TFactionForm
       OnClick = ColorBtnClick
     end
     object btnRequest: TButton
-      Left = 10
-      Top = 62
+      Left = 8
+      Top = 48
       Width = 85
       Height = 21
       Caption = 'Request EMail'
@@ -266,8 +266,8 @@ object FactionForm: TFactionForm
       OnClick = btnRequestClick
     end
     object cbHideUnconfirmed: TCheckBox
-      Left = 14
-      Top = 90
+      Left = 12
+      Top = 76
       Width = 149
       Height = 17
       Caption = 'Hide if email not confirmed'
@@ -275,8 +275,8 @@ object FactionForm: TFactionForm
       OnClick = cbHideUnconfirmedClick
     end
     object btnRequestAll: TButton
-      Left = 98
-      Top = 62
+      Left = 96
+      Top = 48
       Width = 69
       Height = 21
       Caption = 'Request All'
@@ -294,23 +294,16 @@ object FactionForm: TFactionForm
     TabOrder = 2
     OnClick = Button2Click
   end
-  object FactionGrid: TPowerGrid
+  object FactionGrid: TStringGrid
     Left = 4
     Top = 4
     Width = 361
     Height = 421
     Color = clBlack
     ColCount = 4
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 1
-    ImageCol = 0
     Options = [pgoLines, pgoSortOnClick, pgoRowSelect]
     RowCount = 1
-    Sorted = True
-    SortBy = 0
-    StickySelect = True
-    TopRow = 1
     OnDrawCell = FactionGridDrawCell
     OnSelectCell = FactionGridSelectCell
   end

@@ -1,9 +1,11 @@
 unit uOptions;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls, Resources, DataStructs, IniFiles,
   uKeys, MyStrings, Grids, ColorBtn, CheckLst, uGameSubs,
   Spin, Buttons, uExport, Math, uShortcuts, Menus;
@@ -167,7 +169,7 @@ implementation
 
 uses Types, Main;
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TOptionForm.FormCreate(Sender: TObject);
 begin
@@ -548,51 +550,54 @@ var i: integer;
   end;
 
 begin
-  Lines := TStringList.Create;
-  Config.ReadSection('Shortcuts', Lines);
-
-  gShortcuts.RowCount := 0;
-  // Unit orders
-  for i := 0 to High(ShortcutOrders) do begin
-    gShortcuts.Cells[0, i] := ShortcutOrders[i];
-    Sc := FindShortcut(ShortcutOrders[i], False);
-    if Sc > 0 then begin
-      ShortCutToKey(Sc, Key, Shift);
-      if (i < RepeatingShortcuts) and (ssShift in Shift) then begin
-        Sc := ShortCut(Key, Shift - [ssShift]);
-        gShortcuts.Cells[0, i] := '@' + ShortcutOrders[i];
-      end
-      else gShortcuts.Cells[0, i] := ShortcutOrders[i];
-      gShortcuts.Cells[1, i] := ShortcutToStr(Sc);
-    end;
-    if i < RepeatingShortcuts then
-      gShortcuts.Rows[i].FontStyle := [fsBold];
-  end;
-  // Menu
-  for i := 0 to MainForm.MainMenu.Items.Count-1 do
-    AddItem(MainForm.MainMenu.Items[i], '');
-  gShortcuts.Fixup;
-  Lines.Free;
+  // FIXME: broken
+  //Lines := TStringList.Create;
+  //Config.ReadSection('Shortcuts', Lines);
+  //
+  //gShortcuts.RowCount := 0;
+  //// Unit orders
+  //for i := 0 to High(ShortcutOrders) do begin
+  //  gShortcuts.Cells[0, i] := ShortcutOrders[i];
+  //  Sc := FindShortcut(ShortcutOrders[i], False);
+  //  if Sc > 0 then begin
+  //    ShortCutToKey(Sc, Key, Shift);
+  //    if (i < RepeatingShortcuts) and (ssShift in Shift) then begin
+  //      Sc := ShortCut(Key, Shift - [ssShift]);
+  //      gShortcuts.Cells[0, i] := '@' + ShortcutOrders[i];
+  //    end
+  //    else gShortcuts.Cells[0, i] := ShortcutOrders[i];
+  //    gShortcuts.Cells[1, i] := ShortcutToStr(Sc);
+  //  end;
+  //  if i < RepeatingShortcuts then
+  //    gShortcuts.Rows[i].FontStyle := [fsBold];
+  //end;
+  //// Menu
+  //for i := 0 to MainForm.MainMenu.Items.Count-1 do
+  //  AddItem(MainForm.MainMenu.Items[i], '');
+  //gShortcuts.Fixup;
+  //Lines.Free;
 end;
 
 procedure TOptionForm.gShortcutsKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var s: string;
 begin
-  s := gShortcuts.ImgCells[0, gShortcuts.Row];
-  if Copy(s, 1, 1) = '@' then s := Copy(s, 2, Length(s));
-  RecordShortCut(Key, Shift, s);
-  FillShortcuts;
-  Key := 0;
+  // FIXME: broken
+  //s := gShortcuts.ImgCells[0, gShortcuts.Row];
+  //if Copy(s, 1, 1) = '@' then s := Copy(s, 2, Length(s));
+  //RecordShortCut(Key, Shift, s);
+  //FillShortcuts;
+  //Key := 0;
 end;
 
 procedure TOptionForm.btnClearClick(Sender: TObject);
 var s: string;
 begin
-  s := gShortcuts.ImgCells[0, gShortcuts.Row];
-  if Copy(s, 1, 1) = '@' then s := Copy(s, 2, Length(s));
-  ClearShortcut(s);
-  FillShortcuts;
+  // FIXME: broken
+  //s := gShortcuts.ImgCells[0, gShortcuts.Row];
+  //if Copy(s, 1, 1) = '@' then s := Copy(s, 2, Length(s));
+  //ClearShortcut(s);
+  //FillShortcuts;
 end;
 
 { FORM Templates }
@@ -621,16 +626,17 @@ end;
 
 procedure TOptionForm.btnRemoveTemplateClick(Sender: TObject);
 begin
-  if cmFormTemplate.ItemIndex = -1 then Exit;
-  Config.DeleteKey('FormTemplates', cmFormTemplate.Items[cmFormTemplate.ItemIndex]);
-  cmFormTemplate.DeleteSelected;
-  cmFormTemplate.Text := '';
-  if cmFormTemplate.Items.Count > 0 then begin
-    cmFormTemplate.ItemIndex := 0;
-    cmFormTemplateChange(cmFormTemplate);
-  end
-  else mFormTemplate.Text := '';
-  cmFormTemplate.Repaint;
+  // FIXME: broken
+  //if cmFormTemplate.ItemIndex = -1 then Exit;
+  //Config.DeleteKey('FormTemplates', cmFormTemplate.Items[cmFormTemplate.ItemIndex]);
+  //cmFormTemplate.DeleteSelected;
+  //cmFormTemplate.Text := '';
+  //if cmFormTemplate.Items.Count > 0 then begin
+  //  cmFormTemplate.ItemIndex := 0;
+  //  cmFormTemplateChange(cmFormTemplate);
+  //end
+  //else mFormTemplate.Text := '';
+  //cmFormTemplate.Repaint;
 end;
 
 procedure TOptionForm.FPChange(Sender: TObject);

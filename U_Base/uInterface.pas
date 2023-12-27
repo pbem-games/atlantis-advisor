@@ -5,8 +5,8 @@ unit uInterface;
 interface
 
 uses
-  SysUtils, LCLIntf, LCLType, LMessages, Classes, Controls, StdCtrls, DataStructs, uGameSubs,
-  Resources, Graphics, MyStrings, Forms;
+  SysUtils, LCLIntf, LCLType, Classes, Controls, StdCtrls, DataStructs, uGameSubs,
+  Resources, Graphics, Forms, Grids;
 
   procedure ListDrawItem(Control: TWinControl; Index: Integer; Rect: TRect;
     BmpIndex: integer);
@@ -31,34 +31,34 @@ uses
   procedure ItemComboDrawItem(Control: TWinControl; Index: Integer; Rect: TRect);
   procedure FillRegionUnits(Combo: TComboBox; ARegion: TARegion; AUnit: TUnit;
     ExcludeUnit, SelectFormer: boolean);
-  procedure AddItemGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor);
-  procedure AddInventoryGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor; row: integer);
-  procedure FillItemGrid(Grid: TPowerGrid; ItemList: TItemList; Clear: boolean = true);
+  procedure AddItemGridItem(Grid: TStringGrid; Item: TItem; Color: TColor);
+  procedure AddInventoryGridItem(Grid: TStringGrid; Item: TItem; Color: TColor; row: integer);
+  procedure FillItemGrid(Grid: TStringGrid; ItemList: TItemList; Clear: boolean = true);
   procedure ItemGridDrawCell(Sender: TObject; ACol, ARow: Integer;
     var TxtRect: TRect; NameCol: integer);
-  procedure InsertItemGridRow(Grid: TPowerGrid; Index: integer;
+  procedure InsertItemGridRow(Grid: TStringGrid; Index: integer;
     Field1, Field2, SortKey: string; Data: pointer; Color: TColor);
   procedure SaveFormPosition(Form: TForm);
   procedure LoadFormPosition(Form: TForm);
   procedure FillFactionsCombo(Combo: TComboBox; NotPlayer, All: boolean);
 
   // common DataGrids
-  procedure DelDataFromGrid(List: TList; Grid: TPowerGrid);
+  procedure DelDataFromGrid(List: TList; Grid: TStringGrid);
   procedure AddDataFromCombo(List: TList; Combo: TComboBox);
 
   // ItemGrids with editing
-  procedure FillIDataGrid(Grid: TPowerGrid; List: TItemList; Sort: boolean); overload;
-  procedure FillIDataGrid(Grid: TPowerGrid; List: TItemList); overload;
-  procedure FillIDataGrid(Grid: TPowerGrid; List: TItemDataList); overload;
+  procedure FillIDataGrid(Grid: TStringGrid; List: TItemList; Sort: boolean); overload;
+  procedure FillIDataGrid(Grid: TStringGrid; List: TItemList); overload;
+  procedure FillIDataGrid(Grid: TStringGrid; List: TItemDataList); overload;
   procedure AddItemFromCombo(List: TItemList; Combo: TComboBox);
-  procedure DelItemFromGrid(List: TItemList; Grid: TPowerGrid);
+  procedure DelItemFromGrid(List: TItemList; Grid: TStringGrid);
   procedure IDataGridSetEditText(Sender: TObject; const Value: String;
     List: TItemList);
 
   // SkillGrids with editing
-  procedure FillSDataGrid(Grid: TPowerGrid; List: TSkillList);
+  procedure FillSDataGrid(Grid: TStringGrid; List: TSkillList);
   procedure AddSkillFromCombo(List: TSkillList; Combo: TComboBox);
-  procedure DelSkillFromGrid(List: TSkillList; Grid: TPowerGrid);
+  procedure DelSkillFromGrid(List: TSkillList; Grid: TStringGrid);
   procedure SDataGridSetEditText(Sender: TObject; const Value: String;
     List: TSkillList);
 
@@ -324,31 +324,56 @@ begin
         Combo.ItemIndex := i;
 end;
 
-procedure AddItemGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor);
+procedure AddItemGridItem(Grid: TStringGrid; Item: TItem; Color: TColor);
+
+  function formatAmount(): string;
+  begin
+    Result := '';
+    if Item.Amount >= 0 then begin
+      Result := IntToStr(Item.Amount);
+    end;
+  end;
+
+  function formatName(): string;
+  begin
+    if Item.Needs > 0 then begin
+      Result := Format('%s (needs %d)', [Item.Name, Item.Needs])
+    end
+    else begin
+      Result := Item.Name;
+    end;
+  end;   
+
+  function formatCost(): string;
+  begin
+    Result := '$' + IntToStr(Item.Cost);
+  end;
+
 var i: integer;
 begin
   i := Grid.RowCount;
-  if Item.Amount >= 0 then
-    Grid.Cells[0, i] := IntToStr(Item.Amount);
 
-  if Item.Needs > 0 then
-    Grid.Cells[1, i] := Format('%s (needs %d)', [Item.Name, Item.Needs])
-  else
-    Grid.Cells[1, i] := Item.Name;
+  Grid.InsertRowWithValues(i, [
+    formatAmount(),
+    formatName(),
+    formatCost()
+  ]);
 
-  Grid.SortKeys[1, i] := IntToStr(Game.ItemData.IndexOf(Item.Data));
-  if Grid.ColCount > 2 then Grid.Cells[2, i] := '$' + IntToStr(Item.Cost);
+  // FIXME: sorting must be done outside
+  // Grid.SortKeys[1, i] := IntToStr(Game.ItemData.IndexOf(Item.Data));
 
-  Grid.Rows[i].Data := Item;
-  Grid.Rows[i].Color := Color;
+  Grid.Objects[0, i] := Item;
+
+  // FIXME: coloring must be done outside
+  // Grid.Rows[i].Color := Color;
 end;
 
-procedure AddInventoryGridItem(Grid: TPowerGrid; Item: TItem; Color: TColor; row: integer);
+procedure AddInventoryGridItem(Grid: TStringGrid; Item: TItem; Color: TColor; row: integer);
 var s: string;
 begin
   s := GetEnumName(typeInfo(TTurnStage), Ord(Item.Stage));
   Grid.Cells[0, row] := Copy(s, 3, Length(s) - 2);
-  Grid.SortKeys[0, row] := IntToStr(row);
+  //Grid.SortKeys[0, row] := IntToStr(row);
     
   Grid.Cells[1, row] := IntToStr(Item.Amount);
 
@@ -356,12 +381,12 @@ begin
 
   Grid.Cells[3, row] := Item.Notes;
 
-  Grid.Rows[row].Data := Item;
-  Grid.Rows[row].Color := Color;
+  Grid.Objects[0, row] := Item;
+  //Grid.Rows[row].Color := Color;
 end;
 
 
-procedure FillItemGrid(Grid: TPowerGrid; ItemList: TItemList; Clear: boolean = true);
+procedure FillItemGrid(Grid: TStringGrid; ItemList: TItemList; Clear: boolean = true);
 var i: integer;
 begin
   if Clear then Grid.RowCount := 0;
@@ -372,16 +397,16 @@ begin
     else
       AddItemGridItem(Grid, ItemList[i], clWindowText);
 
-  Grid.Fixup;
+  Grid.Update;
 end;
 
 procedure ItemGridDrawCell(Sender: TObject; ACol, ARow: Integer;
   var TxtRect: TRect; NameCol: integer);
 var Item: TItem;
 begin
-  with Sender as TPowerGrid do
+  with Sender as TStringGrid do
   begin
-    Item := TItem(ImgRows[ARow].Data);
+    Item := TItem(Objects[0, ARow]);
 
     if (ACol = NameCol) and (ARow >= FixedRows) then
     begin
@@ -394,35 +419,36 @@ begin
   end;
 end;
 
-procedure InsertItemGridRow(Grid: TPowerGrid; Index: integer;
-  Field1, Field2, SortKey: string; Data: pointer; Color: TColor);
+procedure InsertItemGridRow(Grid: TStringGrid; Index: integer; Field1, Field2, SortKey: string; Data: pointer; Color: TColor);
 var i, j: integer;
 begin
-  for i := Grid.RowCount downto Index+1 do begin
-    for j := 0 to Grid.ColCount-1 do begin
-      Grid.Cells[j, i] := Grid.Cells[j, i-1];
-      Grid.SortKeys[j, i] := Grid.SortKeys[j, i-1];
-    end;
-    Grid.Rows[i].Data := Grid.Rows[i-1].Data;
-    Grid.Rows[i].Color := Grid.Rows[i-1].Color;
-    Grid.Rows[i].FontStyle := Grid.Rows[i-1].FontStyle;
-  end;
-  Grid.Cells[0, Index] := Field1;
-  Grid.Cells[1, Index] := Field2;
-  Grid.SortKeys[1, Index] := SortKey;
-  Grid.Rows[Index].Data := Data;
-  Grid.Rows[Index].Color := Color;
-  Grid.Rows[Index].FontStyle := [];
+  //for i := Grid.RowCount downto Index+1 do begin
+  //  for j := 0 to Grid.ColCount-1 do begin
+  //    Grid.Cells[j, i] := Grid.Cells[j, i-1];
+  //    //Grid.SortKeys[j, i] := Grid.SortKeys[j, i-1];
+  //  end;
+  //
+  //  //Grid.Rows[i].Data := Grid.Rows[i-1].Data;
+  //  //Grid.Rows[i].Color := Grid.Rows[i-1].Color;
+  //  //Grid.Rows[i].FontStyle := Grid.Rows[i-1].FontStyle;
+  //end;
+  //
+  //Grid.Cells[0, Index] := Field1;
+  //Grid.Cells[1, Index] := Field2;
+  ////Grid.SortKeys[1, Index] := SortKey;
+  ////Grid.Rows[Index].Data := Data;
+  ////Grid.Rows[Index].Color := Color;
+  ////Grid.Rows[Index].FontStyle := [];
 end;
 
 { common DataGrid }
 
-procedure DelDataFromGrid(List: TList; Grid: TPowerGrid);
+procedure DelDataFromGrid(List: TList; Grid: TStringGrid);
 var i: integer;
 begin
-  if (Grid.Row < Grid.FixedRows) or (Grid.Row >= Grid.RowCount) then Exit;
-  i := List.IndexOf(Grid.Rows[Grid.Row].Data);
-  if i >= 0 then List.Delete(i);
+  //if (Grid.Row < Grid.FixedRows) or (Grid.Row >= Grid.RowCount) then Exit;
+  //i := List.IndexOf(Grid.Rows[Grid.Row].Data);
+  //if i >= 0 then List.Delete(i);
 end;
 
 procedure AddDataFromCombo(List: TList; Combo: TComboBox);
@@ -435,33 +461,33 @@ end;
 
 { ItemDataGrid }
 
-procedure FillIDataGrid(Grid: TPowerGrid; List: TItemList; Sort: boolean);
+procedure FillIDataGrid(Grid: TStringGrid; List: TItemList; Sort: boolean);
 var i: integer;
 begin
-  Grid.RowCount := 0;
-  for i := 0 to List.Count-1 do begin
-    Grid.Cells[0, i] := IntToStr(List[i].Amount);
-    Grid.Cells[1, i] := List[i].Data.Name(True);
-    if Sort then Grid.SortKeys[1, i] := IntToStr(Game.ItemData.IndexOf(List[i].Data));
-    Grid.Rows[i].Data := List[i].Data;
-  end;
-  Grid.Fixup;
+  //Grid.RowCount := 0;
+  //for i := 0 to List.Count-1 do begin
+  //  Grid.Cells[0, i] := IntToStr(List[i].Amount);
+  //  Grid.Cells[1, i] := List[i].Data.Name(True);
+  //  //if Sort then Grid.SortKeys[1, i] := IntToStr(Game.ItemData.IndexOf(List[i].Data));
+  //  //Grid.Rows[i].Data := List[i].Data;
+  //end;
+  Grid.Update;
 end;
 
-procedure FillIDataGrid(Grid: TPowerGrid; List: TItemList);
+procedure FillIDataGrid(Grid: TStringGrid; List: TItemList);
 begin
   FillIDataGrid(Grid, List, False);
 end;
 
-procedure FillIDataGrid(Grid: TPowerGrid; List: TItemDataList);
+procedure FillIDataGrid(Grid: TStringGrid; List: TItemDataList);
 var i: integer;
 begin
   Grid.RowCount := 0;
   for i := 0 to List.Count-1 do begin
     Grid.Cells[0, i] := List[i].Name(True);
-    Grid.Rows[i].Data := List[i];
+    //Grid.Rows[i].Data := List[i];
   end;
-  Grid.Fixup;
+  Grid.Update;
 end;
 
 // Add item to ItemList from combo of ItemData
@@ -474,15 +500,15 @@ begin
 end;
 
 // Delete item selected in ItemDataGrid from ItemList
-procedure DelItemFromGrid(List: TItemList; Grid: TPowerGrid);
+procedure DelItemFromGrid(List: TItemList; Grid: TStringGrid);
 var i: integer;
 begin
-  if (Grid.Row < Grid.FixedRows) or (Grid.Row >= Grid.RowCount) then Exit;
-  i := List.Count-1;
-  while (i >= 0) and (List[i].Data <> Grid.Rows[Grid.Row].Data) do Dec(i);
-  if i < 0 then Exit;
-  List[i].Free;
-  List.Delete(i);
+  //if (Grid.Row < Grid.FixedRows) or (Grid.Row >= Grid.RowCount) then Exit;
+  //i := List.Count-1;
+  //while (i >= 0) and (List[i].Data <> Grid.Rows[Grid.Row].Data) do Dec(i);
+  //if i < 0 then Exit;
+  //List[i].Free;
+  //List.Delete(i);
 end;
 
 procedure IDataGridSetEditText(Sender: TObject; const Value: String;
@@ -490,25 +516,25 @@ procedure IDataGridSetEditText(Sender: TObject; const Value: String;
 var IData: TItemData;
     Item: TItem;
 begin
-  with Sender as TPowerGrid do
-    IData := TItemData(ImgRows[Row].Data);
-  Item := List.Find(IData.Short);
-  if Item <> nil then Item.Amount := ToInt(Value);
+  //with Sender as TStringGrid do
+  //  IData := TItemData(ImgRows[Row].Data);
+  //Item := List.Find(IData.Short);
+  //if Item <> nil then Item.Amount := ToInt(Value);
 end;
 
 { SkillDataGrid }
 
-procedure FillSDataGrid(Grid: TPowerGrid; List: TSkillList);
+procedure FillSDataGrid(Grid: TStringGrid; List: TSkillList);
 var i: integer;
 begin
-  Grid.RowCount := 0;
-  for i := 0 to List.Count-1 do begin
-    Grid.Cells[0, i] := List[i].Data.Name;
-    Grid.Cells[1, i] := IntToStr(List[i].Level);
-    Grid.Rows[i].Data := List[i].Data;
-    Grid.Rows[i].ImageIndex := SkillIcon(List[i].Data);
-  end;
-  Grid.Fixup;
+  //Grid.RowCount := 0;
+  //for i := 0 to List.Count-1 do begin
+  //  Grid.Cells[0, i] := List[i].Data.Name;
+  //  Grid.Cells[1, i] := IntToStr(List[i].Level);
+  //  Grid.Rows[i].Data := List[i].Data;
+  //  Grid.Rows[i].ImageIndex := SkillIcon(List[i].Data);
+  //end;
+  Grid.Update;
 end;
 
 
@@ -522,15 +548,15 @@ begin
 end;
 
 // Delete skill selected in SkillDataGrid from SkillList
-procedure DelSkillFromGrid(List: TSkillList; Grid: TPowerGrid);
+procedure DelSkillFromGrid(List: TSkillList; Grid: TStringGrid);
 var i: integer;
 begin
-  if (Grid.Row < Grid.FixedRows) or (Grid.Row >= Grid.RowCount) then Exit;
-  i := List.Count-1;
-  while (i >= 0) and (List[i].Data <> Grid.Rows[Grid.Row].Data) do Dec(i);
-  if i < 0 then Exit;
-  List[i].Free;
-  List.Delete(i);
+  //if (Grid.Row < Grid.FixedRows) or (Grid.Row >= Grid.RowCount) then Exit;
+  //i := List.Count-1;
+  //while (i >= 0) and (List[i].Data <> Grid.Rows[Grid.Row].Data) do Dec(i);
+  //if i < 0 then Exit;
+  //List[i].Free;
+  //List.Delete(i);
 end;
 
 procedure SDataGridSetEditText(Sender: TObject; const Value: String;
@@ -538,10 +564,10 @@ procedure SDataGridSetEditText(Sender: TObject; const Value: String;
 var SData: TSkillData;
     Skill: TSkill;
 begin
-  with Sender as TPowerGrid do
-    SData := TSkillData(ImgRows[Row].Data);
-  Skill := List.Find(SData.Short);
-  if Skill <> nil then Skill.Level := ToInt(Value);
+  //with Sender as TStringGrid do
+  //  SData := TSkillData(ImgRows[Row].Data);
+  //Skill := List.Find(SData.Short);
+  //if Skill <> nil then Skill.Level := ToInt(Value);
 end;
 
 

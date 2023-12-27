@@ -1,9 +1,11 @@
 unit uMemo;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, ExtCtrls, uKeys;
 
 type
@@ -20,6 +22,6 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 end.

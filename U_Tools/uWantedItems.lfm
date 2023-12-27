@@ -26,23 +26,15 @@ object WantedItemsForm: TWantedItemsForm
     OnChange = cmItemChange
     OnDrawItem = cmItemDrawItem
   end
-  object Grid: TPowerGrid
+  object Grid: TStringGrid
     Left = 8
     Top = 40
     Width = 217
     Height = 269
     ColCount = 2
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 1
-    ImageCol = 0
     Options = [pgoLines, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
     RowCount = 2
-    Sorted = True
-    SortBy = 1
-    SortOrder = soDescending
-    StickySelect = False
-    TopRow = 1
     OnDblClick = GridDblClick
   end
   object cmTowns: TComboBox

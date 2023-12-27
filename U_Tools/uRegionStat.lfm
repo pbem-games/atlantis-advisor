@@ -11,27 +11,19 @@ object RegStatForm: TRegStatForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 13
-  object Grid: TPowerGrid
+  object Grid: TStringGrid
     Left = 8
     Top = 8
     Width = 405
     Height = 245
     ColCount = 1
-    DefaultRowColor = clBlack
     DefaultRowHeight = 30
     FixedRows = 1
-    ImageCol = 0
     Options = [pgoLines, pgoNoSelect]
     RowCount = 1
-    Sorted = False
-    SortBy = 0
-    StickySelect = False
-    TopRow = 1
     OnDrawCell = GridDrawCell
     ColWidths = (
       90)

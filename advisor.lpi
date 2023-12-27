@@ -303,6 +303,16 @@
         <Filename Value="U_Base\AtlaDate.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="U_Manager\uMgrOptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="U_Manager\uNewGame.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

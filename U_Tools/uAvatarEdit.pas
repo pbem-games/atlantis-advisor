@@ -287,16 +287,17 @@ end;
 procedure TAvatarForm.PackDragDrop(Sender, Source: TObject; X,
   Y: Integer);
 begin
-  with TListView(Sender).Items.Add do begin
-    Caption := TListView(Source).Selected.Caption;
-    Data := TListView(Source).Selected.Data;
-    ImageIndex := bmpPack + TListView(Sender).Tag;
-    Selected := TRUE;
-  end;
-  with TListView(Source) do begin
-    Selected.Delete;
-    Arrange(arDefault);
-  end;
+  // FIXME: broken
+  //with TListView(Sender).Items.Add do begin
+  //  Caption := TListView(Source).Selected.Caption;
+  //  Data := TListView(Source).Selected.Data;
+  //  ImageIndex := bmpPack + TListView(Sender).Tag;
+  //  Selected := TRUE;
+  //end;
+  //with TListView(Source) do begin
+  //  Selected.Delete;
+  //  Arrange(arDefault);
+  //end;
 end;
 
 procedure TAvatarForm.lbPacksDrawItem(Control: TWinControl; Index: Integer;

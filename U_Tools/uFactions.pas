@@ -1,9 +1,11 @@
 unit uFactions;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   Grids, ImgList, DataStructs, StdCtrls, ComCtrls, ExtCtrls, Math,
   Buttons, ColorBtn, uKeys, Resources, uGameSubs;
 
@@ -11,8 +13,9 @@ const
   GridCols = 4;
   GridHeaders: array[0..GridCols-1] of string = ('Faction', 'Num', 'Attitude',
     'EMail');
-  GridFormats: array[0..GridCols-1] of TColFormat = (cfString, cfNumber,
-    cfString, cfString);
+  // FIXME: broken
+  //GridFormats: array[0..GridCols-1] of TColFormat = (cfString, cfNumber,
+  //  cfString, cfString);
 
 type
   TFactionForm = class(TForm)
@@ -34,7 +37,7 @@ type
     AttCombo: TComboBox;
     Label4: TLabel;
     Button2: TButton;
-    FactionGrid: TPowerGrid;
+    FactionGrid: TStringGrid;
     ColorDialog: TColorDialog;
     ColorBtn: TColorBtn;
     LeaderBox: TComboBox;
@@ -89,7 +92,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 
 procedure TFactionForm.FormCreate(Sender: TObject);
@@ -118,7 +121,8 @@ begin
   // Setup grid
   for i := 0 to GridCols-1 do begin
     FactionGrid.Cells[i, 0] := GridHeaders[i];
-    FactionGrid.Cols[i].Format := GridFormats[i];
+    // FIXME: broken
+    //FactionGrid.Cols[i].Format := GridFormats[i];
   end;
 
   cbHideUnconfirmed.Checked := Config.ReadBool('Factions', 'HideUnconfirmed', False);
@@ -158,36 +162,37 @@ procedure TFactionForm.FillFactions;
 var row, i, j, t: integer;
     ATurn: TTurn;
 begin
-  FactionGrid.RowCount := 0;
-  row := 1;
-  for t := Game.Turns.Count-1 downto 0 do begin
-    if Game.Turns[t].Num = Game.VirtTurn.Num then ATurn := Game.VirtTurn
-    else ATurn := Game.Turns[t];
-    with ATurn do
-      for i := 0 to Factions.Count-1 do begin
-        if cbHideUnconfirmed.Checked and (Factions[i].Data.TurnNum < Turn.Num)
-          and (Factions[i].Num <> 0) then Continue;
-        j := 1;
-        while (j < FactionGrid.RowCount) and (StrToInt(FactionGrid.Cells[1, j])
-          <> Factions[i].Num) do Inc(j);
-        if j = FactionGrid.RowCount then begin
-          FactionGrid.Cells[0, row] := Factions[i].Name;
-          FactionGrid.Cells[1, row] := IntToStr(Factions[i].Num);
-          if Factions[i].Num <> Faction.Num then begin
-            if Factions[i].Attitude > 0 then
-              FactionGrid.Cells[2, row] := GetKey(s_Hostile,
-                Factions[i].Attitude - 1)
-            else FactionGrid.Cells[2, row] := GetKey(s_Hostile,
-              Faction.Attitude - 1);
-          end;
-          FactionGrid.Cells[3, row] := Factions[i].Data.EMail;
-          FactionGrid.Rows[row].Data := Factions[i];
-          FactionGrid.Rows[row].Color := FactionColor(Factions[i]);
-          Inc(row);
-        end;
-      end;
-  end;
-  FactionGrid.Fixup;
+  // FIXME: broken
+  //FactionGrid.RowCount := 0;
+  //row := 1;
+  //for t := Game.Turns.Count-1 downto 0 do begin
+  //  if Game.Turns[t].Num = Game.VirtTurn.Num then ATurn := Game.VirtTurn
+  //  else ATurn := Game.Turns[t];
+  //  with ATurn do
+  //    for i := 0 to Factions.Count-1 do begin
+  //      if cbHideUnconfirmed.Checked and (Factions[i].Data.TurnNum < Turn.Num)
+  //        and (Factions[i].Num <> 0) then Continue;
+  //      j := 1;
+  //      while (j < FactionGrid.RowCount) and (StrToInt(FactionGrid.Cells[1, j])
+  //        <> Factions[i].Num) do Inc(j);
+  //      if j = FactionGrid.RowCount then begin
+  //        FactionGrid.Cells[0, row] := Factions[i].Name;
+  //        FactionGrid.Cells[1, row] := IntToStr(Factions[i].Num);
+  //        if Factions[i].Num <> Faction.Num then begin
+  //          if Factions[i].Attitude > 0 then
+  //            FactionGrid.Cells[2, row] := GetKey(s_Hostile,
+  //              Factions[i].Attitude - 1)
+  //          else FactionGrid.Cells[2, row] := GetKey(s_Hostile,
+  //            Faction.Attitude - 1);
+  //        end;
+  //        FactionGrid.Cells[3, row] := Factions[i].Data.EMail;
+  //        FactionGrid.Rows[row].Data := Factions[i];
+  //        FactionGrid.Rows[row].Color := FactionColor(Factions[i]);
+  //        Inc(row);
+  //      end;
+  //    end;
+  //end;
+  //FactionGrid.Fixup;
 end;
 
 function TFactionForm.GetOrders: string;
@@ -272,53 +277,56 @@ procedure TFactionForm.FactionGridSelectCell(Sender: TObject; ACol,
   ARow: Integer; var CanSelect: Boolean);
 var Fac: TFaction;
 begin
-  Fac := TFaction(FactionGrid.ImgRows[ARow].Data);
-  btnRequest.Enabled := not Fac.Data.Requested and (Fac.Num > 2);
-  if Fac.Data.ColorIndex = 0 then ColorBtn.Color := -1
-  else ColorBtn.Color := FactionColor(Fac);
-  if Fac.Attitude > 0 then AttCombo.ItemIndex := Fac.Attitude - 1
-  else AttCombo.ItemIndex := Faction.Attitude - 1;
-  if (Fac.Num = VFaction.Num) or (Fac.Num = 0) then begin
-    AttCombo.ItemIndex := -1;
-    AttCombo.Enabled := FALSE;
-  end
-  else AttCombo.Enabled := TRUE;
+  // FIXME: broken
+  //Fac := TFaction(FactionGrid.ImgRows[ARow].Data);
+  //btnRequest.Enabled := not Fac.Data.Requested and (Fac.Num > 2);
+  //if Fac.Data.ColorIndex = 0 then ColorBtn.Color := -1
+  //else ColorBtn.Color := FactionColor(Fac);
+  //if Fac.Attitude > 0 then AttCombo.ItemIndex := Fac.Attitude - 1
+  //else AttCombo.ItemIndex := Faction.Attitude - 1;
+  //if (Fac.Num = VFaction.Num) or (Fac.Num = 0) then begin
+  //  AttCombo.ItemIndex := -1;
+  //  AttCombo.Enabled := FALSE;
+  //end
+  //else AttCombo.Enabled := TRUE;
 end;
 
 procedure TFactionForm.AttComboChange(Sender: TObject);
 var Fac: TFaction;
 begin
-  Fac := VTurn.Factions.Seek(TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data).Num);
-  Fac.Name := TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data).Name;
-  if AttCombo.ItemIndex + 1 = VFaction.Attitude then begin
-    FOrders := FOrders + 'declare ' + IntToStr(Fac.Num) + #13#10;
-    Fac.Attitude := 0;
-  end
-  else begin
-    FOrders := FOrders + 'declare ' + IntToStr(Fac.Num) + ' ' +
-      GetKey(s_Hostile, AttCombo.ItemIndex) + #13#10;
-    Fac.Attitude := AttCombo.ItemIndex + 1;
-  end;
-  FactionGrid.ImgRows[FactionGrid.Row].Color := FactionColor(Fac);
-  FactionGrid.ImgCells[2, FactionGrid.Row] := GetKey(s_Hostile,
-    AttCombo.ItemIndex);
-  FactionGrid.Fixup;
+  // FIXME: broken
+  //Fac := VTurn.Factions.Seek(TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data).Num);
+  //Fac.Name := TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data).Name;
+  //if AttCombo.ItemIndex + 1 = VFaction.Attitude then begin
+  //  FOrders := FOrders + 'declare ' + IntToStr(Fac.Num) + #13#10;
+  //  Fac.Attitude := 0;
+  //end
+  //else begin
+  //  FOrders := FOrders + 'declare ' + IntToStr(Fac.Num) + ' ' +
+  //    GetKey(s_Hostile, AttCombo.ItemIndex) + #13#10;
+  //  Fac.Attitude := AttCombo.ItemIndex + 1;
+  //end;
+  //FactionGrid.ImgRows[FactionGrid.Row].Color := FactionColor(Fac);
+  //FactionGrid.ImgCells[2, FactionGrid.Row] := GetKey(s_Hostile,
+  //  AttCombo.ItemIndex);
+  //FactionGrid.Fixup;
 end;
 
 procedure TFactionForm.DefAttComboChange(Sender: TObject);
 var i: integer;
 begin
-  FOrders := FOrders + 'declare default ' + GetKey(s_Hostile,
-    DefAttCombo.ItemIndex) + #13#10;
-  VFaction.Attitude := DefAttCombo.ItemIndex + 1;
-  for i := 1 to FactionGrid.RowCount-1 do begin
-    if TFaction(FactionGrid.Rows[i].Data).Attitude <= 0 then begin
-      FactionGrid.Cells[2, i] := GetKey(s_Hostile, DefAttCombo.ItemIndex);
-      TFaction(FactionGrid.Rows[i].Data).Attitude := 0;
-    end;
-    FactionGrid.Rows[i].Color := FactionColor(TFaction(FactionGrid.Rows[i].Data));
-  end;
-  FactionGrid.Fixup;
+  // FIXME: broken
+  //FOrders := FOrders + 'declare default ' + GetKey(s_Hostile,
+  //  DefAttCombo.ItemIndex) + #13#10;
+  //VFaction.Attitude := DefAttCombo.ItemIndex + 1;
+  //for i := 1 to FactionGrid.RowCount-1 do begin
+  //  if TFaction(FactionGrid.Rows[i].Data).Attitude <= 0 then begin
+  //    FactionGrid.Cells[2, i] := GetKey(s_Hostile, DefAttCombo.ItemIndex);
+  //    TFaction(FactionGrid.Rows[i].Data).Attitude := 0;
+  //  end;
+  //  FactionGrid.Rows[i].Color := FactionColor(TFaction(FactionGrid.Rows[i].Data));
+  //end;
+  //FactionGrid.Fixup;
 end;
 
 procedure TFactionForm.tbFP0TrackChange(Sender: TObject);
@@ -407,20 +415,22 @@ end;
 procedure TFactionForm.ColorBtnClick(Sender: TObject);
 var Fac: TFaction;
 begin
-  Fac := TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data);
-  if ColorBtn.Color >= 0 then
-    Fac.Data.ColorIndex := SeekColorExtra(ColorBtn.Color)
-  else Fac.Data.ColorIndex := 0;
-  FactionGrid.ImgRows[FactionGrid.Row].Color := FactionColor(Fac);
+  // FIXME: broken
+  //Fac := TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data);
+  //if ColorBtn.Color >= 0 then
+  //  Fac.Data.ColorIndex := SeekColorExtra(ColorBtn.Color)
+  //else Fac.Data.ColorIndex := 0;
+  //FactionGrid.ImgRows[FactionGrid.Row].Color := FactionColor(Fac);
 end;
 
 procedure TFactionForm.btnRequestClick(Sender: TObject);
 var Fac: TFaction;
 begin
-  Fac := TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data);
-  Fac.Data.Requested := True;
-  btnRequest.Enabled := False;
-  FOrders := FOrders + 'find ' + IntToStr(Fac.Num) + #13#10;
+  // FIXME: broken
+  //Fac := TFaction(FactionGrid.ImgRows[FactionGrid.Row].Data);
+  //Fac.Data.Requested := True;
+  //btnRequest.Enabled := False;
+  //FOrders := FOrders + 'find ' + IntToStr(Fac.Num) + #13#10;
 end;
 
 procedure TFactionForm.btnRequestAllClick(Sender: TObject);
@@ -432,15 +442,16 @@ procedure TFactionForm.FactionGridDrawCell(Sender: TObject; ACol,
   ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
 var FData: TFactionData;
 begin
-  with TPowerGrid(Sender) do
-    if (ACol = 3) and (ARow > 0) then begin
-      FData := TFaction(ImgRows[ARow].Data).Data;
-      if (FData.TurnNum < Turn.Num) and (FData.EMail <> '') then begin
-        ResForm.Extras.Draw(Canvas, TxtRect.Right - 8, TxtRect.Top + 1,
-           bmp_extUnknown);
-        Dec(TxtRect.Right, 10);
-      end;
-    end;
+  // FIXME: broken
+  //with TStringGrid(Sender) do
+  //  if (ACol = 3) and (ARow > 0) then begin
+  //    FData := TFaction(ImgRows[ARow].Data).Data;
+  //    if (FData.TurnNum < Turn.Num) and (FData.EMail <> '') then begin
+  //      ResForm.Extras.Draw(Canvas, TxtRect.Right - 8, TxtRect.Top + 1,
+  //         bmp_extUnknown);
+  //      Dec(TxtRect.Right, 10);
+  //    end;
+  //  end;
 end;
 
 procedure TFactionForm.cbHideUnconfirmedClick(Sender: TObject);

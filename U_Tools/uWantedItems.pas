@@ -1,15 +1,17 @@
 unit uWantedItems;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Grids, DataStructs, Resources, uInterface;
 
 type
   TWantedItemsForm = class(TForm)
     cmItem: TComboBox;
-    Grid: TPowerGrid;
+    Grid: TStringGrid;
     cmTowns: TComboBox;
     btnAddTown: TButton;
     Button2: TButton;
@@ -32,7 +34,7 @@ var
 
 implementation
 
-{$R *.dfm}
+{$R *.lfm}
 
 uses Main;
 
@@ -40,25 +42,26 @@ procedure TWantedItemsForm.FormCreate(Sender: TObject);
 var x, y: integer;
     R: TARegion;
 begin
-  Grid.Cells[0, 0] := 'Settlement';
-  Grid.Cells[1, 0] := 'Cost';
-  Grid.Cols[1].Format := cfNumber;
-
-  Regions := TRegionList.Create;
-  // Towns
-  for x := Map.Levels[Map.Level].Bounds.Left to Map.Levels[Map.Level].Bounds.Right do
-    for y := Map.Levels[Map.Level].Bounds.Top to Map.Levels[Map.Level].Bounds.Bottom do begin
-      R := Map.Region(x, y, Map.Level, Turn.Num);
-      if (R <> nil) and (R.Settlement <> '') then begin
-        if (CurrRegion <> nil) and (X >= CurrRegion.x - 10)
-          and (X <= CurrRegion.x + 10) and (Y >= CurrRegion.y - 10)
-          and (Y <= CurrRegion.y + 10) then Regions.Add(R)
-        else cmTowns.AddItem(R.Settlement, R);
-      end;
-    end;
-  FillItemDataCombo(cmItem, IT_SILVER + IT_MAN + IT_MONSTER, True, False);
-  cmItem.ItemIndex := 0;
-  FillGrid;
+  // FIXME: broken
+  //Grid.Cells[0, 0] := 'Settlement';
+  //Grid.Cells[1, 0] := 'Cost';
+  //Grid.Cols[1].Format := cfNumber;
+  //
+  //Regions := TRegionList.Create;
+  //// Towns
+  //for x := Map.Levels[Map.Level].Bounds.Left to Map.Levels[Map.Level].Bounds.Right do
+  //  for y := Map.Levels[Map.Level].Bounds.Top to Map.Levels[Map.Level].Bounds.Bottom do begin
+  //    R := Map.Region(x, y, Map.Level, Turn.Num);
+  //    if (R <> nil) and (R.Settlement <> '') then begin
+  //      if (CurrRegion <> nil) and (X >= CurrRegion.x - 10)
+  //        and (X <= CurrRegion.x + 10) and (Y >= CurrRegion.y - 10)
+  //        and (Y <= CurrRegion.y + 10) then Regions.Add(R)
+  //      else cmTowns.AddItem(R.Settlement, R);
+  //    end;
+  //  end;
+  //FillItemDataCombo(cmItem, IT_SILVER + IT_MAN + IT_MONSTER, True, False);
+  //cmItem.ItemIndex := 0;
+  //FillGrid;
 end;
 
 procedure TWantedItemsForm.FormDestroy(Sender: TObject);
@@ -70,17 +73,18 @@ procedure TWantedItemsForm.FillGrid;
 var i, row: integer;
     Item: TItem;
 begin
-  Grid.RowCount := 1;
-  for i := 0 to Regions.Count-1 do begin
-    Item := Regions[i].Wanted.Find(TItemData(cmItem.Items.Objects[cmItem.ItemIndex]).Short);
-    if Item = nil then Continue;
-    row := Grid.RowCount;
-    Grid.Cells[0, row] := Regions[i].Settlement;
-    Grid.Cells[1, row] := '$' + IntToStr(Item.Cost);
-    Grid.SortKeys[1, row] := IntToStr(Item.Cost);
-    Grid.Rows[row].Data := Regions[i];
-  end;
-  Grid.Fixup;
+  // FIXME: broken
+  //Grid.RowCount := 1;
+  //for i := 0 to Regions.Count-1 do begin
+  //  Item := Regions[i].Wanted.Find(TItemData(cmItem.Items.Objects[cmItem.ItemIndex]).Short);
+  //  if Item = nil then Continue;
+  //  row := Grid.RowCount;
+  //  Grid.Cells[0, row] := Regions[i].Settlement;
+  //  Grid.Cells[1, row] := '$' + IntToStr(Item.Cost);
+  //  Grid.SortKeys[1, row] := IntToStr(Item.Cost);
+  //  Grid.Rows[row].Data := Regions[i];
+  //end;
+  //Grid.Fixup;
 end;
 
 procedure TWantedItemsForm.cmItemDrawItem(Control: TWinControl;
@@ -114,8 +118,9 @@ end;
 
 procedure TWantedItemsForm.GridDblClick(Sender: TObject);
 begin
-  if Grid.RowCount > 1 then
-    MainForm.HexMapGoto(TARegion(Grid.Rows[Grid.Row].Data).Coords);
+  // FIXME: broken
+  //if Grid.RowCount > 1 then
+  //  MainForm.HexMapGoto(TARegion(Grid.Rows[Grid.Row].Data).Coords);
 end;
 
 end.

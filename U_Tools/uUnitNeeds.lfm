@@ -53,22 +53,15 @@ object UnitNeedsForm: TUnitNeedsForm
     ModalResult = 2
     TabOrder = 1
   end
-  object gAvai: TPowerGrid
+  object gAvai: TStringGrid
     Left = 284
     Top = 8
     Width = 157
     Height = 313
     ColCount = 1
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 0
-    ImageCol = 0
     Options = [pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
     RowCount = 0
-    Sorted = True
-    SortBy = 0
-    StickySelect = False
-    TopRow = 0
     OnDrawCell = gAvaiDrawCell
     OnDragDrop = gAvaiDragDrop
     OnDragOver = gAvaiDragOver
@@ -92,22 +85,15 @@ object UnitNeedsForm: TUnitNeedsForm
     TabOrder = 4
     OnClick = cbNoGiveClick
   end
-  object Grid: TPowerGrid
+  object Grid: TStringGrid
     Left = 8
     Top = 64
     Width = 269
     Height = 257
     ColCount = 4
-    DefaultRowColor = clBlack
-    Editing = False
     FixedRows = 1
-    ImageCol = 0
     Options = [pgoLines, pgoRowSelect, pgoStretchLastCol]
     RowCount = 2
-    Sorted = False
-    SortBy = 0
-    StickySelect = False
-    TopRow = 1
     OnDrawCell = GridDrawCell
     OnDragDrop = GridDragDrop
     OnDragOver = GridDragOver
