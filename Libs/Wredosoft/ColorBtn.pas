@@ -1,9 +1,11 @@
 unit ColorBtn;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, SysUtils, Classes, Graphics, Controls, Dialogs;
+  LCLIntf, LCLType, LMessages, SysUtils, Classes, Graphics, Controls, Dialogs;
 
 type
   TColorBtn = class(TCustomControl)

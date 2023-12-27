@@ -1,9 +1,11 @@
 unit Painter;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, Controls, Graphics, Messages, ExtCtrls, Forms,
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, Controls, Graphics, Messages, ExtCtrls, Forms,
   Math;
 
 const

@@ -1,8 +1,10 @@
 unit IntEdit;
 
+{$MODE Delphi}
+
 interface
 
-uses Windows, Classes, StdCtrls, ExtCtrls, Controls, Messages, SysUtils,
+uses LCLIntf, LCLType, LMessages, Classes, StdCtrls, ExtCtrls, Controls, Messages, SysUtils,
   Forms, Graphics, Menus, Buttons, Spin;
 
 type

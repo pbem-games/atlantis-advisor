@@ -1,9 +1,11 @@
 unit ImageBtn;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, SysUtils, Classes, Graphics, Controls, Dialogs, Messages,
+  LCLIntf, LCLType, LMessages, SysUtils, Classes, Graphics, Controls, Dialogs, Messages,
   ExtCtrls;
 
 type
