@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Resources, ComCtrls, ToolWin, CheckLst, DataStructs, uGameSubs,
-  Buttons, IntEdit, uInterface, Grids;
+  Buttons, Spin, uInterface, Grids;
 
 const
   TypeIcons: array[0..2] of integer = (bmpSkill, bmpSpell, bmpFoundation);
@@ -26,7 +26,7 @@ type
     ToolBar1: TToolBar;
     btnSort: TToolButton;
     Label4: TLabel;
-    eCost: TIntEdit;
+    eCost: TSpinEdit;
     ToolBar2: TToolBar;
     btnAddBased: TToolButton;
     btnDelBased: TToolButton;

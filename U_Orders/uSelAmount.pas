@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, IntEdit;
+  StdCtrls, ExtCtrls, Spin;
 
 type
   TSelAmountForm = class(TForm)
@@ -18,7 +18,7 @@ type
     HavingLabel: TLabel;
     HavingCountLabel: TLabel;
     FundsWantedLabel: TLabel;
-    AmountEdit: TIntEdit;
+    AmountEdit: TSpinEdit;
     cbAll: TCheckBox;
     procedure AmountEditChange(Sender: TObject);
     procedure cbAllClick(Sender: TObject);

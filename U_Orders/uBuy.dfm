@@ -220,7 +220,7 @@ object BuyForm: TBuyForm
         FFC0}
       Transparent = True
     end
-    object AmountEdit: TIntEdit
+    object AmountEdit: TSpinEdit
       Left = 44
       Top = 20
       Width = 73

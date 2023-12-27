@@ -139,7 +139,7 @@ object SkillEditForm: TSkillEditForm
       TabOrder = 4
       OnDrawItem = cmBasedDrawItem
     end
-    object eCost: TIntEdit
+    object eCost: TSpinEdit
       Left = 134
       Top = 6
       Width = 57

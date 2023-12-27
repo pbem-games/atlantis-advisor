@@ -222,7 +222,7 @@ object OptionForm: TOptionForm
             Caption = 'Monthlong TAX order'
             TabOrder = 4
           end
-          object eLeaderMainentance: TIntEdit
+          object eLeaderMainentance: TSpinEdit
             Left = 396
             Top = 16
             Width = 49
@@ -232,7 +232,7 @@ object OptionForm: TOptionForm
             TabOrder = 5
             Value = 0
           end
-          object ePeasantMainentance: TIntEdit
+          object ePeasantMainentance: TSpinEdit
             Left = 396
             Top = 40
             Width = 49
@@ -242,7 +242,7 @@ object OptionForm: TOptionForm
             TabOrder = 6
             Value = 0
           end
-          object eEntertainIncome: TIntEdit
+          object eEntertainIncome: TSpinEdit
             Left = 396
             Top = 64
             Width = 49
@@ -252,7 +252,7 @@ object OptionForm: TOptionForm
             TabOrder = 7
             Value = 0
           end
-          object eTaxIncome: TIntEdit
+          object eTaxIncome: TSpinEdit
             Left = 396
             Top = 88
             Width = 49
@@ -262,7 +262,7 @@ object OptionForm: TOptionForm
             TabOrder = 8
             Value = 0
           end
-          object eStudents: TIntEdit
+          object eStudents: TSpinEdit
             Left = 396
             Top = 112
             Width = 49
@@ -272,7 +272,7 @@ object OptionForm: TOptionForm
             TabOrder = 9
             Value = 0
           end
-          object eHeals: TIntEdit
+          object eHeals: TSpinEdit
             Left = 396
             Top = 136
             Width = 49
@@ -333,7 +333,7 @@ object OptionForm: TOptionForm
             Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAlwaysShowEditor]
             TabOrder = 0
           end
-          object eMaxFP: TIntEdit
+          object eMaxFP: TSpinEdit
             Left = 384
             Top = 196
             Width = 45
@@ -413,7 +413,7 @@ object OptionForm: TOptionForm
               TabOrder = 3
               OnClick = rbDimClick
             end
-            object eMapX: TIntEdit
+            object eMapX: TSpinEdit
               Left = 162
               Top = 46
               Width = 45
@@ -426,7 +426,7 @@ object OptionForm: TOptionForm
               Value = 0
               OnChange = eMapDimChange
             end
-            object eMapY: TIntEdit
+            object eMapY: TSpinEdit
               Left = 162
               Top = 70
               Width = 45
@@ -780,7 +780,7 @@ object OptionForm: TOptionForm
               Caption = 'Auto-set Needs with priority'
               TabOrder = 4
             end
-            object eNeedsPriority: TIntEdit
+            object eNeedsPriority: TSpinEdit
               Left = 162
               Top = 119
               Width = 41
@@ -806,7 +806,7 @@ object OptionForm: TOptionForm
               Caption = 'Also compact repeating orders'
               TabOrder = 7
             end
-            object eCustomFog: TIntEdit
+            object eCustomFog: TSpinEdit
               Left = 162
               Top = 186
               Width = 41

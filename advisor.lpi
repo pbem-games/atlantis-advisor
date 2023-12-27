@@ -284,10 +284,6 @@
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
-        <Filename Value="Libs\Wredosoft\IntEdit.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
         <Filename Value="Libs\Wredosoft\Painter.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>

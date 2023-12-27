@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DataStructs, Resources, StdCtrls, ComCtrls, ToolWin, IntEdit,
+  Dialogs, DataStructs, Resources, StdCtrls, ComCtrls, ToolWin, Spin,
   Grids, MyStrings, uGameSubs, uInterface, uNeeds;
 
 type
@@ -16,7 +16,7 @@ type
     cbEquipment: TCheckBox;
     cbNoGive: TCheckBox;
     Grid: TPowerGrid;
-    eEquipPriority: TIntEdit;
+    eEquipPriority: TSpinEdit;
     Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnOkClick(Sender: TObject);

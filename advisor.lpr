@@ -17,12 +17,12 @@ uses
   //uHexMap in 'uHexMap.pas',
   uKeys in 'U_Base\uKeys.pas',
   RepRead in 'U_Base\RepRead.pas',
-  //uHistory in 'U_Base\uHistory.pas',
+  uHistory in 'U_Base\uHistory.pas',
   //uInterface in 'U_Base\uInterface.pas',
   //uScript in 'U_Base\uScript.pas',
   uAvatars in 'U_Base\uAvatars.pas',
   //uManager in 'U_Manager\uManager.pas' {ManagerForm},
-  //uMapExport in 'U_Tools\uMapExport.pas' {MapExportForm},
+  uMapExport in 'U_Tools\uMapExport.pas' {MapExportForm},
   uOrders in 'U_Orders\uOrders.pas',
   uUnitRecs in 'U_Base\uUnitRecs.pas',
   //uBattle in 'uBattle.pas' {BattleForm},
@@ -61,7 +61,6 @@ uses
   uPathFind in 'U_Base\uPathFind.pas',
   uRegistration in 'U_Base\uRegistration.pas', {RegForm}
   ImageBtn,
-  //IntEdit,
   AtlaDate
   ;
 

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Resources, ComCtrls, ToolWin, Grids,
-  DataStructs, uGameSubs, IntEdit, uInterface, Math, uKeys, MyStrings;
+  DataStructs, uGameSubs, Spin, uInterface, Math, uKeys, MyStrings;
 
 const
   StructGridCols = 4;
@@ -36,16 +36,16 @@ type
     cmSkill: TComboBox;
     GroupBox4: TGroupBox;
     cmProduction: TComboBox;
-    SizeEdit: TIntEdit;
-    ProtectionEdit: TIntEdit;
-    CapacityEdit: TIntEdit;
-    SailorEdit: TIntEdit;
-    SkillLvEdit: TIntEdit;
+    SizeEdit: TSpinEdit;
+    ProtectionEdit: TSpinEdit;
+    CapacityEdit: TSpinEdit;
+    SailorEdit: TSpinEdit;
+    SkillLvEdit: TSpinEdit;
     cmType: TComboBox;
     mDescription: TRichEdit;
     lTool: TLabel;
     cmTool: TComboBox;
-    eToolBonus: TIntEdit;
+    eToolBonus: TSpinEdit;
     ToolButton1: TToolButton;
     btnArrange: TToolButton;
     Label6: TLabel;
@@ -54,7 +54,7 @@ type
     btnRequest: TToolButton;
     btnRequestAll: TToolButton;
     Label8: TLabel;
-    SpeedEdit: TIntEdit;
+    SpeedEdit: TSpinEdit;
     procedure FormCreate(Sender: TObject);
     procedure ToolButtonClick(Sender: TObject);
     procedure GridSelectCell(Sender: TObject; ACol, ARow: Integer;

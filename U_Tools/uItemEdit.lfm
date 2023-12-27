@@ -220,7 +220,7 @@ object ItemEditForm: TItemEditForm
       TabOrder = 3
       OnClick = DataChange
     end
-    object WeightEdit: TIntEdit
+    object WeightEdit: TSpinEdit
       Left = 150
       Top = 2
       Width = 49
@@ -261,7 +261,7 @@ object ItemEditForm: TItemEditForm
       OnChange = DataChange
       OnDrawItem = cmAbilityDrawItem
     end
-    object eAbilityLv: TIntEdit
+    object eAbilityLv: TSpinEdit
       Left = 150
       Top = 58
       Width = 49
@@ -374,7 +374,7 @@ object ItemEditForm: TItemEditForm
         OnChange = DataChange
         OnDrawItem = cmSkillDrawItem
       end
-      object eSkillLv: TIntEdit
+      object eSkillLv: TSpinEdit
         Left = 132
         Top = 31
         Width = 33
@@ -385,7 +385,7 @@ object ItemEditForm: TItemEditForm
         Value = 1
         OnChange = DataChange
       end
-      object eProdRate: TIntEdit
+      object eProdRate: TSpinEdit
         Left = 8
         Top = 120
         Width = 37
@@ -396,7 +396,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eProdManMonths: TIntEdit
+      object eProdManMonths: TSpinEdit
         Left = 68
         Top = 120
         Width = 37
@@ -455,7 +455,7 @@ object ItemEditForm: TItemEditForm
         OnChange = DataChange
         OnDrawItem = cmIDataDrawItem
       end
-      object eProdToolBonus: TIntEdit
+      object eProdToolBonus: TSpinEdit
         Left = 132
         Top = 76
         Width = 33
@@ -521,7 +521,7 @@ object ItemEditForm: TItemEditForm
         OnChange = DataChange
         OnDrawItem = cmSkillDrawItem
       end
-      object eMProdSpell: TIntEdit
+      object eMProdSpell: TSpinEdit
         Left = 132
         Top = 59
         Width = 33
@@ -725,7 +725,7 @@ object ItemEditForm: TItemEditForm
           Height = 13
           Caption = 'Default:'
         end
-        object eMagDefLevel: TIntEdit
+        object eMagDefLevel: TSpinEdit
           Left = 62
           Top = 41
           Width = 37
@@ -736,7 +736,7 @@ object ItemEditForm: TItemEditForm
           Value = 1
           OnChange = DataChange
         end
-        object eDefLevel: TIntEdit
+        object eDefLevel: TSpinEdit
           Left = 62
           Top = 10
           Width = 37
@@ -848,7 +848,7 @@ object ItemEditForm: TItemEditForm
         Height = 13
         Caption = 'Observ.:'
       end
-      object eMonAtk: TIntEdit
+      object eMonAtk: TSpinEdit
         Left = 52
         Top = 16
         Width = 37
@@ -859,7 +859,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eMonTactics: TIntEdit
+      object eMonTactics: TSpinEdit
         Left = 52
         Top = 44
         Width = 37
@@ -870,7 +870,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eMonNumAtk: TIntEdit
+      object eMonNumAtk: TSpinEdit
         Left = 144
         Top = 72
         Width = 45
@@ -881,7 +881,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eMonHits: TIntEdit
+      object eMonHits: TSpinEdit
         Left = 144
         Top = 16
         Width = 45
@@ -892,7 +892,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eMonRegen: TIntEdit
+      object eMonRegen: TSpinEdit
         Left = 144
         Top = 44
         Width = 45
@@ -1078,7 +1078,7 @@ object ItemEditForm: TItemEditForm
             0000}
           Transparent = True
         end
-        object eMonMelee: TIntEdit
+        object eMonMelee: TSpinEdit
           Left = 70
           Top = 0
           Width = 37
@@ -1089,7 +1089,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eMonEnergy: TIntEdit
+        object eMonEnergy: TSpinEdit
           Left = 70
           Top = 22
           Width = 37
@@ -1100,7 +1100,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eMonSpirit: TIntEdit
+        object eMonSpirit: TSpinEdit
           Left = 70
           Top = 46
           Width = 37
@@ -1111,7 +1111,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eMonWeather: TIntEdit
+        object eMonWeather: TSpinEdit
           Left = 70
           Top = 70
           Width = 37
@@ -1122,7 +1122,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eMonRiding: TIntEdit
+        object eMonRiding: TSpinEdit
           Left = 70
           Top = 94
           Width = 37
@@ -1133,7 +1133,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eMonRanged: TIntEdit
+        object eMonRanged: TSpinEdit
           Left = 70
           Top = 118
           Width = 37
@@ -1145,7 +1145,7 @@ object ItemEditForm: TItemEditForm
           OnChange = DataChange
         end
       end
-      object eMonObservation: TIntEdit
+      object eMonObservation: TSpinEdit
         Left = 52
         Top = 100
         Width = 37
@@ -1156,7 +1156,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eMonStealth: TIntEdit
+      object eMonStealth: TSpinEdit
         Left = 52
         Top = 72
         Width = 37
@@ -1244,7 +1244,7 @@ object ItemEditForm: TItemEditForm
         OnChange = DataChange
         OnDrawItem = cmSkillDrawItem
       end
-      object eAttBonus: TIntEdit
+      object eAttBonus: TSpinEdit
         Left = 188
         Top = 32
         Width = 41
@@ -1255,7 +1255,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eDefBonus: TIntEdit
+      object eDefBonus: TSpinEdit
         Left = 188
         Top = 80
         Width = 41
@@ -1275,7 +1275,7 @@ object ItemEditForm: TItemEditForm
         TabOrder = 4
         OnClick = DataChange
       end
-      object eMountBonus: TIntEdit
+      object eMountBonus: TSpinEdit
         Left = 188
         Top = 56
         Width = 41
@@ -1349,7 +1349,7 @@ object ItemEditForm: TItemEditForm
         TabOrder = 12
         OnClick = DataChange
       end
-      object eNumAttacks: TIntEdit
+      object eNumAttacks: TSpinEdit
         Left = 184
         Top = 116
         Width = 33
@@ -1360,7 +1360,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eNumRounds: TIntEdit
+      object eNumRounds: TSpinEdit
         Left = 228
         Top = 116
         Width = 33
@@ -1727,7 +1727,7 @@ object ItemEditForm: TItemEditForm
             0000}
           Transparent = True
         end
-        object eArmPiercing: TIntEdit
+        object eArmPiercing: TSpinEdit
           Left = 82
           Top = 26
           Width = 41
@@ -1738,7 +1738,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eArmSlashing: TIntEdit
+        object eArmSlashing: TSpinEdit
           Left = 82
           Top = 2
           Width = 41
@@ -1749,7 +1749,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eArmCrushing: TIntEdit
+        object eArmCrushing: TSpinEdit
           Left = 82
           Top = 50
           Width = 41
@@ -1760,7 +1760,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eArmCleaving: TIntEdit
+        object eArmCleaving: TSpinEdit
           Left = 82
           Top = 74
           Width = 41
@@ -1771,7 +1771,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eArmAPiercing: TIntEdit
+        object eArmAPiercing: TSpinEdit
           Left = 242
           Top = 2
           Width = 41
@@ -1782,7 +1782,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eArmEnergy: TIntEdit
+        object eArmEnergy: TSpinEdit
           Left = 242
           Top = 26
           Width = 41
@@ -1793,7 +1793,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eArmSpirit: TIntEdit
+        object eArmSpirit: TSpinEdit
           Left = 242
           Top = 50
           Width = 41
@@ -1804,7 +1804,7 @@ object ItemEditForm: TItemEditForm
           Value = 0
           OnChange = DataChange
         end
-        object eArmWeather: TIntEdit
+        object eArmWeather: TSpinEdit
           Left = 242
           Top = 74
           Width = 41
@@ -1867,7 +1867,7 @@ object ItemEditForm: TItemEditForm
         OnChange = DataChange
         OnDrawItem = cmSkillDrawItem
       end
-      object eHorseMin: TIntEdit
+      object eHorseMin: TSpinEdit
         Left = 132
         Top = 60
         Width = 41
@@ -1878,7 +1878,7 @@ object ItemEditForm: TItemEditForm
         Value = 1
         OnChange = DataChange
       end
-      object eHorseMax: TIntEdit
+      object eHorseMax: TSpinEdit
         Left = 132
         Top = 88
         Width = 41
@@ -1889,7 +1889,7 @@ object ItemEditForm: TItemEditForm
         Value = 1
         OnChange = DataChange
       end
-      object eHampBonus: TIntEdit
+      object eHampBonus: TSpinEdit
         Left = 132
         Top = 116
         Width = 41
@@ -1911,7 +1911,7 @@ object ItemEditForm: TItemEditForm
         Height = 13
         Caption = 'Capacity:'
       end
-      object eWalk: TIntEdit
+      object eWalk: TSpinEdit
         Left = 160
         Top = 36
         Width = 60
@@ -1922,7 +1922,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eRide: TIntEdit
+      object eRide: TSpinEdit
         Left = 160
         Top = 60
         Width = 60
@@ -1933,7 +1933,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eFly: TIntEdit
+      object eFly: TSpinEdit
         Left = 160
         Top = 84
         Width = 60
@@ -1944,7 +1944,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eSwim: TIntEdit
+      object eSwim: TSpinEdit
         Left = 160
         Top = 108
         Width = 60
@@ -2033,7 +2033,7 @@ object ItemEditForm: TItemEditForm
         OnChange = DataChange
         OnDrawItem = cmIDataDrawItem
       end
-      object eHitchWalk: TIntEdit
+      object eHitchWalk: TSpinEdit
         Left = 116
         Top = 20
         Width = 61
@@ -2055,7 +2055,7 @@ object ItemEditForm: TItemEditForm
         Height = 13
         Caption = 'Upkeep'
       end
-      object eUpkeepSilver: TIntEdit
+      object eUpkeepSilver: TSpinEdit
         Left = 60
         Top = 12
         Width = 117
@@ -2084,7 +2084,7 @@ object ItemEditForm: TItemEditForm
         Height = 13
         Caption = 'Order'
       end
-      object eFoodValue: TIntEdit
+      object eFoodValue: TSpinEdit
         Left = 52
         Top = 12
         Width = 117
@@ -2095,7 +2095,7 @@ object ItemEditForm: TItemEditForm
         Value = 0
         OnChange = DataChange
       end
-      object eFoodOrder: TIntEdit
+      object eFoodOrder: TSpinEdit
         Left = 52
         Top = 36
         Width = 117

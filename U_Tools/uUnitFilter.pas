@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DataStructs, Resources, StdCtrls, ComCtrls, ToolWin, IntEdit,
+  Dialogs, DataStructs, Resources, StdCtrls, ComCtrls, ToolWin, Spin,
   ExtCtrls, uInterface, uGameSubs;
 
 type
@@ -23,7 +23,7 @@ type
     btnAddItem: TToolButton;
     btnDelItem: TToolButton;
     cmSkill: TComboBox;
-    eSkillLv: TIntEdit;
+    eSkillLv: TSpinEdit;
     ToolBar3: TToolBar;
     btnAddSkill: TToolButton;
     btnDelSkill: TToolButton;

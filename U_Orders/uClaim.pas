@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Resources, StdCtrls, ExtCtrls, IntEdit;
+  Dialogs, Resources, StdCtrls, ExtCtrls, Spin;
 
 type
   TClaimForm = class(TForm)
@@ -14,7 +14,7 @@ type
     Image1: TImage;
     Button1: TButton;
     Button2: TButton;
-    SpinEdit: TIntEdit;
+    SpinEdit: TSpinEdit;
     procedure FormCreate(Sender: TObject);
     procedure SpinEditKeyPress(Sender: TObject; var Key: Char);
   private

@@ -86,7 +86,7 @@ object ManagerOptionsForm: TManagerOptionsForm
       Height = 13
       Caption = 'turns, write older to history'
     end
-    object KeepEdit: TIntEdit
+    object KeepEdit: TSpinEdit
       Left = 68
       Top = 24
       Width = 41

@@ -164,7 +164,7 @@ object SelAmountForm: TSelAmountForm
         FFC0}
       Transparent = True
     end
-    object AmountEdit: TIntEdit
+    object AmountEdit: TSpinEdit
       Left = 16
       Top = 20
       Width = 73

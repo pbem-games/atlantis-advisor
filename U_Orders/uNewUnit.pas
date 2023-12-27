@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, IntEdit, StdCtrls, DataStructs, ExtCtrls, uInterface, uGameSubs,
+  Dialogs, Spin, StdCtrls, DataStructs, ExtCtrls, uInterface, uGameSubs,
   Math, Resources, ComCtrls, ToolWin, Grids, Buttons, MyStrings;
 
 type
@@ -18,16 +18,16 @@ type
     GroupBox3: TGroupBox;
     cbBuy: TCheckBox;
     cmForSale: TComboBox;
-    eForSale: TIntEdit;
+    eForSale: TSpinEdit;
     cbMainentance: TCheckBox;
     cbRecruit: TCheckBox;
-    eMonths: TIntEdit;
+    eMonths: TSpinEdit;
     Label3: TLabel;
     cbStudy: TCheckBox;
     cmSkill: TComboBox;
-    eSkillLv: TIntEdit;
+    eSkillLv: TSpinEdit;
     lNeeds: TLabel;
-    eClaim: TIntEdit;
+    eClaim: TSpinEdit;
     cbClaim: TCheckBox;
     cbOnguard: TCheckBox;
     cbAutotax: TCheckBox;
@@ -46,7 +46,7 @@ type
     cbDelayTax: TCheckBox;
     cbDelayGuard: TCheckBox;
     Label4: TLabel;
-    eCopy: TIntEdit;
+    eCopy: TSpinEdit;
     Label5: TLabel;
     Label7: TLabel;
     ToolBar1: TToolBar;

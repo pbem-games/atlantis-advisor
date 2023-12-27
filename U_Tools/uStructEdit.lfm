@@ -213,7 +213,7 @@ object StructEditForm: TStructEditForm
       OnCloseUp = DataChange
       OnDrawItem = cmSkillDrawItem
     end
-    object SizeEdit: TIntEdit
+    object SizeEdit: TSpinEdit
       Left = 110
       Top = 82
       Width = 45
@@ -224,7 +224,7 @@ object StructEditForm: TStructEditForm
       Value = 0
       OnChange = DataChange
     end
-    object SkillLvEdit: TIntEdit
+    object SkillLvEdit: TSpinEdit
       Left = 122
       Top = 154
       Width = 33
@@ -266,7 +266,7 @@ object StructEditForm: TStructEditForm
       OnChange = DataChange
       OnDrawItem = cmIDataDrawItem
     end
-    object eToolBonus: TIntEdit
+    object eToolBonus: TSpinEdit
       Left = 122
       Top = 202
       Width = 33
@@ -306,7 +306,7 @@ object StructEditForm: TStructEditForm
       Height = 13
       Caption = 'Speed:'
     end
-    object CapacityEdit: TIntEdit
+    object CapacityEdit: TSpinEdit
       Left = 66
       Top = 10
       Width = 65
@@ -317,7 +317,7 @@ object StructEditForm: TStructEditForm
       Value = 0
       OnChange = DataChange
     end
-    object SailorEdit: TIntEdit
+    object SailorEdit: TSpinEdit
       Left = 66
       Top = 38
       Width = 65
@@ -328,7 +328,7 @@ object StructEditForm: TStructEditForm
       Value = 0
       OnChange = DataChange
     end
-    object SpeedEdit: TIntEdit
+    object SpeedEdit: TSpinEdit
       Left = 66
       Top = 62
       Width = 65
@@ -361,7 +361,7 @@ object StructEditForm: TStructEditForm
       Height = 13
       Caption = 'men'
     end
-    object ProtectionEdit: TIntEdit
+    object ProtectionEdit: TSpinEdit
       Left = 70
       Top = 10
       Width = 49

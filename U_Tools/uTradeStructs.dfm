@@ -105,7 +105,7 @@ object TradeStructForm: TTradeStructForm
     ModalResult = 1
     TabOrder = 2
   end
-  object eLevel: TIntEdit
+  object eLevel: TSpinEdit
     Left = 136
     Top = 280
     Width = 37

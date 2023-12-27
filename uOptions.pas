@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls, Resources, DataStructs, IniFiles,
   uKeys, MyStrings, Grids, ColorBtn, CheckLst, uGameSubs,
-  IntEdit, Buttons, uExport, Spin, Math, uShortcuts, Menus;
+  Spin, Buttons, uExport, Math, uShortcuts, Menus;
 
 type
   TOptionForm = class(TForm)
@@ -48,7 +48,7 @@ type
     lbBookmarks: TListBox;
     btnRemove: TButton;
     TabSheet5: TTabSheet;
-    gShortcuts: TPowerGrid;
+    gShortcuts: TStringGrid;
     btnClear: TButton;
     lMessage: TLabel;
     Label2: TLabel;
@@ -58,7 +58,7 @@ type
     cmFormTemplate: TComboBox;
     btnRemoveTemplate: TButton;
     cbMonthNeeds: TCheckBox;
-    eNeedsPriority: TIntEdit;
+    eNeedsPriority: TSpinEdit;
     pcGame: TPageControl;
     TabSheet7: TTabSheet;
     Label14: TLabel;
@@ -81,8 +81,8 @@ type
     lbDimensions: TListBox;
     rbAutodetect: TRadioButton;
     rbManual: TRadioButton;
-    eMapX: TIntEdit;
-    eMapY: TIntEdit;
+    eMapX: TSpinEdit;
+    eMapY: TSpinEdit;
     GroupBox7: TGroupBox;
     tcWeather: TTabControl;
     imgBadSeason: TImage;
@@ -105,15 +105,15 @@ type
     cbMonthTax: TCheckBox;
     Label16: TLabel;
     Label17: TLabel;
-    eLeaderMainentance: TIntEdit;
-    ePeasantMainentance: TIntEdit;
+    eLeaderMainentance: TSpinEdit;
+    ePeasantMainentance: TSpinEdit;
     Label19: TLabel;
     Label20: TLabel;
     Label21: TLabel;
-    eEntertainIncome: TIntEdit;
-    eTaxIncome: TIntEdit;
-    eStudents: TIntEdit;
-    eHeals: TIntEdit;
+    eEntertainIncome: TSpinEdit;
+    eTaxIncome: TSpinEdit;
+    eStudents: TSpinEdit;
+    eHeals: TSpinEdit;
     Label22: TLabel;
     Label23: TLabel;
     cmArmyRout: TComboBox;
@@ -121,12 +121,12 @@ type
     cbRedirNew: TCheckBox;
     cbCompactRepeating: TCheckBox;
     Label18: TLabel;
-    eCustomFog: TIntEdit;
+    eCustomFog: TSpinEdit;
     Label25: TLabel;
     cmMod: TComboBox;
     TabSheet9: TTabSheet;
     gPoints: TStringGrid;
-    eMaxFP: TIntEdit;
+    eMaxFP: TSpinEdit;
     lFpAmount: TLabel;
     cbTurnInTitle: TCheckBox;
     procedure FormCreate(Sender: TObject);

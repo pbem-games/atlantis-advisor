@@ -8,7 +8,7 @@ uses
   CylinderMap, ComCtrls, ToolWin, ExtCtrls, Buttons, Grids,
   uKeys, MyStrings, DataStructs, Resources, uManager, uHexMap,
   uVisualOrders, uOrderProcessor, uListFilter, AtlaDate, uGameSubs, uAvatars, ShellApi,
-  uMail, uExport, uScript, uInterface, IntEdit, uTurnEvents, uUnitRecs,
+  uMail, uExport, uScript, uInterface, Spin, uTurnEvents, uUnitRecs,
   RepRead, uHistory, uSpecEdit, uTerrEdit, uTradeStructs, uTaxTrade,
   uUnitArmies, uRegionStat, uSpyReps, uUnitProduction, uGameStart,
   uUnitFilter, uShortcuts, uRoute, uGates, uItemStats, uWantedItems;
@@ -356,7 +356,7 @@ type
     tbGiveBattle: TToolButton;
     tbGiveTrade: TToolButton;
     Label21: TLabel;
-    eGiveAmt: TIntEdit;
+    eGiveAmt: TSpinEdit;
     btnLocal: TSpeedButton;
     StructGrid: TPowerGrid;
     N19: TMenuItem;
@@ -1352,7 +1352,7 @@ begin
 
   if (ActiveControl <> nil) and ((ActiveControl.ClassType = TMemo)
     or (ActiveControl.ClassType = TEdit)
-    or (ActiveControl.ClassType = TIntEdit)) then Exit;
+    or (ActiveControl.ClassType = TSpinEdit)) then Exit;
 
   order := FindOrder(RealKey(Key), Shift, rep);
   if order <> '' then begin

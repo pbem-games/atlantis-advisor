@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, IntEdit, uGameSubs, DataStructs, Resources, Math,
+  StdCtrls, ExtCtrls, Spin, uGameSubs, DataStructs, Resources, Math,
   uInterface;
 
 type
@@ -21,7 +21,7 @@ type
     FundsImage: TImage;
     FundsLabel: TLabel;
     FundsWantedLabel: TLabel;
-    AmountEdit: TIntEdit;
+    AmountEdit: TSpinEdit;
     GroupBox1: TGroupBox;
     cbClaim: TCheckBox;
     cbTake: TCheckBox;

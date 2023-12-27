@@ -63,7 +63,7 @@ object ClaimForm: TClaimForm
     ModalResult = 2
     TabOrder = 1
   end
-  object SpinEdit: TIntEdit
+  object SpinEdit: TSpinEdit
     Left = 88
     Top = 48
     Width = 73

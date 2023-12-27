@@ -70,7 +70,7 @@ object TerrEditForm: TTerrEditForm
       Height = 13
       Caption = 'Use in combat:'
     end
-    object eMoveCost: TIntEdit
+    object eMoveCost: TSpinEdit
       Left = 98
       Top = 6
       Width = 45

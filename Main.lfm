@@ -2162,7 +2162,7 @@ object MainForm: TMainForm
                 OnEndDrag = tbMaskGiveEndDrag
               end
             end
-            object eGiveAmt: TIntEdit
+            object eGiveAmt: TSpinEdit
               Left = 134
               Top = 2
               Width = 228

@@ -121,7 +121,7 @@ object NewUnitForm: TNewUnitForm
       OnChange = cmForSaleChange
       OnDrawItem = cmItemsDrawItem
     end
-    object eForSale: TIntEdit
+    object eForSale: TSpinEdit
       Left = 62
       Top = 6
       Width = 49
@@ -190,7 +190,7 @@ object NewUnitForm: TNewUnitForm
       Height = 13
       Caption = '0'
     end
-    object eClaim: TIntEdit
+    object eClaim: TSpinEdit
       Left = 66
       Top = 170
       Width = 69
@@ -347,7 +347,7 @@ object NewUnitForm: TNewUnitForm
       TabOrder = 0
       OnClick = PaymentChange
     end
-    object eMonths: TIntEdit
+    object eMonths: TSpinEdit
       Left = 122
       Top = 62
       Width = 41
@@ -378,7 +378,7 @@ object NewUnitForm: TNewUnitForm
       OnChange = PaymentChange
       OnDrawItem = cmSkillDrawItem
     end
-    object eSkillLv: TIntEdit
+    object eSkillLv: TSpinEdit
       Left = 206
       Top = 34
       Width = 33
@@ -508,7 +508,7 @@ object NewUnitForm: TNewUnitForm
     TabOrder = 17
     OnClick = cbDelayGuardClick
   end
-  object eCopy: TIntEdit
+  object eCopy: TSpinEdit
     Left = 40
     Top = 572
     Width = 37

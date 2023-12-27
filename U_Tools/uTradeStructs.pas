@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, Resources, uGameSubs, StdCtrls, Grids,
-  uInterface, Math, IntEdit;
+  uInterface, Math, Spin;
 
 type
   TTradeStructForm = class(TForm)
@@ -15,7 +15,7 @@ type
     Label2: TLabel;
     Button1: TButton;
     Label3: TLabel;
-    eLevel: TIntEdit;
+    eLevel: TSpinEdit;
     procedure FormCreate(Sender: TObject);
     procedure gProductsDrawCell(Sender: TObject; ACol, ARow: Integer;
       var TxtRect: TRect; State: TGridDrawState);

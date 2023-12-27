@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, DataStructs, Resources, StdCtrls, IntEdit,
+  Dialogs, Grids, DataStructs, Resources, StdCtrls, Spin,
   ColorBtn, ComCtrls, ToolWin, uGameSubs, uInterface;
 
 type
@@ -14,7 +14,7 @@ type
     Button1: TButton;
     gbProps: TGroupBox;
     Label1: TLabel;
-    eMoveCost: TIntEdit;
+    eMoveCost: TSpinEdit;
     cbWater: TCheckBox;
     cbRiding: TCheckBox;
     cbFlying: TCheckBox;

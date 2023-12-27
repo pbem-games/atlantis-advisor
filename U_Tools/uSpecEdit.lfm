@@ -301,7 +301,7 @@ object SpecEditForm: TSpecEditForm
           ItemHeight = 13
           TabOrder = 0
         end
-        object eAtkMin: TIntEdit
+        object eAtkMin: TSpinEdit
           Left = 6
           Top = 50
           Width = 37
@@ -311,7 +311,7 @@ object SpecEditForm: TSpecEditForm
           TabOrder = 1
           Value = 0
         end
-        object eAtkMax: TIntEdit
+        object eAtkMax: TSpinEdit
           Left = 46
           Top = 50
           Width = 45
@@ -413,7 +413,7 @@ object SpecEditForm: TSpecEditForm
           ItemHeight = 13
           TabOrder = 1
         end
-        object eDefLevel: TIntEdit
+        object eDefLevel: TSpinEdit
           Left = 98
           Top = 26
           Width = 37
@@ -570,7 +570,7 @@ object SpecEditForm: TSpecEditForm
         TabOrder = 1
         OnClick = EffDataChange
       end
-      object eEffAttack: TIntEdit
+      object eEffAttack: TSpinEdit
         Left = 240
         Top = 60
         Width = 53
@@ -630,7 +630,7 @@ object SpecEditForm: TSpecEditForm
           Height = 13
           Caption = 'Ranged:'
         end
-        object eEffDef0: TIntEdit
+        object eEffDef0: TSpinEdit
           Left = 78
           Top = 18
           Width = 53
@@ -641,7 +641,7 @@ object SpecEditForm: TSpecEditForm
           Value = 0
           OnChange = EffDataChange
         end
-        object eEffDef1: TIntEdit
+        object eEffDef1: TSpinEdit
           Left = 78
           Top = 46
           Width = 53
@@ -652,7 +652,7 @@ object SpecEditForm: TSpecEditForm
           Value = 0
           OnChange = EffDataChange
         end
-        object eEffDef2: TIntEdit
+        object eEffDef2: TSpinEdit
           Left = 78
           Top = 74
           Width = 53
@@ -663,7 +663,7 @@ object SpecEditForm: TSpecEditForm
           Value = 0
           OnChange = EffDataChange
         end
-        object eEffDef3: TIntEdit
+        object eEffDef3: TSpinEdit
           Left = 78
           Top = 102
           Width = 53
@@ -674,7 +674,7 @@ object SpecEditForm: TSpecEditForm
           Value = 0
           OnChange = EffDataChange
         end
-        object eEffDef4: TIntEdit
+        object eEffDef4: TSpinEdit
           Left = 78
           Top = 130
           Width = 53
@@ -685,7 +685,7 @@ object SpecEditForm: TSpecEditForm
           Value = 0
           OnChange = EffDataChange
         end
-        object eEffDef5: TIntEdit
+        object eEffDef5: TSpinEdit
           Left = 78
           Top = 157
           Width = 53

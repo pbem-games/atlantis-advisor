@@ -9,7 +9,7 @@ uses
   StdCtrls, Buttons, Grids, ImgList, FileCtrl, DataStructs, RepRead,
   AtlaDate, ExtCtrls, ComCtrls, uHistory, Clipbrd, IniFiles, MyStrings,
   Resources, uOptions, uKeys, uGameSubs, uAvatars, uNewGame, uUnitRecs,
-  IntEdit, uMgrOptions, uAnalyzers;
+  Spin, uMgrOptions, uAnalyzers;
 
 const
   FilenameCol = 3;
@@ -24,7 +24,7 @@ type
     NewGameBtn: TBitBtn;
     KillBtn: TBitBtn;
     RenameBtn: TBitBtn;
-    RepGrid: TPowerGrid;
+    RepGrid: TStringGrid;
     AddBtn: TBitBtn;
     PasteBtn: TBitBtn;
     DelBtn: TBitBtn;

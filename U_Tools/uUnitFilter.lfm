@@ -138,7 +138,7 @@ object UnitFilterForm: TUnitFilterForm
       TabOrder = 5
       OnDrawItem = cmSkillDrawItem
     end
-    object eSkillLv: TIntEdit
+    object eSkillLv: TSpinEdit
       Left = 190
       Top = 198
       Width = 33

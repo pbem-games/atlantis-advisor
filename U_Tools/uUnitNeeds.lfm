@@ -114,7 +114,7 @@ object UnitNeedsForm: TUnitNeedsForm
     OnSetEditText = GridSetEditText
     OnMouseDown = GridMouseDown
   end
-  object eEquipPriority: TIntEdit
+  object eEquipPriority: TSpinEdit
     Left = 124
     Top = 10
     Width = 37

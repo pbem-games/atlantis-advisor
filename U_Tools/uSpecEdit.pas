@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DataStructs, Resources, uInterface, StdCtrls,
-  ComCtrls, ToolWin, uGameSubs, uKeys, IntEdit, Math;
+  ComCtrls, ToolWin, uGameSubs, uKeys, Spin, Math;
 
 type
   TSpecEditForm = class(TForm)
@@ -41,8 +41,8 @@ type
     GroupBox4: TGroupBox;
     Label1: TLabel;
     lbAttacks: TListBox;
-    eAtkMin: TIntEdit;
-    eAtkMax: TIntEdit;
+    eAtkMin: TSpinEdit;
+    eAtkMax: TSpinEdit;
     cmAtkEffect: TComboBox;
     cmAttack: TComboBox;
     cbAtkAlwaysReady: TCheckBox;
@@ -50,7 +50,7 @@ type
     GroupBox5: TGroupBox;
     lbDefences: TListBox;
     cmDefence: TComboBox;
-    eDefLevel: TIntEdit;
+    eDefLevel: TSpinEdit;
     ToolBar5: TToolBar;
     btnAddDefence: TToolButton;
     btnDelDefence: TToolButton;
@@ -64,20 +64,20 @@ type
     EffGrid: TPowerGrid;
     cbEffOneShot: TCheckBox;
     Label2: TLabel;
-    eEffAttack: TIntEdit;
+    eEffAttack: TSpinEdit;
     GroupBox7: TGroupBox;
     Label3: TLabel;
-    eEffDef0: TIntEdit;
-    eEffDef1: TIntEdit;
+    eEffDef0: TSpinEdit;
+    eEffDef1: TSpinEdit;
     Label5: TLabel;
-    eEffDef2: TIntEdit;
+    eEffDef2: TSpinEdit;
     Label6: TLabel;
-    eEffDef3: TIntEdit;
+    eEffDef3: TSpinEdit;
     Label7: TLabel;
     Label8: TLabel;
     Label4: TLabel;
-    eEffDef4: TIntEdit;
-    eEffDef5: TIntEdit;
+    eEffDef4: TSpinEdit;
+    eEffDef5: TSpinEdit;
     eSpellText: TEdit;
     Label9: TLabel;
     cbAllShields: TCheckBox;
