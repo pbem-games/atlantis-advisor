@@ -1,10 +1,13 @@
 unit uGameStart;
+
+{$MODE Delphi}
+
 // Performs actions on first game startup (when no orders loaded)
 
 interface
 
 uses
-  SysUtils, Windows, DataStructs, MyStrings, uNeeds, uRoute, Resources;
+  SysUtils, LCLIntf, LCLType, LMessages, DataStructs, MyStrings, uNeeds, uRoute, Resources;
 
   procedure PreProcess;
   procedure PostProcess(RerunRegions: TRegionList);

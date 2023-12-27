@@ -1,9 +1,11 @@
 unit uAvatarEdit;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ImgList, DataStructs, Grids, PowerGrid, StdCtrls, Buttons, ComCtrls, MyStrings,
   Resources, ExtCtrls, uAvatars, ToolWin, uGameSubs, CheckLst;
 
@@ -69,7 +71,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TAvatarForm.FormCreate(Sender: TObject);
 var i: integer;

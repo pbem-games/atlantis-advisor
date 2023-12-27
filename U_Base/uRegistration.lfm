@@ -1,0 +1,64 @@
+object RegForm: TRegForm
+  Left = 189
+  Height = 166
+  Top = 107
+  Width = 430
+  BorderStyle = bsDialog
+  Caption = 'Registration'
+  ClientHeight = 166
+  ClientWidth = 430
+  Color = clBtnFace
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  Position = poScreenCenter
+  LCLVersion = '3.0.0.2'
+  object Label1: TLabel
+    Left = 24
+    Height = 20
+    Top = 30
+    Width = 46
+    Caption = 'Name:'
+  end
+  object Label2: TLabel
+    Left = 24
+    Height = 20
+    Top = 72
+    Width = 42
+    Caption = 'Code:'
+  end
+  object NameEdit: TEdit
+    Left = 78
+    Height = 28
+    Top = 24
+    Width = 326
+    TabOrder = 0
+  end
+  object CodeEdit: TEdit
+    Left = 78
+    Height = 28
+    Top = 66
+    Width = 326
+    TabOrder = 1
+  end
+  object Button1: TButton
+    Left = 90
+    Height = 32
+    Top = 120
+    Width = 112
+    Caption = 'OK'
+    Default = True
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 234
+    Height = 32
+    Top = 120
+    Width = 112
+    Caption = 'Cancel'
+    TabOrder = 3
+    OnClick = Button2Click
+  end
+end

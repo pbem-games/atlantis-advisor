@@ -1,9 +1,11 @@
 unit uExport;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, DataStructs, Resources, Math;
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, DataStructs, Resources, Math;
 
 const
   U_NAME = $01;

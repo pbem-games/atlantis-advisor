@@ -1,9 +1,11 @@
 unit uUnitRecs;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, DataStructs, MyStrings;
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, DataStructs, MyStrings;
 
 const
   KeepLocal = '$!keep!$';

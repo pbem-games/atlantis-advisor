@@ -1,9 +1,11 @@
 unit uPathFind;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, DataStructs, uGameSubs, Math, uKeys;
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, DataStructs, uGameSubs, Math, uKeys;
 
   function PathFind(U: TUnit; C: TCoords; Sail: boolean): string;
 

@@ -1,5 +1,7 @@
 unit uAvatars;
 
+{$MODE Delphi}
+
 interface
 
 uses

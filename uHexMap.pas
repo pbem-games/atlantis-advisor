@@ -1,9 +1,11 @@
 unit uHexMap;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Classes, Windows, Graphics, DataStructs, Resources, Math, ImgList,
+  SysUtils, Classes, LCLIntf, LCLType, LMessages, Graphics, DataStructs, Resources, Math, ImgList,
   uKeys, uGameSubs, CylinderMap, uScript, MyStrings;
 
 const

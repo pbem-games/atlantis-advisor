@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Math,
   StdCtrls, ImgList, IniFiles, Clipbrd, ActnList, Menus,
   CylinderMap, ComCtrls, ToolWin, ExtCtrls, Buttons, Grids,
-  uKeys, MyStrings, DataStructs, Resources, PowerGrid, uManager, uHexMap,
+  uKeys, MyStrings, DataStructs, Resources, uManager, uHexMap,
   uVisualOrders, uOrderProcessor, uListFilter, AtlaDate, uGameSubs, uAvatars, ShellApi,
   uMail, uExport, uScript, uInterface, IntEdit, uTurnEvents, uUnitRecs,
   RepRead, uHistory, uSpecEdit, uTerrEdit, uTradeStructs, uTaxTrade,

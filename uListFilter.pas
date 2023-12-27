@@ -1,9 +1,11 @@
 unit uListFilter;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Resources, CheckLst, DataStructs;
 
 type
@@ -28,7 +30,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TListFilterForm.ItemBoxDrawItem(Control: TWinControl;
   Index: Integer; Rect: TRect; State: TOwnerDrawState);

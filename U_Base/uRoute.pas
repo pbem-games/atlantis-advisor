@@ -1,9 +1,11 @@
 unit uRoute;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, Math, DataStructs, MyStrings, uKeys,
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, Math, DataStructs, MyStrings, uKeys,
   uGameSubs;
 
 type

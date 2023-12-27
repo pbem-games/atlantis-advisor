@@ -1,10 +1,12 @@
 unit uAbout;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ExtCtrls, StdCtrls, Resources, ShellAPI;
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, StdCtrls, Resources;
 
 type
   TAboutForm = class(TForm)
@@ -28,7 +30,7 @@ var
 
 implementation
 
-{$R *.DFM}
+{$R *.lfm}
 
 procedure TAboutForm.Image1Click(Sender: TObject);
 begin
@@ -37,8 +39,7 @@ end;
 
 procedure TAboutForm.Label1Click(Sender: TObject);
 begin
-  ShellExecute(Application.Handle, PChar('open'),
-    PChar(TLabel(Sender).Caption), PChar(0), nil, SW_NORMAL);
+   OpenDocument(PChar(TLabel(Sender).Caption)); { *Converted from ShellExecute* }
 end;
 
 end.

@@ -1,9 +1,11 @@
 unit uAnalyzers;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, DataStructs, uUnitRecs, uGameSubs, uKeys, MyStrings, Math;
+  SysUtils, LCLIntf, LCLType, LMessages, DataStructs, uUnitRecs, uGameSubs, uKeys, MyStrings, Math;
 
   procedure RunTurnAnalyzers;
 

@@ -1,9 +1,11 @@
 unit uInterface;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, Controls, StdCtrls, DataStructs, uGameSubs,
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, Controls, StdCtrls, DataStructs, uGameSubs,
   Resources, PowerGrid, Graphics, MyStrings, Forms;
 
   procedure ListDrawItem(Control: TWinControl; Index: Integer; Rect: TRect;

@@ -2,10 +2,12 @@
 
 unit DataStructs;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Classes, SysUtils, Windows, Math, Graphics;
+  Classes, SysUtils, LCLIntf, LCLType, LMessages, Math, Graphics;
 
 const
   MaxInt = 2147483647;

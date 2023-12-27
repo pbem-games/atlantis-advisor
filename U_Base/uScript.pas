@@ -1,9 +1,11 @@
 unit uScript;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, DataStructs, uKeys, MyStrings, Resources,
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, DataStructs, uKeys, MyStrings, Resources,
   uGameSubs, Regexpr, Forms, uUnitRecs, Math;
 
 var

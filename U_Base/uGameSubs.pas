@@ -1,9 +1,11 @@
 unit uGameSubs;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Classes, Windows, Forms, IniFiles, DataStructs, MyStrings,
+  SysUtils, Classes, LCLIntf, LCLType, LMessages, Forms, IniFiles, DataStructs, MyStrings,
   Math, AtlaDate, uKeys, Resources, uUnitRecs, Graphics;
 
 const

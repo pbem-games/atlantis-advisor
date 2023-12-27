@@ -1,5 +1,7 @@
 unit uKeys;
 
+{$MODE Delphi}
+
 interface
 
 uses

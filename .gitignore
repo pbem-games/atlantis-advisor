@@ -9,3 +9,6 @@ test/
 *.identcache
 test*/
 advisor.exe
+__*/
+dcu/
+lib/

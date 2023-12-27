@@ -1,0 +1,121 @@
+object MapExportForm: TMapExportForm
+  Left = 203
+  Height = 435
+  Top = 103
+  Width = 328
+  BorderStyle = bsDialog
+  Caption = 'Export Map'
+  ClientHeight = 435
+  ClientWidth = 328
+  Color = clBtnFace
+  DesignTimePPI = 144
+  Font.Color = clWindowText
+  Font.Height = -17
+  Font.Name = 'MS Sans Serif'
+  Position = poMainFormCenter
+  LCLVersion = '3.0.0.2'
+  object Label1: TLabel
+    Left = 42
+    Height = 20
+    Top = 114
+    Width = 157
+    Caption = 'Select items to export:'
+  end
+  object cbAdvances: TCheckBox
+    Left = 48
+    Height = 24
+    Top = 156
+    Width = 170
+    Caption = 'Advanced resources'
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 207
+    Height = 32
+    Top = 393
+    Width = 112
+    Anchors = [akRight, akBottom]
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 81
+    Height = 32
+    Top = 393
+    Width = 112
+    Anchors = [akRight, akBottom]
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 2
+  end
+  object cbBuildings: TCheckBox
+    Left = 48
+    Height = 24
+    Top = 186
+    Width = 89
+    Caption = 'Buildings'
+    Checked = True
+    State = cbChecked
+    TabOrder = 3
+  end
+  object cbTransports: TCheckBox
+    Left = 48
+    Height = 24
+    Top = 216
+    Width = 101
+    Caption = 'Transports'
+    TabOrder = 4
+  end
+  object cbPlayerUnits: TCheckBox
+    Left = 48
+    Height = 24
+    Top = 246
+    Width = 117
+    Caption = 'Player''s units'
+    TabOrder = 5
+  end
+  object cbOtherUnits: TCheckBox
+    Left = 48
+    Height = 24
+    Top = 306
+    Width = 103
+    Caption = 'Other units'
+    TabOrder = 6
+  end
+  object cbDetails: TCheckBox
+    Left = 72
+    Height = 24
+    Top = 276
+    Width = 226
+    Caption = 'With details (items, skills etc)'
+    TabOrder = 7
+  end
+  object rbMap: TRadioButton
+    Left = 48
+    Height = 24
+    Top = 30
+    Width = 105
+    Caption = 'Whole map'
+    Checked = True
+    TabOrder = 8
+    TabStop = True
+  end
+  object rbRegion: TRadioButton
+    Left = 48
+    Height = 24
+    Top = 60
+    Width = 136
+    Caption = 'Selected region'
+    TabOrder = 9
+  end
+  object cbGates: TCheckBox
+    Left = 48
+    Height = 24
+    Top = 336
+    Width = 69
+    Caption = 'Gates'
+    TabOrder = 10
+  end
+end

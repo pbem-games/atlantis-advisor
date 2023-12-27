@@ -1,9 +1,11 @@
 unit uNeeds;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, Classes, Math, DataStructs, Resources, MyStrings,
+  SysUtils, LCLIntf, LCLType, LMessages, Classes, Math, DataStructs, Resources, MyStrings,
   uGameSubs, uKeys;
 
 type

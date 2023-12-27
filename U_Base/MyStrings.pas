@@ -1,5 +1,7 @@
 unit MyStrings;
 
+{$MODE Delphi}
+
 {$WARN SYMBOL_PLATFORM OFF}
 
 interface

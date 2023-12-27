@@ -1,9 +1,11 @@
 unit uOrderProcessor;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, DataStructs, MyStrings, uGameSubs, uKeys, Math, Windows, Classes,
+  SysUtils, DataStructs, MyStrings, uGameSubs, uKeys, Math, LCLIntf, LCLType, LMessages, Classes,
   uAvatars, uScript, uOrders, Resources;
 
 var

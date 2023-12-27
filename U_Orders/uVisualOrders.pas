@@ -1,9 +1,11 @@
 unit uVisualOrders;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  SysUtils, Windows, DataStructs, uSelAmount, Resources, uGameSubs,
+  SysUtils, LCLIntf, LCLType, LMessages, DataStructs, uSelAmount, Resources, uGameSubs,
   Graphics, Math, Controls, Dialogs, MyStrings, Menus, Classes,
   uClaim, uHexMap, uKeys, uBuy, uNewUnit, uTeach, uScript, uUnitRecs,
   uSpyReps, uNeeds, uRoute, uUnitNeeds, uShortcuts, uWantedItems,

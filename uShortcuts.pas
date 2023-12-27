@@ -1,9 +1,11 @@
 unit uShortcuts;
 
+{$MODE Delphi}
+
 interface
 
 uses
-   SysUtils, Windows, Classes, Menus, Resources, MyStrings, Dialogs, ActnList;
+   SysUtils, LCLIntf, LCLType, LMessages, Classes, Menus, Resources, MyStrings, Dialogs, ActnList;
 
 const
   RepeatingShortcuts = 13;

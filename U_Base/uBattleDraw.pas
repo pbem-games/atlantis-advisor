@@ -1,5 +1,7 @@
 unit uBattleDraw;
 
+{$MODE Delphi}
+
 interface
 
 uses

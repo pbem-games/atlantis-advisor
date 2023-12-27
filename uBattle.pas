@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DataStructs, StdCtrls, ExtCtrls, Resources, Math, ComCtrls,
-  uGameSubs, IniFiles, MyStrings, Painter, Grids, PowerGrid, uInterface,
+  uGameSubs, IniFiles, MyStrings, Painter, Grids, uInterface,
   CylinderMap, uKeys, ToolWin, Buttons, IntEdit, uAvatars, uArmy, uSoldiers,
   ImgList, uBattleDraw, Menus, ActnList;
 

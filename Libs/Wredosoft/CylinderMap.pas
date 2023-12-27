@@ -8,7 +8,8 @@ unit CylinderMap;
 
 interface
 
-uses Windows, Messages, Classes, Graphics, Forms, Controls, ExtCtrls, Math;
+uses Windows, Messages, Classes, Graphics, Forms, Controls, ExtCtrls, Math,
+  LMessages;
 
 const
   KeyStep = 10;
@@ -95,7 +96,7 @@ type
   protected
     procedure BeforePaint; dynamic;
     procedure AfterPaint; dynamic;
-    function DoKeyDown(var Message: TWMKey): Boolean;
+    function DoKeyDownBeforeInterface(var Message: TLMKey; IsRecurseCall: Boolean): Boolean;
     procedure DrawHex(HX, HY: integer); dynamic;
     procedure DrawExtra(HX, HY: integer); dynamic;
     procedure DblClick; override;
@@ -304,10 +305,10 @@ begin
   if hmDblClickCenter in FOptions then Center(FSelected.X, FSelected.Y);
 end;
 
-function TCylinderMap.DoKeyDown(var Message: TWMKey): Boolean;
+function TCylinderMap.DoKeyDownBeforeInterface(var Message: TLMKey; IsRecurseCall: Boolean): Boolean;
 begin
-  inherited DoKeyDown(Message);
-  Result := FALSE;
+  inherited DoKeyDownBeforeInterface(Message, IsRecurseCall);
+  Result := false;
 end;
 
 procedure TCylinderMap.DrawHex(HX, HY: integer);

@@ -1,10 +1,12 @@
 unit PowerGrid;
 
+{$MODE Delphi}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Grids, Menus, IniFiles, Math, StdCtrls, Mask;
+  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Grids, Menus, IniFiles, Math, StdCtrls, Masks;
 
 const
   relEQ = 0;
