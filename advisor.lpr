@@ -15,7 +15,7 @@ uses
   uGameSubs in 'U_Base\uGameSubs.pas',
   DataStructs in 'U_Base\DataStructs.pas',
   //uHexMap in 'uHexMap.pas',
-  //uKeys in 'U_Base\uKeys.pas',
+  uKeys in 'U_Base\uKeys.pas',
   RepRead in 'U_Base\RepRead.pas',
   //uHistory in 'U_Base\uHistory.pas',
   //uInterface in 'U_Base\uInterface.pas',
