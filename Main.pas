@@ -944,9 +944,6 @@ begin
   ClearQmaster;
 
   // Registration
-  // ProgOpened := CheckCode(Config.ReadString('Prog', 'RegName', ''),
-  //   Config.ReadString('Prog', 'RegCode', ''));
-  // No more registration
   ProgOpened := True;
   ImplyRegistration(ProgOpened);
 

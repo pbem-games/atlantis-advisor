@@ -1,340 +1,354 @@
 object MainForm: TMainForm
-  Left = 391
-  Top = 126
-  Width = 1932
-  Height = 1093
+  Left = -11
+  Height = 1892
+  Top = -11
+  Width = 3177
   Caption = 'Atlantis Advisor'
+  ClientHeight = 0
+  ClientWidth = 176
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  DesignTimePPI = 144
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
-  Font.Style = []
+  Font.Height = -17
+  FormStyle = fsStayOnTop
   KeyPreview = True
   Menu = MainMenu
-  Visible = True
-  WindowState = wsMaximized
   OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
-  PixelsPerInch = 96
+  Visible = True
+  WindowState = wsMaximized
   object spSidebar: TSplitter
-    Left = 1350
-    Top = 28
-    Width = 6
-    Height = 1006
-    Cursor = crHSplit
+    Left = -9
+    Height = 0
+    Top = 0
+    Width = 9
     Align = alRight
     Beveled = True
+    ResizeAnchor = akRight
   end
   object MapUnitsPanel: TPanel
     Left = 0
-    Top = 28
-    Width = 1350
-    Height = 1006
+    Height = 0
+    Top = 0
+    Width = 0
     Align = alClient
     BevelOuter = bvNone
+    ClientHeight = 0
+    ClientWidth = 0
+    ParentBackground = False
     TabOrder = 0
     object UnitSplitter: TSplitter
-      Left = 0
-      Top = 882
-      Width = 1350
-      Height = 6
       Cursor = crVSplit
+      Left = 0
+      Height = 9
+      Top = -9
+      Width = 0
       Align = alBottom
       Beveled = True
+      ResizeAnchor = akBottom
     end
     object MapToolPanel: TPanel
       Left = 0
+      Height = 44
       Top = 0
-      Width = 1350
-      Height = 29
+      Width = 0
       HelpContext = 3
       Align = alTop
+      ClientHeight = 44
+      ClientWidth = 0
+      ParentBackground = False
       TabOrder = 0
       object MapToolbar: TToolBar
         Left = 0
-        Top = 0
-        Width = 1301
-        Height = 27
+        Height = 42
+        Top = 1
+        Width = 0
         Align = alClient
-        ButtonHeight = 23
+        ButtonHeight = 34
+        ButtonWidth = 52
         Caption = 'MapToolbar'
         EdgeBorders = []
         Images = ResForm.BtnImages
         ParentShowHint = False
-        ShowHint = False
         TabOrder = 0
         object ToolButton4: TToolButton
-          Left = 0
-          Top = 2
-          Width = 8
+          Left = 1
+          Top = 0
+          Width = 52
           Caption = 'ToolButton4'
           Style = tbsSeparator
         end
         object ListBtn: TToolButton
-          Left = 8
-          Top = 2
+          Left = 1
           Hint = 'Region List'
+          Top = 8
           AllowAllUp = True
           Caption = 'Region List'
           Grouped = True
           ImageIndex = 9
+          OnClick = ListBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = ListBtnClick
         end
         object ListDownBtn: TSpeedButton
-          Left = 31
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 53
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton31: TToolButton
-          Left = 43
-          Top = 2
-          Width = 8
+          Left = 53
+          Top = 34
+          Width = 52
           Caption = 'ToolButton31'
           ImageIndex = 32
           Style = tbsSeparator
         end
         object ToolButton30: TToolButton
-          Left = 51
-          Top = 2
+          Left = 105
           Hint = 'Define List filter'
+          Top = 0
           Action = ListFilterAction
           ParentShowHint = False
           ShowHint = True
         end
         object ToolButton5: TToolButton
-          Left = 74
-          Top = 2
-          Width = 11
+          Left = 105
+          Top = 34
+          Width = 52
           Caption = 'ToolButton5'
           ImageIndex = 20
           Style = tbsSeparator
         end
         object FogBtn: TToolButton
-          Left = 85
-          Top = 2
+          Left = 157
           Hint = 'Fog Type'
+          Top = 0
           AllowAllUp = True
           Caption = 'Fog Type'
           ImageIndex = 10
+          OnClick = FogBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = FogBtnClick
         end
         object FogDownBtn: TSpeedButton
           Tag = 1
-          Left = 108
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 209
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton6: TToolButton
-          Left = 120
-          Top = 2
-          Width = 8
+          Left = 209
+          Top = 34
+          Width = 52
           Caption = 'ToolButton6'
           ImageIndex = 21
           Style = tbsSeparator
         end
         object FlagBtn: TToolButton
-          Left = 128
-          Top = 2
+          Left = 261
           Hint = 'Factions in Region'
+          Top = 0
           AllowAllUp = True
           Caption = 'Factions in Region'
           ImageIndex = 12
+          OnClick = FlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = FlagBtnClick
         end
         object FlagDownBtn: TSpeedButton
           Tag = 2
-          Left = 151
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 313
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton11: TToolButton
-          Left = 163
-          Top = 2
-          Width = 8
+          Left = 313
+          Top = 34
+          Width = 52
           Caption = 'ToolButton11'
           ImageIndex = 25
           Style = tbsSeparator
         end
         object MIcBtn: TToolButton
-          Left = 171
-          Top = 2
+          Left = 365
           Hint = 'Event Icons'
+          Top = 0
           Caption = 'Event Icons'
           ImageIndex = 13
+          OnClick = MIcBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = MIcBtnClick
         end
         object MIcDownBtn: TSpeedButton
           Tag = 3
-          Left = 194
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 417
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton13: TToolButton
-          Left = 206
-          Top = 2
-          Width = 8
+          Left = 417
+          Top = 34
+          Width = 52
           Caption = 'ToolButton13'
           ImageIndex = 26
           Style = tbsSeparator
         end
         object SIcBtn: TToolButton
-          Left = 214
-          Top = 2
+          Left = 469
           Hint = 'Status Icon'
+          Top = 0
           Caption = 'Status Icon'
           ImageIndex = 14
+          OnClick = SIcBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = SIcBtnClick
         end
         object SIcDownBtn: TSpeedButton
           Tag = 4
-          Left = 237
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 521
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton15: TToolButton
-          Left = 249
-          Top = 2
-          Width = 8
+          Left = 521
+          Top = 34
+          Width = 52
           Caption = 'ToolButton15'
           ImageIndex = 27
           Style = tbsSeparator
         end
         object STxBtn: TToolButton
-          Left = 257
-          Top = 2
+          Left = 573
           Hint = 'Status Text'
+          Top = 0
           Caption = 'Status Text'
           ImageIndex = 15
+          OnClick = STxBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = STxBtnClick
         end
         object STxDownBtn: TSpeedButton
           Tag = 5
-          Left = 280
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 625
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton17: TToolButton
-          Left = 292
-          Top = 2
-          Width = 8
+          Left = 625
+          Top = 34
+          Width = 52
           Caption = 'ToolButton17'
           ImageIndex = 28
           Style = tbsSeparator
         end
         object StructBtn: TToolButton
-          Left = 300
-          Top = 2
+          Left = 677
           Hint = 'Objects'
+          Top = 0
           Caption = 'Objects'
           ImageIndex = 1
+          OnClick = StructBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = StructBtnClick
         end
         object StructDownBtn: TSpeedButton
           Tag = 8
-          Left = 323
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 729
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton19: TToolButton
-          Left = 335
-          Top = 2
-          Width = 8
+          Left = 729
+          Top = 34
+          Width = 52
           Caption = 'ToolButton19'
           ImageIndex = 9
           Style = tbsSeparator
         end
         object LevelBtn: TToolButton
-          Left = 343
-          Top = 2
+          Left = 781
           Hint = 'Level'
+          Top = 0
           Action = LevelAction
           AllowAllUp = True
           ParentShowHint = False
@@ -342,31 +356,32 @@ object MainForm: TMainForm
         end
         object LevelDownBtn: TSpeedButton
           Tag = 6
-          Left = 366
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 833
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
         object ToolButton7: TToolButton
-          Left = 378
-          Top = 2
-          Width = 8
+          Left = 833
+          Top = 34
+          Width = 52
           Caption = 'ToolButton7'
           ImageIndex = 17
           Style = tbsSeparator
         end
         object BookmarkBtn: TToolButton
-          Left = 386
-          Top = 2
+          Left = 885
           Hint = 'Bookmark'
+          Top = 0
           Action = BookmarkAction
           ImageIndex = 34
           ParentShowHint = False
@@ -374,64 +389,69 @@ object MainForm: TMainForm
         end
         object BmkDownBtn: TSpeedButton
           Tag = 7
-          Left = 409
-          Top = 2
-          Width = 12
-          Height = 23
+          Left = 937
+          Height = 34
+          Top = 0
+          Width = 52
           Glyph.Data = {
             86000000424D8600000000000000360000002800000005000000050000000100
             18000000000050000000CE0E0000C40E00000000000000000000FFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFF00FFFFFFFFFFFF000000FFFFFFFFFFFF00FFFFFF000000
             000000000000FFFFFF0000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFF00}
+            FFFFFFFFFFFFFFFFFF00
+          }
           Margin = 1
           OnClick = DownBtnClick
         end
       end
       object CoordLabel: TPanel
-        Left = 1298
-        Top = 0
-        Width = 47
-        Height = 27
+        Left = -70
+        Height = 42
+        Top = 1
+        Width = 70
         Align = alRight
         Alignment = taLeftJustify
         BevelOuter = bvNone
         Caption = '256, 256'
+        ParentBackground = False
         TabOrder = 1
       end
     end
     object UnitsPanel: TPanel
       Left = 0
-      Top = 888
-      Width = 1350
-      Height = 114
+      Height = 171
+      Top = -171
+      Width = 0
       HelpContext = 5
       Align = alBottom
       BevelOuter = bvNone
-      Constraints.MinHeight = 30
+      ClientHeight = 171
+      ClientWidth = 0
+      Constraints.MinHeight = 45
+      ParentBackground = False
       TabOrder = 1
       object UnitGrid: TStringGrid
         Left = 0
-        Top = 26
-        Width = 1350
-        Height = 84
+        Height = 126
+        Top = 45
+        Width = 0
         Align = alClient
         Color = clBlack
         ColCount = 16
-        FixedRows = 1
         PopupMenu = PopMenu
         RowCount = 1
+        TabOrder = 0
+        OnDragOver = UnitGridDragOver
         OnDblClick = UnitGridDblClick
         OnDrawCell = UnitGridDrawCell
-        OnDragOver = UnitGridDragOver
         OnMouseDown = UnitGridMouseDown
         OnSelectCell = UnitGridSelectCell
       end
       object tbUnitTools: TToolBar
         Left = 0
+        Height = 45
         Top = 0
-        Width = 1350
-        Height = 30
+        Width = 0
         BorderWidth = 1
         Caption = 'tbUnitTools'
         EdgeBorders = []
@@ -442,95 +462,95 @@ object MainForm: TMainForm
         ShowHint = True
         TabOrder = 1
         object ToolButton38: TToolButton
-          Left = 0
-          Top = 2
-          Width = 8
+          Left = 1
+          Height = 33
+          Top = 0
           Caption = 'ToolButton38'
           Style = tbsSeparator
         end
         object cmFilterFaction: TComboBox
-          Left = 8
-          Top = 2
+          Left = 1
+          Height = 31
+          Top = 33
           Width = 145
-          Height = 21
+          ItemHeight = 23
           Style = csDropDownList
-          ItemHeight = 13
           TabOrder = 0
           OnChange = cmFilterFactionChange
         end
         object ToolButton39: TToolButton
-          Left = 153
-          Top = 2
-          Width = 8
+          Left = 1
+          Height = 33
+          Top = 66
           Caption = 'ToolButton39'
           ImageIndex = 0
           Style = tbsSeparator
         end
         object btnMyFaction: TToolButton
-          Left = 161
-          Top = 2
+          Left = 1
           Hint = 'Player''s faction'
+          Top = 99
           Caption = 'btnMyFaction'
           ImageIndex = 11
           OnClick = btnMyFactionClick
         end
         object btnAllFactions: TToolButton
-          Left = 184
-          Top = 2
+          Left = 1
           Hint = 'All factions'
+          Top = 132
           Caption = 'btnAllFactions'
           ImageIndex = 12
           OnClick = btnAllFactionsClick
         end
         object ToolButton51: TToolButton
-          Left = 207
-          Top = 2
-          Width = 22
+          Left = 1
+          Height = 33
+          Top = 165
           Caption = 'ToolButton51'
           ImageIndex = 2
           Style = tbsSeparator
         end
         object btnFactionMode: TToolButton
-          Left = 229
-          Top = 2
+          Left = 1
           Hint = 'Faction Mode'
+          Top = 198
           Action = GridModeAction
         end
         object btnUnitFilter: TToolButton
-          Left = 252
-          Top = 2
+          Left = 1
+          Top = 231
           Action = UnitFilterAction
         end
         object ToolButton44: TToolButton
-          Left = 275
-          Top = 2
+          Left = 1
+          Top = 264
           Action = FindUnitAction
         end
         object ToolButton49: TToolButton
-          Left = 298
-          Top = 2
-          Width = 8
+          Left = 1
+          Height = 33
+          Top = 297
           Caption = 'ToolButton49'
           ImageIndex = 1
           Style = tbsSeparator
         end
         object ToolButton52: TToolButton
-          Left = 306
-          Top = 2
+          Left = 1
+          Top = 330
           Action = NextErrorAction
         end
         object ToolButton53: TToolButton
-          Left = 329
-          Top = 2
-          Width = 8
+          Left = 1
+          Height = 33
+          Top = 363
           Caption = 'ToolButton53'
           ImageIndex = 38
           Style = tbsSeparator
         end
         object DistributeNeedsToolbarBtn: TToolButton
-          Left = 337
-          Top = 2
+          Left = 1
           Hint = 'Distribute needs in this region'
+          Top = 396
           Caption = 'DistributeNeedsToolbarBtn'
           ImageIndex = 43
           OnClick = DistributeNeedsToolbarBtnClick
@@ -539,25 +559,27 @@ object MainForm: TMainForm
     end
     object MapPanel: TPanel
       Left = 0
-      Top = 25
-      Width = 1350
-      Height = 857
+      Height = 0
+      Top = 0
+      Width = 0
       Align = alClient
       BevelOuter = bvNone
+      ClientHeight = 0
+      ClientWidth = 0
+      ParentBackground = False
       TabOrder = 2
       object StructSplitter: TSplitter
-        Left = 300
+        Left = 0
+        Height = 0
         Top = 0
-        Width = 3
-        Height = 857
-        Cursor = crHSplit
+        Width = 4
         Beveled = True
       end
       object HexMap: TCylinderMap
-        Left = 303
+        Left = 0
+        Height = 0
         Top = 0
-        Width = 465
-        Height = 857
+        Width = 0
         HelpContext = 3
         Align = alClient
         Color = clBlack
@@ -577,18 +599,18 @@ object MainForm: TMainForm
         OnMoveMap = HexMapMoveMap
       end
       object gAllItems: TStringGrid
-        Left = 1057
+        Left = -434
+        Height = 0
         Top = 0
-        Width = 289
-        Height = 857
+        Width = 434
         Align = alRight
         ColCount = 3
-        FixedRows = 1
-        Options = [pgoLines, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
+        Options = []
         RowCount = 1
+        TabOrder = 4
+        OnDragOver = gAllItemsDragOver
         OnDblClick = ItemGridDblClick
         OnDrawCell = ItemGridDrawCell
-        OnDragOver = gAllItemsDragOver
         OnEndDrag = gAllItemsEndDrag
         OnEnter = ItemGridEnter
         OnMouseDown = ItemGridMouseDown
@@ -596,103 +618,115 @@ object MainForm: TMainForm
       end
       object StructPanel: TPanel
         Left = 0
+        Height = 0
         Top = 0
-        Width = 304
-        Height = 857
+        Width = 456
         Align = alLeft
         BevelOuter = bvNone
+        ClientHeight = 0
+        ClientWidth = 456
+        ParentBackground = False
         TabOrder = 2
         object StructGrid: TStringGrid
           Left = 0
-          Top = 293
-          Width = 304
-          Height = 560
+          Height = 0
+          Top = 0
+          Width = 456
           Align = alClient
           Color = clBtnFace
           ColCount = 2
-          DefaultRowHeight = 21
+          DefaultRowHeight = 32
           FixedRows = 0
-          Options = [pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+          Options = []
+          ParentShowHint = False
           RowCount = 0
           ShowHint = True
+          TabOrder = 0
           OnDrawCell = StructGridDrawCell
           OnMouseDown = StructGridMouseDown
           OnMouseMove = StructGridMouseMove
         end
         object pStructure: TPanel
           Left = 0
+          Height = 446
           Top = 0
-          Width = 304
-          Height = 297
+          Width = 456
           Align = alTop
           BevelOuter = bvNone
           BorderWidth = 4
+          ClientHeight = 446
+          ClientWidth = 456
+          ParentBackground = False
           TabOrder = 1
           object pnStructureName: TPanel
-            Left = 0
-            Top = 0
-            Width = 296
-            Height = 32
+            Left = 4
+            Height = 48
+            Top = 4
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ClientHeight = 48
+            ClientWidth = 448
+            ParentBackground = False
             TabOrder = 0
             object StructNumLabel: TLabel
-              Left = 271
+              Left = 415
+              Height = 48
               Top = 0
-              Width = 21
-              Height = 32
+              Width = 33
               Align = alRight
               Caption = '127'
-              Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
-              Font.Height = -13
+              Font.Height = -20
               Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
               Layout = tlCenter
+              ParentFont = False
               OnClick = CopyLabelToClipboard
             end
             object spPanel1: TPanel
-              Left = 263
+              Left = 403
+              Height = 48
               Top = 0
-              Width = 8
-              Height = 32
+              Width = 12
               Align = alRight
               BevelOuter = bvNone
+              ParentBackground = False
               TabOrder = 0
             end
             object Panel6: TPanel
               Left = 0
+              Height = 48
               Top = 0
-              Width = 267
-              Height = 32
+              Width = 403
               Align = alClient
               BevelOuter = bvNone
               Caption = 'Panel6'
+              ClientHeight = 48
+              ClientWidth = 403
+              ParentBackground = False
               TabOrder = 1
               object StructNameBevel: TBevel
                 Left = 0
+                Height = 48
                 Top = 0
-                Width = 267
-                Height = 32
+                Width = 403
                 Align = alClient
                 Visible = False
               end
               object StructNameEdit: TEdit
                 Tag = 2
                 Left = 0
+                Height = 36
                 Top = 0
-                Width = 259
-                Height = 24
-                Anchors = [akLeft, akTop, akRight, akBottom]
+                Width = 391
+                Anchors = [akTop, akLeft, akRight, akBottom]
                 AutoSize = False
                 BorderStyle = bsNone
                 Color = clBtnFace
-                Font.Charset = ANSI_CHARSET
+                Font.CharSet = ANSI_CHARSET
                 Font.Color = clWindowText
-                Font.Height = -19
+                Font.Height = -29
                 Font.Name = 'Black Chancery'
-                Font.Style = []
                 ParentFont = False
                 TabOrder = 0
                 Text = 'Gold Fish'
@@ -703,28 +737,31 @@ object MainForm: TMainForm
             end
           end
           object pnStrucDescription: TPanel
-            Left = 0
-            Top = 36
-            Width = 296
-            Height = 16
+            Left = 4
+            Height = 24
+            Top = 58
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ClientHeight = 24
+            ClientWidth = 448
+            ParentBackground = False
             TabOrder = 1
             object StructDescrBevel: TBevel
               Left = 0
+              Height = 24
               Top = 0
-              Width = 296
-              Height = 16
+              Width = 448
               Align = alClient
               Visible = False
             end
             object StructDescrEdit: TEdit
               Tag = 3
-              Left = 2
+              Left = 3
+              Height = 22
               Top = 0
-              Width = 287
-              Height = 15
-              Anchors = [akLeft, akTop, akRight, akBottom]
+              Width = 435
+              Anchors = [akTop, akLeft, akRight, akBottom]
               AutoSize = False
               BorderStyle = bsNone
               Color = clBtnFace
@@ -736,63 +773,71 @@ object MainForm: TMainForm
             end
           end
           object spPanel2: TPanel
-            Left = 0
-            Top = 32
-            Width = 296
-            Height = 4
+            Left = 4
+            Height = 6
+            Top = 52
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ParentBackground = False
             TabOrder = 2
           end
           object Panel4: TPanel
-            Left = 0
-            Top = 285
-            Width = 296
-            Height = 4
+            Left = 4
+            Height = 6
+            Top = 432
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ParentBackground = False
             TabOrder = 3
           end
           object Panel5: TPanel
-            Left = 0
-            Top = 52
-            Width = 296
-            Height = 4
+            Left = 4
+            Height = 6
+            Top = 82
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ParentBackground = False
             TabOrder = 4
           end
           object Panel7: TPanel
-            Left = 0
-            Top = 209
-            Width = 296
-            Height = 4
+            Left = 4
+            Height = 6
+            Top = 318
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ParentBackground = False
             TabOrder = 5
           end
           object Panel8: TPanel
-            Left = 0
-            Top = 140
-            Width = 296
-            Height = 4
+            Left = 4
+            Height = 6
+            Top = 214
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ParentBackground = False
             TabOrder = 6
           end
           object pnStrucInfo: TPanel
-            Left = 0
-            Top = 56
-            Width = 296
-            Height = 84
+            Left = 4
+            Height = 126
+            Top = 88
+            Width = 448
             Align = alTop
             BevelOuter = bvNone
+            ClientHeight = 126
+            ClientWidth = 448
+            ParentBackground = False
             TabOrder = 7
             object OwnerFlagImage: TImage
-              Left = 56
-              Top = 12
-              Width = 10
-              Height = 10
+              Left = 84
+              Height = 15
+              Top = 18
+              Width = 15
               Picture.Data = {
                 07544269746D617076010000424D760100000000000036000000280000000A00
                 00000A000000010018000000000040010000CE0E0000C40E0000000000000000
@@ -806,85 +851,86 @@ object MainForm: TMainForm
                 0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
                 0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
                 0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-                0000}
+                0000
+              }
               Transparent = True
             end
             object StructGroupLabel: TLabel
-              Left = 60
+              Left = 90
+              Height = 23
               Top = 0
-              Width = 45
-              Height = 13
+              Width = 73
               Caption = 'Longboat'
             end
             object Label19: TLabel
               Left = 0
+              Height = 23
               Top = 0
-              Width = 27
-              Height = 13
+              Width = 39
               Caption = 'Type:'
             end
             object Label22: TLabel
               Left = 0
-              Top = 12
-              Width = 34
-              Height = 13
+              Height = 23
+              Top = 18
+              Width = 54
               Caption = 'Owner:'
             end
             object StructOwnerLabel: TLabel
-              Left = 68
-              Top = 12
-              Width = 52
-              Height = 13
+              Left = 102
+              Height = 23
+              Top = 18
+              Width = 82
               Caption = 'Sailors (12)'
             end
             object StructDefLabel: TLabel
-              Left = 60
-              Top = 28
-              Width = 18
-              Height = 13
+              Left = 90
+              Height = 23
+              Top = 42
+              Width = 27
               Caption = '100'
             end
             object Label11: TLabel
               Left = 0
-              Top = 28
-              Width = 44
-              Height = 13
+              Height = 23
+              Top = 42
+              Width = 66
               Caption = 'Defence:'
             end
             object Label13: TLabel
               Left = 0
-              Top = 44
-              Width = 54
-              Height = 13
+              Height = 23
+              Top = 66
+              Width = 87
               Caption = 'Men inside:'
             end
             object StructMenLabel: TLabel
-              Left = 60
-              Top = 44
-              Width = 12
-              Height = 13
+              Left = 90
+              Height = 23
+              Top = 66
+              Width = 18
               Caption = '10'
             end
             object Label16: TLabel
               Left = 0
-              Top = 59
-              Width = 23
-              Height = 13
+              Height = 23
+              Top = 88
+              Width = 34
               Caption = 'Size:'
             end
             object StructSizeLabel: TLabel
-              Left = 60
-              Top = 59
-              Width = 45
-              Height = 13
+              Left = 90
+              Height = 20
+              Top = 88
+              Width = 68
               AutoSize = False
               Caption = '2 / 10'
             end
             object IncomplStructImage: TImage
-              Left = 108
-              Top = 56
-              Width = 16
-              Height = 16
+              Left = 162
+              Height = 24
+              Top = 84
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -912,71 +958,78 @@ object MainForm: TMainForm
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                C0C0}
+                C0C0
+              }
               Transparent = True
             end
           end
           object GroupBox1: TGroupBox
-            Left = 0
-            Top = 144
-            Width = 296
-            Height = 65
+            Left = 4
+            Height = 98
+            Top = 220
+            Width = 448
             Align = alTop
             Caption = 'Transport'
+            ClientHeight = 70
+            ClientWidth = 444
+            ParentBackground = False
             TabOrder = 8
             object Label14: TLabel
-              Left = 16
+              Left = 24
+              Height = 23
               Top = 0
-              Width = 27
-              Height = 13
+              Width = 41
               Caption = 'Load:'
             end
             object Label15: TLabel
-              Left = 16
-              Top = 8
-              Width = 36
-              Height = 13
+              Left = 24
+              Height = 23
+              Top = 12
+              Width = 61
               Caption = 'Control:'
             end
             object StructLoadLabel: TLabel
-              Left = 64
+              Left = 96
+              Height = 23
               Top = 0
-              Width = 59
-              Height = 13
+              Width = 89
               Caption = '1200 / 1800'
             end
             object StructControlLabel: TLabel
-              Left = 64
-              Top = 8
-              Width = 29
-              Height = 13
+              Left = 96
+              Height = 23
+              Top = 12
+              Width = 44
               Caption = '5 / 15'
             end
           end
           object GroupBox2: TGroupBox
-            Left = 0
-            Top = 213
-            Width = 296
-            Height = 72
+            Left = 4
+            Height = 108
+            Top = 324
+            Width = 448
             Align = alTop
             Caption = 'Passage To'
+            ClientHeight = 80
+            ClientWidth = 444
+            ParentBackground = False
             TabOrder = 9
             object lWayTo: TLabel
-              Left = 4
+              Left = 6
+              Height = 68
               Top = 0
-              Width = 201
-              Height = 45
-              Anchors = [akLeft, akTop, akRight]
+              Width = 302
+              Anchors = [akTop, akLeft, akRight]
               AutoSize = False
               Caption = 'cave (31, 20, underworld) in Underworld'
               Layout = tlCenter
               WordWrap = True
             end
             object btnLinkShaft: TButton
-              Left = 214
-              Top = 4
-              Width = 63
-              Height = 21
+              Left = 322
+              Height = 32
+              Top = 6
+              Width = 94
               Anchors = [akTop, akRight]
               Caption = 'Link'
               Enabled = False
@@ -987,26 +1040,29 @@ object MainForm: TMainForm
         end
       end
       object pnlQuartermaster: TPanel
-        Left = 768
+        Left = -434
+        Height = 0
         Top = 0
-        Width = 289
-        Height = 857
+        Width = 434
         Align = alRight
         BevelOuter = bvNone
+        ClientHeight = 0
+        ClientWidth = 434
+        ParentBackground = False
         TabOrder = 3
         object pgQuartermaster: TStringGrid
           Left = 0
-          Top = 61
-          Width = 289
-          Height = 792
+          Height = 0
+          Top = 0
+          Width = 434
           Align = alClient
           ColCount = 2
-          FixedRows = 1
-          Options = [pgoLines, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
+          Options = []
           RowCount = 1
+          TabOrder = 0
+          OnDragOver = pgQuartermasterDragOver
           OnDblClick = ItemGridDblClick
           OnDrawCell = pgQuartermasterDrawCell
-          OnDragOver = pgQuartermasterDragOver
           OnEndDrag = pgQuartermasterEndDrag
           OnEnter = pgQuartermasterEnter
           OnMouseDown = pgQuartermasterMouseDown
@@ -1014,31 +1070,34 @@ object MainForm: TMainForm
         end
         object Panel1: TPanel
           Left = 0
+          Height = 98
           Top = 0
-          Width = 289
-          Height = 65
+          Width = 434
           Align = alTop
           BevelOuter = bvNone
+          ClientHeight = 98
+          ClientWidth = 434
+          ParentBackground = False
           TabOrder = 1
           object lblQmasterRange: TLabel
-            Left = 20
-            Top = 24
-            Width = 186
-            Height = 13
+            Left = 30
+            Height = 23
+            Top = 36
+            Width = 302
             Caption = 'Quartermaster is local: Transport is free.'
           end
           object lblQmasterAbility: TLabel
-            Left = 20
-            Top = 44
-            Width = 175
-            Height = 13
+            Left = 30
+            Height = 23
+            Top = 66
+            Width = 280
             Caption = 'Quartermaster can send and recieve.'
           end
           object iQMAbilityWarning: TImage
             Left = 0
-            Top = 43
-            Width = 16
-            Height = 16
+            Height = 24
+            Top = 64
+            Width = 24
             Picture.Data = {
               07544269746D617036030000424D360300000000000036000000280000001000
               000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -1066,14 +1125,15 @@ object MainForm: TMainForm
               C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
               C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
               C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-              C0C0}
+              C0C0
+            }
             Transparent = True
           end
           object iQMFeeWarning: TImage
             Left = 0
-            Top = 23
-            Width = 16
-            Height = 16
+            Height = 24
+            Top = 34
+            Width = 24
             Picture.Data = {
               07544269746D617036030000424D360300000000000036000000280000001000
               000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -1101,17 +1161,18 @@ object MainForm: TMainForm
               C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
               C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
               C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-              C0C0}
+              C0C0
+            }
             Transparent = True
           end
           object cbQuartermaster: TComboBox
-            Left = 4
+            Left = 6
+            Height = 31
             Top = 0
-            Width = 273
-            Height = 21
-            Style = csDropDownList
-            ItemHeight = 13
+            Width = 410
+            ItemHeight = 23
             Sorted = True
+            Style = csDropDownList
             TabOrder = 0
             OnChange = cbQuartermasterChange
           end
@@ -1121,16 +1182,19 @@ object MainForm: TMainForm
   end
   object ToolPanel: TPanel
     Left = 0
+    Height = 42
     Top = 0
-    Width = 1916
-    Height = 28
+    Width = 176
     Align = alTop
+    ClientHeight = 42
+    ClientWidth = 176
+    ParentBackground = False
     TabOrder = 1
     object ToolBar: TToolBar
-      Left = 29
+      Left = 44
+      Height = 38
       Top = 0
-      Width = 620
-      Height = 25
+      Width = 930
       Align = alNone
       Caption = 'ToolBar'
       EdgeBorders = []
@@ -1139,379 +1203,367 @@ object MainForm: TMainForm
       ShowHint = True
       TabOrder = 0
       object ToolButton10: TToolButton
-        Left = 0
-        Top = 2
+        Left = 1
         Hint = 'View Order'
+        Top = 0
         Action = OrdersAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton24: TToolButton
-        Left = 23
-        Top = 2
+        Left = 36
         Hint = 'Save Order'
+        Top = 0
         Action = SaveOrderAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton25: TToolButton
-        Left = 46
-        Top = 2
+        Left = 71
         Hint = 'Copy Order to Clipboard'
+        Top = 0
         Action = CopyOrderAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton46: TToolButton
-        Left = 69
-        Top = 2
+        Left = 106
         Hint = 'Send Order'
+        Top = 0
         Action = MailOrderAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton12: TToolButton
-        Left = 92
-        Top = 2
-        Width = 8
+        Left = 141
+        Height = 33
+        Top = 0
         Caption = 'ToolButton12'
         ImageIndex = 47
         Style = tbsSeparator
       end
       object ToolButton8: TToolButton
-        Left = 100
-        Top = 2
+        Left = 149
         Hint = 'Factions'
+        Top = 0
         Action = FactionAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton23: TToolButton
-        Left = 123
-        Top = 2
-        Width = 8
+        Left = 184
+        Height = 33
+        Top = 0
         Caption = 'ToolButton23'
         ImageIndex = 28
         Style = tbsSeparator
       end
       object ToolButton1: TToolButton
-        Left = 131
-        Top = 2
+        Left = 192
+        Top = 0
         Action = ItemEditAction
       end
       object ToolButton2: TToolButton
-        Left = 154
-        Top = 2
+        Left = 227
+        Top = 0
         Action = SkillEditAction
       end
       object ToolButton14: TToolButton
-        Left = 177
-        Top = 2
+        Left = 262
+        Top = 0
         Action = StructEditAction
       end
       object ToolButton27: TToolButton
-        Left = 200
-        Top = 2
-        Width = 8
+        Left = 297
+        Height = 33
+        Top = 0
         Caption = 'ToolButton27'
         ImageIndex = 43
         Style = tbsSeparator
       end
       object ToolButton47: TToolButton
-        Left = 208
-        Top = 2
+        Left = 305
         Hint = 'Scripts'
+        Top = 0
         Action = ScriptEditAction
         ParentShowHint = False
         ShowHint = True
       end
       object ScriptSplit: TToolButton
-        Left = 231
-        Top = 2
-        Width = 8
+        Left = 340
+        Height = 33
+        Top = 0
         Caption = 'ScriptSplit'
         ImageIndex = 47
         Style = tbsSeparator
       end
       object ToolButton9: TToolButton
-        Left = 239
-        Top = 2
+        Left = 348
         Hint = 'Turn Events'
+        Top = 0
         Action = TurnEventsAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton43: TToolButton
-        Left = 262
-        Top = 2
+        Left = 383
         Hint = 'Advisor Warnings'
+        Top = 0
         Action = AdvisorWarnAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton50: TToolButton
-        Left = 285
-        Top = 2
-        Width = 8
+        Left = 418
+        Height = 33
+        Top = 0
         Caption = 'ToolButton50'
         ImageIndex = 47
         Style = tbsSeparator
       end
       object ToolButton32: TToolButton
-        Left = 293
-        Top = 2
+        Left = 426
         Hint = 'Battles in Region'
+        Top = 0
         Action = BattlesAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton16: TToolButton
-        Left = 316
-        Top = 2
+        Left = 461
+        Top = 0
         Action = TradeStructAction
       end
       object ToolButton28: TToolButton
-        Left = 339
-        Top = 2
-        Width = 8
+        Left = 496
+        Height = 33
+        Top = 0
         Caption = 'ToolButton28'
         ImageIndex = 24
         Style = tbsSeparator
       end
       object ToolButton42: TToolButton
-        Left = 347
-        Top = 2
+        Left = 504
         Hint = 'Soldiers in Unit'
+        Top = 0
         Action = SoldiersAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton34: TToolButton
-        Left = 370
-        Top = 2
+        Left = 539
+        Top = 0
         Action = UnitProductionAction
       end
       object ToolButton41: TToolButton
-        Left = 393
-        Top = 2
+        Left = 574
         Hint = 'Make Unit Avatar'
+        Top = 0
         Action = MakeAvatarAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton40: TToolButton
-        Left = 416
-        Top = 2
-        Width = 8
+        Left = 609
+        Height = 33
+        Top = 0
         Caption = 'ToolButton40'
         ImageIndex = 47
         Style = tbsSeparator
       end
       object ToolButton26: TToolButton
-        Left = 424
-        Top = 2
+        Left = 617
         Hint = 'Mini Map'
+        Top = 0
         Action = MiniMapAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton29: TToolButton
-        Left = 447
-        Top = 2
-        Width = 22
+        Left = 652
+        Height = 33
+        Top = 0
         Caption = 'ToolButton29'
         ImageIndex = 48
         Style = tbsSeparator
       end
       object ToolButton18: TToolButton
-        Left = 469
-        Top = 2
+        Left = 660
         Hint = 'Previous Turn'
+        Top = 0
         Action = PrevTurnAction
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton21: TToolButton
-        Left = 492
-        Top = 2
-        Width = 8
+        Left = 695
+        Height = 33
+        Top = 0
         Caption = 'ToolButton21'
         ImageIndex = 43
         Style = tbsSeparator
       end
       object TurnCombo: TComboBox
-        Left = 500
-        Top = 2
+        Left = 703
+        Height = 31
+        Top = 0
         Width = 61
-        Height = 21
+        ItemHeight = 23
         Style = csDropDownList
-        ItemHeight = 13
         TabOrder = 0
         OnChange = TurnComboChange
       end
       object ToolButton22: TToolButton
-        Left = 561
-        Top = 2
-        Width = 8
+        Left = 764
+        Height = 33
+        Top = 0
         Caption = 'ToolButton22'
         ImageIndex = 43
         Style = tbsSeparator
       end
       object ToolButton20: TToolButton
-        Left = 569
-        Top = 2
+        Left = 772
         Hint = 'Next Turn'
+        Top = 0
         Action = NextTurnAction
         ParentShowHint = False
         ShowHint = True
       end
     end
     object Panel3: TPanel
-      Left = 1865
-      Top = 0
-      Width = 46
-      Height = 26
+      Left = 106
+      Height = 40
+      Top = 1
+      Width = 69
       Align = alRight
       BevelOuter = bvNone
+      ClientHeight = 40
+      ClientWidth = 69
+      ParentBackground = False
       TabOrder = 1
       object btnStopProcessor: TSpeedButton
-        Left = 15
-        Top = 0
-        Width = 23
-        Height = 22
+        Left = 23
+        Height = 33
         Hint = 'Stop Order Processor'
+        Top = 0
+        Width = 34
         Action = StopProcessorAction
         Anchors = [akTop, akRight]
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000
-          0000000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
-          00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF0000FF0000FF00
-          00FF0000FF0000FF0000FFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFF000000FFFFFF0000FF0000FF0000FF0000FF0000FF0000FFFFFFFF0000
-          00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF0000FF0000FF00
-          00FF0000FF0000FF0000FFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFF000000FFFFFF0000FF0000FF0000FF0000FF0000FF0000FFFFFFFF0000
-          00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF0000FF0000FF00
-          00FF0000FF0000FF0000FFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFF000000FFFFFF0000FF0000FF0000FF0000FF0000FF0000FFFFFFFF0000
-          00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFF0000000000000000000000000000000000000000000000000000000000
-          00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
         Margin = 1
-        ParentShowHint = False
         ShowHint = True
+        ParentShowHint = False
       end
     end
     object ToolBar3: TToolBar
-      Left = 1
+      Left = 2
+      Height = 44
       Top = 0
-      Width = 28
-      Height = 29
+      Width = 42
       Align = alNone
-      ButtonHeight = 23
+      ButtonHeight = 34
+      ButtonWidth = 52
       Caption = 'ToolBar3'
       EdgeBorders = []
       Images = ResForm.BtnImages
       TabOrder = 2
       object ToolButton3: TToolButton
-        Left = 0
-        Top = 2
+        Left = 1
+        Top = 0
         Action = ManagerAction
       end
     end
   end
   object pnRightSidebar: TPanel
-    Left = 1356
-    Top = 28
-    Width = 560
-    Height = 1006
+    Left = -664
+    Height = 0
+    Top = 0
+    Width = 840
     Align = alRight
     BevelOuter = bvNone
+    ClientHeight = 0
+    ClientWidth = 840
+    ParentBackground = False
     TabOrder = 2
     object spRegionUnit: TSplitter
-      Left = 0
-      Top = 461
-      Width = 560
-      Height = 6
       Cursor = crVSplit
+      Left = 0
+      Height = 9
+      Top = 0
+      Width = 840
       Align = alTop
       Beveled = True
+      ResizeAnchor = akTop
     end
     object pnRegion: TPanel
       Left = 0
+      Height = 698
       Top = 0
-      Width = 560
-      Height = 465
+      Width = 840
       Align = alTop
       BevelOuter = bvNone
       BorderWidth = 4
+      ClientHeight = 698
+      ClientWidth = 840
+      ParentBackground = False
       TabOrder = 0
       object WeatherLabel: TLabel
-        Left = 0
-        Top = 108
-        Width = 552
-        Height = 13
+        Left = 4
+        Height = 23
+        Top = 166
+        Width = 832
         Align = alTop
         Caption = 'It was clear last month; it will be clear next month.'
         WordWrap = True
       end
       object Bevel2: TBevel
-        Left = 0
-        Top = 121
-        Width = 552
-        Height = 8
+        Left = 4
+        Height = 12
+        Top = 189
+        Width = 832
         Align = alTop
         Shape = bsSpacer
       end
       object Bevel3: TBevel
-        Left = 0
-        Top = 100
-        Width = 552
-        Height = 8
+        Left = 4
+        Height = 12
+        Top = 154
+        Width = 832
         Align = alTop
         Shape = bsSpacer
       end
       object spRegionInfoNotes: TSplitter
-        Left = 0
-        Top = 329
-        Width = 552
-        Height = 8
         Cursor = crVSplit
+        Left = 4
+        Height = 12
+        Top = 501
+        Width = 832
         Align = alTop
+        ResizeAnchor = akTop
       end
       object Bevel6: TBevel
-        Left = 0
-        Top = 449
-        Width = 552
-        Height = 8
+        Left = 4
+        Height = 12
+        Top = 682
+        Width = 832
         Align = alBottom
         Shape = bsSpacer
       end
       object RegionInfoPanel: TPanel
-        Left = 0
-        Top = 0
-        Width = 552
-        Height = 100
+        Left = 4
+        Height = 150
+        Top = 4
+        Width = 832
         Align = alTop
         BevelOuter = bvNone
+        ClientHeight = 150
+        ClientWidth = 832
+        ParentBackground = False
         TabOrder = 0
         object GateImage: TImage
-          Left = 8
+          Left = 12
+          Height = 24
           Top = 0
-          Width = 16
-          Height = 16
+          Width = 24
           Picture.Data = {
             07544269746D617036030000424D360300000000000036000000280000001000
             000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -1539,131 +1591,131 @@ object MainForm: TMainForm
             C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
             C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
             C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-            C0C0}
+            C0C0
+          }
           Transparent = True
         end
         object GateLabel: TLabel
-          Left = 24
-          Top = 4
-          Width = 25
-          Height = 13
+          Left = 36
+          Height = 20
+          Top = 6
+          Width = 38
           AutoSize = False
           Caption = '12'
         end
         object LandLabel: TLabel
-          Left = 68
+          Left = 102
+          Height = 36
           Top = 0
-          Width = 92
-          Height = 24
+          Width = 138
           Caption = 'Skottskog'
-          Font.Charset = ANSI_CHARSET
+          Font.CharSet = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -21
+          Font.Height = -32
           Font.Name = 'Black Chancery'
-          Font.Style = []
           ParentFont = False
           OnClick = CopyLabelToClipboard
         end
         object HexLabel: TLabel
-          Left = 68
-          Top = 28
-          Width = 153
-          Height = 13
+          Left = 102
+          Height = 20
+          Top = 42
+          Width = 230
           AutoSize = False
           Caption = 'plain (12,41), jun 12'
           OnClick = CopyLabelToClipboard
         end
         object SettlLabel: TLabel
-          Left = 68
-          Top = 44
-          Width = 153
-          Height = 13
+          Left = 102
+          Height = 20
+          Top = 66
+          Width = 230
           AutoSize = False
           Caption = 'Drumcollogher city'
           OnClick = CopyLabelToClipboard
         end
         object PeasantsLabel: TLabel
-          Left = 68
-          Top = 60
-          Width = 153
-          Height = 13
+          Left = 102
+          Height = 20
+          Top = 90
+          Width = 230
           AutoSize = False
           Caption = '1234 wood elves'
         end
         object TaxRateLabel: TLabel
-          Left = 300
-          Top = 28
-          Width = 41
-          Height = 13
+          Left = 450
+          Height = 20
+          Top = 42
+          Width = 62
           AutoSize = False
           Caption = '342'
           OnClick = CopyLabelToClipboard
         end
         object WagesLabel: TLabel
-          Left = 300
-          Top = 44
-          Width = 41
-          Height = 13
+          Left = 450
+          Height = 20
+          Top = 66
+          Width = 62
           AutoSize = False
           Caption = '12'
           OnClick = CopyLabelToClipboard
         end
         object EnterLabel: TLabel
-          Left = 300
-          Top = 76
-          Width = 41
-          Height = 13
+          Left = 450
+          Height = 20
+          Top = 114
+          Width = 62
           AutoSize = False
           Caption = '13'
           OnClick = CopyLabelToClipboard
         end
         object Label1: TLabel
           Left = 0
-          Top = 28
-          Width = 22
-          Height = 13
+          Height = 23
+          Top = 42
+          Width = 33
           Caption = 'Hex:'
         end
         object Label4: TLabel
           Left = 0
-          Top = 44
-          Width = 53
-          Height = 13
+          Height = 23
+          Top = 66
+          Width = 87
           Caption = 'Settlement:'
         end
         object Label5: TLabel
           Left = 0
-          Top = 60
-          Width = 47
-          Height = 13
+          Height = 23
+          Top = 90
+          Width = 70
           Caption = 'Peasants:'
         end
         object Label6: TLabel
-          Left = 228
-          Top = 28
-          Width = 47
-          Height = 13
+          Left = 342
+          Height = 23
+          Top = 42
+          Width = 67
           Caption = 'Tax Rate:'
         end
         object Label7: TLabel
-          Left = 228
-          Top = 44
-          Width = 37
-          Height = 13
+          Left = 342
+          Height = 23
+          Top = 66
+          Width = 54
           Caption = 'Wages:'
         end
         object Label8: TLabel
-          Left = 228
-          Top = 76
-          Width = 68
-          Height = 13
+          Left = 342
+          Height = 23
+          Top = 114
+          Width = 113
           Caption = 'Entertainment:'
         end
         object imgWeatherNext: TImage
           Left = 0
+          Height = 15
           Top = 0
-          Width = 10
-          Height = 10
+          Width = 15
           Picture.Data = {
             07544269746D617076010000424D760100000000000036000000280000000A00
             00000A000000010018000000000040010000120B0000120B0000000000000000
@@ -1677,256 +1729,267 @@ object MainForm: TMainForm
             0000FF00FFFF00FF00000000000000000000000000000004FDEF000000FF00FF
             0000FF00FFFF00FF04FDEF000000FF00FF04FDEF000000FF00FFFF00FFFF00FF
             0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-            0000}
+            0000
+          }
           Transparent = True
         end
         object TaxMenLabel: TLabel
-          Left = 344
-          Top = 28
-          Width = 23
-          Height = 13
+          Left = 516
+          Height = 20
+          Top = 42
+          Width = 30
           Caption = '7 / 7'
           Color = clBtnFace
-          Font.Charset = DEFAULT_CHARSET
           Font.Color = clGrayText
-          Font.Height = -11
+          Font.Height = -17
           Font.Name = 'MS Sans Serif'
-          Font.Style = []
           ParentColor = False
           ParentFont = False
         end
         object EnterMenLabel: TLabel
-          Left = 344
-          Top = 76
-          Width = 23
-          Height = 13
+          Left = 516
+          Height = 20
+          Top = 114
+          Width = 30
           Caption = '7 / 7'
           Color = clBtnFace
-          Font.Charset = DEFAULT_CHARSET
           Font.Color = clGrayText
-          Font.Height = -11
+          Font.Height = -17
           Font.Name = 'MS Sans Serif'
-          Font.Style = []
           ParentColor = False
           ParentFont = False
         end
         object WorkLabel: TLabel
-          Left = 344
-          Top = 60
-          Width = 23
-          Height = 13
+          Left = 516
+          Height = 20
+          Top = 90
+          Width = 30
           Caption = '7 / 7'
           Color = clBtnFace
-          Font.Charset = DEFAULT_CHARSET
           Font.Color = clGrayText
-          Font.Height = -11
+          Font.Height = -17
           Font.Name = 'MS Sans Serif'
-          Font.Style = []
           ParentColor = False
           ParentFont = False
         end
         object Label20: TLabel
-          Left = 228
-          Top = 60
-          Width = 57
-          Height = 13
+          Left = 342
+          Height = 23
+          Top = 90
+          Width = 88
           Caption = 'Max wages:'
         end
         object MaxWagesLabel: TLabel
-          Left = 300
-          Top = 60
-          Width = 41
-          Height = 13
+          Left = 450
+          Height = 20
+          Top = 90
+          Width = 62
           AutoSize = False
           Caption = '108923'
           OnClick = CopyLabelToClipboard
         end
       end
       object TradePanel: TPanel
-        Left = 0
-        Top = 129
-        Width = 552
-        Height = 200
+        Left = 4
+        Height = 300
+        Top = 201
+        Width = 832
         Align = alTop
         BevelOuter = bvNone
+        ClientHeight = 300
+        ClientWidth = 832
+        ParentBackground = False
         TabOrder = 1
         OnResize = TradePanelResize
         object spProducts: TSplitter
-          Left = 181
+          Left = 278
+          Height = 300
           Top = 0
-          Width = 3
-          Height = 200
-          Cursor = crHSplit
+          Width = 4
         end
         object spWanted: TSplitter
-          Left = 361
+          Left = 552
+          Height = 300
           Top = 0
-          Width = 3
-          Height = 200
-          Cursor = crHSplit
+          Width = 4
           Align = alRight
+          ResizeAnchor = akRight
         end
         object pnForSale: TPanel
-          Left = 184
+          Left = 282
+          Height = 300
           Top = 0
-          Width = 177
-          Height = 200
+          Width = 270
           Align = alClient
           BevelOuter = bvNone
+          ClientHeight = 300
+          ClientWidth = 270
+          ParentBackground = False
           TabOrder = 0
           object Label17: TLabel
             Left = 0
+            Height = 24
             Top = 0
-            Width = 177
-            Height = 16
+            Width = 270
             Align = alTop
             AutoSize = False
             Caption = ' For Sale:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object ForSaleGrid: TStringGrid
             Left = 0
-            Top = 12
-            Width = 177
-            Height = 184
+            Height = 276
+            Top = 24
+            Width = 270
             Align = alClient
             ColCount = 3
             FixedRows = 0
-            Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+            Options = []
             RowCount = 0
+            TabOrder = 0
             OnDblClick = ItemGridDblClick
             OnDrawCell = ItemGridDrawCell
           end
         end
         object pnProducts: TPanel
           Left = 0
+          Height = 300
           Top = 0
-          Width = 185
-          Height = 200
+          Width = 278
           Align = alLeft
           BevelOuter = bvNone
           Caption = 'pnProducts'
+          ClientHeight = 300
+          ClientWidth = 278
+          ParentBackground = False
           TabOrder = 1
           object Label12: TLabel
             Left = 0
+            Height = 24
             Top = 0
-            Width = 185
-            Height = 16
+            Width = 278
             Align = alTop
             AutoSize = False
             Caption = 'Products:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object ProductGrid: TStringGrid
             Left = 0
-            Top = 12
-            Width = 185
-            Height = 184
+            Height = 276
+            Top = 24
+            Width = 278
             Align = alClient
             ColCount = 2
             FixedRows = 0
-            Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+            Options = []
             RowCount = 0
+            TabOrder = 0
             OnDblClick = ItemGridDblClick
             OnDrawCell = ItemGridDrawCell
           end
         end
         object pnWanted: TPanel
-          Left = 364
+          Left = 556
+          Height = 300
           Top = 0
-          Width = 184
-          Height = 200
+          Width = 276
           Align = alRight
           BevelOuter = bvNone
           Caption = 'pnWanted'
+          ClientHeight = 300
+          ClientWidth = 276
+          ParentBackground = False
           TabOrder = 2
           object Label18: TLabel
             Left = 0
+            Height = 24
             Top = 0
-            Width = 184
-            Height = 16
+            Width = 276
             Align = alTop
             AutoSize = False
             Caption = ' Wanted:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object WantedGrid: TStringGrid
             Left = 0
-            Top = 12
-            Width = 184
-            Height = 184
+            Height = 276
+            Top = 24
+            Width = 276
             Align = alClient
             ColCount = 3
             FixedRows = 0
-            Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+            Options = []
             RowCount = 0
+            TabOrder = 0
             OnDblClick = ItemGridDblClick
             OnDrawCell = ItemGridDrawCell
           end
         end
       end
       object pnRegionExtra: TPanel
-        Left = 0
-        Top = 337
-        Width = 552
-        Height = 112
+        Left = 4
+        Height = 169
+        Top = 513
+        Width = 832
         Align = alClient
         BevelOuter = bvNone
+        ClientHeight = 169
+        ClientWidth = 832
+        ParentBackground = False
         TabOrder = 2
         object Splitter1: TSplitter
-          Left = 360
+          Left = 550
+          Height = 169
           Top = 0
-          Width = 3
-          Height = 112
-          Cursor = crHSplit
+          Width = 4
           Align = alRight
+          ResizeAnchor = akRight
         end
         object pnNotes: TPanel
-          Left = 363
+          Left = 554
+          Height = 169
           Top = 0
-          Width = 185
-          Height = 112
+          Width = 278
           Align = alRight
           BevelOuter = bvNone
+          ClientHeight = 169
+          ClientWidth = 278
+          ParentBackground = False
           TabOrder = 0
           object Label24: TLabel
             Left = 0
+            Height = 20
             Top = 0
-            Width = 185
-            Height = 13
+            Width = 278
             Align = alTop
             Caption = 'Notes:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object NotesMemo: TMemo
             Left = 0
-            Top = 9
-            Width = 185
-            Height = 99
+            Height = 149
+            Top = 20
+            Width = 278
             Align = alClient
             TabOrder = 0
             OnExit = NotesMemoExit
@@ -1935,39 +1998,39 @@ object MainForm: TMainForm
         end
         object pnEconomy: TPanel
           Left = 0
+          Height = 169
           Top = 0
-          Width = 364
-          Height = 112
+          Width = 550
           Align = alClient
           BevelOuter = bvNone
+          ClientHeight = 169
+          ClientWidth = 550
+          ParentBackground = False
           TabOrder = 1
           object Label27: TLabel
             Left = 0
+            Height = 20
             Top = 0
-            Width = 364
-            Height = 13
+            Width = 550
             Align = alTop
             Caption = 'Economy:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object memEconomy: TMemo
             Left = 0
-            Top = 9
-            Width = 364
-            Height = 99
+            Height = 149
+            Top = 20
+            Width = 550
             Align = alClient
             Color = clInfoBk
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -13
+            Font.Height = -20
             Font.Name = 'Consolas'
-            Font.Style = []
             ParentFont = False
             ReadOnly = True
             ScrollBars = ssBoth
@@ -1978,158 +2041,167 @@ object MainForm: TMainForm
     end
     object pnUnit: TPanel
       Left = 0
-      Top = 467
-      Width = 560
-      Height = 535
+      Height = 0
+      Top = 0
+      Width = 840
       Align = alClient
       BevelOuter = bvNone
       BorderWidth = 4
+      ClientHeight = 0
+      ClientWidth = 840
+      ParentBackground = False
       TabOrder = 1
       object UnitPageSplit: TSplitter
-        Left = 0
-        Top = 262
-        Width = 552
-        Height = 3
         Cursor = crVSplit
+        Left = 4
+        Height = 4
+        Top = 0
+        Width = 832
         Align = alTop
+        ResizeAnchor = akTop
       end
       object Bevel5: TBevel
-        Left = 0
-        Top = 37
-        Width = 552
-        Height = 8
+        Left = 4
+        Height = 12
+        Top = 0
+        Width = 832
         Align = alTop
         Shape = bsSpacer
       end
       object Bevel1: TBevel
-        Left = 0
+        Left = 4
+        Height = 12
         Top = 0
-        Width = 552
-        Height = 8
+        Width = 832
         Align = alTop
         Shape = bsSpacer
       end
       object pnItemsAndSkills: TPanel
-        Left = 0
-        Top = 122
-        Width = 552
-        Height = 140
+        Left = 4
+        Height = 210
+        Top = 0
+        Width = 832
         Align = alTop
         BevelOuter = bvNone
+        ClientHeight = 210
+        ClientWidth = 832
+        ParentBackground = False
         TabOrder = 0
         object spItemsSkills: TSplitter
-          Left = 363
+          Left = 555
+          Height = 210
           Top = 0
-          Width = 3
-          Height = 140
-          Cursor = crHSplit
+          Width = 4
           Align = alRight
+          ResizeAnchor = akRight
         end
         object pItemGrid: TPanel
           Left = 0
+          Height = 210
           Top = 0
-          Width = 367
-          Height = 140
+          Width = 555
           Align = alClient
           BevelOuter = bvNone
-          Constraints.MinHeight = 40
+          ClientHeight = 210
+          ClientWidth = 555
+          Constraints.MinHeight = 60
+          ParentBackground = False
           TabOrder = 0
           object pGiveTools: TPanel
             Left = 0
-            Top = 110
-            Width = 367
-            Height = 26
+            Height = 39
+            Top = 171
+            Width = 555
             Align = alBottom
             BevelOuter = bvNone
+            ClientHeight = 39
+            ClientWidth = 555
+            ParentBackground = False
             TabOrder = 0
             object Label21: TLabel
-              Left = 102
-              Top = 3
-              Width = 25
-              Height = 13
+              Left = 153
+              Height = 23
+              Top = 4
+              Width = 37
               Caption = 'Give:'
             end
             object ToolBar2: TToolBar
-              Left = 1
+              Left = 2
+              Height = 36
               Top = 0
-              Width = 96
-              Height = 24
+              Width = 144
               Align = alNone
               Caption = 'MapToolbar'
               EdgeBorders = []
-              Flat = True
               Images = ResForm.BtnImages
               ParentShowHint = False
-              ShowHint = False
               TabOrder = 0
               object tbGiveAll: TToolButton
                 Tag = 1
-                Left = 0
-                Top = 0
+                Left = 1
                 Hint = 'Give everything'
+                Top = 0
                 AllowAllUp = True
                 Caption = 'Level'
                 DragMode = dmAutomatic
                 ImageIndex = 0
+                OnEndDrag = tbMaskGiveEndDrag
                 ParentShowHint = False
                 ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
               end
               object tbGiveBattle: TToolButton
                 Tag = 2
-                Left = 23
-                Top = 0
+                Left = 36
                 Hint = 'Give battle items'
+                Top = 0
                 Caption = 'BookmarkAction'
                 DragMode = dmAutomatic
                 ImageIndex = 28
+                OnEndDrag = tbMaskGiveEndDrag
                 ParentShowHint = False
                 ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
               end
               object tbGiveSpoils: TToolButton
                 Tag = 4
-                Left = 46
-                Top = 0
+                Left = 71
                 Hint = 'Give spoils'
+                Top = 0
                 Caption = 'tbGiveSpoils'
                 DragMode = dmAutomatic
                 ImageIndex = 63
+                OnEndDrag = tbMaskGiveEndDrag
                 ParentShowHint = False
                 ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
               end
               object tbGiveTrade: TToolButton
                 Tag = 3
-                Left = 69
-                Top = 0
+                Left = 106
                 Hint = 'Give trade goods'
+                Top = 0
                 Caption = 'tbGiveTrade'
                 DragMode = dmAutomatic
                 ImageIndex = 43
+                OnEndDrag = tbMaskGiveEndDrag
                 ParentShowHint = False
                 ShowHint = True
-                OnEndDrag = tbMaskGiveEndDrag
               end
             end
             object eGiveAmt: TSpinEdit
-              Left = 132
+              Left = 198
+              Height = 31
               Top = 0
-              Width = 228
-              Height = 22
-              Anchors = [akLeft, akTop, akRight]
+              Width = 347
+              Anchors = [akTop, akLeft, akRight]
               MaxValue = 9999999
-              MinValue = 0
-              TabOrder = 1
-              Value = 0
               OnKeyPress = HandleSelectAllKeyPress
+              TabOrder = 1
             end
           end
           object PageControl1: TPageControl
             Left = 0
+            Height = 171
             Top = 0
-            Width = 367
-            Height = 114
+            Width = 555
             ActivePage = TabSheet1
             Align = alClient
             Style = tsButtons
@@ -2137,20 +2209,24 @@ object MainForm: TMainForm
             TabOrder = 1
             object TabSheet1: TTabSheet
               Caption = 'Items'
+              ClientHeight = 132
+              ClientWidth = 547
               object ItemGrid: TStringGrid
                 Left = 0
+                Height = 132
                 Top = 0
-                Width = 359
-                Height = 83
+                Width = 547
                 Align = alClient
                 ColCount = 2
                 FixedRows = 0
-                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
+                Options = []
+                ParentShowHint = False
                 RowCount = 0
                 ShowHint = True
+                TabOrder = 0
+                OnDragOver = ItemGridDragOver
                 OnDblClick = ItemGridDblClick
                 OnDrawCell = ItemGridDrawCell
-                OnDragOver = ItemGridDragOver
                 OnEndDrag = ItemGridEndDrag
                 OnEnter = ItemGridEnter
                 OnMouseDown = ItemGridMouseDown
@@ -2159,135 +2235,148 @@ object MainForm: TMainForm
             end
             object TabSheet3: TTabSheet
               Caption = 'Items (end turn)'
+              ClientHeight = 132
+              ClientWidth = 547
               ImageIndex = 2
               object ItemGridFinal: TStringGrid
                 Left = 0
+                Height = 132
                 Top = 0
-                Width = 359
-                Height = 83
+                Width = 547
                 Align = alClient
                 ColCount = 2
                 FixedRows = 0
-                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol, pgoMultiselect]
+                Options = []
+                ParentShowHint = False
                 RowCount = 0
                 ShowHint = True
+                TabOrder = 0
                 OnDblClick = ItemGridDblClick
                 OnDrawCell = ItemGridDrawCell
               end
             end
             object TabSheet2: TTabSheet
               Caption = 'Inventory Changes'
+              ClientHeight = 132
+              ClientWidth = 547
               ImageIndex = 1
               object InventoryChanges: TStringGrid
                 Left = 0
+                Height = 132
                 Top = 0
-                Width = 359
-                Height = 83
+                Width = 547
                 Align = alClient
                 ColCount = 4
                 FixedRows = 0
-                Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoNoSelect, pgoStretchLastCol]
+                Options = []
                 RowCount = 0
+                TabOrder = 0
                 OnDrawCell = InventoryChangesDrawCell
               end
             end
           end
         end
         object pnSkills: TPanel
-          Left = 366
+          Left = 559
+          Height = 210
           Top = 0
-          Width = 182
-          Height = 140
+          Width = 273
           Align = alRight
           BevelOuter = bvNone
+          ClientHeight = 210
+          ClientWidth = 273
+          ParentBackground = False
           TabOrder = 1
           object Label23: TLabel
             Left = 0
+            Height = 20
             Top = 0
-            Width = 182
-            Height = 13
+            Width = 273
             Align = alTop
             Caption = 'Skills:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object SkillGrid: TStringGrid
             Left = 0
-            Top = 9
-            Width = 182
-            Height = 127
+            Height = 190
+            Top = 20
+            Width = 273
             Align = alClient
             ColCount = 3
             FixedRows = 0
-            Options = [pgoLines, pgoColSizing, pgoColMoving, pgoColHiding, pgoSortOnClick, pgoRowSelect, pgoStretchLastCol]
+            Options = []
             PopupMenu = PopMenu
             RowCount = 0
+            TabOrder = 0
             OnDblClick = SkillGridDblClick
             OnMouseDown = SkillGridMouseDown
           end
         end
       end
       object pnUnitName: TPanel
-        Left = 0
-        Top = 8
-        Width = 552
-        Height = 29
+        Left = 4
+        Height = 44
+        Top = 0
+        Width = 832
         Align = alTop
         BevelOuter = bvNone
+        ClientHeight = 44
+        ClientWidth = 832
+        ParentBackground = False
         TabOrder = 1
         object NumLabel: TLabel
-          Left = 520
+          Left = 788
+          Height = 44
           Top = 0
-          Width = 28
-          Height = 29
+          Width = 44
           Align = alRight
           Alignment = taRightJustify
           Caption = '6353'
-          Constraints.MaxWidth = 32
-          Font.Charset = DEFAULT_CHARSET
+          Constraints.MaxWidth = 48
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -20
           Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
           Layout = tlCenter
+          ParentFont = False
           OnClick = CopyLabelToClipboard
         end
         object Bevel4: TBevel
-          Left = 512
+          Left = 776
+          Height = 44
           Top = 0
-          Width = 8
-          Height = 29
+          Width = 12
           Align = alRight
           Shape = bsSpacer
         end
         object pnName: TPanel
           Left = 0
+          Height = 44
           Top = 0
-          Width = 516
-          Height = 29
+          Width = 776
           Align = alClient
           BevelOuter = bvNone
+          ClientHeight = 44
+          ClientWidth = 776
+          ParentBackground = False
           TabOrder = 0
           object UnitNameEdit: TEdit
             Left = 0
+            Height = 42
             Top = 0
-            Width = 516
-            Height = 28
-            Anchors = [akLeft, akTop, akRight]
+            Width = 776
+            Anchors = [akTop, akLeft, akRight]
             AutoSize = False
             BorderStyle = bsNone
             Color = clBtnFace
-            Font.Charset = ANSI_CHARSET
+            Font.CharSet = ANSI_CHARSET
             Font.Color = clWindowText
-            Font.Height = -19
+            Font.Height = -29
             Font.Name = 'Black Chancery'
-            Font.Style = []
             ParentFont = False
             TabOrder = 0
             Text = 'Family of Ogres'
@@ -2298,50 +2387,56 @@ object MainForm: TMainForm
         end
       end
       object UnitMainDataPanel: TPanel
-        Left = 0
-        Top = 45
-        Width = 552
-        Height = 52
+        Left = 4
+        Height = 78
+        Top = 0
+        Width = 832
         Align = alTop
         BevelOuter = bvNone
+        ClientHeight = 78
+        ClientWidth = 832
+        ParentBackground = False
         TabOrder = 2
         object UnitMainDataTextPanel: TPanel
           Left = 0
+          Height = 78
           Top = 0
-          Width = 500
-          Height = 52
+          Width = 754
           Align = alClient
           BevelOuter = bvNone
+          ClientHeight = 78
+          ClientWidth = 754
+          ParentBackground = False
           TabOrder = 0
           object Label3: TLabel
             Left = 0
-            Top = 16
-            Width = 38
-            Height = 13
+            Height = 23
+            Top = 24
+            Width = 58
             Caption = 'Faction:'
           end
           object FactionLabel: TLabel
-            Left = 52
-            Top = 16
-            Width = 441
-            Height = 13
-            Anchors = [akLeft, akTop, akRight]
+            Left = 78
+            Height = 20
+            Top = 24
+            Width = 666
+            Anchors = [akTop, akLeft, akRight]
             AutoSize = False
             Caption = 'Forest Owls'
             ShowAccelChar = False
           end
           object Label10: TLabel
             Left = 0
-            Top = 32
-            Width = 34
-            Height = 13
+            Height = 23
+            Top = 48
+            Width = 54
             Caption = 'Object:'
           end
           object StructImage: TImage
-            Left = 34
-            Top = 30
-            Width = 16
-            Height = 16
+            Left = 51
+            Height = 24
+            Top = 45
+            Width = 24
             Picture.Data = {
               07544269746D617036030000424D360300000000000036000000280000001000
               000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -2369,24 +2464,25 @@ object MainForm: TMainForm
               00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00FFFF00FF
               FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
               FFFF00FF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-              00FF}
+              00FF
+            }
             Transparent = True
           end
           object StructLabel: TLabel
-            Left = 52
-            Top = 32
-            Width = 441
-            Height = 13
-            Anchors = [akLeft, akTop, akRight]
+            Left = 78
+            Height = 20
+            Top = 48
+            Width = 666
+            Anchors = [akTop, akLeft, akRight]
             AutoSize = False
             Caption = 'Ship [331] : Galleon'
             ShowAccelChar = False
           end
           object FactionFlagImage: TImage
-            Left = 40
-            Top = 16
-            Width = 10
-            Height = 10
+            Left = 60
+            Height = 15
+            Top = 24
+            Width = 15
             Picture.Data = {
               07544269746D617076010000424D760100000000000036000000280000000A00
               00000A000000010018000000000040010000CE0E0000C40E0000000000000000
@@ -2400,17 +2496,17 @@ object MainForm: TMainForm
               0000FF00FFFF00FF00000000FF0000FF0000FF0000FF00000000FF00FFFF00FF
               0000FF00FFFF00FF222222222222222222222222222222000000FF00FFFF00FF
               0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-              0000}
+              0000
+            }
             Transparent = True
           end
           object btnLocal: TSpeedButton
             Left = 0
-            Top = 0
-            Width = 18
-            Height = 18
+            Height = 27
             Hint = 'Local Description (hide from other players)'
+            Top = 0
+            Width = 27
             AllowAllUp = True
-            GroupIndex = -1
             Flat = True
             Glyph.Data = {
               E6010000424DE60100000000000036000000280000000C0000000C0000000100
@@ -2428,18 +2524,20 @@ object MainForm: TMainForm
               FF00000000FF00000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFF
               FFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF
               FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-              FFFFFFFFFFFFFFFFFFFF}
-            ParentShowHint = False
-            ShowHint = True
+              FFFFFFFFFFFFFFFFFFFF
+            }
+            GroupIndex = -1
             OnClick = btnLocalClick
+            ShowHint = True
+            ParentShowHint = False
           end
           object UnitDescrEdit: TEdit
             Tag = 1
-            Left = 20
+            Left = 30
+            Height = 22
             Top = 0
-            Width = 473
-            Height = 15
-            Anchors = [akLeft, akTop, akRight]
+            Width = 714
+            Anchors = [akTop, akLeft, akRight]
             AutoSize = False
             BorderStyle = bsNone
             Color = clBtnFace
@@ -2451,287 +2549,300 @@ object MainForm: TMainForm
           end
         end
         object UnitImagePanel: TPanel
-          Left = 496
+          Left = 754
+          Height = 78
           Top = 0
-          Width = 52
-          Height = 52
+          Width = 78
           Align = alRight
           BevelInner = bvLowered
           BevelOuter = bvNone
+          ClientHeight = 78
+          ClientWidth = 78
+          ParentBackground = False
           TabOrder = 1
           object UnitImage: TImage
             Left = 0
+            Height = 75
             Top = 0
-            Width = 50
-            Height = 50
+            Width = 75
             OnDblClick = UnitImageDblClick
           end
         end
       end
       object FlagBar: TToolBar
-        Left = 0
-        Top = 97
-        Width = 552
-        Height = 25
-        ButtonHeight = 19
+        Left = 4
+        Height = 38
+        Top = 0
+        Width = 832
+        ButtonHeight = 28
+        ButtonWidth = 52
         Caption = 'FlagBar'
         EdgeBorders = []
         Images = ResForm.FlagImages
         TabOrder = 3
         object GuardFlagBtn: TToolButton
-          Left = 0
-          Top = 2
+          Left = 1
           Hint = 'On guard'
+          Top = 0
           AllowAllUp = True
           Caption = 'GuardFlagBtn'
           ImageIndex = 0
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object ToolButton33: TToolButton
           Tag = 1
-          Left = 23
-          Top = 2
+          Left = 53
           Hint = 'Taxing'
+          Top = 0
           AllowAllUp = True
           Caption = 'ToolButton33'
           ImageIndex = 1
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object AvoidFlagBtn: TToolButton
           Tag = 2
-          Left = 46
-          Top = 2
+          Left = 105
           Hint = 'Avoiding'
+          Top = 0
           AllowAllUp = True
           Caption = 'AvoidFlagBtn'
           ImageIndex = 2
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object ToolButton35: TToolButton
           Tag = 3
-          Left = 69
-          Top = 2
+          Left = 157
           Hint = 'Behind'
+          Top = 0
           AllowAllUp = True
           Caption = 'ToolButton35'
           ImageIndex = 3
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object ToolButton36: TToolButton
           Tag = 4
-          Left = 92
-          Top = 2
+          Left = 209
           Hint = 'Holding'
+          Top = 0
           AllowAllUp = True
           Caption = 'ToolButton36'
           ImageIndex = 4
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object ToolButton37: TToolButton
           Tag = 5
-          Left = 115
-          Top = 2
+          Left = 261
           Hint = 'Receive no aid'
+          Top = 0
           AllowAllUp = True
           Caption = 'ToolButton37'
           ImageIndex = 5
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object ToolButton45: TToolButton
           Tag = 6
-          Left = 138
-          Top = 2
+          Left = 313
           Hint = 'Will not cross water'
+          Top = 0
           AllowAllUp = True
           Caption = 'ToolButton45'
           ImageIndex = 6
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object SharingFlag: TToolButton
           Tag = 7
-          Left = 161
-          Top = 2
+          Left = 365
           Hint = 'Sharing inventory'
+          Top = 0
           AllowAllUp = True
           Caption = 'SharingFlag'
           ImageIndex = 18
+          OnClick = UnitFlagBtnClick
           ParentShowHint = False
           ShowHint = True
           Style = tbsCheck
-          OnClick = UnitFlagBtnClick
         end
         object ToolButton48: TToolButton
-          Left = 184
-          Top = 2
-          Width = 8
+          Left = 417
+          Height = 28
+          Top = 0
           Caption = 'ToolButton48'
           ImageIndex = 8
           Style = tbsSeparator
         end
         object btnConsume: TToolButton
-          Left = 192
-          Top = 2
+          Left = 425
           Hint = 'Consumption'
+          Top = 0
           Caption = 'btnConsume'
           ImageIndex = 7
+          OnClick = ExtFlagBtnClick
           ParentShowHint = False
           ShowHint = True
-          OnClick = ExtFlagBtnClick
         end
         object btnReveal: TToolButton
           Tag = 1
-          Left = 215
-          Top = 2
+          Left = 477
           Hint = 'Revealing'
+          Top = 0
           Caption = 'btnReveal'
           ImageIndex = 8
+          OnClick = ExtFlagBtnClick
           ParentShowHint = False
           ShowHint = True
-          OnClick = ExtFlagBtnClick
         end
         object btnSpoils: TToolButton
           Tag = 2
-          Left = 238
-          Top = 2
+          Left = 529
           Hint = 'Spoils'
+          Top = 0
           Caption = 'btnSpoils'
           ImageIndex = 9
+          OnClick = ExtFlagBtnClick
           ParentShowHint = False
           ShowHint = True
-          OnClick = ExtFlagBtnClick
         end
       end
       object pnOrdersEvents: TPanel
-        Left = 0
-        Top = 265
-        Width = 552
-        Height = 262
+        Left = 4
+        Height = 0
+        Top = 0
+        Width = 832
         Align = alClient
         BevelOuter = bvNone
+        ClientHeight = 0
+        ClientWidth = 832
+        ParentBackground = False
         TabOrder = 4
         object spOrdersEvents: TSplitter
-          Left = 363
+          Left = 555
+          Height = 0
           Top = 0
-          Width = 3
-          Height = 262
-          Cursor = crHSplit
+          Width = 4
           Align = alRight
+          ResizeAnchor = akRight
         end
         object pnOrders: TPanel
           Left = 0
+          Height = 0
           Top = 0
-          Width = 367
-          Height = 262
+          Width = 555
           Align = alClient
           BevelOuter = bvNone
+          ClientHeight = 0
+          ClientWidth = 555
+          ParentBackground = False
           TabOrder = 0
           object Label26: TLabel
             Left = 0
+            Height = 20
             Top = 0
-            Width = 367
-            Height = 13
+            Width = 555
             Align = alTop
             Caption = 'Orders:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object Panel2: TPanel
             Left = 0
-            Top = 9
-            Width = 367
-            Height = 21
+            Height = 32
+            Top = 0
+            Width = 555
             Align = alTop
             BevelOuter = bvNone
+            ClientHeight = 32
+            ClientWidth = 555
+            ParentBackground = False
             TabOrder = 0
             object lMonthOut: TLabel
-              Left = 20
+              Left = 30
+              Height = 20
               Top = 0
-              Width = 125
-              Height = 13
+              Width = 188
               AutoSize = False
               Caption = '12 / 20'
             end
             object imgMonthOrder: TImage
               Left = 0
+              Height = 27
               Top = 0
-              Width = 16
-              Height = 18
+              Width = 24
               Transparent = True
             end
             object ToolBar1: TToolBar
-              Left = 324
+              Left = 497
               Top = 0
-              Width = 39
-              Height = 21
+              Width = 58
               Align = alRight
-              ButtonHeight = 18
-              ButtonWidth = 19
+              ButtonHeight = 27
+              ButtonWidth = 28
               Caption = 'ToolBar1'
               EdgeBorders = []
-              Flat = True
               Images = ResForm.SmallBtnList
               TabOrder = 0
               object btnCheckOrder: TToolButton
-                Left = 0
-                Top = 0
+                Left = 1
                 Hint = 'Check orders'
+                Top = 0
                 Caption = 'btnCheckOrder'
                 ImageIndex = 5
+                OnClick = CheckOrderBtnClick
                 ParentShowHint = False
                 ShowHint = True
-                OnClick = CheckOrderBtnClick
               end
               object btnClearOrder: TToolButton
-                Left = 19
-                Top = 0
+                Left = 29
                 Hint = 'Clear orders'
+                Top = 0
                 Caption = 'btnClearOrder'
                 ImageIndex = 4
+                OnClick = ClearOrderBtnClick
                 ParentShowHint = False
                 ShowHint = True
-                OnClick = ClearOrderBtnClick
               end
             end
           end
           object LoadPanel: TPanel
             Left = 0
-            Top = 186
-            Width = 367
-            Height = 72
+            Height = 108
+            Top = -108
+            Width = 555
             Align = alBottom
             BevelOuter = bvNone
+            ClientHeight = 108
+            ClientWidth = 555
+            ParentBackground = False
             TabOrder = 1
             object Image3: TImage
-              Left = 144
-              Top = 43
-              Width = 16
-              Height = 16
+              Left = 216
+              Height = 24
+              Top = 64
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -2759,14 +2870,15 @@ object MainForm: TMainForm
                 00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080000000FF00FFFF00FF
                 FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
                 FFFF00FF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                00FF}
+                00FF
+              }
               Transparent = True
             end
             object Image5: TImage
-              Left = 144
-              Top = 23
-              Width = 16
-              Height = 16
+              Left = 216
+              Height = 24
+              Top = 34
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000D80E0000000000000000
@@ -2794,14 +2906,15 @@ object MainForm: TMainForm
                 00FFFF00FFFF00FFFF00FFFF00FF000000FFFFFFFFFFFF000000FF00FF000000
                 000000000000FF00FF000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
                 FF000000000000FF00FFFF00FF000000FF00FF000000FF00FF000000FF00FFFF
-                00FF}
+                00FF
+              }
               Transparent = True
             end
             object Image2: TImage
-              Left = 16
-              Top = 43
-              Width = 16
-              Height = 16
+              Left = 24
+              Height = 24
+              Top = 64
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -2829,14 +2942,15 @@ object MainForm: TMainForm
                 00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000
                 000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
                 FFFF00FFFF00FFFF00FFFF00FF000000FF00FF000000FF00FFFF00FFFF00FFFF
-                00FF}
+                00FF
+              }
               Transparent = True
             end
             object Image1: TImage
-              Left = 16
-              Top = 23
-              Width = 16
-              Height = 16
+              Left = 24
+              Height = 24
+              Top = 34
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000C40E0000C40E0000000000000000
@@ -2864,14 +2978,15 @@ object MainForm: TMainForm
                 00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000
                 000000000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
                 FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
-                00FF}
+                00FF
+              }
               Transparent = True
             end
             object HorsesWeightWarning: TImage
               Left = 0
-              Top = 43
-              Width = 16
-              Height = 16
+              Height = 24
+              Top = 64
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -2899,43 +3014,42 @@ object MainForm: TMainForm
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                C0C0}
+                C0C0
+              }
               Transparent = True
             end
             object HorsesWeightLabel: TLabel
-              Left = 36
-              Top = 44
-              Width = 67
-              Height = 13
+              Left = 54
+              Height = 23
+              Top = 66
+              Width = 106
               Caption = '100 (max 200)'
             end
             object MoveTypeLabel: TLabel
-              Left = 65
-              Top = 2
-              Width = 36
-              Height = 13
+              Left = 98
+              Height = 23
+              Top = 3
+              Width = 57
               Caption = 'walking'
             end
             object UnitWeightLabel: TLabel
-              Left = 36
-              Top = 24
-              Width = 67
-              Height = 13
+              Left = 54
+              Height = 20
+              Top = 36
+              Width = 101
               Caption = '100 (max 200)'
               Color = clBtnFace
-              Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
-              Font.Height = -11
+              Font.Height = -17
               Font.Name = 'MS Sans Serif'
-              Font.Style = []
               ParentColor = False
               ParentFont = False
             end
             object TransportWeightWarning: TImage
-              Left = 128
-              Top = 43
-              Width = 16
-              Height = 16
+              Left = 192
+              Height = 24
+              Top = 64
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -2963,21 +3077,22 @@ object MainForm: TMainForm
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                C0C0}
+                C0C0
+              }
               Transparent = True
             end
             object TransportWeightLabel: TLabel
-              Left = 164
-              Top = 44
-              Width = 96
-              Height = 13
+              Left = 246
+              Height = 23
+              Top = 66
+              Width = 149
               Caption = '100/200 (max 1000)'
             end
             object UnitWeightWarning: TImage
               Left = 0
-              Top = 23
-              Width = 16
-              Height = 16
+              Height = 24
+              Top = 34
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -3005,14 +3120,15 @@ object MainForm: TMainForm
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                C0C0}
+                C0C0
+              }
               Transparent = True
             end
             object WingWeightWarning: TImage
-              Left = 128
-              Top = 23
-              Width = 16
-              Height = 16
+              Left = 192
+              Height = 24
+              Top = 34
+              Width = 24
               Picture.Data = {
                 07544269746D617036030000424D360300000000000036000000280000001000
                 000010000000010018000000000000030000CE0E0000C40E0000000000000000
@@ -3040,25 +3156,25 @@ object MainForm: TMainForm
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
                 C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0
-                C0C0}
+                C0C0
+              }
               Transparent = True
             end
             object WingWeightLabel: TLabel
-              Left = 164
-              Top = 24
-              Width = 67
-              Height = 13
+              Left = 246
+              Height = 23
+              Top = 36
+              Width = 106
               Caption = '100 (max 200)'
             end
             object Label2: TLabel
               Left = 0
-              Top = 2
-              Width = 63
-              Height = 13
+              Height = 20
+              Top = 3
+              Width = 88
               Caption = 'Movement:'
-              Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
-              Font.Height = -11
+              Font.Height = -17
               Font.Name = 'MS Sans Serif'
               Font.Style = [fsBold]
               ParentFont = False
@@ -3066,15 +3182,13 @@ object MainForm: TMainForm
           end
           object OrderMemo: TMemo
             Left = 0
-            Top = 30
-            Width = 367
-            Height = 156
+            Height = 0
+            Top = 0
+            Width = 555
             Align = alClient
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -16
+            Font.Height = -24
             Font.Name = 'Consolas'
-            Font.Style = []
             ParentFont = False
             ScrollBars = ssBoth
             TabOrder = 2
@@ -3085,39 +3199,42 @@ object MainForm: TMainForm
           end
         end
         object pnEvents: TPanel
-          Left = 366
+          Left = 559
+          Height = 0
           Top = 0
-          Width = 182
-          Height = 262
+          Width = 273
           Align = alRight
           BevelOuter = bvNone
+          ClientHeight = 0
+          ClientWidth = 273
+          ParentBackground = False
           TabOrder = 1
           object Label25: TLabel
             Left = 0
+            Height = 20
             Top = 0
-            Width = 182
-            Height = 13
+            Width = 273
             Align = alTop
             Caption = 'Events:'
-            Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -17
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
-            ParentFont = False
             Layout = tlBottom
+            ParentFont = False
           end
           object MsgGrid: TStringGrid
             Left = 0
-            Top = 9
-            Width = 182
-            Height = 249
+            Height = 0
+            Top = 0
+            Width = 273
             Align = alClient
             Color = clInfoBk
             ColCount = 2
             FixedRows = 0
-            Options = [pgoColSizing, pgoColMoving, pgoRowSelect, pgoMultilineCells]
+            Options = []
             RowCount = 1
+            TabOrder = 0
             OnDrawCell = MsgGridDrawCell
           end
         end
@@ -3126,8 +3243,8 @@ object MainForm: TMainForm
   end
   object MainMenu: TMainMenu
     Images = ResForm.BtnImages
-    Left = 476
-    Top = 85
+    Left = 714
+    Top = 128
     object File1: TMenuItem
       Caption = 'File'
       object GameManagerItm: TMenuItem
@@ -3742,8 +3859,8 @@ object MainForm: TMainForm
   end
   object ActionList: TActionList
     Images = ResForm.BtnImages
-    Left = 436
-    Top = 80
+    Left = 654
+    Top = 120
     object ManagerAction: TAction
       Caption = 'Game Manager'
       ImageIndex = 18
@@ -3757,8 +3874,8 @@ object MainForm: TMainForm
     object SaveOrderAction: TAction
       Caption = 'Save Order'
       ImageIndex = 20
-      ShortCut = 16467
       OnExecute = SaveOrderActionExecute
+      ShortCut = 16467
     end
     object CopyOrderAction: TAction
       Caption = 'Copy Order'
@@ -3768,26 +3885,26 @@ object MainForm: TMainForm
     object PrevTurnAction: TAction
       Caption = 'Previous Turn'
       ImageIndex = 22
-      ShortCut = 16464
       OnExecute = PrevTurnActionExecute
+      ShortCut = 16464
     end
     object NextTurnAction: TAction
       Caption = 'Next Turn'
       ImageIndex = 23
-      ShortCut = 16462
       OnExecute = NextTurnActionExecute
+      ShortCut = 16462
     end
     object MiniMapAction: TAction
       Caption = 'Mini Map'
       ImageIndex = 24
-      ShortCut = 16461
       OnExecute = MiniMapActionExecute
+      ShortCut = 16461
     end
     object LevelAction: TAction
       Caption = 'Level down'
       ImageIndex = 16
-      ShortCut = 16452
       OnExecute = LevelActionExecute
+      ShortCut = 16452
     end
     object ListFilterAction: TAction
       Caption = 'Define List filter'
@@ -3808,8 +3925,8 @@ object MainForm: TMainForm
     object TurnEventsAction: TAction
       Caption = 'Turn Events'
       ImageIndex = 29
-      ShortCut = 16468
       OnExecute = TurnEventsActionExecute
+      ShortCut = 16468
     end
     object OrdersAction: TAction
       Caption = 'Orders'
@@ -3844,20 +3961,20 @@ object MainForm: TMainForm
     object MakeAvatarAction: TAction
       Caption = 'Make unit''s avatar'
       ImageIndex = 36
-      ShortCut = 49217
       OnExecute = MakeAvatarActionExecute
+      ShortCut = 49217
     end
     object AdvisorWarnAction: TAction
       Caption = 'Advisor Warnings'
       ImageIndex = 38
-      ShortCut = 16471
       OnExecute = AdvisorWarnActionExecute
+      ShortCut = 16471
     end
     object GridModeAction: TAction
       Caption = 'Faction Mode'
       ImageIndex = 8
-      ShortCut = 16454
       OnExecute = GridModeActionExecute
+      ShortCut = 16454
     end
     object MailOrderAction: TAction
       Caption = 'Send Order'
@@ -3888,8 +4005,8 @@ object MainForm: TMainForm
     end
     object AddExportAction: TAction
       Caption = 'Add Current Region'
-      ShortCut = 16453
       OnExecute = AddExportActionExecute
+      ShortCut = 16453
     end
     object TownTradeAction: TAction
       Caption = 'Town Trade'
@@ -3898,8 +4015,8 @@ object MainForm: TMainForm
     object SoldiersAction: TAction
       Caption = 'Soldiers in Unit'
       ImageIndex = 45
-      ShortCut = 115
       OnExecute = SoldiersActionExecute
+      ShortCut = 115
     end
     object ImportMapAction: TAction
       Caption = 'Import Map...'
@@ -3909,8 +4026,8 @@ object MainForm: TMainForm
       Caption = 'Battle Simulator'
       Hint = 'Battle Simulator'
       ImageIndex = 28
-      ShortCut = 49218
       OnExecute = BattleSimActionExecute
+      ShortCut = 49218
     end
     object SpecEditAction: TAction
       Caption = 'Ability Editor'
@@ -3928,13 +4045,13 @@ object MainForm: TMainForm
       Caption = 'Receive Items'
       Hint = 'Receive Items'
       ImageIndex = 43
-      ShortCut = 116
       OnExecute = AllItemsActionExecute
+      ShortCut = 116
     end
     object QuartermasterAction: TAction
       Caption = 'Quartermaster'
-      ShortCut = 117
       OnExecute = QuartermasterActionExecute
+      ShortCut = 117
     end
     object TradeStructAction: TAction
       Caption = 'Production Chart'
@@ -3984,8 +4101,8 @@ object MainForm: TMainForm
       Caption = 'Unit Filter'
       Hint = 'Unit Filter'
       ImageIndex = 59
-      ShortCut = 16469
       OnExecute = UnitFilterActionExecute
+      ShortCut = 16469
     end
     object ReloadScriptsAction: TAction
       Caption = 'Reload Scripts'
@@ -4046,20 +4163,20 @@ object MainForm: TMainForm
     end
   end
   object SaveDialog: TSaveDialog
-    DefaultExt = '*.ord'
+    DefaultExt = '.*.ord'
     Filter = 'Orders (*.ord)|*.ord|All files|*.*'
-    Left = 336
-    Top = 73
+    Left = 504
+    Top = 110
   end
   object OpenDialog: TOpenDialog
-    DefaultExt = '*.map'
+    DefaultExt = '.*.map'
     Filter = 'Advisor maps (*.map)|*.map|All files|*.*'
-    Left = 368
-    Top = 77
+    Left = 552
+    Top = 116
   end
   object PopMenu: TPopupMenu
     Images = ResForm.IconList
-    Left = 400
-    Top = 80
+    Left = 600
+    Top = 120
   end
 end

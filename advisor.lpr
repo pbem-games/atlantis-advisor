@@ -52,7 +52,7 @@ uses
   uFactions in 'U_Tools\uFactions.pas' {FactionForm},
   uTeach in 'U_Orders\uTeach.pas' {TeachForm},
   uGameStart in 'U_Base\uGameStart.pas',
-  uMiniMap in 'uMiniMap.pas', CylinderMap {MiniMapForm},
+  uMiniMap in 'uMiniMap.pas',
   uTurnEvents in 'U_Tools\uTurnEvents.pas' {TurnEventsForm},
   uTownTrade in 'U_Tools\uTownTrade.pas' {TownTradeForm},
   uBattleDraw in 'U_Base\uBattleDraw.pas',
@@ -62,14 +62,12 @@ uses
   uAvatarEdit in 'U_Tools\uAvatarEdit.pas' {AvatarForm},
   uPathFind in 'U_Base\uPathFind.pas',
   uRegistration in 'U_Base\uRegistration.pas', {RegForm}
-  ImageBtn,
   AtlaDate;
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.Title := 'Atlantis Advisor';
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TRegForm, RegForm);
   Application.Run;

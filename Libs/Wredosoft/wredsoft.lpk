@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <PathDelim Value="\"/>
+    <Name Value="Wredsoft"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="CylinderMap.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="CylinderMap"/>
+      </Item>
+      <Item>
+        <Filename Value="ColorBtn.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="ColorBtn"/>
+      </Item>
+      <Item>
+        <Filename Value="ImageBtn.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="ImageBtn"/>
+      </Item>
+      <Item>
+        <Filename Value="Painter.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="Painter"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="LCL"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

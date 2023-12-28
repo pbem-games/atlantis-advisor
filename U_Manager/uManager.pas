@@ -7,24 +7,18 @@ unit uManager;
 interface
 
 uses
-  LCLIntf, LCLType, LMessages, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  LCLIntf, LCLType, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Buttons, Grids, ImgList, FileCtrl, DataStructs, RepRead,
-  AtlaDate, ExtCtrls, ComCtrls, uHistory, Clipbrd, IniFiles, MyStrings,
-  Resources, Spin
-  , uOptions
-  , uKeys
-  , uGameSubs
-  , uAvatars
-  , uNewGame
-  , uMgrOptions
-  , uAnalyzers
-  , uUnitRecs
-  ;
+  AtlaDate, ExtCtrls, ComCtrls, uHistory, IniFiles, MyStrings,
+  Resources, uOptions, uKeys, uGameSubs, uAvatars, uNewGame, uMgrOptions, uAnalyzers, uUnitRecs, Types;
 
 const
   FilenameCol = 3;
 
 type
+
+  { TManagerForm }
+
   TManagerForm = class(TForm)
     RepOpenDialog: TOpenDialog;
     MainPanel: TPanel;
@@ -34,7 +28,6 @@ type
     NewGameBtn: TBitBtn;
     KillBtn: TBitBtn;
     RenameBtn: TBitBtn;
-    RepGrid: TStringGrid;
     AddBtn: TBitBtn;
     PasteBtn: TBitBtn;
     DelBtn: TBitBtn;
@@ -46,6 +39,7 @@ type
     Panel2: TPanel;
     LogMemo: TMemo;
     btnOptions: TBitBtn;
+    RepGrid: TStringGrid;
     procedure DetailBtnClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure ReadCloseBtnClick(Sender: TObject);
@@ -57,14 +51,10 @@ type
     procedure AddBtnClick(Sender: TObject);
     procedure DelBtnClick(Sender: TObject);
     procedure ReadBtnClick(Sender: TObject);
-    procedure RepGridDrawCell(Sender: TObject; ACol, ARow: Integer;
-      var TxtRect: TRect; State: TGridDrawState);
+    procedure RepGridDrawCell(Sender: TObject; ACol, ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
     procedure PasteBtnClick(Sender: TObject);
     procedure OptionBtnClick(Sender: TObject);
     procedure btnOptionsClick(Sender: TObject);
-  private
-    procedure WMDrawClipboard(var Msg: TMessage); message WM_DRAWCLIPBOARD;
-    procedure WMChangeCBChain(var Msg: TMessage); message WM_CHANGECBCHAIN;
   public
     ActiveGame: string;
     procedure SetLogPanel(Open: boolean);
@@ -78,7 +68,6 @@ type
 
 var
   ManagerForm: TManagerForm;
-  NextInChain : THandle;
   Reports: TStrings;
   OrdersLoaded: boolean;
 
@@ -90,6 +79,7 @@ var
 
 implementation
 
+uses FileUtil, Clipbrd;
 
 {$R *.lfm}
 
@@ -241,49 +231,42 @@ procedure TManagerForm.FormCreate(Sender: TObject);
 var Trace: TTrace;
     Base, s: string;
 begin
- // FIXME: broken
- //// Setup clipboard listener
- // NextInChain := SetClipboardViewer(Handle);
- // PasteBtn.Enabled := Clipboard.HasFormat(CF_TEXT);
- //
- //// Configure window
- // RepGrid.Cols[2].Format := cfNumber;
- // SetLogPanel(Config.ReadBool('Game Manager', 'Details', TRUE));
- //
- //// Fill games
- // Base := ExtractFilePath(Application.ExeName);
- // Trace := TTrace.Create(Config.ReadString('Game Manager', 'Games', ''));
- // while not Trace.Ends and (Pos('.', Trace.Text) > 1) do begin
- //   s := Trace.QBlock;
- //   if (s <> '') and DirectoryExists(Base + s) then GameCombo.Items.Add(s);
- // end;
- // Trace.Free;
- // if Game <> nil then ActiveGame := Game.Name;
- // GameCombo.ItemIndex := Config.ReadInteger('Game Manager', 'GameIndex', 0);
- // GameComboChange(Self);
+ // Setup clipboard listener
+  PasteBtn.Enabled := Clipboard.HasFormat(CF_Text);
+
+ // Configure window
+ SetLogPanel(Config.ReadBool('Game Manager', 'Details', TRUE));
+
+ // Fill games
+  Base := ExtractFilePath(Application.ExeName);
+  Trace := TTrace.Create(Config.ReadString('Game Manager', 'Games', ''));
+  while not Trace.Ends and (Pos('.', Trace.Text) > 1) do begin
+    s := Trace.QBlock;
+    if (s <> '') and DirectoryExists(Base + s) then GameCombo.Items.Add(s);
+  end;
+  Trace.Free;
+  if Game <> nil then ActiveGame := Game.Name;
+  GameCombo.ItemIndex := Config.ReadInteger('Game Manager', 'GameIndex', 0);
+  GameComboChange(Self);
 end;
 
 procedure TManagerForm.FormClose(Sender: TObject; var Action: TCloseAction);
 var i: integer;
     A: array of string;
 begin
- // FIXME: broken
- //// Deactivate clipboard listener
- // ChangeClipboardChain(Handle, NextInChain);
- //
- //// Close game if no reports read
- // if (Game <> nil) and (Game.Turns.Count <= 1) then CloseGame;
- //
- //// Save games
- // Config.WriteInteger('Game Manager', 'GameIndex', GameCombo.ItemIndex);
- // SetLength(A, GameCombo.Items.Count);
- // for i := 0 to GameCombo.Items.Count-1 do A[i] := '"' + GameCombo.Items[i] + '"';
- // Config.WriteString('Game Manager', 'Games', MakeList(A));
- //
- // // Re-run last loaded turn for local game
- // if (Game <> nil) and GameConfig.ReadBool('Game', 'Local', False)
- //   and (GameConfig.ReadInteger('Game', 'LastTurnRan', 0) > Turn.Num) then
- //   RunLocalTurn(Turn.Num, False);
+ // Close game if no reports read
+ if (Game <> nil) and (Game.Turns.Count <= 1) then CloseGame;
+ 
+ // Save games
+ Config.WriteInteger('Game Manager', 'GameIndex', GameCombo.ItemIndex);
+ SetLength(A, GameCombo.Items.Count);
+ for i := 0 to GameCombo.Items.Count-1 do A[i] := '"' + GameCombo.Items[i] + '"';
+ Config.WriteString('Game Manager', 'Games', MakeList(A));
+ 
+ // Re-run last loaded turn for local game
+ if (Game <> nil) and GameConfig.ReadBool('Game', 'Local', False)
+   and (GameConfig.ReadInteger('Game', 'LastTurnRan', 0) > Turn.Num) then
+   RunLocalTurn(Turn.Num, False);
 end;
 
 function TManagerForm.MoveReport(Lines: TStrings; OldName: string): string;
@@ -383,12 +366,8 @@ end;
 procedure TManagerForm.DelBtnClick(Sender: TObject);
 var i: integer;
 begin
-  // FIXME: broken
-  //i := 0;
-  //while (i < Reports.Count) and (Reports[i] <>
-  //  RepGrid.ImgCells[FilenameCol, RepGrid.Row]) do Inc(i);
-  //if i < Reports.Count then Reports.Delete(i);
-  //FillRepGrid;
+  Reports.Delete(RepGrid.Row);
+  FillRepGrid;
 end;
 
 procedure TManagerForm.DetailBtnClick(Sender: TObject);
@@ -397,32 +376,37 @@ begin
 end;
 
 procedure TManagerForm.FillRepGrid;
-var i, FNum, TurnNum: integer;
-    FName: string;
+var FNum, TurnNum: integer;
+    FName, rep: string;
     Lines: TStrings;
 begin
   // Reset window
   RepGrid.RowCount := 0;
   ProgressBar.Position := 0;
 
-  // Fill reports grid
-  if ActiveGame <> '' then begin
-    for i := 0 to Reports.Count-1 do begin
-      RepGrid.Cells[FilenameCol, i] := Reports[i];
-      Lines := TStringList.Create;
-      try
-        Lines.LoadFromFile(Unlocalize(BaseDir + ActiveGame,  Reports[i]));
-      except
-      end;
-      if ReadRepHeader(Lines, FName, FNum, TurnNum) = rrsErrors then
-        RepGrid.Cells[0, i] := 'failed'
-      else begin
-        RepGrid.Cells[1, i] := TurnToShortDate(TurnNum);
-        RepGrid.Cells[2, i] := IntToStr(TurnNum);
-      end;
-      Lines.Free;
-    end;
+  if ActiveGame = '' then begin
+    RepGrid.Update;
+    Exit;
   end;
+
+  // Fill reports grid
+  for rep in Reports do begin
+    Lines := TStringList.Create;
+    try
+      Lines.LoadFromFile(Unlocalize(BaseDir + ActiveGame, rep));
+    except
+    end;
+
+    if ReadRepHeader(Lines, FName, FNum, TurnNum) = rrsErrors then begin
+      RepGrid.InsertRowWithValues(RepGrid.RowCount, ['failed', '', '', rep]);
+    end
+    else begin
+      RepGrid.InsertRowWithValues(RepGrid.RowCount, ['', TurnToShortDate(TurnNum), IntToStr(TurnNum), rep]);
+    end;
+
+    Lines.Free;
+  end;
+
   RepGrid.Update;
 end;
 
@@ -473,57 +457,57 @@ var i: integer;
     s: string;
 begin
   // FIXME: broken
-  //if not ProgOpened and (GameCombo.Items.Count >= 1) then begin
-  //  MessageDlg('Cannot create more than one game in unregistered version.',
-  //    mtWarning, [mbOk], 0);
-  //  Exit;
-  //end;
-  //with TNewGameForm.Create(Self) do begin
-  //  if (ShowModal = mrOk) and (cmRuleset.ItemIndex >= 0) then begin
-  //    if DirectoryExists(BaseDir + GameNameEdit.Text) then begin
-  //      // Check if game already in list
-  //       i := 0;
-  //       while (i < GameCombo.Items.Count) and (GameCombo.Items[i] <>
-  //         GameNameEdit.Text) do Inc(i);
-  //       if GameCombo.Items[i] = GameNameEdit.Text then MessageDlg('This game ' +
-  //         'already exists.', mtError, [mbOK], 0)
-  //       else begin
-  //        // Prompt to re-attach the game
-  //         if MessageDlg(s + 'Game folder "' + BaseDir + GameNameEdit.Text +
-  //           '" already exists. Do you want to open it?', mtWarning, [mbYes, mbCancel], 0)
-  //           = mrYes then begin
-  //           GameCombo.Items.Add(GameNameEdit.Text);
-  //           GameCombo.ItemIndex := GameCombo.Items.Count-1;
-  //           GameComboChange(Self);
-  //         end;
-  //       end;
-  //    end
-  //    else begin
-  //      // Create new game
-  //      CreateDir(BaseDir + GameNameEdit.Text);
-  //      CreateDir(BaseDir + GameNameEdit.Text + '\orders');
-  //      CreateDir(BaseDir + GameNameEdit.Text + '\reports');
-  //      if cbLocal.Checked then
-  //        CreateDir(BaseDir + GameNameEdit.Text + '\local');
-  //      // Copy ruleset to history
-  //      CopyFile(PChar(BaseDir + RuleFolder +
-  //        cmRuleset.Items[cmRuleset.ItemIndex] + '.dat'),
-  //        PChar(BaseDir + GameNameEdit.Text + '\game.dat'), False);
-  //      // Add to game list
-  //      GameCombo.Items.Add(GameNameEdit.Text);
-  //      GameCombo.ItemIndex := GameCombo.Items.Count-1;
-  //      GameComboChange(Self);
-  //      // Create world and add first report for local game
-  //      if cbLocal.Checked then begin
-  //        GameConfig.WriteBool('Game', 'Local', True);
-  //        CreateLocalWorld;
-  //        Reports.Add(GetLocalFolder(1) + 'report.3');
-  //        FillRepGrid;
-  //      end;
-  //    end;
-  //  end;
-  //  Free;
-  //end;
+  with TNewGameForm.Create(Self) do begin
+    if (ShowModal = mrOk) and (cmRuleset.ItemIndex >= 0) then begin
+      if DirectoryExists(BaseDir + GameNameEdit.Text) then begin
+        // Check if game already in list
+         i := 0;
+         while (i < GameCombo.Items.Count) and (GameCombo.Items[i] <>
+           GameNameEdit.Text) do Inc(i);
+         if GameCombo.Items[i] = GameNameEdit.Text then MessageDlg('This game ' +
+           'already exists.', mtError, [mbOK], 0)
+         else begin
+          // Prompt to re-attach the game
+           if MessageDlg(s + 'Game folder "' + BaseDir + GameNameEdit.Text +
+             '" already exists. Do you want to open it?', mtWarning, [mbYes, mbCancel], 0)
+             = mrYes then begin
+             GameCombo.Items.Add(GameNameEdit.Text);
+             GameCombo.ItemIndex := GameCombo.Items.Count-1;
+             GameComboChange(Self);
+           end;
+         end;
+      end
+      else begin
+        // Create new game
+        CreateDir(BaseDir + GameNameEdit.Text);
+        CreateDir(BaseDir + GameNameEdit.Text + '\orders');
+        CreateDir(BaseDir + GameNameEdit.Text + '\reports');
+
+        if cbLocal.Checked then begin
+          CreateDir(BaseDir + GameNameEdit.Text + '\local');
+        end;
+
+        // Copy ruleset to history
+        CopyFile(PChar(BaseDir + RuleFolder +
+          cmRuleset.Items[cmRuleset.ItemIndex] + '.dat'),
+          PChar(BaseDir + GameNameEdit.Text + '\game.dat'), False);
+
+        // Add to game list
+        GameCombo.Items.Add(GameNameEdit.Text);
+        GameCombo.ItemIndex := GameCombo.Items.Count-1;
+        GameComboChange(Self);
+
+        // Create world and add first report for local game
+        if cbLocal.Checked then begin
+          GameConfig.WriteBool('Game', 'Local', True);
+          CreateLocalWorld;
+          Reports.Add(GetLocalFolder(1) + 'report.3');
+          FillRepGrid;
+        end;
+      end;
+    end;
+    Free;
+  end;
 end;
 
 procedure TManagerForm.OptionBtnClick(Sender: TObject);
@@ -683,22 +667,21 @@ begin
   ReadList;
 end;
 
-procedure TManagerForm.RepGridDrawCell(Sender: TObject; ACol,
-  ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
+procedure TManagerForm.RepGridDrawCell(Sender: TObject; ACol, ARow: Integer; var TxtRect: TRect; State: TGridDrawState);
 begin
   // FIXME: broken
-  //with RepGrid do
-  //  if ACol = 0 then begin
-  //    if ImgCells[ACol, ARow] = 'ok' then
-  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpOK)
-  //    else if ImgCells[ACol, ARow] = 'failed' then
-  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpNo)
-  //    else if ImgCells[ACol, ARow] = 'archive' then
-  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpSpell)
-  //    else if ImgCells[ACol, ARow] = 'errors' then
-  //      ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpError);
-  //    TxtRect.Left := TxtRect.Right;
-  //  end;
+  with RepGrid do
+    if ACol = 0 then begin
+      if Cells[ACol, ARow] = 'ok' then
+        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpOK)
+      else if Cells[ACol, ARow] = 'failed' then
+        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpNo)
+      else if Cells[ACol, ARow] = 'archive' then
+        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpSpell)
+      else if Cells[ACol, ARow] = 'errors' then
+        ResForm.IconList.Draw(RepGrid.Canvas, TxtRect.Left + 1, TxtRect.Top, bmpError);
+      TxtRect.Left := TxtRect.Right;
+    end;
 end;
 
 procedure TManagerForm.SetLogPanel(Open: boolean);
@@ -718,28 +701,6 @@ begin
   end;
 end;
 
-
-  { Clipboard }
-
-procedure TManagerForm.WMDrawClipboard(var Msg: TMessage);
-begin
-  if (Clipboard.HasFormat(cf_text) and (ActiveGame <> '')) then
-    PasteBtn.Enabled := TRUE //(Pos(Keys[s_Header], Clipboard.AsText) > 0)
-  else PasteBtn.Enabled := FALSE;
-  if NextInChain <> 0 then
-    SendMessage(NextInChain, WM_DrawClipboard, 0, 0);
-end;
-
-procedure TManagerForm.WMChangeCBChain(var Msg: TMessage);
-var Remove, Next: THandle;
-begin
-  Remove := Msg.WParam;
-  Next := Msg.LParam;
-  with Msg do
-    if NextInChain = Remove then NextInChain := Next
-    else if NextInChain <> 0 then
-    SendMessage(NextInChain, WM_ChangeCBChain, Remove, Next)
-end;
 
 procedure TManagerForm.btnOptionsClick(Sender: TObject);
 begin
