@@ -9,3 +9,4 @@ test/
 *.identcache
 test*/
 advisor.exe
+*.dsk

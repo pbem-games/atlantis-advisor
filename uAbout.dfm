@@ -4630,7 +4630,7 @@ object AboutForm: TAboutForm
     Width = 39
     Height = 13
     Alignment = taRightJustify
-    Caption = 'v 3.30.0'
+    Caption = 'v 3.31.0'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clSilver
     Font.Height = -11
